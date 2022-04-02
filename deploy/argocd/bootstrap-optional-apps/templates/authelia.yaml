@@ -46,7 +46,7 @@ spec:
               users_filter: (&({username_attribute}={input})(objectClass=inetOrgPerson))
               additional_groups_dn: ou=Group
               group_name_attribute: cn
-              groups_filter: (&({group_name_attribute}={dn})(objectClass=groupOfNames))
+              groups_filter: (&(member={dn})(objectClass=groupOfNames))
               mail_attribute: mail
               display_name_attribute: displayName
               user: "{{ .Values.openldap.bindDN }}"

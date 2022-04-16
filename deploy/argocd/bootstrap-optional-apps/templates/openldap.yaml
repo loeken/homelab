@@ -51,7 +51,7 @@ spec:
             searchBase: {{ .Values.openldap.searchBase }}
             bindDN: {{ .Values.openldap.bindDN }}
             bindPWKey: LDAP_ADMIN_PASSWORD
-            existingSecret: openldap-ltb
+            existingSecret: openldap-ltb-passwd
 
         phpldapadmin:
           ingress:

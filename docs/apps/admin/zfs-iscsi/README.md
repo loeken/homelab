@@ -97,5 +97,6 @@ nano argocd-democratic-csi-iscsi.yaml
 now in here change the ip 172.16.137.13 with the ip of your truenas, update the root password for truenas and insert the id_rsa_truenas private key, after that is done we can send this to kubeseal and apply the encrypted version
 
 ```
-cat argocd-democratic-csi-iscsi.yaml | kubeseal | kubectl apply -f -
+cat argocd-democratic-csi-iscsi.yaml | kubeseal > argocd-democratic-csi-iscsi-encrypted.yaml 
+kubectl apply -f argocd-democratic-csi-iscsi-encrypted.yaml 
 ```

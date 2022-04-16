@@ -3,14 +3,14 @@
 ## 1.) Whoami
 [whoami](whoami/README.md)
 
-## 2.) zfs-iscsi
+## 2.) volume-snapshots
+[volume-snapshots](volume-snapshots/README.md)
+
+## 3.) zfs-iscsi
 [zfs-iscsi](zfs-iscsi/README.md)
 
-## 3.) zfs-nfs
+## 4.) zfs-nfs
 [zfs-nfs](zfs-nfs/README.md)
-
-## 4.) volume-snapshots
-[volume-snapshots](volume-snapshots/README.md)
 
 ## 5.) Openldap
 [openldap](openldap/README.md)

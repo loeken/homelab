@@ -2,6 +2,16 @@
 
 #### Openldap
 
+```
+cp argocd-openldap.yaml.example argocd-openldap.yaml
+cat argocd-openldap.yaml | kubeseal > argocd-openldap-encrypted.yaml 
+kubectl apply -f argocd-openldap-encrypted.yaml
+
+cp argocd-openldap-ltb-passwd.yaml.example argocd-openldap-ltb-passwd.yaml
+cat argocd-openldap-ltb-passwd.yaml | kubeseal > argocd-openldap-ltb-passwd-encrypted.yaml 
+kubectl apply -f argocd-openldap-ltb-passwd-encrypted.yaml
+```
+
 //@TODO section needs update
 
 ```

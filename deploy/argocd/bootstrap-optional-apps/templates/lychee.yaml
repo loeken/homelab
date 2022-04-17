@@ -1,0 +1,60 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: lychee
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  project: default
+  source:
+    chart: lychee
+    repoURL: https://k8s-at-home.com/charts/
+    targetRevision: "6.2.0"
+    helm:
+      values: |
+        persistence:
+          config:
+            enabled: true
+            accessMode: "ReadWriteOnce"
+            storageClass: "{{ .Values.lychee.storageClass }}"
+            size: "1Gi"
+            readOnly: false
+            mountPath: /config
+          uploads:
+            enabled: true
+            accessMode: "ReadWriteOnce"
+            size: "{{ .Values.lychee.size }}"
+            storageClass: "{{ .Values.lychee.storageClass }}"
+            mountPath: "/uploads"
+        ingress:
+          main:
+            annotations:
+              kubernetes.io/ingress.class: "nginx"
+              cert-manager.io/cluster-issuer: "{{ .Values.clusterIssuer }}"
+              external-dns.alpha.kubernetes.io/hostname: "lychee.{{ .Values.domain }}."
+              external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+              external-dns.alpha.kubernetes.io/ttl: "120"
+              #nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
+              #nginx.ingress.kubernetes.io/auth-signin: https://auth.{{ .Values.domain }}
+            enabled: true
+            hosts:
+              - host: lychee.{{ .Values.domain }}
+                paths:
+                  - path: /
+                    pathType: Prefix
+                    service:
+                      port: 8686
+            tls:
+            - secretName: lychee-tls
+              hosts:
+              - lychee.{{ .Values.domain }}
+  destination:
+    namespace: lychee
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -44,7 +44,7 @@ spec:
                   - path: /
                     pathType: Prefix
                     service:
-                      port: 8686
+                      port: 80
             tls:
             - secretName: lychee-tls
               hosts:

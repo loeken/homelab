@@ -35,3 +35,6 @@ navidrome:
 photoprism:
   size: 100Gi
   storageClass: freenas-iscsi-csi
+lychee:
+  size: 100Gi
+  storageClass: freenas-iscsi-csi

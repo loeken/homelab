@@ -16,3 +16,9 @@ Settings -> Dowload clients
 - username/password set in nzbget
 - Category: Movies
 - full sync
+
+## set root folder
+
+Settings -> Media Management > Add Root Folder
+
+select /media/music

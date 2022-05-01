@@ -8,5 +8,5 @@ type: Opaque
 stringData:
   password: homelab
   postgresql-postgres-password: homelab
-  postgresql--password: homelab
+  postgresql-password: homelab
   replication-password: homelab

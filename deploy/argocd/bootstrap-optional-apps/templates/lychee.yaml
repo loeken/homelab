@@ -20,7 +20,7 @@ spec:
             storageClass: "{{ .Values.lychee.storageClass }}"
             size: "1Gi"
             readOnly: false
-            mountPath: /config
+            mountPath: /conf
           uploads:
             enabled: true
             accessMode: "ReadWriteOnce"

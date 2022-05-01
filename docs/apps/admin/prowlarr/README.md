@@ -41,3 +41,9 @@ Settings -> Apps
 - radar host:   http://sonarr.media:8989
 - api key - copy from sonarr Settings -> General
 - full sync
+
+###### Lidarr
+- prowlar host: http://prowlarr.media:9696
+- radar host:   http://lidarr.media:8989
+- api key - copy from lidarr Settings -> General
+- full sync

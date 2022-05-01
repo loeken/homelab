@@ -12,8 +12,10 @@ cp argocd-vaultwarden.yaml.example argocd-vaultwarden.yaml
 cp argocd-vaultwarden-postgresql.yaml.example argocd-vaultwarden-postgresql.yaml
 nano argocd-vaultwarden.yaml
 nano argocd-vaultwarden-postgresql.yaml
-cat argocd-vaultwarden.yaml | kubeseal | kubectl apply -f -
-cat argocd-vaultwarden-postgresql.yaml | kubeseal | kubectl apply -f -
+cat argocd-vaultwarden.yaml | kubeseal > argocd-vaultwarden-encrypted.yaml
+kubectl apply -f argocd-vaultwarden-encrypted.yaml
+cat argocd-vaultwarden-postgresql.yaml | kubeseal > argocd-vaultwarden-postgresql-encrypted.yaml 
+kubectl apply -f argocd-vaultwarden-postgresql-encrypted.yaml 
 ```
 
 now rollout the argocd application

@@ -289,7 +289,7 @@ rpc error: code = Unknown desc = error creating SSH agent: "SSH agent requested 
 this is basically the first secret we'll send to the cluster. We don't want to send it to the cluster unencrypted, this is where kubeseal comes in, we basically send the secret yaml to the kubeseal controller, which encrypts it and returns us the encrypted file, we then apply the encrypted format to the cluster, whenever argocd rolls out code and needs this information the cluster will decrypt and access the secret.
 
 ```
-cd ~/Projects/private/homelab/deploy/
+cd ~/Projects/private/homelab/deploy/mysecrets
 cp argocd-bootstrap-core-apps-repo.yaml.example argocd-bootstrap-core-apps-repo.yaml
 nano argocd-bootstrap-core-apps-repo.yaml
 ```

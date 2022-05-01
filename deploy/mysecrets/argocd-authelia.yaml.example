@@ -10,3 +10,4 @@ stringData:
   SESSION_ENCRYPTION_KEY: ""
   LDAP_PASSWORD: ""
   SMTP_PASSWORD: ""
+  JWT_TOKEN: ""

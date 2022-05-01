@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kasten-k10
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+spec:
+  project: default
+  source:
+    repoURL: https://charts.kasten.io/
+    targetRevision: "4.5.14"
+    chart: k10
+    helm:
+      values: |
+        global:
+          persistence:
+            storageClass: freenas-iscsi-csi
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kasten-k10
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

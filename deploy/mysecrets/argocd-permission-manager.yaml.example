@@ -2,8 +2,8 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: permission-manager-secret
-  namespace: openldap
+  name: permission-manager
+  namespace: permission-manager
 type: Opaque
 stringData:
   PORT: "4000"

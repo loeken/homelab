@@ -13,7 +13,7 @@ spec:
     chart: permission-manager
     helm:
       values: |
-        item: vlaue
+        existingSecret: permission-manager-secret
   destination:
     server: https://kubernetes.default.svc
     namespace: permission-manager

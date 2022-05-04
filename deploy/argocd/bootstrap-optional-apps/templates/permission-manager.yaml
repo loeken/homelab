@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: permission-manager
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+spec:
+  project: default
+  source:
+    repoURL: https://devopstales.github.io/helm-charts
+    targetRevision: "1.8.0"
+    chart: permission-manager
+    helm:
+      values: |
+        item: vlaue
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: permission-manager
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

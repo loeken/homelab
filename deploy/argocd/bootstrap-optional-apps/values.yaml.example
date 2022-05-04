@@ -38,3 +38,6 @@ photoprism:
 lychee:
   size: 100Gi
   storageClass: freenas-iscsi-csi
+permission-manager:
+  clusterName: ime
+  controlPlaneAddress: https://172.16.137.101:6443

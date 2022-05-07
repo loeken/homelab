@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kasten-k10
+  name: kasten-io
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "4"
@@ -18,7 +18,7 @@ spec:
             storageClass: freenas-iscsi-csi
   destination:
     server: https://kubernetes.default.svc
-    namespace: kasten-k10
+    namespace: kasten-io
   syncPolicy:
     automated:
       prune: true

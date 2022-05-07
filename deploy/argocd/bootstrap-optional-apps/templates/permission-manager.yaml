@@ -14,9 +14,11 @@ spec:
     helm:
       values: |
         config:
-          clusterName: "{{ .Values.permission-manager.clusterName }}"
-          controlePlaneAddress:  "{{ .Values.permission-manager.clusterName }}"
+          clusterName: {{ .Values.permissionmanager.clusterName }}
+          controlePlaneAddress: {{ .Values.permissionmanager.controlPlaneAddress }}
           existingSecret: permission-manager
+        image:
+          tag: "v1.7.0-rc3"
   destination:
     server: https://kubernetes.default.svc
     namespace: permission-manager

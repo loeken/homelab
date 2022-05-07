@@ -18,6 +18,8 @@ spec:
         global:
           persistence:
             storageClass: freenas-iscsi-csi
+        kanister:
+          backupTimeout: 1440
   destination:
     server: https://kubernetes.default.svc
     namespace: kasten-io

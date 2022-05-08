@@ -129,9 +129,9 @@ spec:
           ## Useful to store data on a different storageClass (e.g. on slower disks)
           nextcloudData:
             enabled: true
-            storageClass: {{ .Values.nextlcoud.data.storageClass }}
+            storageClass: {{ .Values.nextcloud.data.storageClass }}
             #existingClaim: nextcloud-nextcloud-data
-            accessModes: {{ .Values.nextlcoud.data.accessModes }}
+            accessModes: {{ .Values.nextcloud.data.accessModes }}
             size: 500Gi
   destination:
     namespace: nextcloud

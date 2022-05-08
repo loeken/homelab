@@ -137,7 +137,7 @@ spec:
             #i ll be sharing my nextcloud folder via nfs locally too you might want to use iscsi instead
             storageClass: "{{ .Values.nextcloud.data.storageClass }}"
             #existingClaim: nextcloud-nextcloud-data
-            accessMode: ReadWriteOnce
+            storageClass: "{{ .Values.nextcloud.data.accessMode }}"
             size: 500Gi
   destination:
     namespace: nextcloud

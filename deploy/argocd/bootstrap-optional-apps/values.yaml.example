@@ -32,7 +32,7 @@ nextcloud:
   data:
     # you might want to use isci instead here i ll be using nfs as i also share it locally via nfs
     storageClass: freenas-nfs-csi
-    accessMode: ReadWriteMany
+    accessModes: ReadWriteMany
 navidrome:
   size: 100Gi
   storageClass: freenas-iscsi-csi

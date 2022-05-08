@@ -43,8 +43,8 @@ spec:
           existingSecret:
             enabled: true
             secretName: nextcloud
-            usernameKey: username
-            passwordKey: password
+            usernameKey: pgusername
+            passwordKey: pgpassword
             smtpUsernameKey: smtp_username
             smtpPasswordKey: smtp_password
           host: nextcloud.{{ .Values.domain }}
@@ -124,7 +124,6 @@ spec:
         persistence:
           # Nextcloud Data (/var/www/html)
           enabled: true
-          annotations: {}
           storageClass: "{{ .Values.storageClass }}"
           #existingClaim: nextcloud-nextcloud
           accessMode: ReadWriteOnce
@@ -132,12 +131,11 @@ spec:
           ## Use an additional pvc for the data directory rather than a subpath of the default PVC
           ## Useful to store data on a different storageClass (e.g. on slower disks)
           nextcloudData:
-            enabled: true
-            annotations: {}
+            enabled: true´
             #i ll be sharing my nextcloud folder via nfs locally too you might want to use iscsi instead
             storageClass: "{{ .Values.nextcloud.data.storageClass }}"
             #existingClaim: nextcloud-nextcloud-data
-            storageClass: "{{ .Values.nextcloud.data.accessMode }}"
+            accessModes: "{{ .Values.nextcloud.data.accessModes }}"
             size: 500Gi
   destination:
     namespace: nextcloud

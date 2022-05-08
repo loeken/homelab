@@ -15,8 +15,6 @@ spec:
     targetRevision: "2.14.2"
     helm:
       values: |
-        image:
-          tag: 23.0.4-apache
         internalDatabase:
           enabled: false
         externalDatabase:
@@ -25,7 +23,7 @@ spec:
           host: nextcloud-postgresql
           existingSecret:
             enabled: true
-            secretName: nextcloud
+            secretName: nextcloud-postgresql
             usernameKey: pgusername
             passwordKey: pgpassword
         postgresql:
@@ -42,7 +40,7 @@ spec:
           ## Use an existing secret
           existingSecret:
             enabled: true
-            secretName: nextcloud
+            secretName: nextcloud-postgresql
             usernameKey: pgusername
             passwordKey: pgpassword
             smtpUsernameKey: smtp_username

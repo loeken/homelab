@@ -5,14 +5,12 @@ metadata:
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "3"
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
     chart: nextcloud
     repoURL: https://nextcloud.github.io/helm/
-    targetRevision: "2.14.2"
+    targetRevision: "2.13.2"
     helm:
       values: |
         internalDatabase:
@@ -26,10 +24,11 @@ spec:
             secretName: nextcloud-postgresql
             usernameKey: pgusername
             passwordKey: pgpassword
+            
         postgresql:
           enabled: true
-          postgresqlUsername: ncloud
-          existingSecret: nextcloud
+          postgresqlUsername: nextcloud
+          existingSecret: nextcloud-postgresql
           postgresqlDatabase: nextcloud
           persistence:
             enabled: true
@@ -129,11 +128,10 @@ spec:
           ## Use an additional pvc for the data directory rather than a subpath of the default PVC
           ## Useful to store data on a different storageClass (e.g. on slower disks)
           nextcloudData:
-            enabled: true´
-            #i ll be sharing my nextcloud folder via nfs locally too you might want to use iscsi instead
-            storageClass: "{{ .Values.nextcloud.data.storageClass }}"
+            enabled: true
+            storageClass: {{ .Values.nextlcoud.data.storageClass }}
             #existingClaim: nextcloud-nextcloud-data
-            accessModes: "{{ .Values.nextcloud.data.accessModes }}"
+            accessModes: {{ .Values.nextlcoud.data.accessModes }}
             size: 500Gi
   destination:
     namespace: nextcloud

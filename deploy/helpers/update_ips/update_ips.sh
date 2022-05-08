@@ -1,5 +1,8 @@
 #!/bin/bash
 newip=`curl ifconfig.co -4`
+if [ "$newip" == "" ]; then
+  exit 
+fi
 oldip=`cat /tmp/oldip`
 if [ "$oldip" == "" ]; then
   echo $newip > /tmp/oldip

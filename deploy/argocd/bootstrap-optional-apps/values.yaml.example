@@ -29,6 +29,9 @@ nextcloud:
     port: 587
     username: nextcloud@example.com
     sender: nextcloud@example.com
+  data:
+    # you might want to use isci instead here i ll be using nfs as i also share it locally via nfs
+    storageClass: freenas-nfs-csi
 navidrome:
   size: 100Gi
   storageClass: freenas-iscsi-csi

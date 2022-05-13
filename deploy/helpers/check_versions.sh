@@ -72,6 +72,18 @@ version=`lastversion k8s-at-home sonarr`
 versionCurrent=`cat versions/k8s-at-home/sonarr`
 echo sonarr current: $versionCurrent=`cat versions/k8s-at-home/sonarr` remote: $version
 
+# radarr
+version=`lastversion k8s-at-home radarr`
+versionCurrent=`cat versions/k8s-at-home/radarr`
+echo radarr current: $versionCurrent=`cat versions/k8s-at-home/radarr` remote: $version
+
+
+# prowlarr
+version=`lastversion k8s-at-home prowlarr`
+versionCurrent=`cat versions/k8s-at-home/prowlarr`
+echo prowlarr current: $versionCurrent=`cat versions/k8s-at-home/prowlarr` remote: $version
+
+
 # nextcloud
 version=`lastversion nextcloud nextcloud`
 versionCurrent=`cat versions/nextcloud/nextcloud`

@@ -12,7 +12,7 @@ spec:
   source:
     chart: heimdall
     repoURL: https://k8s-at-home.com/charts/
-    targetRevision: "8.2.0"
+    targetRevision: "8.3.2"
     helm:
       values: |
         ingress:

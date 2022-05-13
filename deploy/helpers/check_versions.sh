@@ -67,6 +67,11 @@ rtorrentFloodVersion=`lastversion k8s-at-home overseerr`
 rtorrentFloodVersionCurrent=`cat versions/k8s-at-home/overseerr`
 echo overseerr current: $rtorrentFloodVersionCurrent remote: $rtorrentFloodVersion
 
+# sonarr
+version=`lastversion k8s-at-home sonarr`
+versionCurrent=`cat versions/k8s-at-home/sonarr`
+echo sonarr current: $versionCurrent=`cat versions/k8s-at-home/sonarr` remote: $version
+
 # nextcloud
 version=`lastversion nextcloud nextcloud`
 versionCurrent=`cat versions/nextcloud/nextcloud`

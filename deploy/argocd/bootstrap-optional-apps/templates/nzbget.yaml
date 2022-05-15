@@ -28,11 +28,13 @@ spec:
             size: "{{ .Values.sharedmedia.size }}"
             storageClass: "{{ .Values.sharedmedia.storageClass }}"
             existingClaim: "shared-media"
+            readOnly: false
           downloads:
             enabled: true
             accessMode: "ReadWriteOnce"
             size: "{{ .Values.nzbget.size }}"
             storageClass: "{{ .Values.storageClass }}"
+            readOnly: false
         ingress:
           main:
             annotations:

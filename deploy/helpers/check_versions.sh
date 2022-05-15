@@ -77,12 +77,15 @@ version=`lastversion k8s-at-home radarr`
 versionCurrent=`cat versions/k8s-at-home/radarr`
 echo radarr current: $versionCurrent=`cat versions/k8s-at-home/radarr` remote: $version
 
-
 # prowlarr
 version=`lastversion k8s-at-home prowlarr`
 versionCurrent=`cat versions/k8s-at-home/prowlarr`
 echo prowlarr current: $versionCurrent=`cat versions/k8s-at-home/prowlarr` remote: $version
 
+# nzbget
+version=`lastversion k8s-at-home nzbget`
+versionCurrent=`cat versions/k8s-at-home/nzbget`
+echo nzbget current: $versionCurrent=`cat versions/k8s-at-home/nzbget` remote: $version
 
 # nextcloud
 version=`lastversion nextcloud nextcloud`

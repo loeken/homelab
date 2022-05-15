@@ -44,6 +44,7 @@ spec:
             size: "{{ .Values.sharedmedia.size }}"
             storageClass: "{{ .Values.sharedmedia.storageClass }}"
             existingClaim: "shared-media"
+            mountPath: "/media"
         ingress:
           main:
             annotations:

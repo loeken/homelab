@@ -192,7 +192,7 @@ resource "helm_release" "argocd" {
   chart      = "argo-cd"
   create_namespace = true 
   namespace = "argocd"
-  version = "4.4.1"
+  version = "4.6.0"
   
   values = [
     "${file("argocd-values.yaml")}"
@@ -216,7 +216,7 @@ resource "helm_release" "sealed_secrets" {
   chart      = "sealed-secrets"
   create_namespace = true 
   namespace = "kube-system"
-  version = "2.1.2"
+  version = "2.1.8"
   depends_on = [
     proxmox_vm_qemu.k3s-master-01,
     proxmox_vm_qemu.k3s-master-02

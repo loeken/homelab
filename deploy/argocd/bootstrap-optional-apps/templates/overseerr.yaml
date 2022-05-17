@@ -12,7 +12,7 @@ spec:
   source:
     chart: overseerr
     repoURL: https://k8s-at-home.com/charts/
-    targetRevision: "5.2.3"
+    targetRevision: "5.3.2"
     helm:
       values: |
         persistence:

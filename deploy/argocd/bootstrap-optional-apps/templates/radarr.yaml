@@ -12,7 +12,7 @@ spec:
   source:
     chart: radarr
     repoURL: https://k8s-at-home.com/charts/
-    targetRevision: "16.0.1"
+    targetRevision: "16.2.3"
     helm:
       values: |
         persistence:

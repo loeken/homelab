@@ -31,3 +31,4 @@ tab login attributes:
 
 tab groups
 - ldap query: (&(objectClass=groupOfNames)(cn=users))
+

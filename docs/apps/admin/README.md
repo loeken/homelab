@@ -54,7 +54,7 @@
 ## 18.) Nextcloud
 [nextcloud](nextcloud/README.md)
 
-## 19.) harbor
+## 19.) permission manager 
 [harbor](harbor/README.md)
 
 ## 20.) home assistant

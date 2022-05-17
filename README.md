@@ -1,8 +1,10 @@
 # homelab
+## 0. overview
+![overview](/docs/img/home.png)
 
 ## 1. index
-
 - [homelab](#homelab)
+  - [0. overview](#0-overview)
   - [1. index](#1-index)
   - [1.2. note about old version](#12-note-about-old-version)
   - [1.3. goals](#13-goals)

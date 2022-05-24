@@ -1,0 +1,45 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: librephotos
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: varet/librephotos
+    repoURL: https://pages.billias.cc/
+    targetRevision: "0.202219.2"
+    helm:
+      values: |
+        dataVolume:
+          size: 100Gi
+          accessModes: 
+          - "ReadWriteOnce"
+          stroageClass: "{{ .Values.storageClass }}"
+        ingress:
+          # -- enable ingress 
+          enabled: true
+          annotations:
+            kubernetes.io/ingress.class: "nginx"
+            cert-manager.io/cluster-issuer: "{{ .Values.clusterIssuer }}"
+            external-dns.alpha.kubernetes.io/hostname: "lychee.{{ .Values.domain }}."
+            external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+            external-dns.alpha.kubernetes.io/ttl: "120"
+            #nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
+            #nginx.ingress.kubernetes.io/auth-signin: https://auth.{{ .Values.domain }}
+            nginx.ingress.kubernetes.io/proxy-body-size: "600m"
+          hostname: "media.{{ .Values.domain }}"
+        
+  destination:
+    namespace: librephotos
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

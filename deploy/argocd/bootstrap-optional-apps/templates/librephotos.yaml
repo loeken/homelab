@@ -33,7 +33,7 @@ spec:
             #nginx.ingress.kubernetes.io/auth-signin: https://auth.{{ .Values.domain }}
             nginx.ingress.kubernetes.io/proxy-body-size: "600m"
           hostname: "media.{{ .Values.domain }}"
-          tls: []
+          tls:
           - secretName: libreoffice-tls
             hosts:
               - media.{{ .Values.domain }}

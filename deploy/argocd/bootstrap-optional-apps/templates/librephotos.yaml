@@ -12,7 +12,7 @@ spec:
   source:
     chart: librephotos
     repoURL: https://pages.billias.cc/
-    targetRevision: "0.202221.0"
+    targetRevision: "0.202221.1"
     helm:
       values: |
         dataVolume:
@@ -36,6 +36,16 @@ spec:
           - secretName: librephotos-tls
             hosts:
               - media.{{ .Values.domain }}
+        postgresql:
+          enabled: true
+          postgresqlUsername: librephotos
+          existingSecret: librephotos-postgresql
+          postgresqlDatabase: librephotos
+          persistence:
+            enabled: true
+            storageClass: "{{ .Values.storageClass }}"
+            accessModes:
+              - ReadWriteOnce
   destination:
     namespace: librephotos
     server: https://kubernetes.default.svc

@@ -36,16 +36,6 @@ spec:
           - secretName: librephotos-tls
             hosts:
               - media.{{ .Values.domain }}
-        postgresql:
-          enabled: true
-          postgresqlUsername: librephotos
-          existingSecret: librephotos-postgresql
-          postgresqlDatabase: librephotos
-          persistence:
-            enabled: true
-            storageClass: "{{ .Values.storageClass }}"
-            accessModes:
-              - ReadWriteOnce
   destination:
     namespace: librephotos
     server: https://kubernetes.default.svc

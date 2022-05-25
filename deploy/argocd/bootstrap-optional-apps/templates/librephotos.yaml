@@ -10,9 +10,9 @@ metadata:
 spec:
   project: default
   source:
-    chart: varet/librephotos
+    chart: librephotos
     repoURL: https://pages.billias.cc/
-    targetRevision: "0.202219.2"
+    targetRevision: "0.202221.0"
     helm:
       values: |
         dataVolume:
@@ -26,14 +26,17 @@ spec:
           annotations:
             kubernetes.io/ingress.class: "nginx"
             cert-manager.io/cluster-issuer: "{{ .Values.clusterIssuer }}"
-            external-dns.alpha.kubernetes.io/hostname: "lychee.{{ .Values.domain }}."
+            external-dns.alpha.kubernetes.io/hostname: "media.{{ .Values.domain }}."
             external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
             external-dns.alpha.kubernetes.io/ttl: "120"
             #nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
             #nginx.ingress.kubernetes.io/auth-signin: https://auth.{{ .Values.domain }}
             nginx.ingress.kubernetes.io/proxy-body-size: "600m"
           hostname: "media.{{ .Values.domain }}"
-        
+          tls: []
+          - secretName: libreoffice-tls
+            hosts:
+              - media.{{ .Values.domain }}
   destination:
     namespace: librephotos
     server: https://kubernetes.default.svc

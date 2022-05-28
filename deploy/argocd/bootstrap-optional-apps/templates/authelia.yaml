@@ -102,7 +102,7 @@ spec:
               policy: bypass
               networks:
                 - 10.42.0.0/16
-            - domain: ['lidarr.{{ .Values.domain }}','sonarr.{{ .Values.domain }}', 'overseerr.{{ .Values.domain }}', 'radarr.{{ .Values.domain }}', 'ha.{{ .Values.domain }}', 'plex.{{ .Values.domain }}', 'nextcloud.{{ .Values.domain }}', 'ha.{{ .Values.domain }}']
+            - domain: ['lidarr.{{ .Values.domain }}','sonarr.{{ .Values.domain }}', 'overseerr.{{ .Values.domain }}', 'radarr.{{ .Values.domain }}', 'ha.{{ .Values.domain }}', 'nextcloud.{{ .Values.domain }}', 'ha.{{ .Values.domain }}']
               policy: bypass
               resources:
                 - "^/api.*"
@@ -125,7 +125,7 @@ spec:
               policy: two_factor
               subject:
               - 'group:users'
-            - domain: ['hub.{{ .Values.domain }}', 'media.{{ .Values.domain }}']
+            - domain: ['hub.{{ .Values.domain }}', 'media.{{ .Values.domain }}', 'plex.{{ .Values.domain }}']
               policy: bypass
         ingress:
           annotations:

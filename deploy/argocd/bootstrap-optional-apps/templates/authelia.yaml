@@ -121,7 +121,7 @@ spec:
               policy: two_factor
               subject: 
               - 'group:admins'
-            - domain: ['whoami.{{ .Values.domain }}', 'harbor.{{ .Values.domain }}', 'ltb-passwd.{{ .Values.domain }}', 'plex.{{ .Values.domain }}', 'overseerr.{{ .Values.domain }}', 'nextcloud.{{ .Values.domain }}', 'vaultwarden.{{ .Values.domain }}', 'jackett.{{ .Values.domain }}', 'navidrome.{{ .Values.domain }}']
+            - domain: ['whoami.{{ .Values.domain }}', 'harbor.{{ .Values.domain }}', 'ltb-passwd.{{ .Values.domain }}', 'overseerr.{{ .Values.domain }}', 'nextcloud.{{ .Values.domain }}', 'vaultwarden.{{ .Values.domain }}', 'jackett.{{ .Values.domain }}', 'navidrome.{{ .Values.domain }}']
               policy: two_factor
               subject:
               - 'group:users'

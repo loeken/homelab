@@ -125,7 +125,7 @@ spec:
               policy: two_factor
               subject:
               - 'group:users'
-            - domain: ['hub.{{ .Values.domain }}', 'photos.{{ .Values.domain }}']
+            - domain: ['hub.{{ .Values.domain }}', 'media.{{ .Values.domain }}']
               policy: bypass
         ingress:
           annotations:

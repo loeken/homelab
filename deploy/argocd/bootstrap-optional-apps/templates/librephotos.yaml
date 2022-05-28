@@ -11,7 +11,7 @@ spec:
   project: default
   source:
     chart: librephotos
-    repoURL: https://pages.billias.cc/
+    repoURL: https://charts.billias.cc/
     targetRevision: "0.202221.2"
     helm:
       values: |
@@ -25,7 +25,7 @@ spec:
           annotations:
             kubernetes.io/ingress.class: "nginx"
             cert-manager.io/cluster-issuer: "{{ .Values.clusterIssuer }}"
-            external-dns.alpha.kubernetes.io/hostname: "media.k {{ .Values.domain }}."
+            external-dns.alpha.kubernetes.io/hostname: "media.{{ .Values.domain }}."
             external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
             external-dns.alpha.kubernetes.io/ttl: "120"
             #nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify

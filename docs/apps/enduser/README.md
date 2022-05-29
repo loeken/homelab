@@ -16,16 +16,18 @@ To achive this I am running all applications running on this cluster in containe
 
 
 ## the hub
-
 the hub is a small dashboard ( heimdall ) linking too all services available to the enduser you can reach it via https://hub.example.com/ and you will see it link to the following systems:
 
-### Ldap password
-Lightweight Directory Access Protocol: this is a linux username/password service which allows us to use one set of username/passwords across a variety of services
 
 ### Authelia
 Authelia is a "two factor" system. On more important parts of the cluster ( such as personal photos/videos/documents/passwords ) I added a two factor check. so your username&password are not enough and you need to proof your identity via secondary method ( ideally from another device ).
 
 a bit more details on setup of authelia can be found [here](authelia/README.md)
+
+this is the first thing you should setup
+
+### Ldap password
+Lightweight Directory Access Protocol: this is a linux username/password service which allows us to use one set of username/passwords across a variety of services. Once you get invited to the cluster you get a username/password go to this platform to set a new password that is only known by you and hasnt been used on any other website
 
 ### Vaultwarden
 Vaultwarden is my favorite password manager. It works great across Windows/Mac/Linux/Android/iOS you can use it as an addition to apple/google's password manager or fully replace them ( it also supports faceunlock/fingerprints etc).

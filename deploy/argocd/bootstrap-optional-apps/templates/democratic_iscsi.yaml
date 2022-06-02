@@ -22,7 +22,7 @@ spec:
         storageClasses:
         - name: freenas-iscsi-csi
           defaultClass: false
-          reclaimPolicy: Delete
+          reclaimPolicy: Retain
           volumeBindingMode: Immediate
           allowVolumeExpansion: true
           parameters:

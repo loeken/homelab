@@ -1,0 +1,26 @@
+{{ if .Values.volumesnapshots.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: volume-snapshots
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "11"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    path: deploy/helm/external-snapshotter
+    repoURL: git@github.com:{{ .Values.githubUser }}/{{ .Values.githubRepo }}
+    targetRevision: HEAD
+  destination:
+    namespace: kube-system
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{ end }}

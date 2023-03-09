@@ -1,0 +1,73 @@
+{{ if .Values.sonarr.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sonarr
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "23"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: sonarr
+    repoURL: 'https://loeken.github.io/helm-charts'
+    targetRevision: 3.0.9.1549
+    helm:
+      values: |
+        {{- if .Values.sonarr.linkerd }}
+        podAnnotations:
+          linkerd.io/inject: enabled
+        {{end}}
+        persistence:
+          config:
+            enabled: true
+            accessMode: ReadWriteOnce
+            storageClass: {{ .Values.sonarr.storageClass }}
+            size: {{ .Values.sonarr.size }}
+            readOnly: false
+          media:
+            enabled: true
+            accessMode: ReadWriteMany
+            size: {{ .Values.sharedmedia.size }}
+            storageClass: {{ .Values.sharedmedia.storageClass }}
+            existingClaim: shared-media
+        ingress:
+          main:
+            annotations:
+              kubernetes.io/ingress.class: nginx
+              cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
+              external-dns.alpha.kubernetes.io/hostname: sonarr.{{ .Values.domain }}.
+              external-dns.alpha.kubernetes.io/cloudflare-proxied: false
+              external-dns.alpha.kubernetes.io/ttl: 120
+              {{- if .Values.sonarr.useAuthelia }}
+              nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
+              nginx.ingress.kubernetes.io/auth-signin: https://auth.{{ .Values.domain }}
+              {{end}}
+            enabled: {{ .Values.sonarr.ingress.nginx.enabled }}
+            hosts:
+              - host: sonarr.{{ .Values.domain }}
+                paths:
+                  - path: /
+                    pathType: Prefix
+                    service:
+                      port: 8989
+            tls:
+            - secretName: sonarr-tls
+              hosts:
+              - sonarr.{{ .Values.domain }}
+        probes:
+          startup:
+            spec:
+              initialDelaySeconds: 20
+  destination:
+    namespace: media
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{ end }}

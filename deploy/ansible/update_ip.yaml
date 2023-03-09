@@ -1,0 +1,8 @@
+---
+  - name: "update"
+    hosts: k3s-nodes
+    become: true
+    become_user: root
+    tasks:
+    - name: run update_ips helper
+      command: update_ips

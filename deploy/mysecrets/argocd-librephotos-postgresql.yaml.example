@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: librephotos-postgresql
+  namespace: librephotos
+type: Opaque
+stringData:
+  password: librephotos
+  postgresql-postgres-password: librephotos
+  postgresql-password: librephotos
+  replication-password: librephotos

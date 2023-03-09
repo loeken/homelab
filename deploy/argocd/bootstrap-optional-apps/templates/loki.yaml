@@ -1,0 +1,314 @@
+{{ if .Values.loki.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: loki-stack-charts
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "30"
+spec:
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+  destination:
+    namespace: loki
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    chart: loki-stack
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 2.8.9
+    helm:
+      values: |
+        loki:
+          rbac:
+            pspEnabled: false
+          enabled: true
+          persistence:
+            type: pvc
+            enabled: true
+            storageClassName: {{ .Values.loki.storageClass }}
+            size: {{ .Values.loki.storageSize }}
+          # securityContext:
+          #   runAsGroup: 10001
+          #   runAsUser: 10001
+        promtail:
+          enabled: {{ .Values.loki.promtail.enabled }}
+        fluent-bit:
+          enabled: {{ .Values.loki.fluentbit.enabled }}
+        grafana:
+          rbac:
+            pspEnabled: false
+          enabled: true
+          sidecar:
+            datasources:
+              enabled: true
+          persistence:
+            type: pvc
+            enabled: true
+            storageClassName: {{ .Values.loki.grafana.storageClass }}
+            size: {{ .Values.loki.grafana.storageSize }}
+          initChownData:
+            enabled: true
+          ldap:
+            enabled: false
+
+          # Use an existing secret for the admin user.
+          admin:
+            ## Name of the secret. Can be templated.
+            existingSecret: loki-credentials
+            userKey: admin-user
+            passwordKey: admin-password
+          ## grafana Authentication can be enabled with the following values on grafana.ini
+          
+          grafana.ini:
+            server:
+              root_url: https://grafana.{{ .Values.domain }}
+            users:
+              auto_assign_org_role: Editor
+            auth.github:
+              enabled: false
+          ingress:
+            annotations:
+              cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
+              external-dns.alpha.kubernetes.io/hostname: grafana.{{ .Values.domain }}.
+              external-dns.alpha.kubernetes.io/cloudflare-proxied: false
+              external-dns.alpha.kubernetes.io/ttl: 120
+              kubernetes.io/ingress.class: nginx
+            enabled: {{ .Values.loki.ingress.nginx.enabled }}
+            pathType: ImplementationSpecific
+            hosts:
+              - grafana.{{ .Values.domain }}
+            tls:
+            - secretName: grafana-tls
+              hosts:
+                - grafana.{{ .Values.domain }}
+          {{- if .Values.linkerd.enabled }}
+          datasources:
+            datasources.yaml:
+              apiVersion: 1
+              datasources:
+              - name: prometheus
+                type: prometheus
+                access: proxy
+                orgId: 1
+                url: http://prometheus.linkerd-viz.svc.cluster.local:9090
+                isDefault: false
+                jsonData:
+                  timeInterval: 5s
+                editable: true
+          {{- end }}
+          dashboardProviders:
+            dashboardproviders.yaml:
+              apiVersion: 1
+              providers:
+              - name: 'default'
+                orgId: 1
+                folder: ''
+                type: file
+                disableDeletion: false
+                editable: true
+                options:
+                  path: /var/lib/grafana/dashboards/default
+
+          dashboards:
+            default:
+              # all these charts are hosted at https://grafana.com/grafana/dashboards/{id}
+              {{- if .Values.linkerd.enabled }}
+              top-line:
+                gnetId: 15474
+                revision: 4
+                datasource: prometheus
+              health:
+                gnetId: 15486
+                revision: 3
+                datasource: prometheus
+              kubernetes:
+                gnetId: 15479
+                revision: 2
+                datasource: prometheus
+              namespace:
+                gnetId: 15478
+                revision: 3
+                datasource: prometheus
+              deployment:
+                gnetId: 15475
+                revision: 6
+                datasource: prometheus
+              pod:
+                gnetId: 15477
+                revision: 3
+                datasource: prometheus
+              service:
+                gnetId: 15480
+                revision: 3
+                datasource: prometheus
+              route:
+                gnetId: 15481
+                revision: 3
+                datasource: prometheus
+              authority:
+                gnetId: 15482
+                revision: 3
+                datasource: prometheus
+              cronjob:
+                gnetId: 15483
+                revision: 3
+                datasource: prometheus
+              job:
+                gnetId: 15487
+                revision: 3
+                datasource: prometheus
+              daemonset:
+                gnetId: 15484
+                revision: 3
+                datasource: prometheus
+              replicaset:
+                gnetId: 15491
+                revision: 3
+                datasource: prometheus
+              statefulset:
+                gnetId: 15493
+                revision: 3
+                datasource: prometheus
+              replicationcontroller:
+                gnetId: 15492
+                revision: 4
+                datasource: prometheus
+              prometheus:
+                gnetId: 15489
+                revision: 2
+                datasource: prometheus
+              prometheus-benchmark:
+                gnetId: 15490
+                revision: 2
+                datasource: prometheus
+              multicluster:
+                gnetId: 15488
+                revision: 3
+                datasource: prometheus
+              {{- end }}
+              prometheus-benchmark:
+                gnetId: 15490
+                revision: 2
+                datasource: Prometheus
+                name: Loki Prometheues - Benchmark
+              multicluster:
+                gnetId: 15488
+                revision: 3
+                datasource: Prometheus
+                name: Loki Prometheues - Stats
+           
+
+        prometheus:
+          server:
+            # readinessProbeInitialDelay: 300
+            # livenessProbeInitialDelay: 300
+            persistentVolume:
+              enabled: true
+              accessModes:
+                - ReadWriteOnce
+              type: pvc
+              storageClass: {{ .Values.loki.prometheus.storageClass }}
+              size:  {{ .Values.loki.prometheus.storageSize }}
+            resources:
+              limits:
+                cpu: 2000m
+                memory: 2Gi
+              requests:
+                cpu: 1000m
+                memory: 1Gi
+          {{ if .Values.robusta.enabled }}
+          alertmanagerFiles:
+            alertmanager.yml:
+              global: {}
+              receivers:
+                - name: robusta
+                  webhook_configs:
+                    - send_resolved: true
+                      url: http://robusta-runner.robusta.svc.cluster.local/api/alerts
+                - name: default-receiver
+              route:
+                routes:
+                  - continue: true
+                    match_re:
+                      severity: info|warn|error|critical
+                    receiver: robusta
+                    repeat_interval: 4h
+          {{ end }}
+          enabled: {{ .Values.loki.prometheus.enabled }}
+          configmapReload:
+            prometheus:
+              enabled: true
+            alertmanager:
+              enabled: true
+          alertmanager:
+            enabled: {{ .Values.loki.alertmanager.enabled }}
+            persistentVolume:
+              enabled: true
+              accessModes:
+                - ReadWriteOnce
+              type: pvc
+              storageClass: {{ .Values.loki.alertmanager.storageClass }}
+              size:  {{ .Values.loki.alertmanager.storageSize }}
+            resources:
+              limits:
+                cpu: 100m
+                memory: 100Mi
+              requests:
+                cpu: 50m
+                memory: 50Mi
+            {{ if .Values.robusta.enabled }}
+            config:
+              receivers:
+                - name: 'robusta'
+                  webhook_configs:
+                    - url: 'http://robusta-runner.robusta.svc.cluster.local/api/alerts'
+                      send_resolved: true
+              route:
+                routes:
+                - receiver: 'robusta'
+                  match_re:
+                    severity: 'info|warn|error|critical'
+                  repeat_interval: 4h
+                  continue: true
+            {{ end }}
+            ingress:
+              annotations:
+                cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
+                external-dns.alpha.kubernetes.io/hostname: alertmanager.prod.{{ .Values.domain }}.
+                external-dns.alpha.kubernetes.io/cloudflare-proxied: false
+                external-dns.alpha.kubernetes.io/ttl: 120
+                kubernetes.io/ingress.class: nginx
+              enabled: {{ .Values.loki.alertmanager.ingress.enabled }}
+              pathType: ImplementationSpecific
+              hosts:
+                - alertmanager.prod.{{ .Values.domain }}
+              tls:
+              - secretName: alertmanager-prod-tls
+                hosts:
+                  - alertmanager.prod.{{ .Values.domain }}
+          nodeExporter:
+            enabled: {{ .Values.loki.nodeExporter.enabled }}
+            tolerations:
+              - key: node-role.kubernetes.io/master
+                effect: NoSchedule
+            resources:
+              limits:
+                cpu: 200m
+                memory: 50Mi
+              requests:
+                cpu: 100m
+                memory: 30Mi
+
+        filebeat:
+          enabled: {{ .Values.loki.filebeat.enabled }}
+
+        logstash:
+          enabled: {{ .Values.loki.logstash.enabled }}
+{{ end }}

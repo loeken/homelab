@@ -1,0 +1,24 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vaultwarden
+  namespace: vaultwarden
+type: Opaque
+stringData:
+  DATABASE_URL: postgresql://vaultwarden:usertopsecure@vaultwarden-postgresql/vaultwarden
+  DOMAIN: https://loeken.xyz
+  SMTP_HOST: mail.example.com
+  SMTP_FROM: vaultwarden@example.com
+  SMTP_FROM_NAME: vaultwarden
+  SMTP_PORT: "587"
+  SMTP_SSL: "true"
+  SMTP_EXPLICIT_TLS: "false"
+  SMTP_USERNAME: vaultwarden@example.com
+  SMTP_PASSWORD: homelab
+  SMTP_TIMEOUT: "15"
+  SMTP_AUTH_MECHANISM: "STARTTLS"
+  HELO_NAME: mail.example.com
+  SMTP_SECURITY: starttls
+  pgadminpass: topsecure
+  pguserpass: usertopsecure

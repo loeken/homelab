@@ -1,0 +1,4 @@
+[k3s-nodes]
+172.16.137.101 ansible_user=debian inventory_hostname=k3s-master-01
+172.16.137.102 ansible_user=debian inventory_hostname=k3s-master-02
+172.16.137.103 ansible_user=debian inventory_hostname=k3s-master-03

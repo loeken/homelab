@@ -1,0 +1,33 @@
+{{ if .Values.k10.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: k10
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "40"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://charts.kasten.io/
+    targetRevision: 5.5.4
+    chart: k10
+    helm:
+      values: |
+        global:
+          persistence:
+            storageClass: {{ .Values.k10.storageClass }}
+        kanister:
+          backupTimeout: 1440
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kasten-io
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{ end }}

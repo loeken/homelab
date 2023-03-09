@@ -1,0 +1,80 @@
+{{ if .Values.prowlarr.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prowlarr
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "23"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: prowlarr
+    repoURL: https://loeken.github.io/helm-charts
+    targetRevision: 1.3.1.2796
+    helm:
+      values: |
+        {{- if .Values.prowlarr.linkerd }}
+        podAnnotations:
+          linkerd.io/inject: enabled
+        {{end}}
+        persistence:
+          config:
+            mountPath: /config
+            enabled: true
+            accessMode: ReadWriteOnce
+            size: {{ .Values.prowlarr.size }}
+            storageClass: {{ .Values.prowlarr.storageClass }}
+            readOnly: false
+          storage:
+            enabled: true
+            accessMode: ReadWriteMany
+            size: {{ .Values.sharedmedia.size }}
+            storageClass: {{ .Values.sharedmedia.size }}
+            existingClaim: shared-media
+            mountPath: /storage
+        ingress:
+          main:
+            annotations:
+              kubernetes.io/ingress.class: nginx
+              cert-manager.io/cluster-issuer: letsencrypt-prod
+              external-dns.alpha.kubernetes.io/hostname: prowlarr.{{ .Values.domain }}.
+              external-dns.alpha.kubernetes.io/cloudflare-proxied: false
+              external-dns.alpha.kubernetes.io/ttl: 120
+            enabled: {{ .Values.prowlarr.ingress.nginx.enabled }}
+            hosts:
+              - host: prowlarr.{{ .Values.domain }}
+                paths:
+                  - path: /
+                    pathType: Prefix
+                    service:
+                      port: 9696
+            tls:
+            - secretName: prowlarrserver-tls
+              hosts:
+              - prowlarr.{{ .Values.domain }}
+        resources:
+          requests:
+          #   # Hardware acceleration using an Intel iGPU w/ QuickSync and
+          #   # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
+          #  gpu.intel.com/i915: 1
+            cpu: 200m
+            memory: 256Mi
+          limits:
+          #   # Hardware acceleration using an Intel iGPU w/ QuickSync and
+          #   # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
+          #  gpu.intel.com/i915: 1
+            memory: 4096Mi
+            cpu: 8
+  destination:
+    namespace: media
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{ end }}

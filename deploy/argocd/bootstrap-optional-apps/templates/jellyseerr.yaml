@@ -1,0 +1,64 @@
+{{ if .Values.jellyseerr.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: jellyseerr
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "21"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: jellyseerr
+    repoURL: https://loeken.github.io/helm-charts
+    targetRevision: 1.4.1
+    helm:
+      values: |
+        {{- if .Values.jellyseerr.linkerd }}
+        podAnnotations:
+          linkerd.io/inject: enabled
+        {{end}}
+        persistence:
+          config:
+            mountPath: /app/config
+            enabled: true
+            accessMode: ReadWriteOnce
+            size: 1Gi
+            storageClass: {{ .Values.storageClass }}
+            readOnly: false
+        ingress:
+          main:
+            annotations:
+              kubernetes.io/ingress.class: nginx
+              cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
+              external-dns.alpha.kubernetes.io/hostname: requests.{{ .Values.domain }}.
+              external-dns.alpha.kubernetes.io/cloudflare-proxied: false
+              external-dns.alpha.kubernetes.io/ttl: 120
+              {{- if .Values.jellyseerr.useAuthelia }}
+              nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
+              nginx.ingress.kubernetes.io/auth-signin: https://auth.{{ .Values.domain }}
+              {{end}}
+            enabled: {{ .Values.jellyseerr.ingress.nginx.enabled }}
+            hosts:
+              - host: requests.{{ .Values.domain }}
+                paths:
+                  - path: /
+                    pathType: Prefix
+                    service:
+                      port: 5055
+            tls:
+            - secretName: jellyseerrserver-tls
+              hosts:
+              - requests.{{ .Values.domain }}
+  destination:
+    namespace: media
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{ end }}

@@ -1,0 +1,143 @@
+{{ if .Values.rtorrentflood.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rtorrent-flood
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "22"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: rtorrent-flood
+    repoURL: 'https://loeken.github.io/helm-charts'
+    targetRevision: 4.7.0
+    helm:
+      values: |
+        {{- if .Values.rtorrentflood.linkerd }}
+        podAnnotations:
+          linkerd.io/inject: enabled
+        {{end}}
+        service:
+          bittorrent:
+            enabled: true
+            type: ClusterIP
+            ports:
+              bittorrent:
+                enabled: true
+                port: 6881
+                protocol: TCP
+                targetPort: 6881
+        persistence:
+          config:
+            mountPath: /config
+            type: pvc
+            enabled: true
+            accessMode: ReadWriteOnce
+            size: 1Gi
+            storageClass: {{ .Values.storageClass }}
+            readOnly: false
+          downloads:
+            mountPath: /downloads
+            type: pvc
+            enabled: true
+            accessMode: ReadWriteOnce
+            size: {{ .Values.rtorrentflood.size }}
+            storageClass: {{ .Values.rtorrentflood.storageClass }}
+            readOnly: false
+          media:
+            enabled: true
+            mountPath: /media
+            type: pvc
+            accessMode: ReadWriteMany
+            size: {{ .Values.sharedmedia.size }}
+            storageClass: {{ .Values.sharedmedia.storageClass }}
+            existingClaim: shared-media
+          rtorrent-flood-config:
+            enabled: true
+            mountPath: /config/.rtorrent.rc
+            subPath: .rtorrent.rc
+            type: custom
+            volumeSpec:
+              configMap:
+                name: rtorrent-flood-config
+        ingress:
+          main:
+            annotations:
+              kubernetes.io/ingress.class: nginx
+              cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
+              external-dns.alpha.kubernetes.io/hostname: rtorrent.{{ .Values.domain }}.
+              external-dns.alpha.kubernetes.io/cloudflare-proxied: false
+              external-dns.alpha.kubernetes.io/ttl: 120
+              {{- if .Values.rtorrentflood.useAuthelia }}
+              nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
+              nginx.ingress.kubernetes.io/auth-signin: https://auth.{{ .Values.domain }}
+              {{end}}
+            enabled: {{ .Values.rtorrentflood.ingress.nginx.enabled }}
+            hosts:
+              - host: rtorrent.{{ .Values.domain }}
+                paths:
+                  - path: /
+                    pathType: Prefix
+                    service:
+                      port: 3000
+            tls:
+            - secretName: rtorrent-tls
+              hosts:
+              - rtorrent.{{ .Values.domain }}
+        config: |
+          # testing
+          session.use_lock.set = no
+          method.insert = cfg.basedir,  private|const|string, (cat,(fs.homedir),/.local/share/rtorrent/)
+          method.insert = cfg.download, private|const|string, (cat,/downloads/,download/)
+          method.insert = cfg.logs,     private|const|string, (cat,(cfg.download),log/)
+          method.insert = cfg.logfile,  private|const|string, (cat,(cfg.logs),rtorrent-,(system.time),.log)
+          method.insert = cfg.session,  private|const|string, (cat,(cfg.basedir),.session/)
+          method.insert = cfg.watch,    private|const|string, (cat,(cfg.download),watch/)
+          fs.mkdir.recursive = (cat,(cfg.basedir))
+          fs.mkdir = (cat,(cfg.download))
+          fs.mkdir = (cat,(cfg.logs))
+          fs.mkdir = (cat,(cfg.session))
+          fs.mkdir = (cat,(cfg.watch))
+          fs.mkdir = (cat,(cfg.watch),/load)
+          fs.mkdir = (cat,(cfg.watch),/start)
+          schedule2 = watch_load, 11, 10, ((load.verbose, (cat, (cfg.watch), load/*.torrent)))
+          schedule2 = watch_start, 10, 10, ((load.start_verbose, (cat, (cfg.watch), start/*.torrent)))
+          dht.add_bootstrap = dht.transmissionbt.com:6881
+          dht.add_bootstrap = dht.libtorrent.org:25401
+          throttle.max_uploads.set = 100
+          throttle.max_uploads.global.set = 250
+          throttle.min_peers.normal.set = 20
+          throttle.max_peers.normal.set = 60
+          throttle.min_peers.seed.set = 30
+          throttle.max_peers.seed.set = 80
+          trackers.numwant.set = 80
+          network.port_range.set = 6881-6881
+          network.max_open_files.set = 600
+          network.max_open_sockets.set = 300
+          pieces.memory.max.set = 1800M
+          session.path.set = (cat, (cfg.session))
+          directory.default.set = (cat, (cfg.download))
+          log.execute = (cat, (cfg.logs), execute.log)
+          encoding.add = utf8
+          system.daemon.set = true
+          system.umask.set = 0002
+          system.cwd.set = (directory.default)
+          network.http.max_open.set = 50
+          network.http.dns_cache_timeout.set = 25
+          network.scgi.open_local = (cat,(cfg.basedir),rtorrent.sock)
+          print = (cat, Logging to , (cfg.logfile))
+          log.open_file = log, (cfg.logfile)
+          log.add_output = info, log
+  destination:
+    namespace: media
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{ end }}

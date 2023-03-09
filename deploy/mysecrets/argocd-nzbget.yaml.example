@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nzbget
+  namespace: media
+stringData:
+  password: nzbgetpassword
+  username: loeken

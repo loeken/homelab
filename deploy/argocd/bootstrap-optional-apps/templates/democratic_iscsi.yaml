@@ -1,0 +1,103 @@
+{{ if .Values.democratic_iscsi.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: zfs-iscsi
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "10"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://democratic-csi.github.io/charts/
+    targetRevision: 0.13.5
+    chart: democratic-csi
+    helm:
+      values: |
+        csiDriver:
+          # should be globally unique for a given cluster
+          name: org.democratic-csi.iscsi
+        # add note here about volume expansion requirements
+        storageClasses:
+        - name: freenas-iscsi-csi
+          defaultClass: false
+          reclaimPolicy: Retain
+          volumeBindingMode: Immediate
+          allowVolumeExpansion: true
+          parameters:
+            # for block-based storage can be ext3, ext4, xfs
+            fsType: ext4
+          mountOptions: []
+          secrets:
+            provisioner-secret:
+            controller-publish-secret:
+            node-stage-secret:
+            node-publish-secret:
+            controller-expand-secret:
+        driver:
+          existingConfigSecret: democractic-csi-iscsi-driver-config
+          config:
+            driver: freenas-iscsi
+          resources:
+            limits:
+              cpu: 1
+              memory: 512Mi
+            requests:
+              cpu: 0.5
+              memory: 256Mi
+        driverRegistrar:
+          resources:
+            limits:
+              cpu: 1
+              memory: 512Mi
+            requests:
+              cpu: 0.5
+              memory: 256Mi
+        csiProxy:
+          resources:
+            limits:
+              cpu: 1
+              memory: 512Mi
+            requests:
+              cpu: 0.5
+              memory: 256Mi
+        externalProvisioner:
+          resources:
+            limits:
+              cpu: 1
+              memory: 512Mi
+            requests:
+              cpu: 0.5
+              memory: 256Mi
+        externalResizer:
+          resources:
+            limits:
+              cpu: 1
+              memory: 512Mi
+            requests:
+              cpu: 0.5
+              memory: 256Mi
+        externalSnapshotter:
+          resources:
+            limits:
+              cpu: 1
+              memory: 512Mi
+            requests:
+              cpu: 0.5
+              memory: 256Mi
+        volumeSnapshotClasses:
+        - name: freenas-iscsi-csi-snapclass
+          annotations:
+            k10.kasten.io/is-snapshot-class: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: democratic-csi
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{ end }}

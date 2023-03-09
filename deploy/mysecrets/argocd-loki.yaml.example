@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: loki-credentials
+  namespace: loki
+type: Opaque
+stringData:
+  admin-password: topsecure
+  admin-user: admin

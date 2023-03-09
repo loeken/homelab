@@ -1,0 +1,83 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vaultwarden
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "13"
+spec:
+  project: default
+  source:
+    chart: vaultwarden
+    repoURL: https://loeken.github.io/helm-charts
+    targetRevision: 1.27.0
+    helm:
+      values: |
+        ingress:
+          main:
+            annotations:
+              kubernetes.io/ingress.class: nginx
+              cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
+              external-dns.alpha.kubernetes.io/hostname: vaultwarden.{{ .Values.domain }}.
+              external-dns.alpha.kubernetes.io/cloudflare-proxied: false
+              external-dns.alpha.kubernetes.io/ttl: 120
+              {{- if .Values.sonarr.useAuthelia }}
+              nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
+              nginx.ingress.kubernetes.io/auth-signin: https://auth.{{ .Values.domain }}
+              {{- end }}
+            enabled: {{ .Values.vaultwarden.ingress.nginx.enabled }}
+            hosts:
+              - host: vaultwarden.{{ .Values.domain }}
+                paths:
+                  - path: /
+                    pathType: Prefix
+                    service:
+                      port: 80
+                  - path: /notifications/hub/negotiate
+                    pathType: Prefix
+                    service:
+                      port: 80
+                  - path: /notifications/hub
+                    pathType: Prefix
+                    service:
+                      port: 3012
+            tls:
+            - secretName: vaultwarden-tls
+              hosts:
+              - vaultwarden.{{ .Values.domain }}
+        persistence:
+          config:
+            enabled: true
+            readOnly: false
+            storageClass: {{ .Values.vaultwarden.storageClass }}
+        postgresql:
+          enabled: true
+          global:
+            postgresql:
+              auth:
+                database: vaultwarden
+                username: vaultwarden
+                existingSecret: vaultwarden
+                secretKeys:
+                  adminPasswordKey: "pgadminpass"
+                  userPasswordKey: "pguserpass"
+          primary:
+            persistence:
+              enabled: true
+              storageClass: {{ .Values.vaultwarden.storageClass }}
+              size: {{ .Values.vaultwarden.size }}
+              accessModes:
+                - ReadWriteOnce
+        envFrom:
+        - secretRef:
+            name: vaultwarden
+
+  destination:
+    namespace: vaultwarden
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

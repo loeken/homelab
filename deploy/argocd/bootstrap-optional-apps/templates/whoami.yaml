@@ -1,0 +1,56 @@
+{{ if .Values.whoami.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: whoami
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "12"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: whoami
+    repoURL: 'https://gitlab.com/api/v4/projects/37200623/packages/helm/stable'
+    targetRevision: 0.1.6
+    helm:
+      values: |
+        service:
+          service.externalTrafficPolicy: Local
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
+            external-dns.alpha.kubernetes.io/hostname: whoami.{{ .Values.domain }}.
+            external-dns.alpha.kubernetes.io/cloudflare-proxied: false
+            external-dns.alpha.kubernetes.io/ttl: 120
+            nginx.ingress.kubernetes.io/auth-snippet: |
+              proxy_set_header X-Forwarded-Method $request_method;
+            nginx.ingress.kubernetes.io/configuration-snippet: |
+              proxy_set_header X-Forwarded-Method $request_method;
+
+          enabled: 'true'
+          ingressClassName: nginx
+          pathType: ImplementationSpecific
+          hosts:
+            - host: whoami.{{ .Values.domain }}
+              paths:
+              - /
+          tls:
+          - secretName: whoami-tls
+            hosts:
+              - whoami.{{ .Values.domain }}
+        {{- if .Values.whoami.linkerd }}
+        podAnnotations:
+          linkerd.io/inject: enabled
+        {{end}}
+  destination:
+    namespace: whoami
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{ end }}

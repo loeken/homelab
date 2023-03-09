@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: local-nfs-provisioner
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "10"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: nfs-subdir-external-provisioner
+    repoURL: 'https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner'
+    targetRevision: 4.0.17
+    helm:
+      values: |
+        nfs:
+          server: {{ .Values.nfsprovisioner.ip }}
+          path: /mnt/data
+        storageClass:
+          accessModes: ReadWriteMany
+  destination:
+    namespace: local-nfs-provisioner
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

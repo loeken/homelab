@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  credentials.json: "kubectl create secret generic tunnel-credentials --from-file=credentials.json=/home/loeken/.cloudflared/YOURTUNNELID.json -n cloudflare-tunnel --dry-run -o yaml"
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: tunnel-credentials
+  namespace: cloudflare-tunnel

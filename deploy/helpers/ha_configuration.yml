@@ -1,0 +1,19 @@
+---
+# Loads default set of integrations. Do not remove.
+default_config:
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+http:
+  server_host: 0.0.0.0
+  ip_ban_enabled: true
+  login_attempts_threshold: 5
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 10.42.0.0/16
+logger:
+  default: info
+  logs:
+    hacs: debug
+frontend:
+  themes: !include_dir_merge_named themes

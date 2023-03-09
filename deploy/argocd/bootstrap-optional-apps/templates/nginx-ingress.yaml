@@ -1,0 +1,37 @@
+{{ if .Values.nginxingress.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-ingress
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "11"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: nginx-ingress
+    repoURL: https://helm.nginx.com/stable
+    targetRevision: 0.16.2
+    helm:
+      values: |
+        controller:
+          service:
+            externalTrafficPolicy: Local
+            type: NodePort
+            httpPort:
+              nodePort: 30080
+            httpsPort:
+              nodePort: 30443
+          kind: daemonset
+  destination:
+    namespace: nginx-ingress
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{ end }}

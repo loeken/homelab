@@ -1,0 +1,26 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bootstrap-core-apps
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    path: deploy/argocd/bootstrap-core-apps
+    repoURL: git@github.com:{{ .Values.githubUser }}/{{ .Values.githubRepo }}
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+      - values.yaml
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

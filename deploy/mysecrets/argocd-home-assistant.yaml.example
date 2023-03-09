@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: home-assistant
+  namespace: home-assistant
+type: Opaque
+stringData:
+  smtp_username: nextcloud@example.com
+  smtp_password: emailpassword
+  postgres-password: topsecretpg
+  postgres-username: postgres

@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  namespace: democratic-csi
+  name: democractic-csi-iscsi-driver-config
+stringData:
+  driver-config-file.yaml: |-
+    driver: freenas-iscsi
+    instance_id:
+    httpConnection:
+      protocol: http
+      host: {{HOST}}
+      port: 80
+      username: root
+      password: "homelab"
+      allowInsecure: true
+      apiVersion: 2
+    sshConnection:
+      host: {{HOST}}
+      port: 22
+      username: root
+      # use either password or key
+      privateKey: |-
+        {{PRIVATE_KEY}}

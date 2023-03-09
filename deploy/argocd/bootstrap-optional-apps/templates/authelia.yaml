@@ -1,0 +1,156 @@
+{{ if .Values.authelia.enabled }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: authelia
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "13"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: authelia
+    targetRevision: 0.8.54
+    repoURL: https://charts.authelia.com
+    helm:
+      values: |
+        secret:
+          existingSecret: authelia
+        persistence:
+          enabled: true
+          mountPath: /config
+          storageClass: local-path
+          accessMode: ReadWriteMany
+        domain: loeken.xyz
+        pod:
+          replicas: 1
+          kind: StatefulSet
+          revisionHistoryLimit: 2
+        configMap:
+          log:
+            level: info
+          authentication_backend:
+            ldap:
+              enabled: false
+            file:
+              enabled: true
+          default_redirection_url: https://hub.loeken.xyz
+          session:
+            redis:
+              enabled: false
+            domain: loeken.xyz
+            expiration: 3600
+            inactivity: 300
+          storage:
+            local:
+              enabled: true
+            postgres:
+              enabled: false
+          notifier:
+            filesystem:
+              enabled: false
+              filename: /config/notification.txt
+            smtp:
+              enabled: true
+              enabledSecret: true
+              host: mail.internetz.me
+              port: 587
+              timeout: 5s
+              username: homelab-beelink@internetz.me
+              sender: homelab-beelink@internetz.me
+              identifier: mail.internetz.me
+              subject: "[Authelia] {title}"
+              startup_check_address: homelab-beelink@internetz.me
+              disable_require_tls: false
+              disable_html_emails: false
+              tls:
+                server_name: mail.internetz.me
+                skip_verify: false
+                minimum_version: TLS1.2
+          identity_providers:
+            oidc:
+              enabled: false
+          theme: dark
+          access_control:
+            default_policy: deny
+            rules:
+              - domain: "*.loeken.xyz"
+                policy: bypass
+                networks:
+                  - 10.42.0.0/16
+              - domain: ['ha.loeken.xyz']
+                policy: bypass
+                resources:
+                  - ^/api.*
+                  - ^/auth/token.*
+                  - ^/.external_auth=.
+                  - ^/service_worker.js
+                  - ^/static.*
+                  - ^/local.*
+                  - ^/hacsfiles.*
+                  - ^/frontend_latest.*
+              - domain: ['sonarr.loeken.xyz', 'radarr.loeken.xyz', 'ha.loeken.xyz', 'nextcloud.loeken.xyz']
+                policy: bypass
+                resources:
+                  - ^/api.*
+                  - ^/signalr.*
+              - domain: ['vaultwarden.loeken.xyz']
+                policy: bypass
+                resources:
+                  - ^/api.*
+                  - ^/identity/connect/token.*
+                  - ^/notifications/hub.*
+              - domain: 'jellyfin.'
+                policy: bypass
+                resources:
+                  - ^/api.*
+                  - ^/System/Info/Public.*
+              - domain: 'rtorrent.loeken.xyz'
+                policy: bypass
+                resources:
+                  - ^/RPC2.*
+              - domain: ['hub.loeken.xyz', 'jellyfin.loeken.xyz', 'requests.loeken.xyz']
+                policy: one_factor
+                subject:
+                  - 'group:users'
+              - domain: ['ldap-admin.loeken.xyz', 'ha.loeken.xyz', 'prowlarr.loeken.xyz', 'sonarr.loeken.xyz', 'radarr.loeken.xyz', 'rtorrent.loeken.xyz', 'nzbget.loeken.xyz']
+                policy: two_factor
+                subject:
+                  - 'group:admins'
+              - domain: ['whoami.loeken.xyz', 'harbor.loeken.xyz', 'ltb-passwd.loeken.xyz', 'nextcloud.loeken.xyz', 'vaultwarden.loeken.xyz']
+                policy: two_factor
+                subject:
+                  - 'group:users'
+
+        ingress:
+          annotations:
+            kubernetes.io/ingress.class: nginx
+            cert-manager.io/cluster-issuer: letsencrypt-staging
+            external-dns.alpha.kubernetes.io/hostname: auth.loeken.xyz.
+            external-dns.alpha.kubernetes.io/cloudflare-proxied: false
+            external-dns.alpha.kubernetes.io/ttl: 120
+          enabled: false
+          hosts:
+            - host: auth.loeken.xyz
+              paths:
+                - path: /
+                  pathType: Prefix
+                  service:
+                    port: 80
+          tls:
+            enabled: true
+            secret: auth-tls
+
+  destination:
+    namespace: authelia
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{ end }}

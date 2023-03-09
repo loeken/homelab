@@ -1,0 +1,99 @@
+{{ if .Values.democratic_nfs.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: zfs-nfs
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "10"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://democratic-csi.github.io/charts/
+    targetRevision: 0.13.5
+    chart: democratic-csi
+    helm:
+      values: |
+        csiDriver:
+          # should be globally unique for a given cluster
+          name: org.democratic-csi.nfs
+        storageClasses:
+        - name: freenas-nfs-csi
+          defaultClass: false
+          reclaimPolicy: Retain
+          volumeBindingMode: Immediate
+          allowVolumeExpansion: true
+          parameters:
+            fsType: nfs
+          mountOptions:
+          - noatime
+          - nfsvers=4
+          secrets:
+            provisioner-secret:
+            controller-publish-secret:
+            node-stage-secret:
+            node-publish-secret:
+            controller-expand-secret:
+        driver:
+          existingConfigSecret: democractic-csi-nfs-driver-config
+          config:
+            driver: freenas-nfs
+          resources:
+            limits:
+              cpu: 1
+              memory: 512Mi
+            requests:
+              cpu: 0.5
+              memory: 256Mi
+        driverRegistrar:
+          resources:
+            limits:
+              cpu: 1
+              memory: 512Mi
+            requests:
+              cpu: 0.5
+              memory: 256Mi
+        csiProxy:
+          resources:
+            limits:
+              cpu: 1
+              memory: 512Mi
+            requests:
+              cpu: 0.5
+              memory: 256Mi
+        externalProvisioner:
+          resources:
+            limits:
+              cpu: 1
+              memory: 512Mi
+            requests:
+              cpu: 0.5
+              memory: 256Mi
+        externalResizer:
+          resources:
+            limits:
+              cpu: 1
+              memory: 512Mi
+            requests:
+              cpu: 0.5
+              memory: 256Mi
+        externalSnapshotter:
+          resources:
+            limits:
+              cpu: 1
+              memory: 512Mi
+            requests:
+              cpu: 0.5
+              memory: 256Mi
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: democratic-csi
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{ end }}

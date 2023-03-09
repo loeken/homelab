@@ -1,0 +1,6 @@
+cloudflared:
+  tunnelname: whoami-tunnel
+  hosts:
+    - hostname: whoami.loeken.xyz
+      servicename: http://whoami.whoami:80
+      

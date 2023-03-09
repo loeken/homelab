@@ -1,0 +1,4 @@
+# this file acts as a global value files to all bootstrap-core-apps
+email: youremail@example.com
+githubUser: loeken
+githubRepo: homelab-example

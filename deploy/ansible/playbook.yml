@@ -1,0 +1,11 @@
+---
+  - name: "update"
+    hosts: k3s-nodes
+    become: true
+    become_user: root
+    tasks:
+    - name: update app packages using apt
+      apt:
+        name: "*"
+        state: "latest"
+

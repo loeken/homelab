@@ -1,0 +1,23 @@
+apiVersion: v1
+data:
+  crt.pem: BASE64ENCODED
+  key.pem: BASE64ENCODED
+kind: Secret
+metadata:
+  annotations:
+    cert-manager.io/alt-names: identity.linkerd.cluster.local
+    cert-manager.io/certificate-name: linkerd-identity-issuer
+    cert-manager.io/common-name: identity.linkerd.cluster.local
+    cert-manager.io/ip-sans: ""
+    cert-manager.io/issuer-group: ""
+    cert-manager.io/issuer-kind: Issuer
+    cert-manager.io/issuer-name: linkerd-trust-anchor
+    cert-manager.io/uri-sans: ""
+    linkerd.io/created-by: linkerd/helm stable-2.12.1
+  labels:
+    argocd.argoproj.io/instance: linkerd2-control-plane
+    linkerd.io/control-plane-component: identity
+    linkerd.io/control-plane-ns: linkerd
+  name: linkerd-identity-issuer
+  namespace: linkerd
+type: kubernetes.io/tls

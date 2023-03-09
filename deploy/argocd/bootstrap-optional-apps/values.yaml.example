@@ -1,0 +1,205 @@
+# this file acts as a global value files to all bootstrap-optional-apps
+domain: example.com
+clusterIssuer: letsencrypt-staging
+githubUser: loeken
+githubRepo: homelab-example
+storageClass: local-path
+
+authelia:
+  enabled: false
+  ingress:
+    nginx:
+      enabled: false
+    cloudflaretunnel:
+      enabled: true
+  smtp:
+    host: mail.example.com
+    port: 587
+    username: authelia@example.com
+    sender: authelia@example.com
+  storageClass: local-path
+ceph:
+  enabled: false
+cloudflaretunnel:
+  enabled: true
+democratic_iscsi_fast:
+  enabled: false
+democratic_iscsi:
+  enabled: false
+democratic_nfs:
+  enabled: false
+externaldns:
+  enabled: false
+ha:
+  useAuthelia: false
+  enabled: false
+  ingress:
+    nginx:
+      enabled: false
+    cloudflaretunnel:
+      enabled: true
+jellyfin:
+  useAuthelia: false
+  linkerd: false
+  enabled: false
+  ingress:
+    nginx:
+      enabled: false
+    cloudflaretunnel:
+      enabled: false
+  config:
+    enabled: true
+    size: 1Gi
+    storageClass: local-path
+  cache:
+    enabled: true
+    size: 10Gi
+    storageClass: local-path
+jellyseerr:
+  useAuthelia: false
+  linkerd: false
+  enabled: false
+  ingress:
+    nginx:
+      enabled: false
+    cloudflaretunnel:
+      enabled: true
+k10:
+  enabled: false
+  storageClass: local-path
+linkerd:
+  enabled: false
+loki:
+  enabled: false
+  storageClass: local-path
+  storageSize: 10Gi
+  alertmanager:
+    enabled: false
+    storageClass: local-path
+    storageSize: 10Gi
+    ingress:
+      cloudflaretunnel:
+        enabled: true
+  filebeat:
+    enabled: false
+  fluentbit:
+    enabled: false
+  grafana:
+    storageClass: local-path
+    storageSize: 10Gi
+  ingress:
+    nginx:
+      enabled: false
+    cloudflaretunnel:
+      enabled: true
+  logstash:
+    enabled: false
+  nodeExporter:
+    enabled: false
+  prometheus:
+    enabled: true
+    storageClass: local-path
+    storageSize: 10Gi
+  promtail:
+    enabled: true
+nextcloud:
+  enabled: false
+  useAuthelia: false
+  smtp:
+    host: mail.example.com
+    domain: example.com
+    port: 587
+    username: nextcloud@example.com
+    sender: nextcloud@example.com
+  data:
+    storageClass: local-path
+    size: 10Gi
+  ingress:
+    nginx:
+      enabled: false
+    cloudflaretunnel:
+      enabled: true
+nfsprovisioner:
+  ip: 172.16.137.200
+nginxingress:
+  enabled: false
+  linkerd: false
+nzbget:
+  enabled: false
+  size: 10Gi
+  storageClass: local-path
+  useAuthelia: false
+  linkerd: false
+  ingress:
+    nginx:
+      enabled: false
+    cloudflaretunnel:
+      enabled: true
+openldap:
+  enabled: false
+  searchDomain: dc=ldap,dc=example,dc=com
+  bindDN: cn=admin,dc=ldap,dc=example,dc=com
+  useAuthelia: false
+prowlarr:
+  enabled: false
+  useAuthelia: false
+  linkerd: false
+  size: 1Gi
+  storageClass: local-path
+  ingress:
+    nginx:
+      enabled: false
+    cloudflaretunnel:
+      enabled: true
+radarr:
+  enabled: false
+  useAuthelia: false
+  linkerd: false
+  size: 1Gi
+  storageClass: local-path
+  ingress:
+    nginx:
+      enabled: false
+    cloudflaretunnel:
+      enabled: true
+robusta:
+  enabled: false
+rtorrentflood:
+  enabled: false
+  useAuthelia: false
+  linkerd: false
+  ingress:
+    nginx:
+      enabled: false
+    cloudflaretunnel:
+      enabled: true
+  size: 10Gi
+  storageClass: local-path
+sharedmedia:
+  size: 1000Gi
+  storageClass: local-path
+sonarr:
+  enabled: false
+  useAuthelia: false
+  linkerd: false
+  size: 1Gi
+  storageClass: local-path
+  ingress:
+    nginx:
+      enabled: false
+    cloudflaretunnel:
+      enabled: true
+vaultwarden:
+  enabled: false
+  useAuthelia: true
+  storageClass: local-path
+volumesnapshots:
+  enabled: true
+whoami:
+  enabled: true
+  linkerd: false
+  ingress:
+    nginx:
+      enabled: false
+    cloudflaretunnel:
+      enabled: true

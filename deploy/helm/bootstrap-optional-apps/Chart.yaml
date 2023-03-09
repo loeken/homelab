@@ -1,0 +1,6 @@
+apiVersion: v2
+name: bootstrap-optional-apps
+description: A Helm chart to bootstrap other argocd applications
+type: application
+version: 0.0.1
+appVersion: "1.0"

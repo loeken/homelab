@@ -1,0 +1,11 @@
+---
+  - name: "update"
+    hosts: k3s-nodes
+    become: true
+    become_user: root
+    tasks:
+    - name: shutdown k3s and poweroff vms
+      command: /usr/local/bin/k3s-killall.sh
+
+    - name: shutdown k3s and poweroff vms
+      command: poweroff

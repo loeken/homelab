@@ -1,0 +1,1528 @@
+package main
+
+import (
+	"bufio"
+	"bytes"
+	"fmt"
+	"io"
+	"io/ioutil"
+	"log"
+	"os"
+	"os/exec"
+	"os/user"
+	"path/filepath"
+	"regexp"
+	"strings"
+	"time"
+
+	"github.com/fatih/color"
+	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
+	"gopkg.in/yaml.v2"
+
+	"k8s.io/client-go/tools/clientcmd"
+	"k8s.io/client-go/tools/clientcmd/api"
+	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
+)
+
+type configOption struct {
+	name         string
+	defaultValue string
+	usage        string
+	options      []string
+	tags         []string
+}
+
+var options = []configOption{
+	{"bridge", "vmbr0", "name of the bridge", nil, []string{"install"}},
+	{"cores_k3s", "10", "the amount of virtual cores to pass to the k3s vm", nil, []string{"install"}},
+	{"cluster-issuer", "staging", "when using nginx ingress, select cluster issuer ( staging / prod )", nil, []string{"install"}},
+	{"disksize", "100G", "disk size + metric ( example: 100G )", nil, []string{"install"}},
+	{"disaster_recovery", "k10", "disaster recovery type", []string{"k10", "none"}, []string{"install"}},
+	{"domain", "", "the domain you want to use", nil, []string{"install"}},
+	{"email", "", "the folder into which new_repo will be cloned into", nil, []string{"install"}},
+	{"external_ip", "1.2.3.4", "your external ipv4 ( curl -4 ifconfig.co )", nil, []string{"install"}},
+	{"iface", "enp3s0", "name of the primary interface", nil, []string{"install"}},
+	{"ingress", "cloudflaretunnel", "which ingress to use ( nginx/cloudflaretunnel )", []string{"nginx", "cloudflaretunnel"}, []string{"install"}},
+	{"kubernetes_version", "v1.25.6+k3s1", "kubernetes version", nil, []string{"install"}},
+	{"local_path", "", "the folder into which new_repo will be cloned into", nil, []string{"install", "github"}},
+	{"macaddr", "6E:1F:26:B6:DF:20", "mac address used for the k3s vm", nil, []string{"install"}},
+	{"memory_k3s", "28672", "amount of ram in MB to assign to the VM ", nil, []string{"install"}},
+	{"new_repo", "", "the name of your new repo", nil, []string{"install", "github", "check-dependencies", "destroy"}},
+	{"pci_passthrough", "intel", "prepare pci passthrough", []string{"null", "intel", "amd"}, []string{"install"}},
+	{"pci_device", "0000:02:00.0", "the pci address of your gpu ( lspci |grep VGA )", nil, []string{"install"}},
+	{"platform", "proxmox", "storage type", []string{"proxmox", "minikube", "baremetal"}, []string{"install"}},
+	{"proxmox_node_name", "beelink-sei12", "the name of the proxmox node ( hostname )", nil, []string{"install"}},
+	{"proxmox_vm_name", "k3s-beelink-01", "name of the virtual machine in proxmox", nil, []string{"install"}},
+	{"root_password", "topsecure", "root password ( used for login to proxmox )", nil, []string{"install"}},
+	{"smtp_host", "mail.example.com", "the host of your email server", nil, []string{"install"}},
+	{"smtp_port", "587", "the port of your email server", nil, []string{"install"}},
+	{"smtp_sender", "homelab@example.com", "the email address used to send emails", nil, []string{"install"}},
+	{"smtp_username", "homelab@example.com", "the username used to login to your email", nil, []string{"install"}},
+	{"smtp_domain", "example.com", "the domain from which the email is sent from", nil, []string{"install"}},
+	{"ssh_password", "demotime", "ssh password", nil, []string{"install"}},
+	{"ssh_private_key", "~/.ssh/id_rsa", "location of ssh private key", nil, []string{"install"}},
+	{"ssh_public_key", "~/.ssh/id_rsa.pub", "location of ssh public key", nil, []string{"install"}},
+	{"ssh_server_address", "172.16.137.36", "ip address of server for ssh connection", []string{"proxmox"}, []string{"install"}},
+	{"ssh_server_gateway", "172.16.137.254", "gateway of server ( example 172.16.137.254 )", nil, []string{"install"}},
+	{"ssh_server_netmask", "24", "amount of ram in MB to assign to the VM ", nil, []string{"install"}},
+	{"ssh_username", "loeken", "ssh usernamer", nil, []string{"install"}},
+	{"storage", "local-path", "storage type ( democratic-csi, local-path, ceph )", []string{"democratic-csi", "local-path", "ceph"}, []string{"install"}},
+
+	// app section
+	{"authelia", "false", "enable argocd app authelia", nil, []string{"enable-argocd-app", "install"}},
+	{"externaldns", "false", "enable argocd app external-dns", nil, []string{"enable-argocd-app", "install"}},
+	{"loki", "false", "enable argocd app loki", nil, []string{"enable-argocd-app", "install"}},
+	{"ha", "false", "enable argocd app home-assistant", nil, []string{"enable-argocd-app", "install"}},
+	{"shared_media_disk_size", "100Gi", "define the size of the shared media disk", nil, []string{"enable-argocd-app", "install"}},
+	{"shared_media_disk_device", "vdb", "give the device name inside your system to use for the shared media disk", nil, []string{"enable-argocd-app", "install"}},
+	{"jellyfin", "false", "enable argocd app jellyfin", nil, []string{"enable-argocd-app", "install"}},
+	{"jellyseerr", "false", "enable argocd app jellyseerr", nil, []string{"enable-argocd-app", "install"}},
+	{"kasten-k10", "false", "enable argocd app kasten-k10", nil, []string{"enable-argocd-app", "install"}},
+	{"nextcloud", "false", "enable argocd app nextcloud", nil, []string{"enable-argocd-app", "install"}},
+	{"nzbget", "false", "enable argocd app nzbget", nil, []string{"enable-argocd-app", "install"}},
+	{"prowlarr", "false", "enable argocd app prowlarr", nil, []string{"enable-argocd-app", "install"}},
+	{"radarr", "false", "enable argocd app radarr", nil, []string{"enable-argocd-app", "install"}},
+	{"rtorrentflood", "false", "enable argocd app rtorrent-flood", nil, []string{"enable-argocd-app", "install"}},
+	{"sonarr", "false", "enable argocd app sonarr", nil, []string{"enable-argocd-app", "install"}},
+	{"vaultwarden", "false", "enable argocd app vaultwarden", nil, []string{"enable-argocd-app", "install"}},
+	{"whoami", "true", "enable argocd app whoami", nil, []string{"enable-argocd-app", "install"}},
+
+	{"nginxingress", "false", "enable argocd app nginx-ingress", nil, []string{"enable-argocd-app", "install"}},
+}
+
+type Command struct {
+	Name         string
+	VersionArg   []string
+	VersionRegex string
+	ExpectedVer  string
+}
+
+func main() {
+	rootCmd := &cobra.Command{
+		Use:   "./setup",
+		Short: "My command line app",
+	}
+	dependencyCheckCmd := &cobra.Command{
+		Use:   "check-dependencies",
+		Short: "Check if all needed dependencies are installed on this system",
+		Run: func(cmd *cobra.Command, args []string) {
+			new_repo := viper.GetString("new_repo")
+			if new_repo == "" {
+				color.Red("--new_repo should be set")
+				os.Exit(0)
+			}
+			parts := strings.Split(new_repo, "/")
+			checkDependencies(true, parts[1])
+		},
+	}
+	// enableArgocdApp := &cobra.Command{
+	// 	Use:   "enable-argocd-app",
+	// 	Short: "little helper to load sealed secrets",
+	// 	Run: func(cmd *cobra.Command, args []string) {
+	// 		authelia := viper.GetString("authelia")
+	// 		if authelia != "" {
+	// 			runCommand(".", "kubectl", []string{"create", "namespace", "authelia"})
+	// 			loadSecretFromTemplate("authelia", "authelia")
+	// 		}
+	// 	},
+	// }
+	githubCmd := &cobra.Command{
+		Use: "github",
+		Example: `
+		# to create a new repo called loeken/homelab-beelink in the /home/loeken/Projects/private folder:
+		
+		./setup github --new_repo loeken/homelab-beelink --local_path /home/loeken/Projects/private
+		
+		`,
+		Short: "Create/clone/configure upstream of loeken/homelab in my github account by using the gh command line client",
+		Run: func(cmd *cobra.Command, args []string) {
+			// your GitHub-related
+			checkDependencies(false, "")
+			new_repo := viper.GetString("new_repo")
+			parts := strings.Split(new_repo, "/")
+			local_path := viper.GetString("local_path")
+
+			if new_repo == "" {
+				color.Red("--new_repo should be set")
+				os.Exit(0)
+			}
+
+			if local_path == "" {
+				color.Red("--local_path should be set")
+				os.Exit(0)
+			}
+
+			// removing former existence of files in ../tmp
+			runCommand("../tmp", "rm", []string{"-rf", "homelab.git"})
+
+			// cloning loeken/homelab into ../tmp
+			runCommand("../tmp", "git", []string{"clone", "--bare", "https://github.com/loeken/homelab"})
+
+			// creating new repo parts[1] as a private repo
+			runCommand("../tmp", "gh", []string{"repo", "create", parts[1], "--private"})
+
+			// pushing locally cloned repo to newly created repo: parts[1]
+			runCommand("../tmp/homelab.git", "git", []string{"push", "--mirror", "git@github.com:" + new_repo})
+
+			// creating local_path if it doesnt exist yet
+			runCommand(".", "mkdir", []string{"-p", local_path})
+
+			// pulling newly created repo: new_repo to local_path
+			runCommand(local_path, "git", []string{"clone", "git@github.com:" + new_repo})
+
+			// registering loeken/homelab as an upstream for the new repo
+			runCommand(local_path+"/"+parts[1], "git", []string{"remote", "add", "upstream", "https://github.com/loeken/homelab.git"})
+
+			// genearting a ssh-keyring of type id_rsa
+			runCommand(local_path+"/"+parts[1]+"/tmp", "ssh-keygen", []string{"-t", "rsa", "-f", "id_rsa", "-C", "argocd@homelab"})
+
+			// uploading the newly created key's public key to github as a deploy key so argocd will be able to pull from the repo
+			runCommand(local_path+"/"+parts[1]+"/tmp", "gh", []string{"repo", "deploy-key", "add", "id_rsa.pub", "--repo", new_repo})
+
+			// opening up a new instance of vscode, cd setup there and ./setup install -h
+			runCommand(".", "code", []string{local_path + "/" + parts[1]})
+
+		},
+	}
+	installCmd := &cobra.Command{
+		Use:   "install",
+		Short: "install the stack",
+		Example: `
+1. in Proxmox
+	# to install onto a debian 11 inside a kvm, using local-path storage and cloudflare tunnels for ingress
+	
+		./setup install --authelia false \
+						--domain loeken.xyz \
+						--email loeken@internetz.me \
+						--external_ip 94.134.58.232 \
+						--externaldns false \
+						--ha true \
+						--ingress cloudflaretunnel \
+						--jellyfin true \
+						--jellyseerr true \
+						--kasten-k10 true \
+						--loki true \
+						--new_repo loeken/homelab-beelink \
+						--nextcloud true \
+						--nzbget true \
+						--platform baremetal \
+						--prowlarr true \
+						--radarr true \
+						--sonarr true \
+						--rtorrentflood true \
+						--shared_media_disk_size 400Gi \
+						--shared_media_disk_device vdb \
+						--smtp_domain internetz.me \
+						--smtp_host mail.internetz.me \
+						--smtp_port 587 \
+						--smtp_sender homelab-beelink@internetz.me \
+						--smtp_username homelab-beelink@internetz.me \
+						--storage local-path \
+						--vaultwarden true
+	`,
+		Run: func(cmd *cobra.Command, args []string) {
+			checkDependencies(false, "")
+			storage := viper.GetString("storage")
+			//dr := viper.GetString("disaster_recovery")
+			platform := viper.GetString("platform")
+
+			new_repo := viper.GetString("new_repo")
+			email := viper.GetString("email")
+			domain := viper.GetString("domain")
+			external_ip := viper.GetString("external_ip")
+			git_parts := strings.Split(new_repo, "/")
+
+			ingress := viper.GetString("ingress")
+			clusterissuer := viper.GetString("cluster-issuer")
+
+			smtp_host := viper.GetString("smtp_host")
+			smtp_port := viper.GetString("smtp_port")
+			smtp_username := viper.GetString("smtp_username")
+			smtp_sender := viper.GetString("smtp_sender")
+			smtp_domain := viper.GetString("smtp_domain")
+
+			installAuthelia := viper.GetString("authelia")
+			installExternalDns := viper.GetString("externaldns")
+			installLoki := viper.GetString("loki")
+			installHa := viper.GetString("ha")
+			installNextcloud := viper.GetString("nextcloud")
+			installSharedMediaDiskSize := viper.GetString("shared_media_disk_size")
+			installSharedMediaDevice := viper.GetString("shared_media_disk_device")
+			installJellyfin := viper.GetString("jellyfin")
+			installJellyseerr := viper.GetString("jellyseerr")
+			installK10 := viper.GetString("kasten-k10")
+			installRtorrentFlood := viper.GetString("rtorrentflood")
+			installNzbget := viper.GetString("nzbget")
+			installProwlarr := viper.GetString("prowlarr")
+			installRadarr := viper.GetString("radarr")
+			installSonarr := viper.GetString("sonarr")
+			installVaultwarden := viper.GetString("vaultwarden")
+
+			// pciPassthrough := viper.GetString("pci_passthrough")
+			// pciDevice := viper.GetString("pci_device")
+
+			u, err := user.Current()
+			if err != nil {
+				fmt.Println(err)
+				return
+			}
+
+			// validation section start
+			checkRepo()
+			color.Yellow("validating inputs")
+			if email == "" {
+				color.Red("you need to set an --email <youremail>")
+				os.Exit(0)
+			}
+			if new_repo == "" {
+				color.Red("you need to set a --new_repo <you/whatever>")
+				os.Exit(0)
+			}
+			if domain == "" {
+				color.Red("you need to set an --domain <internetz.me>")
+				os.Exit(0)
+			}
+			if external_ip == "1.2.3.4" {
+				color.Red("you need to setup an --external_ip <1.2.3.4> - that is not 1.2.3.4")
+				os.Exit(0)
+			}
+			if installAuthelia == "true" {
+				if smtp_host == "mail.example.com" || smtp_port == "" || smtp_username == "homelab@example.com" || smtp_sender == "homelab@example.com" {
+					color.Red("when installing authelia you need to provide --smtp_host mail.example.com --smtp_port 587 --smtp_username homelab@example.com --smtp_sender homelab@example.com")
+					os.Exit(0)
+				}
+				if ingress == "cloudflaretunnel" {
+					color.Red("authelia currently only works with cloudflaretunnel untill somebody can show me how to redirect traffic for cloudflare tunnels to use authelia :)")
+					os.Exit(0)
+				}
+			}
+			if installNextcloud == "true" {
+				if smtp_host == "mail.example.com" || smtp_port == "" || smtp_username == "homelab@example.com" || smtp_sender == "homelab@example.com" || smtp_domain == "example.com" {
+					color.Red("when installing nextcloud you need to provide --smtp_host mail.example.com --smtp_port 587 --smtp_username homelab@example.com --smtp_sender homelab@example.com --smtp-domain example.com")
+					os.Exit(0)
+				}
+			}
+			if installJellyfin == "true" || installRtorrentFlood == "true" || installNzbget == "true" || installRadarr == "true" || installSonarr == "true" {
+				if installSharedMediaDiskSize == "" || installSharedMediaDevice == "" {
+					color.Red("jellyfin/rtorrent/nzbget needs a shared media disk device and size to be created: --shared_media_disk_size 100Gi")
+					os.Exit(0)
+				}
+			}
+
+			// validation section end
+
+			color.Yellow("writing deploy/terraform/terraform.tfvars")
+			var tfvarsContent string
+			for _, opt := range options {
+				tfvarsContent += fmt.Sprintf("%s = \"%s\"\n", opt.name, viper.GetString(opt.name))
+			}
+
+			filename := "../deploy/terraform/terraform.tfvars"
+			if _, err := os.Stat(filename); os.IsNotExist(err) {
+				// Create the file if it doesn't exist
+				if err = ioutil.WriteFile(filename, []byte(tfvarsContent), 0644); err != nil {
+					color.Red(fmt.Sprintf("Error creating file %s: %s\n", filename, err))
+				} else {
+					color.Green(fmt.Sprintf("Created file %s\n", filename))
+				}
+			} else {
+				// Update the file if it exists
+				if err = ioutil.WriteFile(filename, []byte(tfvarsContent), 0644); err != nil {
+					color.Red(fmt.Sprintf("Error updating file %s: %s\n", filename, err))
+				} else {
+					color.Green(fmt.Sprintf("Updated file %s\n", filename))
+				}
+			}
+
+			for _, opt := range options {
+				color.Green(fmt.Sprintf("%s: %s\n", opt.name, viper.GetString(opt.name)))
+			}
+			confirmContinue()
+
+			if platform == "proxmox" {
+				color.Green("terraform proxmox")
+				runTerraformCommand("proxmox")
+
+				color.Green("terraform template")
+				runTerraformCommand("proxmox-debian-11-template")
+
+				color.Green("terraform k3s proxmox")
+				runTerraformCommand("k3s-proxmox")
+
+			}
+			if platform == "baremetal" {
+				color.Green("terraform k3s")
+				runTerraformCommand("k3s")
+			}
+
+			// prepare the bootstrap values files
+			runCommand(".", "cp", []string{"../deploy/argocd/bootstrap-core-apps/values.yaml.example", "../deploy/argocd/bootstrap-core-apps/values.yaml"})
+
+			// set values for core chart
+			runCommand(".", "sed", []string{"-i", "s/loeken/" + git_parts[0] + "/", "../deploy/argocd/bootstrap-core-apps/values.yaml"})
+			runCommand(".", "sed", []string{"-i", "s/homelab-example/" + git_parts[1] + "/", "../deploy/argocd/bootstrap-core-apps/values.yaml"})
+			runCommand(".", "sed", []string{"-i", "s/youremail@example.com/" + email + "/", "../deploy/argocd/bootstrap-core-apps/values.yaml"})
+
+			data, err := ioutil.ReadFile("../deploy/argocd/bootstrap-optional-apps/values.yaml.example")
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			// Unmarshal the YAML data into a map
+			config := make(map[string]interface{})
+			err = yaml.Unmarshal(data, &config)
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			// Modify some values
+			config["domain"] = domain
+			config["githubUser"] = git_parts[0]
+			config["githubRepo"] = git_parts[1]
+
+			if ingress == "cloudflaretunnel" {
+				config["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = true
+				config["nginxingress"].(map[interface{}]interface{})["enabled"] = false
+			}
+			if ingress == "nginx" {
+				config["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = false
+				config["nginxingress"].(map[interface{}]interface{})["enabled"] = true
+				config["clusterIssuer"] = clusterissuer
+			}
+			if installAuthelia == "true" {
+				config["authelia"].(map[interface{}]interface{})["enabled"] = true
+				autheliaConfig := make(map[interface{}]interface{})
+				autheliaConfig["smtp"] = make(map[interface{}]interface{})
+				autheliaConfig["smtp"].(map[interface{}]interface{})["host"] = smtp_host
+				autheliaConfig["smtp"].(map[interface{}]interface{})["port"] = smtp_port
+				autheliaConfig["smtp"].(map[interface{}]interface{})["sender"] = smtp_sender
+				autheliaConfig["smtp"].(map[interface{}]interface{})["username"] = smtp_username
+				config["authelia"].(map[interface{}]interface{})["smtp"] = autheliaConfig["smtp"]
+			}
+			if installExternalDns == "true" {
+				config["externaldns"].(map[interface{}]interface{})["enabled"] = true
+			}
+			if installLoki == "true" {
+				config["loki"].(map[interface{}]interface{})["enabled"] = true
+			}
+			if installHa == "true" {
+				config["ha"].(map[interface{}]interface{})["enabled"] = true
+			}
+			if installSharedMediaDiskSize != "false" {
+				// config["jellyfin"].(map[interface{}]interface{})["enabled"] = true
+				sharedMediaConfig := make(map[interface{}]interface{})
+				sharedMediaConfig["sharedmedia"] = make(map[interface{}]interface{})
+				sharedMediaConfig["sharedmedia"].(map[interface{}]interface{})["enabled"] = true
+				sharedMediaConfig["sharedmedia"].(map[interface{}]interface{})["size"] = installSharedMediaDiskSize
+				if storage == "local-path" {
+					sharedMediaConfig["sharedmedia"].(map[interface{}]interface{})["storageClass"] = "nfs-client"
+				} else {
+					sharedMediaConfig["sharedmedia"].(map[interface{}]interface{})["storageClass"] = storage
+				}
+			}
+			if installNextcloud == "true" {
+				nextcloudConfig := make(map[interface{}]interface{})
+				nextcloudConfig["enabled"] = true
+				nextcloudConfig["authelia"] = installAuthelia
+
+				nextcloudConfig["smtp"] = make(map[interface{}]interface{})
+				nextcloudConfig["smtp"].(map[interface{}]interface{})["host"] = smtp_host
+				nextcloudConfig["smtp"].(map[interface{}]interface{})["port"] = smtp_port
+				nextcloudConfig["smtp"].(map[interface{}]interface{})["sender"] = smtp_sender
+				nextcloudConfig["smtp"].(map[interface{}]interface{})["username"] = smtp_username
+				nextcloudConfig["smtp"].(map[interface{}]interface{})["domain"] = smtp_domain
+
+				nextcloudConfig["data"] = make(map[interface{}]interface{})
+				nextcloudConfig["data"].(map[interface{}]interface{})["storageClass"] = storage
+				nextcloudConfig["data"].(map[interface{}]interface{})["size"] = "10Gi"
+
+				nextcloudConfig["ingress"] = make(map[interface{}]interface{})
+				nextcloudConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"] = make(map[interface{}]interface{})
+				nextcloudConfig["ingress"].(map[interface{}]interface{})["nginx"] = make(map[interface{}]interface{})
+				if ingress == "nginx" {
+					nextcloudConfig["ingress"].(map[interface{}]interface{})["nginx"].(map[interface{}]interface{})["enabled"] = true
+					nextcloudConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = false
+				}
+				if ingress == "cloudflaretunnel" {
+					nextcloudConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = true
+					nextcloudConfig["ingress"].(map[interface{}]interface{})["nginx"].(map[interface{}]interface{})["enabled"] = false
+				}
+
+				config["nextcloud"] = nextcloudConfig
+			}
+			if storage == "local-path" {
+
+				config["nfsprovisioner"].(map[interface{}]interface{})["enabled"] = true
+				if platform == "baremetal" {
+					config["nfsprovisioner"].(map[interface{}]interface{})["ip"] = viper.GetString("ssh_server_address")
+				}
+
+			}
+			if installJellyfin == "true" {
+				jellyfinConfig := make(map[interface{}]interface{})
+				jellyfinConfig["enabled"] = true
+				jellyfinConfig["sharedmedia"] = make(map[interface{}]interface{})
+				jellyfinConfig["sharedmedia"].(map[interface{}]interface{})["size"] = installSharedMediaDiskSize
+				jellyfinConfig["sharedmedia"].(map[interface{}]interface{})["enabled"] = true
+				if storage == "local-path" {
+					jellyfinConfig["sharedmedia"].(map[interface{}]interface{})["storageClass"] = "nfs-client"
+					jellyfinConfig["sharedmedia"].(map[interface{}]interface{})["existingClaim"] = "shared-media"
+				} else {
+					jellyfinConfig["sharedmedia"].(map[interface{}]interface{})["storageClass"] = storage
+				}
+
+				jellyfinConfig["config"] = make(map[interface{}]interface{})
+				jellyfinConfig["config"].(map[interface{}]interface{})["size"] = "1Gi"
+				jellyfinConfig["config"].(map[interface{}]interface{})["enabled"] = true
+				jellyfinConfig["config"].(map[interface{}]interface{})["storageClass"] = "local-path"
+
+				jellyfinConfig["cache"] = make(map[interface{}]interface{})
+				jellyfinConfig["cache"].(map[interface{}]interface{})["size"] = "10Gi"
+				jellyfinConfig["cache"].(map[interface{}]interface{})["enabled"] = true
+				jellyfinConfig["cache"].(map[interface{}]interface{})["storageClass"] = "local-path"
+
+				jellyfinConfig["ingress"] = make(map[interface{}]interface{})
+				jellyfinConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"] = make(map[interface{}]interface{})
+				jellyfinConfig["ingress"].(map[interface{}]interface{})["nginx"] = make(map[interface{}]interface{})
+				if ingress == "nginx" {
+					jellyfinConfig["ingress"].(map[interface{}]interface{})["nginx"].(map[interface{}]interface{})["enabled"] = true
+					jellyfinConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = false
+				}
+				if ingress == "cloudflaretunnel" {
+					jellyfinConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = true
+					jellyfinConfig["ingress"].(map[interface{}]interface{})["nginx"].(map[interface{}]interface{})["enabled"] = false
+				}
+
+				config["jellyfin"] = jellyfinConfig
+			}
+			if installRtorrentFlood == "true" {
+				rtorrentConfig := make(map[interface{}]interface{})
+				rtorrentConfig["enabled"] = true
+				rtorrentConfig["useAuthelia"] = false
+				rtorrentConfig["linkerd"] = false
+				rtorrentConfig["size"] = "10Gi"
+				rtorrentConfig["storageClass"] = storage
+
+				rtorrentConfig["ingress"] = make(map[interface{}]interface{})
+				rtorrentConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"] = make(map[interface{}]interface{})
+				rtorrentConfig["ingress"].(map[interface{}]interface{})["nginx"] = make(map[interface{}]interface{})
+				if ingress == "nginx" {
+					rtorrentConfig["ingress"].(map[interface{}]interface{})["nginx"].(map[interface{}]interface{})["enabled"] = true
+					rtorrentConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = false
+				}
+				if ingress == "cloudflaretunnel" {
+					rtorrentConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = true
+					rtorrentConfig["ingress"].(map[interface{}]interface{})["nginx"].(map[interface{}]interface{})["enabled"] = false
+				}
+
+				config["rtorrentflood"] = rtorrentConfig
+			}
+			if installNzbget == "true" {
+				nzbgetConfig := make(map[interface{}]interface{})
+				nzbgetConfig["enabled"] = true
+				nzbgetConfig["useAuthelia"] = false
+				nzbgetConfig["linkerd"] = false
+				nzbgetConfig["size"] = "10Gi"
+				nzbgetConfig["storageClass"] = storage
+				// storage section
+
+				// ingress section
+				nzbgetConfig["ingress"] = make(map[interface{}]interface{})
+				nzbgetConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"] = make(map[interface{}]interface{})
+				nzbgetConfig["ingress"].(map[interface{}]interface{})["nginx"] = make(map[interface{}]interface{})
+				if ingress == "nginx" {
+					nzbgetConfig["ingress"].(map[interface{}]interface{})["nginx"].(map[interface{}]interface{})["enabled"] = true
+					nzbgetConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = false
+				}
+				if ingress == "cloudflaretunnel" {
+					nzbgetConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = true
+					nzbgetConfig["ingress"].(map[interface{}]interface{})["nginx"].(map[interface{}]interface{})["enabled"] = false
+				}
+
+				config["nzbget"] = nzbgetConfig
+			}
+			if installRadarr == "true" {
+				radarrConfig := make(map[interface{}]interface{})
+				radarrConfig["enabled"] = true
+				radarrConfig["useAuthelia"] = false
+				radarrConfig["linkerd"] = false
+				radarrConfig["size"] = "1Gi"
+				radarrConfig["storageClass"] = storage
+				// storage section
+
+				// ingress section
+				radarrConfig["ingress"] = make(map[interface{}]interface{})
+				radarrConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"] = make(map[interface{}]interface{})
+				radarrConfig["ingress"].(map[interface{}]interface{})["nginx"] = make(map[interface{}]interface{})
+				if ingress == "nginx" {
+					radarrConfig["ingress"].(map[interface{}]interface{})["nginx"].(map[interface{}]interface{})["enabled"] = true
+					radarrConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = false
+				}
+				if ingress == "cloudflaretunnel" {
+					radarrConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = true
+					radarrConfig["ingress"].(map[interface{}]interface{})["nginx"].(map[interface{}]interface{})["enabled"] = false
+				}
+
+				config["radarr"] = radarrConfig
+			}
+			if installSonarr == "true" {
+				sonarrConfig := make(map[interface{}]interface{})
+				sonarrConfig["enabled"] = true
+				sonarrConfig["useAuthelia"] = false
+				sonarrConfig["linkerd"] = false
+				sonarrConfig["size"] = "1Gi"
+				sonarrConfig["storageClass"] = storage
+				// storage section
+
+				// ingress section
+				sonarrConfig["ingress"] = make(map[interface{}]interface{})
+				sonarrConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"] = make(map[interface{}]interface{})
+				sonarrConfig["ingress"].(map[interface{}]interface{})["nginx"] = make(map[interface{}]interface{})
+				if ingress == "nginx" {
+					sonarrConfig["ingress"].(map[interface{}]interface{})["nginx"].(map[interface{}]interface{})["enabled"] = true
+					sonarrConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = false
+				}
+				if ingress == "cloudflaretunnel" {
+					sonarrConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = true
+					sonarrConfig["ingress"].(map[interface{}]interface{})["nginx"].(map[interface{}]interface{})["enabled"] = false
+				}
+
+				config["sonarr"] = sonarrConfig
+			}
+			if installVaultwarden == "true" {
+				vaultwardenConfig := make(map[interface{}]interface{})
+				vaultwardenConfig["enabled"] = true
+				vaultwardenConfig["useAuthelia"] = false
+				vaultwardenConfig["linkerd"] = false
+				vaultwardenConfig["size"] = "1Gi"
+				vaultwardenConfig["storageClass"] = storage
+				// storage section
+
+				// ingress section
+				vaultwardenConfig["ingress"] = make(map[interface{}]interface{})
+				vaultwardenConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"] = make(map[interface{}]interface{})
+				vaultwardenConfig["ingress"].(map[interface{}]interface{})["nginx"] = make(map[interface{}]interface{})
+				if ingress == "nginx" {
+					vaultwardenConfig["ingress"].(map[interface{}]interface{})["nginx"].(map[interface{}]interface{})["enabled"] = true
+					vaultwardenConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = false
+				}
+				if ingress == "cloudflaretunnel" {
+					vaultwardenConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = true
+					vaultwardenConfig["ingress"].(map[interface{}]interface{})["nginx"].(map[interface{}]interface{})["enabled"] = false
+				}
+
+				config["vaultwarden"] = vaultwardenConfig
+			}
+			if installProwlarr == "true" {
+				prowlarrConfig := make(map[interface{}]interface{})
+				prowlarrConfig["enabled"] = true
+				prowlarrConfig["useAuthelia"] = false
+				prowlarrConfig["linkerd"] = false
+				prowlarrConfig["size"] = "1Gi"
+				prowlarrConfig["storageClass"] = storage
+				// storage section
+
+				// ingress section
+				prowlarrConfig["ingress"] = make(map[interface{}]interface{})
+				prowlarrConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"] = make(map[interface{}]interface{})
+				prowlarrConfig["ingress"].(map[interface{}]interface{})["nginx"] = make(map[interface{}]interface{})
+				if ingress == "nginx" {
+					prowlarrConfig["ingress"].(map[interface{}]interface{})["nginx"].(map[interface{}]interface{})["enabled"] = true
+					prowlarrConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = false
+				}
+				if ingress == "cloudflaretunnel" {
+					prowlarrConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = true
+					prowlarrConfig["ingress"].(map[interface{}]interface{})["nginx"].(map[interface{}]interface{})["enabled"] = false
+				}
+
+				config["prowlarr"] = prowlarrConfig
+			}
+			if installJellyseerr == "true" {
+				jellyseerrConfig := make(map[interface{}]interface{})
+				jellyseerrConfig["enabled"] = true
+				jellyseerrConfig["useAuthelia"] = false
+				jellyseerrConfig["linkerd"] = false
+
+				jellyseerrConfig["ingress"] = make(map[interface{}]interface{})
+				jellyseerrConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"] = make(map[interface{}]interface{})
+				jellyseerrConfig["ingress"].(map[interface{}]interface{})["nginx"] = make(map[interface{}]interface{})
+				if ingress == "nginx" {
+					jellyseerrConfig["ingress"].(map[interface{}]interface{})["nginx"].(map[interface{}]interface{})["enabled"] = true
+					jellyseerrConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = false
+				}
+				if ingress == "cloudflaretunnel" {
+					jellyseerrConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = true
+					jellyseerrConfig["ingress"].(map[interface{}]interface{})["nginx"].(map[interface{}]interface{})["enabled"] = false
+				}
+
+				config["jellyseerr"] = jellyseerrConfig
+			}
+			if installK10 == "true" {
+				config["k10"].(map[interface{}]interface{})["enabled"] = true
+				config["k10"].(map[interface{}]interface{})["storageClass"] = storage
+			}
+			// Marshal the modified map into YAML
+			modifiedData, err := yaml.Marshal(&config)
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			// Save the modified YAML to a new file
+			err = ioutil.WriteFile("../deploy/argocd/bootstrap-optional-apps/values.yaml", modifiedData, 0644)
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			runCommand(".", "git", []string{"add", "../deploy/argocd/bootstrap-core-apps/values.yaml"})
+			runCommand(".", "git", []string{"add", "../deploy/argocd/bootstrap-optional-apps/values.yaml"})
+			runCommand(".", "git", []string{"commit", "-m", "initial commit of values.yaml for argocd bootstrap apps"})
+			runCommand(".", "git", []string{"pull"})
+			runCommand(".", "git", []string{"push"})
+
+			runCommand("~", "cp", []string{".kube/config", ".kube/config.bak"})
+			runCommand("../tmp", "sed", []string{"-i", "s/default/" + git_parts[1] + "/g", "kubeconfig"})
+
+			fmt.Println(u.HomeDir + "/.kube/config.tmp")
+
+			MergeConfigs("../tmp/kubeconfig", u.HomeDir+"/.kube/config", u.HomeDir+"/.kube/config")
+			runCommand("~", "kubectl", []string{"config", "use-context", git_parts[1]})
+
+			// loading secret before argocd so it can sync straight away
+
+			runTerraformCommand("sealed-secrets")
+			loadSecretFromTemplate("argocd", "repo")
+			fmt.Println("terraform bootstrap argocd")
+
+			runTerraformCommand("bootstrap-argocd")
+
+			if ingress == "cloudflaretunnel" {
+				fmt.Println("you selected cloudflare ingress please login")
+				runCommand("../tmp", "cloudflared", []string{"login"})
+				runCommand("../tmp", "kubectl", []string{"create", "namespace", "cloudflaretunnel"})
+				runCommand("../tmp", "cloudflared", []string{"tunnel", "create", "homelab-tunnel"})
+				runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "whoami." + domain})
+				// runCommand(".", "kubectl", []string{"wait", "--for=condition=ready", "pod", "-n", "kube-system", "-l", "app.kubernetes.io/instance=sealed-secrets-controller", "--timeout=300s"})
+
+				waitForPodReady("kube-system", "sealed-secrets-controller")
+				cfTunnelId := cloudflaretunnel("homelab-tunnel")
+				cloudflaresecret(cfTunnelId, *u)
+			}
+			color.Green("---")
+			color.Green("starting installation of additional apps")
+			color.Green("supports multiline input, if single line input press enter twice")
+
+			// wave 12
+			if installExternalDns == "true" {
+				color.Green("you need to create an api token @ https://dash.cloudflare.com/profile/api-tokens")
+				color.Green("The token should be granted Zone Read, DNS Edit privileges, and access to All zones. Example config:")
+				color.Green("")
+				color.Green("Section Permissions:")
+				color.Green("Zone 		Zone 			Read")
+				color.Green("Zone 		DNS 			Edit")
+				color.Green("")
+				color.Green("Zone Resource:")
+				color.Green("Include	Specific Zone	loeken.xyz")
+				color.Green("")
+				color.Green("the helm chart is also setup for external dns to only use the --domain you specified")
+				color.Green("input settings for external-dns:")
+				loadSecretFromTemplate("external-dns", "externaldns")
+			}
+
+			// wave 13
+			if installAuthelia == "true" {
+				// Generate password hash
+				color.Blue("input settings for AUTHELIA:")
+				_, err := os.Stat("../tmp/authelia_users_database.yml")
+				if err != nil {
+					loadSecretFromTemplate("authelia", "authelia")
+
+					generateAutheliaUsersDatabase()
+					color.Green("waiting for authelia to be up, to upload /config/users_database.yml")
+				}
+
+				waitForPodReady("authelia", "authelia")
+				runCommand("../tmp", "kubectl", []string{"cp", "authelia_users_database.yml", "authelia/authelia-0:/config/users_database.yml"})
+
+				if ingress == "cloudflaretunnel" {
+					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "auth." + domain})
+				}
+			}
+			// wave 13
+			if installVaultwarden == "true" {
+				loadSecretFromTemplate("vaultwarden", "vaultwarden")
+				waitForPodReady("vaultwarden", "vaultwarden")
+				if ingress == "cloudflaretunnel" {
+					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "vaultwarden." + domain})
+				}
+			}
+			// wave 14
+			if installNextcloud == "true" {
+				loadSecretFromTemplate("nextcloud", "nextcloud")
+				waitForPodReady("nextcloud", "nextcloud")
+				if ingress == "cloudflaretunnel" {
+					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "nextcloud." + domain})
+				}
+			}
+			// wave none
+			if installSharedMediaDiskSize != "false" {
+				runCommand(".", "kubectl", []string{"create", "namespace", "media"})
+				err := createPVC("shared-media", "media", "nfs-client", installSharedMediaDiskSize)
+				if err != nil {
+					fmt.Println("error creating shared media disk:", err)
+				} else {
+					color.Green("created shared media pvc")
+				}
+			}
+
+			// wave 20
+			if installJellyfin == "true" {
+				out, err := runCommandWithRetries(".", "kubectl", []string{"wait", "--for=condition=ready", "pod", "-n", "media", "-l", "app.kubernetes.io/instance=jellyfin", "--timeout=300s"}, 30, 10*time.Second)
+				if err != nil {
+					fmt.Printf("Error waiting for pod to be ready: %v\n", err)
+				} else {
+					fmt.Printf("Pod is ready: %s\n", out)
+					podName, err := runCommand(".", "kubectl", []string{"get", "pods", "-n", "media", "-l", "app.kubernetes.io/instance=jellyfin", "-o", "jsonpath='{.items[0].metadata.name}'"})
+					if err != nil {
+						// handle error
+						fmt.Println("error: ", err)
+						os.Exit(3)
+					}
+
+					createFolderJellyfin(podName, "/media/tv")
+					createFolderJellyfin(podName, "/media/movie")
+				}
+				if ingress == "cloudflaretunnel" {
+					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "jellyfin." + domain})
+				}
+			}
+			// wave 21
+			if installJellyseerr == "true" {
+				waitForPodReady("media", "jellyseerr")
+				if ingress == "cloudflaretunnel" {
+					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "jellyseerr." + domain})
+				}
+			}
+
+			// wave 22
+			if installRtorrentFlood == "true" {
+				waitForPodReady("media", "rtorrent-flood")
+				if ingress == "cloudflaretunnel" {
+					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "rtorrent." + domain})
+				}
+			}
+
+			// wave 22
+			if installNzbget == "true" {
+				loadSecretFromTemplate("media", "nzbget")
+				waitForPodReady("media", "nzbget")
+				if ingress == "cloudflaretunnel" {
+					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "rtorrent." + domain})
+				}
+			}
+
+			// wave 23
+			if installProwlarr == "true" {
+				waitForPodReady("media", "prowlarr")
+				if ingress == "cloudflaretunnel" {
+					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "prowlarr." + domain})
+				}
+			}
+			// wave 23
+			if installRadarr == "true" {
+				waitForPodReady("media", "radarr")
+				if ingress == "cloudflaretunnel" {
+					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "radarr." + domain})
+				}
+			}
+			// wave 23
+			if installSonarr == "true" {
+				waitForPodReady("media", "sonarr")
+				if ingress == "cloudflaretunnel" {
+					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "sonarr." + domain})
+				}
+			}
+
+			// wave 30
+			if installLoki == "true" {
+				color.Green("input settings for LOKI:")
+				loadSecretFromTemplate("loki", "loki")
+				waitForPodReady("loki", "loki-stack-charts")
+				if ingress == "cloudflaretunnel" {
+					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "grafana." + domain})
+				}
+			}
+			// wave 30
+			if installHa == "true" {
+				color.Green("input settings for HOME ASSISTANT:")
+				loadSecretFromTemplate("home-assistant", "home-assistant")
+
+				color.Blue("we ll now wait for home assistant to be up this can take a bit of time - expect errors to be displayed untill its up")
+
+				waitForPodReady("home-assistant", "home-assistant")
+				runCommand("../tmp", "kubectl", []string{"cp", "../deploy/helpers/ha_configuration.yml", "home-assistant/home-assistant-0:/config/configuration.yaml"})
+				runCommand("../tmp", "echo", []string{"kubectl", "cp", "../deploy/helpers/ha_configuration.yaml", "home-assistant/home-assistant-0:/config/configuration.yaml"})
+				runCommand(".", "kubectl", []string{"rollout", "restart", "statefulset", "home-assistant", "-n", "home-assistant"})
+
+				if ingress == "cloudflaretunnel" {
+					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "ha." + domain})
+				}
+			}
+
+			color.Green("installation finished you can connect to argocd now:")
+			color.Green("---")
+			color.Green("	kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath=\"{.data.password}\" | base64 -d && echo")
+			color.Green("	kubectl port-forward service/argocd-server -n argocd 8080:443")
+			color.Green("---")
+			color.Green("login and refresh both apps, or wait up to 5 minutes")
+		},
+	}
+
+	destroyCmd := &cobra.Command{
+		Use:   "destroy",
+		Short: "destroy the stack ( DANGER DANGER! :) )",
+		Run: func(cmd *cobra.Command, args []string) {
+			new_repo := viper.GetString("new_repo")
+			parts := strings.Split(new_repo, "/")
+			if new_repo == "" {
+				color.Red("--new_repo should be set")
+				os.Exit(0)
+			}
+
+			checkDependencies(true, parts[1])
+
+			color.Red("this will run terraform destroys on all terraform folders")
+			confirmContinue()
+			runCommand("../deploy/terraform/bootstrap-argocd", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
+			runCommand("../deploy/terraform/k3s-proxmox", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
+			// runCommand("../deploy/terraform/proxmox-debian-11-template", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
+			// runCommand("../deploy/terraform/proxmox", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
+
+			runCommand("../tmp", "cloudflared", []string{"tunnel", "delete", "homelab-tunnel"})
+		},
+	}
+
+	// Add subcommands to root command
+	rootCmd.AddCommand(githubCmd)
+	//rootCmd.AddCommand(enableArgocdApp)
+	rootCmd.AddCommand(installCmd)
+	rootCmd.AddCommand(destroyCmd)
+	rootCmd.AddCommand(dependencyCheckCmd)
+
+	// Add options to subcommand based on command line argument
+
+	for _, opt := range options {
+
+		for _, tag := range opt.tags {
+
+			//fmt.Println(opt.name, " ", tag)
+			if tag == os.Args[1:][0] {
+				var cmdToAddOptions *cobra.Command
+
+				switch os.Args[1:][0] {
+				case "github":
+					cmdToAddOptions = githubCmd
+				case "install":
+					cmdToAddOptions = installCmd
+				case "check-dependencies":
+					cmdToAddOptions = dependencyCheckCmd
+				// case "enable-argocd-app":
+				// 	cmdToAddOptions = enableArgocdApp
+				case "destroy":
+					cmdToAddOptions = destroyCmd
+				}
+				cmdToAddOptions.Flags().String(opt.name, opt.defaultValue, opt.usage)
+				cmdToAddOptions.RegisterFlagCompletionFunc(opt.name, func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+					return opt.tags, cobra.ShellCompDirectiveNoFileComp
+				})
+
+				viper.BindPFlag(opt.name, cmdToAddOptions.Flags().Lookup(opt.name))
+			}
+		}
+	}
+	// Read in config file if it exists
+	viper.SetConfigName(".setup")
+	viper.AddConfigPath(".")
+	err := viper.ReadInConfig()
+	if err != nil {
+		if _, ok := err.(viper.ConfigFileNotFoundError); !ok {
+			// Handle errors reading the config file
+		} else {
+			// Create the config file if it doesn't exist
+			configPath := filepath.Join(".", ".setup.yaml")
+			f, err := os.Create(configPath)
+			if err != nil {
+				// Handle errors creating the file
+				fmt.Println("error creating config file")
+			}
+			f.Close()
+		}
+	}
+
+	// Write config file with flags
+	err = viper.WriteConfig()
+	if err != nil {
+		// Handle errors writing the config file
+		fmt.Println("error writing config: ", err)
+	}
+	viper.AutomaticEnv()
+
+	if err := rootCmd.Execute(); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+}
+func runTerraformCommand(folder string) {
+	runCommand("../deploy/terraform/"+folder, "terraform", []string{"init"})
+	runCommand("../deploy/terraform/"+folder, "terraform", []string{"apply", "-auto-approve", "-var-file=../terraform.tfvars"})
+}
+func runCommand(folder string, command string, args []string) (string, error) {
+	// Get the absolute path of the folder
+	var absFolder string
+	if folder[0] == '~' {
+		u, err := user.Current()
+		if err != nil {
+			return "", fmt.Errorf("error getting absolute path for folder %s: %w", folder, err)
+		}
+		folder = filepath.Join(u.HomeDir, folder[1:])
+
+		absFolder, err = filepath.Abs(folder)
+		if err != nil {
+			return "", fmt.Errorf("error getting absolute path for folder %s: %w", folder, err)
+		}
+
+	} else {
+		var err error
+		absFolder, err = filepath.Abs(folder)
+		if err != nil {
+			return "", fmt.Errorf("error getting absolute path for folder %s: %w", folder, err)
+		}
+	}
+
+	// Create the command
+
+	cmd := exec.Command(command, args...)
+	fmt.Println("---")
+	color.Blue("Executing command in: " + absFolder)
+	color.Yellow("Raw command: %v\n", cmd.String())
+	cmd.Dir = absFolder
+
+	// Capture the stdout and stderr of the command
+	var stdout, stderr bytes.Buffer
+	cmd.Stdout = io.MultiWriter(os.Stdout, &stdout)
+	cmd.Stderr = io.MultiWriter(os.Stderr, &stderr)
+
+	// Start the command
+	if err := cmd.Start(); err != nil {
+		return "", fmt.Errorf("error starting command %s: %w", command, err)
+	}
+
+	// Wait for the command to finish
+	if err := cmd.Wait(); err != nil {
+		return stderr.String(), fmt.Errorf("error running command %s: %w\nstderr: %s", command, err, stderr.String())
+	}
+
+	return stdout.String(), nil
+}
+func runCommandWithRetries(folder string, command string, args []string, maxRetries int, retryTimeout time.Duration) (string, error) {
+	var out string
+	var err error
+
+	for i := 0; i <= maxRetries; i++ {
+		out, err = runCommand(folder, command, args)
+		if err == nil {
+			return out, nil
+		}
+		fmt.Printf("Error executing command: %v\nRetrying in %v...\n", err, retryTimeout)
+		time.Sleep(retryTimeout)
+	}
+	return out, fmt.Errorf("command execution failed after %d attempts: %v", maxRetries, err)
+}
+func checkRepo() {
+
+	cmd := exec.Command("sh", "-c", "cat ../.git/config | grep url |grep -v loeken/homelab.git| cut -d' ' -f 3")
+
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	err := cmd.Run()
+	if err != nil {
+		fmt.Println("Error running command:", err)
+		return
+	}
+	repo := strings.TrimSpace(out.String())
+	if strings.HasPrefix(repo, "git@github.com:") {
+		repo = strings.TrimPrefix(repo, "git@github.com:")
+	} else {
+		repo = strings.TrimPrefix(repo, "https://github.com/")
+	}
+	repo = strings.TrimSuffix(repo, ".git")
+
+	if repo == "loeken/homelab" {
+		fmt.Println("this is the repo loeken/homelab, you should run this tool from a cloned repo of loeken/homelab which uses loeken/homelab as an upstream")
+		fmt.Println("./setup github -h")
+		os.Exit(0)
+	}
+}
+func checkDependencies(verbose bool, repoName string) {
+	// Define the commands to check
+	commands := []Command{
+		{Name: "gh", VersionArg: []string{"--version"}, ExpectedVer: "2.2.0", VersionRegex: `gh version (\S+)`},
+		{Name: "cloudflared", VersionArg: []string{"version"}, ExpectedVer: "2021.11.2", VersionRegex: `cloudflared version (\S+)`},
+		{Name: "git", VersionArg: []string{"--version"}, ExpectedVer: "2.34.1", VersionRegex: `git version (\S+)`},
+		{Name: "terraform", VersionArg: []string{"version"}, ExpectedVer: "1.1.0", VersionRegex: `Terraform v(\S+)`},
+		{Name: "code", VersionArg: []string{"--version"}, ExpectedVer: "1.63.2", VersionRegex: `(\S+)`},
+	}
+
+	// Loop through the commands and check their versions
+	for _, cmd := range commands {
+		// Check if the command is available
+		_, err := exec.LookPath(cmd.Name)
+		if err != nil {
+			color.Red("%s is not available", cmd.Name)
+			continue
+		}
+
+		// Get the command version
+		out, err := exec.Command(cmd.Name, cmd.VersionArg...).Output()
+		if err != nil {
+			color.Red("Failed to get %s version: %v", cmd.Name, err)
+			continue
+		}
+
+		// Parse the version from the output
+		re := regexp.MustCompile(cmd.VersionRegex)
+		matches := re.FindStringSubmatch(string(out))
+		if len(matches) < 2 {
+			color.Red("Failed to parse version for %s", cmd.Name)
+			continue
+		}
+		actualVer := matches[1]
+		if verbose {
+			color.Green("%s version: %s", cmd.Name, actualVer)
+		}
+		if actualVer < cmd.ExpectedVer {
+			color.Red("%s version is too old (expected %s)", cmd.Name, cmd.ExpectedVer)
+			os.Exit(0)
+		}
+	}
+	if repoName != "" {
+		if isContextActive(repoName) {
+			color.Green("The current Kubernetes context is %s\n", repoName)
+		} else {
+			color.Red("The current Kubernetes context is not %s\n", repoName)
+		}
+	}
+}
+func isContextActive(contextName string) bool {
+	// Get the name of the current Kubernetes context
+	currentContextBytes, err := exec.Command("kubectl", "config", "current-context").Output()
+	if err != nil {
+		return false
+	}
+	currentContext := strings.TrimSpace(string(currentContextBytes))
+
+	// Check if the current context matches the desired context
+	return currentContext == contextName
+}
+func confirmContinue() {
+	fmt.Print("Do you want to continue? [Y/n] ")
+	var response string
+	_, err := fmt.Scanln(&response)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	response = strings.TrimSpace(response)
+	if response == "Y" || response == "y" || response == "" || response == "\\n" {
+		// Continue with the program
+		fmt.Println("let's go! ...")
+	} else {
+		// Stop the program
+		fmt.Println("aborted ...")
+		os.Exit(0)
+	}
+}
+
+func MergeConfigs(cfg1 string, cfg2 string, configOut string) {
+	// Load the first kubeconfig file.
+	kubeconfig1, err := ioutil.ReadFile(cfg1)
+	if err != nil {
+		panic(err)
+	}
+	config1, err := clientcmd.Load(kubeconfig1)
+	if err != nil {
+		panic(err)
+	}
+
+	// Load the second kubeconfig file.
+	kubeconfig2, err := ioutil.ReadFile(cfg2)
+	if err != nil {
+		panic(err)
+	}
+	config2, err := clientcmd.Load(kubeconfig2)
+	if err != nil {
+		panic(err)
+	}
+
+	// Merge the two kubeconfig files.
+	mergedConfig := api.NewConfig()
+	mergedConfig.AuthInfos = make(map[string]*clientcmdapi.AuthInfo)
+	mergedConfig.Clusters = make(map[string]*clientcmdapi.Cluster)
+	mergedConfig.Contexts = make(map[string]*clientcmdapi.Context)
+	mergedConfig.Preferences = config1.Preferences
+	mergedConfig.APIVersion = config1.APIVersion
+	mergedConfig.CurrentContext = config1.CurrentContext
+
+	mergedConfig.Clusters = mergeClusters(config1.Clusters, config2.Clusters)
+	mergedConfig.AuthInfos = mergeAuthInfos(config1.AuthInfos, config2.AuthInfos)
+	mergedConfig.Contexts = mergeContexts(config1.Contexts, config2.Contexts)
+
+	// Write the merged kubeconfig file to disk.
+	mergedKubeconfig, err := clientcmd.Write(*mergedConfig)
+	if err != nil {
+		panic(err)
+	}
+	err = ioutil.WriteFile(configOut, mergedKubeconfig, 0644)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Merged kubeconfig file written to /path/to/merged-kubeconfig")
+}
+
+// Helper function to merge clusters.
+func mergeClusters(c1 map[string]*clientcmdapi.Cluster, c2 map[string]*clientcmdapi.Cluster) map[string]*clientcmdapi.Cluster {
+	result := make(map[string]*clientcmdapi.Cluster)
+	for key, value := range c1 {
+		result[key] = value.DeepCopy()
+	}
+	for key, value := range c2 {
+		if _, ok := result[key]; !ok {
+			result[key] = value.DeepCopy()
+		}
+	}
+	return result
+}
+
+// Helper function to merge authentication information.
+func mergeAuthInfos(a1 map[string]*clientcmdapi.AuthInfo, a2 map[string]*clientcmdapi.AuthInfo) map[string]*clientcmdapi.AuthInfo {
+	result := make(map[string]*clientcmdapi.AuthInfo)
+	for key, value := range a1 {
+		result[key] = value.DeepCopy()
+	}
+	for key, value := range a2 {
+		if _, ok := result[key]; !ok {
+			result[key] = value.DeepCopy()
+		}
+	}
+	return result
+}
+
+// Helper function to merge contexts.
+func mergeContexts(c1 map[string]*clientcmdapi.Context, c2 map[string]*clientcmdapi.Context) map[string]*clientcmdapi.Context {
+	result := make(map[string]*clientcmdapi.Context)
+	for key, value := range c1 {
+		result[key] = value.DeepCopy()
+	}
+	for key, value := range c2 {
+		if _, ok := result[key]; !ok {
+			result[key] = value.DeepCopy()
+		}
+	}
+	return result
+}
+func cloudflaretunnel(repo_name string) (tunnelId string) {
+	// Run `cloudflared tunnel list` and get its output
+	cmd1 := exec.Command("cloudflared", "tunnel", "list")
+	output1, err := cmd1.Output()
+	if err != nil {
+		panic(err)
+	}
+
+	// Find the line that contains repo_name and extract its ID (the first field)
+	var id string
+	for _, line := range strings.Split(string(output1), "\n") {
+		if strings.Contains(line, repo_name) {
+			fields := strings.Fields(line)
+			if len(fields) > 0 {
+				id = fields[0]
+				break
+			}
+		}
+	}
+
+	if id == "" {
+		fmt.Println("No tunnel found for " + repo_name)
+		return
+	}
+	return id
+}
+
+type Secret struct {
+	ApiVersion string `yaml:"apiVersion"`
+	Kind       string `yaml:"kind"`
+	Type       string `yaml:"type"`
+	Metadata   struct {
+		Namespace string `yaml:"namespace"`
+		Name      string `yaml:"name"`
+	} `yaml:"metadata"`
+	StringData map[string]string `yaml:"stringData"`
+}
+
+func loadSecretFromTemplate(namespace string, application string) {
+
+	_, err := os.Stat("../deploy/mysecrets/templates/argocd-" + namespace + "-encrypted.yaml")
+	if err != nil {
+		if os.IsNotExist(err) {
+			// Handle file does not exist error
+			color.Green("no existing sealed secret found, creating new one")
+		} else {
+			// Handle other errors
+			color.Green("unexpected error in loadSecretFromTemplate ", err)
+		}
+	} else {
+		// File exists
+		color.Red("secret already exists for " + namespace + " if you want to create a new delete deploy/mysecrets/templates/argocd-" + namespace + "-encrypted.yaml")
+		return
+	}
+
+	// Read the secret YAML template file
+	data, err := ioutil.ReadFile("../deploy/mysecrets/argocd-" + application + ".yaml.example")
+
+	if err != nil {
+		fmt.Printf("Error loading secrets file: %v\n", err)
+		return
+	}
+
+	// Parse YAML file
+	var secrets map[string]interface{}
+	if err := yaml.Unmarshal(data, &secrets); err != nil {
+		fmt.Printf("Error parsing secrets file: %v\n", err)
+		return
+	}
+
+	// Loop through secrets
+	scanner := bufio.NewScanner(os.Stdin)
+	for key, value := range secrets["stringData"].(map[interface{}]interface{}) {
+		// Convert key and value to the appropriate types
+		strKey := key.(string)
+		strValue := value.(string)
+
+		if viper.GetString(strKey) != "" {
+			color.Green("found " + strKey + " value in arguments, reusing that as default")
+			strValue = viper.GetString(strKey)
+		}
+
+		// Print secret name and default value
+		fmt.Printf("%s (%s):\n", strKey, strValue)
+		var input string
+
+		// Read input from user
+		var inputBuffer bytes.Buffer
+		for {
+			if scanner.Scan() {
+				line := scanner.Text()
+				if line == "" {
+					break
+				}
+				inputBuffer.WriteString(line + "\n")
+			} else {
+				fmt.Printf("Error reading input: %v\n", scanner.Err())
+				return
+			}
+		}
+
+		// Use default value if input is empty
+		input = strings.TrimSpace(inputBuffer.String())
+		if input == "" {
+			input = strValue
+		}
+
+		// Update secret value
+		secrets["stringData"].(map[interface{}]interface{})[key] = input
+	}
+
+	// Convert secrets to YAML and save to file
+	output, err := yaml.Marshal(secrets)
+	if err != nil {
+		fmt.Printf("Error converting secrets to YAML: %v\n", err)
+		return
+	}
+	sealedSecret, err := sealSecret(string(output))
+	if err != nil {
+		fmt.Printf("Failed to seal secret1: %v\n", err)
+		return
+	}
+	createSecret(namespace, string(sealedSecret))
+}
+
+func createSecret(namespace string, yamlString string) ([]byte, error) {
+	runCommand("../tmp", "kubectl", []string{"create", "namespace", namespace})
+	cmd := exec.Command("kubectl", "apply", "-f", "-")
+	cmd.Stdin = strings.NewReader(yamlString)
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		fmt.Println(err)
+	}
+	err = ioutil.WriteFile("../deploy/mysecrets/templates/argocd-"+namespace+"-encrypted.yaml", []byte(yamlString), 0644)
+	if err != nil {
+		panic(err)
+	}
+	return output, nil
+}
+
+func sealSecret(secretYaml string) ([]byte, error) {
+	// Use kubeseal to encrypt the secret data
+	kubesealCmd := exec.Command("kubeseal", "--format=yaml")
+	kubesealCmd.Stdin = strings.NewReader(secretYaml)
+
+	var sealed bytes.Buffer
+	kubesealCmd.Stdout = &sealed
+
+	if err := kubesealCmd.Run(); err != nil {
+		return nil, err
+	}
+
+	return sealed.Bytes(), nil
+}
+
+func cloudflaresecret(cfTunnelId string, u user.User) {
+	// Define the command to create the secret
+	createSecretCmd := exec.Command("kubectl", "create", "secret", "generic", "tunnel-credentials", "--from-file=credentials.json="+u.HomeDir+"/.cloudflared/"+cfTunnelId+".json", "-n", "cloudflaretunnel", "--dry-run=client", "-o", "yaml")
+
+	// Run the command and capture its output
+	var out bytes.Buffer
+	createSecretCmd.Stdout = &out
+	if err := createSecretCmd.Run(); err != nil {
+		fmt.Printf("Failed to create secret: %v\n", err)
+		return
+	}
+
+	// Get the YAML definition for the secret from the command's output
+	secretYaml := out.String()
+
+	// Seal the secret
+	sealedSecret, err := sealSecret(string(secretYaml))
+	if err != nil {
+		fmt.Printf("Failed to seal secret2: %v\n", err)
+		return
+	}
+	createSecret("cloudflaretunnel", string(sealedSecret))
+
+	fmt.Println("Secret created and applied successfully")
+}
+func hashAutheliaPassword(password string) string {
+	cmd := exec.Command("docker", "run", "--rm", "authelia/authelia:latest", "authelia", "hash-password", password)
+	stdout, err := cmd.Output()
+	if err != nil {
+		// Handle error running docker command
+		color.Red("error running docker command: ", err)
+	}
+
+	output := strings.TrimSpace(string(stdout))
+	output = strings.TrimPrefix(output, "Digest: ")
+	index := strings.Index(output, ":")
+	if index != -1 {
+		output = output[index+1:]
+	}
+	return output
+}
+func generateAutheliaUsersDatabase() {
+	// Prompt user to enter user details
+	fmt.Print("Enter username: ")
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+	username := scanner.Text()
+
+	fmt.Print("Enter display name: ")
+	scanner.Scan()
+	displayName := scanner.Text()
+
+	fmt.Print("Enter email address: ")
+	scanner.Scan()
+	email := scanner.Text()
+
+	fmt.Print("Enter groups (comma separated): ")
+	scanner.Scan()
+	groups := scanner.Text()
+	groupList := strings.Split(groups, ",")
+
+	fmt.Print("Enter password: ")
+	scanner.Scan()
+	password := scanner.Text()
+
+	// Generate password hash
+	hash := hashAutheliaPassword(password)
+
+	// Create user data map
+	userData := make(map[string]interface{})
+	userData["disabled"] = false
+	userData["displayname"] = displayName
+	userData["password"] = hash
+	userData["email"] = email
+	userData["groups"] = groupList
+
+	// Create users map
+	users := make(map[string]interface{})
+	users[username] = userData
+
+	// Create YAML data
+	data, err := yaml.Marshal(map[string]interface{}{
+		"users": users,
+	})
+	if err != nil {
+		// Handle error marshaling YAML
+		color.Red("error marsheling authelia users_database.yml: ", err)
+	}
+
+	// Write YAML data to file
+	err = ioutil.WriteFile("../tmp/authelia_users_database.yml", data, 0644)
+	if err != nil {
+		// Handle error writing file
+		color.Red("error writing file for authelia users_database.yml: ", err)
+	}
+}
+func createPVC(pvcName string, namespace string, storageClass string, storageSize string) error {
+	args := []string{"apply", "-f", "-"}
+	yamlTemplate := fmt.Sprintf(`
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: %s
+  namespace: %s
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: %s
+  storageClassName: %s`, pvcName, namespace, storageSize, storageClass)
+
+	fmt.Println(yamlTemplate)
+	cmd := exec.Command("kubectl", args...)
+	cmd.Stdin = strings.NewReader(yamlTemplate)
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		return fmt.Errorf("error creating PVC %s: %s: %w", pvcName, string(output), err)
+	}
+
+	return nil
+}
+func createFolderJellyfin(podName string, folderName string) {
+	cmdArgs := []string{"exec", "-n", "media", strings.ReplaceAll(podName, "'", ""), "--", "mkdir", "-p", folderName}
+	_, err := runCommand(".", "kubectl", cmdArgs)
+	if err != nil {
+		// handle error
+		fmt.Println("error: ", err)
+		os.Exit(3)
+	}
+}
+func waitForPodReady(namespace string, podName string) {
+	out, err := runCommandWithRetries(".", "kubectl", []string{"wait", "--for=condition=ready", "pod", "-n", namespace, "-l", "app.kubernetes.io/instance=" + podName, "--timeout=300s"}, 10, 5*time.Second)
+	if err != nil {
+		fmt.Printf("Error waiting for pod to be ready: %v\n", err)
+	} else {
+		fmt.Printf("Pod is ready: %s\n", out)
+	}
+}

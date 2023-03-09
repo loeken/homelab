@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  namespace: democratic-csi
+  name: democractic-csi-nfs-driver-config
+stringData:
+  driver-config-file.yaml: |-
+    driver: freenas-nfs
+    instance_id:
+    httpConnection:
+      protocol: http
+      host: 172.16.137.13
+      port: 80
+      username: root
+      password: "homelab"
+      allowInsecure: true
+    sshConnection:
+      host: 172.16.137.13
+      port: 22
+      username: root
+      privateKey: |
+        -----BEGIN OPENSSH PRIVATE KEY-----
+        YOUR PRIVATE KEY
+        -----END OPENSSH PRIVATE KEY-----
+    zfs:
+      datasetParentName: a1/k8s/nfs/v
+      detachedSnapshotsDatasetParentName: a1/k8s/nfs/s
+      datasetEnableQuotas: true
+      datasetEnableReservation: false
+      datasetPermissionsMode: "0777"
+      datasetPermissionsUser: 0
+      datasetPermissionsGroup: 0
+    nfs:
+      shareHost: 172.16.137.13
+      shareAlldirs: false
+      shareAllowedHosts: []
+      shareAllowedNetworks: []
+      shareMaprootUser: root
+      shareMaprootGroup: wheel
+      shareMapallUser: ""
+      shareMapallGroup: ""

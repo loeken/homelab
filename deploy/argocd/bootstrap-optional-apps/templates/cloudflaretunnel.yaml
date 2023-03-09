@@ -1,0 +1,75 @@
+{{ if .Values.cloudflaretunnel.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cloudflaretunnel
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "11"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    path: deploy/helm/cloudflare-tunnel
+    repoURL: git@github.com:{{ .Values.githubUser }}/{{ .Values.githubRepo }}
+    targetRevision: HEAD
+    helm:
+      values: |
+        cloudflared:
+          tunnelname: homelab-tunnel
+          hosts:
+            {{- if .Values.authelia.ingress.cloudflaretunnel.enabled }}
+            - hostname: auth.{{ .Values.domain }}
+              servicename: http://authelia.authelia:80
+            {{- end }}
+            {{- if .Values.whoami.ingress.cloudflaretunnel.enabled }}
+            - hostname: whoami.{{ .Values.domain }}
+              servicename: http://whoami-whoami.whoami:80
+            {{- end }}
+            {{- if .Values.loki.ingress.cloudflaretunnel.enabled }}
+            - hostname: grafana.{{ .Values.domain }}
+              servicename: http://loki-stack-charts-grafana.loki:80
+            {{- end }}
+            {{- if .Values.ha.ingress.cloudflaretunnel.enabled }}
+            - hostname: ha.{{ .Values.domain }}
+              servicename: http://home-assistant.home-assistant:8123
+            {{- end }}
+            {{- if .Values.jellyfin.ingress.cloudflaretunnel.enabled }}
+            - hostname: jellyfin.{{ .Values.domain }}
+              servicename: http://jellyfin.media:8096
+            {{- end }}
+            {{- if .Values.jellyseerr.ingress.cloudflaretunnel.enabled }}
+            - hostname: jellyseerr.{{ .Values.domain }}
+              servicename: http://jellyseerr.media:5055
+            {{- end }}
+            {{- if .Values.nextcloud.ingress.cloudflaretunnel.enabled }}
+            - hostname: nextcloud.{{ .Values.domain }}
+              servicename: http://nextcloud.nextcloud:8080
+            {{- end }}
+            {{- if .Values.rtorrentflood.ingress.cloudflaretunnel.enabled }}
+            - hostname: rtorrent.{{ .Values.domain }}
+              servicename: http://rtorrent-flood.media:3000
+            {{- end }}
+            {{- if .Values.nzbget.ingress.cloudflaretunnel.enabled }}
+            - hostname: nzbget.{{ .Values.domain }}
+              servicename: http://nzbget.media:6789
+            {{- end }}
+            {{- if .Values.prowlarr.ingress.cloudflaretunnel.enabled }}
+            - hostname: prowlarr.{{ .Values.domain }}
+              servicename: http://prowlarr.media:9696
+            {{- end }}
+            {{- if .Values.radarr.ingress.cloudflaretunnel.enabled }}
+            - hostname: radarr.{{ .Values.domain }}
+              servicename: http://radarr.media:7878
+            {{- end }}
+  destination:
+    namespace: cloudflaretunnel
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{ end }}

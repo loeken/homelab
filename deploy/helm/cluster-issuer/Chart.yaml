@@ -1,0 +1,6 @@
+apiVersion: v2
+name: cluster-issuer
+description: creation of letsencrypt cluster issuer
+type: application
+version: 0.0.1
+appVersion: "1.0"

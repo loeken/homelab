@@ -181,7 +181,7 @@ jobs:
           image-ref: ${{ matrix.repo.image }}:${{ matrix.repo.dockertag }}
           ignore-unfixed: false
           vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH,MEDIUM'
+          severity: 'CRITICAL,HIGH,MEDIUM,MEDIUM,LOW'
           format: 'table'
           timeout: 10m
 
@@ -192,7 +192,7 @@ jobs:
           image-ref: ${{ matrix.repo.image }}:${{ matrix.repo.dockertag }}
           ignore-unfixed: false
           vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH,MEDIUM'
+          severity: 'CRITICAL,HIGH,MEDIUM,LOW'
           # format: 'table'
           format: 'sarif'
           output: 'trivy-results-${{ matrix.repo.github_repo }}.sarif'

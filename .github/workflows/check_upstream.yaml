@@ -207,7 +207,7 @@ jobs:
         if: always()
         with:
           sarif_file: 'trivy-results-${{ matrix.repo.github_repo }}.sarif'
-          token: ${{ env.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           category: ${{ matrix.repo.github_repo }}
 
       - name: report scanner result
@@ -215,7 +215,7 @@ jobs:
         uses: ravsamhq/notify-slack-action@master
         with:
           status: ${{ job.status }}
-          token: ${{ env.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           notification_title: "${{ matrix.repo.image }} {workflow} has {status_message}"
           message_format: "{emoji} *{workflow}* {status_message} in <{repo_url}|{repo}>"
           footer: "Linked Repo <{repo_url}|{repo}> | <{workflow_url}|View Workflow>"

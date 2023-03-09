@@ -181,7 +181,7 @@ jobs:
           image-ref: ${{ matrix.repo.image }}:${{ matrix.repo.dockertag }}
           ignore-unfixed: false
           vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
+          severity: 'CRITICAL,HIGH,MEDIUM'
           format: 'table'
           timeout: 10m
 

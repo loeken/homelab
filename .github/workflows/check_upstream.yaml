@@ -207,7 +207,6 @@ jobs:
         if: always()
         with:
           sarif_file: 'trivy-results-${{ matrix.repo.github_repo }}.sarif'
-          token: ${{ secrets.GITHUB_TOKEN }}
           category: ${{ matrix.repo.github_repo }}
 
       - name: report scanner result

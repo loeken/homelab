@@ -175,15 +175,15 @@ jobs:
           footer: "Linked Repo <{repo_url}|{repo}> | <{workflow_url}|View Workflow>"
           notify_when: "failure"
 
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: ${{ matrix.repo.image }}:${{ matrix.repo.dockertag }}
-          ignore-unfixed: false
-          vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH,MEDIUM,MEDIUM,LOW'
-          format: 'table'
-          timeout: 10m
+      # - name: Run Trivy vulnerability scanner
+      #   uses: aquasecurity/trivy-action@master
+      #   with:
+      #     image-ref: ${{ matrix.repo.image }}:${{ matrix.repo.dockertag }}
+      #     ignore-unfixed: false
+      #     vuln-type: 'os,library'
+      #     severity: 'CRITICAL,HIGH,MEDIUM,MEDIUM,LOW'
+      #     format: 'table'
+      #     timeout: 10m
 
 
       - name: Run Trivy vulnerability scanner
@@ -207,7 +207,7 @@ jobs:
         if: always()
         with:
           sarif_file: 'trivy-results-${{ matrix.repo.github_repo }}.sarif'
-          category: ${{ matrix.repo.github_repo }}
+          #category: ${{ matrix.repo.github_repo }}
 
       - name: report scanner result
         if: always()

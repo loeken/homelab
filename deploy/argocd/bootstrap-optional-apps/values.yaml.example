@@ -7,6 +7,7 @@ storageClass: local-path
 
 authelia:
   enabled: false
+  chartVersion: 0.8.54
   ingress:
     nginx:
       enabled: false

@@ -174,8 +174,6 @@ rtorrentflood:
   size: 10Gi
   storageClass: local-path
   useAuthelia: false
-sealedSecrets:
-  chartVersion: v0.19.5
 sharedmedia:
   size: 1000Gi
   storageClass: local-path

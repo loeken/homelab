@@ -2,3 +2,7 @@
 email: loeken@internetz.me
 githubUser: loeken
 githubRepo: homelab-beelink
+certManager:
+  chartVersion: v1.11.0
+sealedSecrets:
+  chartVersion: v0.19.5

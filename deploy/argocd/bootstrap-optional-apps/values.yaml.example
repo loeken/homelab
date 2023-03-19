@@ -1,4 +1,3 @@
----
 authelia:
   chartVersion: 0.8.54
   enabled: false
@@ -175,7 +174,7 @@ rtorrentflood:
   storageClass: local-path
   useAuthelia: false
 sealedSecrets:
-  chartVersion: v0.19.5
+  chartVersion: v0.20.1
 sharedmedia:
   size: 1000Gi
   storageClass: local-path

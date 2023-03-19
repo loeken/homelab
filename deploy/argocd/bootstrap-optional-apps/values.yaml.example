@@ -1,4 +1,3 @@
----
 authelia:
   chartVersion: 0.8.54
   enabled: false
@@ -19,7 +18,7 @@ cloudflaretunnel:
   enabled: true
 clusterIssuer: letsencrypt-staging
 democratic_iscsi:
-  chartVersion: 0.13.5
+  chartVersion: democratic-csi-0.13.5
   enabled: false
 democratic_nfs:
   chartVersion: 0.13.5

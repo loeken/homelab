@@ -1,4 +1,3 @@
----
 authelia:
   chartVersion: 0.8.54
   enabled: false
@@ -30,6 +29,7 @@ externaldns:
 githubRepo: homelab-example
 githubUser: loeken
 ha:
+  chartVersioN: 2023.3.5
   chartVersion: 2023.3.3
   enabled: false
   ingress:

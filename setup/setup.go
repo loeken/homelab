@@ -1070,7 +1070,7 @@ func checkDependencies(verbose bool, repoName string) {
 		{Name: "cloudflared", VersionArg: []string{"version"}, ExpectedVer: "2021.11.2", VersionRegex: `cloudflared version (\S+)`},
 		{Name: "git", VersionArg: []string{"--version"}, ExpectedVer: "2.34.1", VersionRegex: `git version (\S+)`},
 		{Name: "terraform", VersionArg: []string{"version"}, ExpectedVer: "1.1.0", VersionRegex: `Terraform v(\S+)`},
-		{Name: "code", VersionArg: []string{"--version"}, ExpectedVer: "1.63.2", VersionRegex: `(\S+)`},
+		// {Name: "code", VersionArg: []string{"--version"}, ExpectedVer: "1.63.2", VersionRegex: `(\S+)`},
 	}
 
 	// Loop through the commands and check their versions

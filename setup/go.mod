@@ -6,7 +6,6 @@ require (
 	github.com/fatih/color v1.14.1
 	github.com/spf13/cobra v1.6.1
 	github.com/spf13/viper v1.15.0
-	golang.org/x/crypto v0.0.0-20220525230936-793ad666bf5e
 	gopkg.in/yaml.v2 v2.4.0
 	k8s.io/client-go v0.26.1
 )

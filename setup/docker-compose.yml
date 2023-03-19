@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  myapp:
+    build: .
+    volumes:
+      - .:/app
+    command: go run /app/setup.go

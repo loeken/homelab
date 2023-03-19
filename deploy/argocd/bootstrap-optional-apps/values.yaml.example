@@ -19,8 +19,10 @@ cloudflaretunnel:
   enabled: true
 clusterIssuer: letsencrypt-staging
 democratic_iscsi:
+  chartVersion: 0.13.5
   enabled: false
 democratic_nfs:
+  chartVersion: 0.13.5
   enabled: false
 domain: example.com
 externaldns:
@@ -28,6 +30,7 @@ externaldns:
 githubRepo: homelab-example
 githubUser: loeken
 ha:
+  chartVersion: 2023.3.3
   enabled: false
   ingress:
     cloudflaretunnel:

@@ -20,8 +20,6 @@ cloudflaretunnel:
 clusterIssuer: letsencrypt-staging
 democratic_iscsi:
   enabled: false
-democratic_iscsi_fast:
-  enabled: false
 democratic_nfs:
   enabled: false
 domain: example.com

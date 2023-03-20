@@ -1,8 +1,8 @@
-# this file acts as a global value files to all bootstrap-core-apps
-email: youremail@example.com
-githubUser: loeken
-githubRepo: homelab-example
 certManager:
   chartVersion: v1.11.0
+email: youremail@example.com
+githubRepo: homelab-example
+githubUser: loeken
 sealedSecrets:
+  chartVersioN: v0.20.2
   chartVersion: v0.19.5

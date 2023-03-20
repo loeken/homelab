@@ -1,6 +1,6 @@
 version: "3.9"
 services:
-  myapp:
+  setup:
     build: .
     volumes:
       - .:/app

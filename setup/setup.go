@@ -11,7 +11,6 @@ import (
 	"os/exec"
 	"os/user"
 	"path/filepath"
-	"regexp"
 	"strings"
 	"time"
 
@@ -1065,48 +1064,22 @@ func checkRepo() {
 }
 func checkDependencies(verbose bool, repoName string) {
 	// Define the commands to check
-	commands := []Command{
-		{Name: "gh", VersionArg: []string{"--version"}, ExpectedVer: "2.2.0", VersionRegex: `gh version (\S+)`},
-		{Name: "cloudflared", VersionArg: []string{"version"}, ExpectedVer: "2021.11.2", VersionRegex: `cloudflared version (\S+)`},
-		{Name: "git", VersionArg: []string{"--version"}, ExpectedVer: "2.34.1", VersionRegex: `git version (\S+)`},
-		{Name: "terraform", VersionArg: []string{"version"}, ExpectedVer: "1.1.0", VersionRegex: `Terraform v(\S+)`},
-		{Name: "kubectl", VersionArg: []string{"version", "--client=true", "--short=true"}, ExpectedVer: "1.26.3", VersionRegex: `Client Version:.*v(\S+)`},
+	commands := []string{"gh", "cloudflared", "git", "terraform", "kubectl"}
 
-		// {Name: "code", VersionArg: []string{"--version"}, ExpectedVer: "1.63.2", VersionRegex: `(\S+)`},
-	}
-
-	// Loop through the commands and check their versions
+	// Loop through the commands and check if they're available
 	for _, cmd := range commands {
 		// Check if the command is available
-		_, err := exec.LookPath(cmd.Name)
+		_, err := exec.LookPath(cmd)
 		if err != nil {
-			color.Red("%s is not available", cmd.Name)
+			color.Red("%s is not available", cmd)
 			continue
 		}
 
-		// Get the command version
-		out, err := exec.Command(cmd.Name, cmd.VersionArg...).Output()
-		if err != nil {
-			color.Red("Failed to get %s version: %v", cmd.Name, err)
-			continue
-		}
-
-		// Parse the version from the output
-		re := regexp.MustCompile(cmd.VersionRegex)
-		matches := re.FindStringSubmatch(string(out))
-		if len(matches) < 2 {
-			color.Red("Failed to parse version for %s", cmd.Name)
-			continue
-		}
-		actualVer := matches[1]
 		if verbose {
-			color.Green("%s version: %s", cmd.Name, actualVer)
-		}
-		if actualVer < cmd.ExpectedVer {
-			color.Red("%s version is too old (expected %s)", cmd.Name, cmd.ExpectedVer)
-			os.Exit(0)
+			color.Green("%s is available", cmd)
 		}
 	}
+
 	if repoName != "" {
 		if isContextActive(repoName) {
 			color.Green("The current Kubernetes context is %s\n", repoName)

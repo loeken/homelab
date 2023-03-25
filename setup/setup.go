@@ -1289,6 +1289,17 @@ func loadSecretFromTemplate(namespace string, application string) {
 			strValue = viper.GetString(strKey)
 		}
 
+		if strKey == "sshPrivateKey" {
+			// Read the contents of the file "../tmp/id_rsa"
+			privateKeyBytes, err := ioutil.ReadFile("../tmp/id_rsa")
+			if err != nil {
+				fmt.Printf("Error reading sshPrivateKey from file: %v\n", err)
+				return
+			}
+			secrets["stringData"].(map[interface{}]interface{})[key] = string(privateKeyBytes)
+			continue
+		}
+
 		// Print secret name and default value
 		fmt.Printf("%s (%s):\n", strKey, strValue)
 		var input string

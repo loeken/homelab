@@ -194,6 +194,11 @@ vaultwarden:
   enabled: false
   storageClass: local-path
   useAuthelia: true
+  ingress:
+    cloudflaretunnel:
+      enabled: true
+    nginx:
+      enabled: false
 volumesnapshots:
   enabled: true
 whoami:

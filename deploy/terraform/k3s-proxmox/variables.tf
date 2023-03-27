@@ -94,4 +94,8 @@ variable "shared_media_disk_size" {
   default = "400G"
   description = "size of the shared media disk"
 }
-
+variable "platform" {
+  type = string
+  default = "proxmox"
+  description = "what platform to use ( proxmox/baremetal/minikube )"
+}

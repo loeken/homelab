@@ -83,11 +83,11 @@ resource "null_resource" "upload_ips" {
 }
 
 resource "null_resource" "nfs_server" {
-  count = var.storage == "local-path" ? 1 : 0
+  count = (var.storage == "local-path" && var.platform == "baremetal") ? 1 : 0
   connection {
-    type     = "ssh"
-    host     = proxmox_vm_qemu.k3s-vm.default_ipv4_address
-    user     = "debian"
+    type        = "ssh"
+    host        = proxmox_vm_qemu.k3s-vm.default_ipv4_address
+    user        = "debian"
     private_key = file("${var.ssh_private_key}")
   }
   

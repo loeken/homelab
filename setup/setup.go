@@ -107,7 +107,8 @@ func main() {
 		Short: "Check if all needed dependencies are installed on this system",
 		Run: func(cmd *cobra.Command, args []string) {
 			new_repo := viper.GetString("new_repo")
-			if len(new_repo) != 2 {
+			test := strings.Split(new_repo, "/")
+			if len(test) != 2 {
 				color.Red("--new_repo should be in the format user/repository")
 				os.Exit(0)
 			}
@@ -1108,10 +1109,9 @@ func checkDependencies(verbose bool, repoName string) {
 		color.Red("You are not logged in with the GitHub CLI (gh), please login gh auth login")
 		os.Exit(0)
 	}
-
-	cmd = exec.Command("ssh", "-T", "git@github.com")
-	err = cmd.Run()
-	if err != nil {
+	if checkGitHubSSHKey() {
+		color.Green("we can write to github via ssh")
+	} else {
 		color.Red("you need an ssh key ( ssh-keygen ) and the .pub key needs to be added to github so we can auth and push changes")
 		os.Exit(0)
 	}
@@ -1124,6 +1124,24 @@ func checkDependencies(verbose bool, repoName string) {
 		}
 	}
 }
+func checkGitHubSSHKey() bool {
+	os.Setenv("HOME", "/home/loeken")
+	cmd := exec.Command("ssh", "-T", "git@github.com")
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		if strings.Contains(string(output), "You've successfully authenticated") {
+			return true
+		} else {
+			return false
+		}
+	}
+	if strings.Contains(string(output), "You've successfully authenticated") {
+		return true
+	} else {
+		return false
+	}
+}
+
 func isContextActive(contextName string) bool {
 	// Get the name of the current Kubernetes context
 	currentContextBytes, err := exec.Command("kubectl", "config", "current-context").Output()

@@ -107,6 +107,10 @@ func main() {
 		Short: "Check if all needed dependencies are installed on this system",
 		Run: func(cmd *cobra.Command, args []string) {
 			new_repo := viper.GetString("new_repo")
+			if len(new_repo) != 2 {
+				color.Red("--new_repo should be in the format user/repository")
+				os.Exit(0)
+			}
 			if new_repo == "" {
 				color.Red("--new_repo should be set")
 				os.Exit(0)
@@ -139,13 +143,17 @@ func main() {
 			// your GitHub-related
 			checkDependencies(false, "")
 			new_repo := viper.GetString("new_repo")
-			parts := strings.Split(new_repo, "/")
-			local_path := viper.GetString("local_path")
-
 			if new_repo == "" {
 				color.Red("--new_repo should be set")
 				os.Exit(0)
 			}
+			test := strings.Split(new_repo, "/")
+			if len(test) != 2 {
+				color.Red("--new_repo should be in the format user/repository")
+				os.Exit(0)
+			}
+			parts := strings.Split(new_repo, "/")
+			local_path := viper.GetString("local_path")
 
 			if local_path == "" {
 				color.Red("--local_path should be set")
@@ -227,6 +235,11 @@ func main() {
 			platform := viper.GetString("platform")
 
 			new_repo := viper.GetString("new_repo")
+			test := strings.Split(new_repo, "/")
+			if len(test) != 2 {
+				color.Red("--new_repo should be in the format user/repository")
+				os.Exit(0)
+			}
 			email := viper.GetString("email")
 			domain := viper.GetString("domain")
 			external_ip := viper.GetString("external_ip")
@@ -883,6 +896,10 @@ func main() {
 		Run: func(cmd *cobra.Command, args []string) {
 			new_repo := viper.GetString("new_repo")
 			parts := strings.Split(new_repo, "/")
+			if len(parts) != 2 {
+				color.Red("--new_repo should be in the format user/repository")
+				os.Exit(0)
+			}
 			if new_repo == "" {
 				color.Red("--new_repo should be set")
 				os.Exit(0)
@@ -1064,8 +1081,7 @@ func checkRepo() {
 }
 func checkDependencies(verbose bool, repoName string) {
 	// Define the commands to check
-	commands := []string{"gh", "cloudflared", "git", "terraform", "kubectl"}
-
+	commands := []string{"gh", "cloudflared", "git", "terraform", "kubectl", "sshpass", "kubeseal", "k3sup"}
 	// Loop through the commands and check if they're available
 	for _, cmd := range commands {
 		// Check if the command is available
@@ -1078,6 +1094,26 @@ func checkDependencies(verbose bool, repoName string) {
 		if verbose {
 			color.Green("%s is available", cmd)
 		}
+	}
+
+	cmd := exec.Command("gh", "auth", "status")
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+		return
+	}
+	if strings.Contains(string(output), "Logged in to github.com") {
+		color.Green("You are logged in with the GitHub CLI (gh)")
+	} else {
+		color.Red("You are not logged in with the GitHub CLI (gh), please login gh auth login")
+		os.Exit(0)
+	}
+
+	cmd = exec.Command("ssh", "-T", "git@github.com")
+	err = cmd.Run()
+	if err != nil {
+		color.Red("you need an ssh key ( ssh-keygen ) and the .pub key needs to be added to github so we can auth and push changes")
+		os.Exit(0)
 	}
 
 	if repoName != "" {

@@ -19,7 +19,7 @@ resource "null_resource" "nfs_server" {
       "sudo mkdir -p /mnt/data",
       "echo '/dev/${var.shared_media_disk_device}1 /mnt/data ext4 rw,discard,errors=remount-ro 0 1' | sudo tee -a /etc/fstab",
       "sudo mount -a",
-      "sudo pvesm add dir external-disk --path /mnt/data --content iso,vztmpl,rootdir",
+      "sudo pvesm add dir external-disk --path /mnt/data --content iso,vztmpl,rootdir,disk",
     ]
   }
 }

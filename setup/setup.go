@@ -1370,10 +1370,31 @@ func loadSecretFromTemplate(namespace string, application string) {
 		strValue := value.(string)
 
 		if viper.GetString(strKey) != "" {
-			color.Green("found " + strKey + " value in arguments, reusing that as default")
-			strValue = viper.GetString(strKey)
+			if strKey == "DOMAIN" {
+				if !strings.HasPrefix(strValue, "https://") {
+					color.Green("found " + strKey + " value in arguments, reusing that as default")
+					strValue = "https://" + viper.GetString(strKey)
+				}
+			} else {
+				color.Green("found " + strKey + " value in arguments, reusing that as default")
+				strValue = viper.GetString(strKey)
+			}
 		}
 
+		if strKey == "url" {
+			cmd := exec.Command("bash", "-c", "cat .git/config|grep url|grep git@| cut -d' ' -f 3")
+
+			// Run the command and capture its output
+			output, err := cmd.Output()
+			if err != nil {
+				fmt.Println(err)
+				return
+			}
+
+			// Convert the output to a string and remove any trailing newline characters
+			url := strings.TrimSpace(string(output))
+			strValue = url
+		}
 		if strKey == "sshPrivateKey" {
 			// Read the contents of the file "../tmp/id_rsa"
 			privateKeyBytes, err := ioutil.ReadFile("../tmp/id_rsa")
@@ -1404,20 +1425,10 @@ func loadSecretFromTemplate(namespace string, application string) {
 			}
 		}
 
-		if strKey == "DOMAIN" && namespace == "vaultwarden" && application == "vaultwarden" {
-			if !strings.HasPrefix(strValue, "https://") {
-				// Use default value if input is empty
-				input = "https://" + strings.TrimSpace(inputBuffer.String())
-				if input == "" {
-					input = strValue
-				}
-			}
-		} else {
-			// Use default value if input is empty
-			input = strings.TrimSpace(inputBuffer.String())
-			if input == "" {
-				input = strValue
-			}
+		// Use default value if input is empty
+		input = strings.TrimSpace(inputBuffer.String())
+		if input == "" {
+			input = strValue
 		}
 
 		// Update secret value

@@ -1,2 +1,10 @@
+**.tfstate**
+.terraform**
+kubeconfig
+deploy/mysecrets/**.yaml
 .secrets
+**terraform.tfvars**
+**settings.ini**
+tmp/homelab.git/**
+tmp/id_rsa**
 setup/.setup.yaml

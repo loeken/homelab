@@ -83,11 +83,11 @@ resource "null_resource" "upload_ips" {
 }
 
 resource "null_resource" "nfs_server" {
-  count = (var.storage == "local-path" && var.platform == "baremetal") ? 1 : 0
+  count = var.storage == "local-path" ? 1 : 0
   connection {
-    type        = "ssh"
-    host        = proxmox_vm_qemu.k3s-vm.default_ipv4_address
-    user        = "debian"
+    type     = "ssh"
+    host     = proxmox_vm_qemu.k3s-vm.default_ipv4_address
+    user     = "debian"
     private_key = file("${var.ssh_private_key}")
   }
   
@@ -95,11 +95,11 @@ resource "null_resource" "nfs_server" {
     inline = [
       "sudo apt update -y",
       "DEBIAN_FRONTEND=noninteractive sudo apt install -y nfs-kernel-server parted",
-      "sudo parted /dev/${var.shared_media_disk_device} mklabel msdos",
-      "sudo parted /dev/${var.shared_media_disk_device} mkpart primary ext4 0% 100%",
-      "sudo mkfs.ext4 /dev/${var.shared_media_disk_device}1",
+      "sudo parted /dev/vdb mklabel msdos",
+      "sudo parted /dev/vdb mkpart primary ext4 0% 100%",
+      "sudo mkfs.ext4 /dev/vdb1",
       "sudo mkdir -p /mnt/data",
-      "echo '/dev/${var.shared_media_disk_device}1 /mnt/data ext4 rw,discard,errors=remount-ro 0 1' | sudo tee -a /etc/fstab",
+      "echo '/dev/vdb1 /mnt/data ext4 rw,discard,errors=remount-ro 0 1' | sudo tee -a /etc/fstab",
       "sudo mount -a",
       "echo '/mnt/data ${proxmox_vm_qemu.k3s-vm.default_ipv4_address}/32(rw,all_squash,anonuid=1000,anongid=1000)' | sudo tee /etc/exports",
       "sudo chown -R ${var.ssh_username}:${var.ssh_username} /mnt/data",

@@ -73,8 +73,9 @@ var options = []configOption{
 	{"externaldns", "false", "enable argocd app external-dns", nil, []string{"enable-argocd-app", "install"}},
 	{"loki", "false", "enable argocd app loki", nil, []string{"enable-argocd-app", "install"}},
 	{"ha", "false", "enable argocd app home-assistant", nil, []string{"enable-argocd-app", "install"}},
+	{"partition_external_shared_media_disk", "false", "will partition --shared-media-disk-device", nil, []string{"enable-argocd-app", "install"}},
 	{"shared_media_disk_size", "100Gi", "define the size of the shared media disk", nil, []string{"enable-argocd-app", "install"}},
-	{"shared_media_disk_device", "vdb", "give the device name inside your system to use for the shared media disk", nil, []string{"enable-argocd-app", "install"}},
+	{"shared_media_disk_device", "sda", "give the device name of your external shared media disk", nil, []string{"enable-argocd-app", "install"}},
 	{"jellyfin", "false", "enable argocd app jellyfin", nil, []string{"enable-argocd-app", "install"}},
 	{"jellyseerr", "false", "enable argocd app jellyseerr", nil, []string{"enable-argocd-app", "install"}},
 	{"kasten-k10", "false", "enable argocd app kasten-k10", nil, []string{"enable-argocd-app", "install"}},
@@ -260,6 +261,8 @@ func main() {
 			installLoki := viper.GetString("loki")
 			installHa := viper.GetString("ha")
 			installNextcloud := viper.GetString("nextcloud")
+
+			installPartitionSharedMediaDisk := viper.GetString("partition_external_shared_media_disk")
 			installSharedMediaDiskSize := viper.GetString("shared_media_disk_size")
 			installSharedMediaDevice := viper.GetString("shared_media_disk_device")
 			installJellyfin := viper.GetString("jellyfin")
@@ -323,6 +326,12 @@ func main() {
 				}
 			}
 
+			if platform == "minikube" {
+				if installPartitionSharedMediaDisk == "true" {
+					color.Red("cannot use external shared media disk with minikube")
+					os.Exit(0)
+				}
+			}
 			// validation section end
 
 			color.Yellow("writing deploy/terraform/terraform.tfvars")
@@ -354,8 +363,15 @@ func main() {
 			confirmContinue()
 
 			if platform == "proxmox" {
+
 				color.Green("terraform proxmox")
 				runTerraformCommand("proxmox")
+
+				if installPartitionSharedMediaDisk == "true" {
+					color.Green("terraform partition external disk")
+					runTerraformCommand("external-disk")
+				}
+				os.Exit(3)
 
 				color.Green("terraform template")
 				runTerraformCommand("proxmox-debian-11-template")
@@ -777,6 +793,7 @@ func main() {
 					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "nextcloud." + domain})
 				}
 			}
+
 			// wave none
 			if installSharedMediaDiskSize != "false" {
 				runCommand(".", "kubectl", []string{"create", "namespace", "media"})

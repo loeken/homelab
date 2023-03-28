@@ -371,7 +371,6 @@ func main() {
 					color.Green("terraform partition external disk")
 					runTerraformCommand("external-disk")
 				}
-				os.Exit(3)
 
 				color.Green("terraform template")
 				runTerraformCommand("proxmox-debian-11-template")
@@ -381,6 +380,11 @@ func main() {
 
 			}
 			if platform == "baremetal" {
+				if installPartitionSharedMediaDisk == "true" {
+					color.Green("terraform partition external disk")
+					runTerraformCommand("external-disk")
+				}
+
 				color.Green("terraform k3s")
 				runTerraformCommand("k3s")
 			}

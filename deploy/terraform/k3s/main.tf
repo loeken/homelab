@@ -76,12 +76,7 @@ resource "null_resource" "nfs_server" {
     inline = [
       "sudo apt update -y",
       "DEBIAN_FRONTEND=noninteractive sudo apt install -y nfs-kernel-server curl",
-      # "sudo parted /dev/${var.shared_media_disk_device} mklabel msdos",
-      # "sudo parted /dev/${var.shared_media_disk_device} mkpart primary ext4 0% 100%",
-      # "sudo mkfs.ext4 /dev/${var.shared_media_disk_device}1",
       "sudo mkdir -p /mnt/data",
-      # "echo '/dev/${var.shared_media_disk_device}1 /mnt/data ext4 rw,discard,errors=remount-ro 0 1' | sudo tee -a /etc/fstab",
-      # "sudo mount -a",
       "echo '/mnt/data ${var.ssh_server_address}/32(rw,all_squash,anonuid=1000,anongid=1000)' | sudo tee /etc/exports",
       "sudo chown -R ${var.ssh_username}:${var.ssh_username} /mnt/data",
       "sudo systemctl restart nfs-kernel-server",

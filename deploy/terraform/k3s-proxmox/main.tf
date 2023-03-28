@@ -36,7 +36,7 @@ resource "proxmox_vm_qemu" "k3s-vm" {
     # Second disk
   disk {
     type = "virtio"
-    storage = "local"
+    storage = var.partition_external_shared_media_disk ? "external-disk" : "local"
     size = var.disksize
   }
   lifecycle {
@@ -60,7 +60,6 @@ resource "proxmox_vm_qemu" "k3s-vm" {
       --k3s-extra-args '--disable=traefik --node-external-ip=${var.external_ip} --advertise-address=${proxmox_vm_qemu.k3s-vm.default_ipv4_address} --node-ip=${proxmox_vm_qemu.k3s-vm.default_ipv4_address}'
     EOT
   }
-
 }
 
 resource "null_resource" "upload_ips" {

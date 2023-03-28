@@ -99,3 +99,8 @@ variable "platform" {
   default = "proxmox"
   description = "what platform to use ( proxmox/baremetal/minikube )"
 }
+variable "partition_external_shared_media_disk" {
+  type = string
+  default = "false"
+  description = "if we use/format the external media disk"
+}

@@ -1,4 +1,13 @@
-
+variable "ssh_server_address" {
+  type = string
+  default = "localhost"
+  description = "The address of the server to connect to via SSH."
+}
+variable "ssh_username" {
+  type = string
+  default = "user"
+  description = "The username to use when connecting to the server via SSH."
+}
 variable "ssh_private_key" {
   type = string
   default = "~/.ssh/id_rsa"

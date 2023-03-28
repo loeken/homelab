@@ -1,5 +1,5 @@
 resource "null_resource" "nfs_server" {
-  count = var.external_disk == "true" ? 1 : 0
+  count = var.partition_external_shared_media_disk == "true" ? 1 : 0
   connection {
     type     = "ssh"
     host     = var.ssh_server_address

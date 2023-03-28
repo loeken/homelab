@@ -1394,10 +1394,20 @@ func loadSecretFromTemplate(namespace string, application string) {
 			}
 		}
 
-		// Use default value if input is empty
-		input = strings.TrimSpace(inputBuffer.String())
-		if input == "" {
-			input = strValue
+		if strKey == "DOMAIN" && namespace == "vaultwarden" && application == "vaultwarden" {
+			if !strings.HasPrefix(strValue, "https://") {
+				// Use default value if input is empty
+				input = "https://" + strings.TrimSpace(inputBuffer.String())
+				if input == "" {
+					input = strValue
+				}
+			}
+		} else {
+			// Use default value if input is empty
+			input = strings.TrimSpace(inputBuffer.String())
+			if input == "" {
+				input = strValue
+			}
 		}
 
 		// Update secret value

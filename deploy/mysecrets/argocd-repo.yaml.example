@@ -7,5 +7,5 @@ metadata:
   labels:
     argocd.argoproj.io/secret-type: repository
 stringData:
-  url: ssh://git@github.com/loeken/homelab-example
+  url: ssh://git@github.com/loeken/homelab-example replace with the ssh:// address of your repo
   sshPrivateKey: "insert contents from tmp/id_rsa here"

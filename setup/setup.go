@@ -1156,7 +1156,6 @@ func checkDependencies(verbose bool, repoName string) {
 	}
 }
 func checkGitHubSSHKey() bool {
-	os.Setenv("HOME", "/home/loeken")
 	cmd := exec.Command("ssh", "-T", "git@github.com")
 	output, err := cmd.CombinedOutput()
 	if err != nil {

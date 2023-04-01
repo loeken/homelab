@@ -1131,8 +1131,9 @@ func checkDependencies(verbose bool, repoName string) {
 	cmd := exec.Command("gh", "auth", "status")
 	output, err := cmd.CombinedOutput()
 	if err != nil {
-		fmt.Printf("Error: %v\n", err)
-		return
+		fmt.Println("you first need to login to github via the github cli:\n  gh auth login")
+		fmt.Println("when you login chose github.com, and select a private key ( no passphrase required )")
+		os.Exit(0)
 	}
 	if strings.Contains(string(output), "Logged in to github.com") {
 		color.Green("You are logged in with the GitHub CLI (gh)")

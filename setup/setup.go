@@ -1113,6 +1113,7 @@ func checkRepo() {
 }
 func checkDependencies(verbose bool, repoName string) {
 	// Define the commands to check
+	color.Blue("there is a helper script for ubuntu ./dependencies_ubuntu2204.sh to install dependencies")
 	commands := []string{"gh", "cloudflared", "git", "terraform", "kubectl", "sshpass", "kubeseal", "k3sup"}
 	// Loop through the commands and check if they're available
 	for _, cmd := range commands {

@@ -15,7 +15,7 @@ resource "null_resource" "nfs_server" {
       "sudo parted --script /dev/${var.shared_media_disk_device} mklabel gpt",
       "sudo parted --script /dev/${var.shared_media_disk_device} mkpart primary ext4 0% 100%",
 
-      "sudo mkfs.ext4 /dev/${var.shared_media_disk_device}1",
+      "sudo mkfs.ext4 -F /dev/${var.shared_media_disk_device}1",
       "sudo mkdir -p /mnt/data",
       "echo '/dev/${var.shared_media_disk_device}1 /mnt/data ext4 rw,discard,errors=remount-ro 0 1' | sudo tee -a /etc/fstab",
       "sudo mount -a",

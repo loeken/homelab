@@ -97,7 +97,7 @@ resource "null_resource" "nfs_server" {
       "DEBIAN_FRONTEND=noninteractive sudo apt install -y nfs-kernel-server parted",
       "sudo parted /dev/vdb mklabel msdos",
       "sudo parted /dev/vdb mkpart primary ext4 0% 100%",
-      "sudo mkfs.ext4 /dev/vdb1",
+      "sudo mkfs.ext4 -F /dev/vdb1",
       "sudo mkdir -p /mnt/data",
       "echo '/dev/vdb1 /mnt/data ext4 rw,discard,errors=remount-ro 0 1' | sudo tee -a /etc/fstab",
       "sudo mount -a",

@@ -31,6 +31,7 @@ resource null_resource bootstrap-k3s {
     k3sup install \
       --ip ${var.ssh_server_address} \
       --user ${var.ssh_username} \
+      --ssh-key ${var.ssh_private_key} \
       --cluster \
       --k3s-version ${var.kubernetes_version} \
       --k3s-extra-args '--disable=traefik --node-external-ip=${var.k3s_external_ip} --advertise-address=${var.ssh_server_address} --node-ip=${var.ssh_server_address}'
@@ -80,7 +81,7 @@ resource "null_resource" "nfs_server" {
       "echo '/mnt/data ${var.ssh_server_address}/32(rw,all_squash,anonuid=1000,anongid=1000)' | sudo tee /etc/exports",
       "sudo chown -R ${var.ssh_username}:${var.ssh_username} /mnt/data",
       "sudo systemctl restart nfs-kernel-server",
-      "sudo sysctl fs.inotify.max_user_instances = 512"
+      "sudo sysctl fs.inotify.max_user_instances=512"
     ]
   }
 

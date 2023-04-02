@@ -184,10 +184,10 @@ func main() {
 			runCommand(local_path+"/"+parts[1], "git", []string{"remote", "add", "upstream", "https://github.com/loeken/homelab.git"})
 
 			// genearting a ssh-keyring of type id_rsa
-			runCommand(local_path+"/"+parts[1]+"/tmp", "ssh-keygen", []string{"-t", "rsa", "-f", "id_rsa", "-C", "argocd@homelab"})
+			runCommand(local_path+"/"+parts[1]+"/tmp", "ssh-keygen", []string{"-t", "ed25519", "-f", "id_ed25519", "-C", "argocd@homelab"})
 
 			// uploading the newly created key's public key to github as a deploy key so argocd will be able to pull from the repo
-			runCommand(local_path+"/"+parts[1]+"/tmp", "gh", []string{"repo", "deploy-key", "add", "id_rsa.pub", "--repo", new_repo})
+			runCommand(local_path+"/"+parts[1]+"/tmp", "gh", []string{"repo", "deploy-key", "add", "id_ed25519.pub", "--repo", new_repo})
 
 			// opening up a new instance of vscode, cd setup there and ./setup install -h
 			runCommand(".", "code", []string{local_path + "/" + parts[1]})
@@ -204,7 +204,7 @@ func main() {
 		./setup install --authelia false \
 						--domain loeken.xyz \
 						--email loeken@internetz.me \
-						--external_ip 94.134.58.232 \
+						--external_ip 94.134.58.102 \
 						--externaldns false \
 						--ha true \
 						--ingress cloudflaretunnel \
@@ -735,13 +735,23 @@ func main() {
 			runCommand(".", "git", []string{"commit", "-m", "initial commit of values.yaml for argocd bootstrap apps"})
 			runCommand(".", "git", []string{"pull"})
 			runCommand(".", "git", []string{"push"})
-
-			runCommand("~", "cp", []string{".kube/config", ".kube/config.bak"})
+			path := os.ExpandEnv("~/.kube/config")
+			_, err = os.Stat(path)
+			if os.IsNotExist(err) {
+				fmt.Println("file does not exist")
+			} else {
+				runCommand("~", "cp", []string{"-n", ".kube/config", ".kube/config.bak"})	
+			}
 			runCommand("../tmp", "sed", []string{"-i", "s/default/" + git_parts[1] + "/g", "kubeconfig"})
 
 			fmt.Println(u.HomeDir + "/.kube/config.tmp")
 
-			MergeConfigs("../tmp/kubeconfig", u.HomeDir+"/.kube/config", u.HomeDir+"/.kube/config")
+			if os.IsNotExist(err) {
+				runCommand("..", "mkdir", []string{u.HomeDir+"/.kube/"})
+				runCommand("../tmp", "cp", []string{"kubeconfig", u.HomeDir+"/.kube/config"})	
+			} else {
+				MergeConfigs("../tmp/kubeconfig", u.HomeDir+"/.kube/config", u.HomeDir+"/.kube/config")
+			}
 			runCommand("~", "kubectl", []string{"config", "use-context", git_parts[1]})
 
 			// loading secret before argocd so it can sync straight away
@@ -966,8 +976,9 @@ func main() {
 			confirmContinue()
 			runCommand("../deploy/terraform/bootstrap-argocd", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
 			runCommand("../deploy/terraform/k3s-proxmox", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
-			// runCommand("../deploy/terraform/proxmox-debian-11-template", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
-			// runCommand("../deploy/terraform/proxmox", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
+			runCommand("../deploy/terraform/k3s", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
+			runCommand("../deploy/terraform/proxmox-debian-11-template", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
+			runCommand("../deploy/terraform/proxmox", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
 
 			runCommand("../tmp", "cloudflared", []string{"tunnel", "delete", "homelab-tunnel"})
 		},
@@ -1371,8 +1382,11 @@ func loadSecretFromTemplate(namespace string, application string) {
 		return
 	}
 
+
 	// Read the secret YAML template file
 	data, err := ioutil.ReadFile("../deploy/mysecrets/argocd-" + application + ".yaml.example")
+
+
 
 	if err != nil {
 		fmt.Printf("Error loading secrets file: %v\n", err)
@@ -1406,7 +1420,7 @@ func loadSecretFromTemplate(namespace string, application string) {
 		}
 
 		if strKey == "url" {
-			cmd := exec.Command("bash", "-c", "cat .git/config|grep url|grep git@| cut -d' ' -f 3")
+			cmd := exec.Command("bash", "-c", "cat ../.git/config|grep url|grep git@| cut -d' ' -f 3")
 
 			// Run the command and capture its output
 			output, err := cmd.Output()

@@ -68,8 +68,8 @@ resource "null_resource" "create_template" {
       "sudo virt-customize -a /var/lib/vz/images/998/vm-998-disk-0.raw --append-line '/etc/multipath.conf:    find_multipaths yes'",
       "sudo virt-customize -a /var/lib/vz/images/998/vm-998-disk-0.raw --append-line '/etc/multipath.conf:}'",
       "sudo virt-customize -a /var/lib/vz/images/998/vm-998-disk-0.raw --run-command 'systemctl enable open-iscsi.service'",
-      "sudo virt-customize -a /var/lib/vz/images/998/vm-998-disk-0.raw --run-command 'echo fs.inotify.max_user_instances = 8192 >> /etc/sysctl.conf'",
-      "sudo virt-customize -a /var/lib/vz/images/998/vm-998-disk-0.raw --run-command 'echo fs.inotify.max_user_watches = 524288 >> /etc/sysctl.conf'",
+      "sudo virt-customize -a /var/lib/vz/images/998/vm-998-disk-0.raw --run-command 'echo fs.inotify.max_user_instances=8192 >> /etc/sysctl.conf'",
+      "sudo virt-customize -a /var/lib/vz/images/998/vm-998-disk-0.raw --run-command 'echo fs.inotify.max_user_watches=524288 >> /etc/sysctl.conf'",
 
       # Convert the VM to the template
       "sudo qm clone 998 999 --name template --full true",

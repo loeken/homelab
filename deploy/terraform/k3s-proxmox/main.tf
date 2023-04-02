@@ -54,7 +54,8 @@ resource "proxmox_vm_qemu" "k3s-vm" {
     command = <<EOT
       k3sup install \
       --ip ${proxmox_vm_qemu.k3s-vm.default_ipv4_address} \
-      --user debian \
+      --ssh-key ${var.ssh_private_key} \
+      --user ${var.ssh_username} \
       --cluster \
       --k3s-version ${var.kubernetes_version} \
       --k3s-extra-args '--disable=traefik --node-external-ip=${var.external_ip} --advertise-address=${proxmox_vm_qemu.k3s-vm.default_ipv4_address} --node-ip=${proxmox_vm_qemu.k3s-vm.default_ipv4_address}'
@@ -66,7 +67,7 @@ resource "null_resource" "upload_ips" {
   connection {
     type     = "ssh"
     host     = proxmox_vm_qemu.k3s-vm.default_ipv4_address
-    user     = "debian"
+    user     = ${var.ssh_username}
     private_key = file("${var.ssh_private_key}")
   }
   provisioner "file" {
@@ -86,7 +87,7 @@ resource "null_resource" "nfs_server" {
   connection {
     type     = "ssh"
     host     = proxmox_vm_qemu.k3s-vm.default_ipv4_address
-    user     = "debian"
+    user     = ${var.ssh_username}
     private_key = file("${var.ssh_private_key}")
   }
   

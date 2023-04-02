@@ -13,7 +13,7 @@ spec:
   source:
     chart: sonarr
     repoURL: 'https://loeken.github.io/helm-charts'
-    targetRevision: 3.0.9.1549
+    targetRevision: 3.0.9
     helm:
       values: |
         {{- if .Values.sonarr.linkerd }}

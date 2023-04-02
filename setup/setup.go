@@ -792,14 +792,14 @@ func main() {
 				color.Green("Include	Specific Zone	loeken.xyz")
 				color.Green("")
 				color.Green("the helm chart is also setup for external dns to only use the --domain you specified")
-				color.Blue("\033[1m", "input settings for external-dns:", "\033[0m")
+				color.Blue("\033[1m input settings for external-dns:\033[0m")
 				loadSecretFromTemplate("external-dns", "externaldns")
 			}
 
 			// wave 13
 			if installAuthelia == "true" {
 				// Generate password hash
-				color.Blue("\033[1m", "input settings for authelia:", "\033[0m")
+				color.Blue("\033[1m input settings for authelia:\033[0m")
 				_, err := os.Stat("../tmp/authelia_users_database.yml")
 				if err != nil {
 					loadSecretFromTemplate("authelia", "authelia")
@@ -817,7 +817,7 @@ func main() {
 			}
 			// wave 13
 			if installVaultwarden == "true" {
-				color.Blue("\033[1m", "input settings for vaultwarden:", "\033[0m")
+				color.Blue("\033[1m input settings for vaultwarden:\033[0m")
 				loadSecretFromTemplate("vaultwarden", "vaultwarden")
 				waitForPodReady("vaultwarden", "vaultwarden")
 				if ingress == "cloudflaretunnel" {
@@ -826,7 +826,7 @@ func main() {
 			}
 			// wave 14
 			if installNextcloud == "true" {
-				color.Blue("\033[1m", "input settings for nextcloud:", "\033[0m")
+				color.Blue("\033[1m input settings for nextcloud:\033[0m")
 				loadSecretFromTemplate("nextcloud", "nextcloud")
 				waitForPodReady("nextcloud", "nextcloud")
 				if ingress == "cloudflaretunnel" {
@@ -836,7 +836,7 @@ func main() {
 
 			// wave none
 			if installSharedMediaDiskSize != "false" {
-				color.Blue("\033[1m", "input settings for media disk:", "\033[0m")
+				color.Blue("\033[1m input settings for media disk:\033[0m")
 				runCommand(".", "kubectl", []string{"create", "namespace", "media"})
 				err := createPVC("shared-media", "media", "nfs-client", installSharedMediaDiskSize)
 				if err != nil {
@@ -848,7 +848,7 @@ func main() {
 
 			// wave 20
 			if installJellyfin == "true" {
-				color.Blue("\033[1m", "input settings for jellyfin:", "\033[0m")
+				color.Blue("\033[1m input settings for jellyfin:\033[0m")
 				out, err := runCommandWithRetries(".", "kubectl", []string{"wait", "--for=condition=ready", "pod", "-n", "media", "-l", "app.kubernetes.io/instance=jellyfin", "--timeout=300s"}, 30, 10*time.Second)
 				if err != nil {
 					fmt.Printf("Error waiting for pod to be ready: %v\n", err)
@@ -870,7 +870,7 @@ func main() {
 			}
 			// wave 21
 			if installJellyseerr == "true" {
-				color.Blue("\033[1m", "input settings for jellyseerr:", "\033[0m")
+				color.Blue("\033[1m input settings for jellyseerr:\033[0m")
 				waitForPodReady("media", "jellyseerr")
 				if ingress == "cloudflaretunnel" {
 					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "jellyseerr." + domain})
@@ -879,7 +879,7 @@ func main() {
 
 			// wave 22
 			if installRtorrentFlood == "true" {
-				color.Blue("\033[1m", "input settings for rtorrent:", "\033[0m")
+				color.Blue("\033[1m input settings for rtorrent:\033[0m")
 				waitForPodReady("media", "rtorrent-flood")
 				if ingress == "cloudflaretunnel" {
 					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "rtorrent." + domain})
@@ -888,7 +888,7 @@ func main() {
 
 			// wave 22
 			if installNzbget == "true" {
-				color.Blue("\033[1m", "input settings for nzbget:", "\033[0m")
+				color.Blue("\033[1m input settings for nzbget:\033[0m")
 				loadSecretFromTemplate("media", "nzbget")
 				waitForPodReady("media", "nzbget")
 				if ingress == "cloudflaretunnel" {
@@ -898,7 +898,7 @@ func main() {
 
 			// wave 23
 			if installProwlarr == "true" {
-				color.Blue("\033[1m", "input settings for prowlarr:", "\033[0m")
+				color.Blue("\033[1m input settings for prowlarr:\033[0m")
 				waitForPodReady("media", "prowlarr")
 				if ingress == "cloudflaretunnel" {
 					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "prowlarr." + domain})
@@ -906,7 +906,7 @@ func main() {
 			}
 			// wave 23
 			if installRadarr == "true" {
-				color.Blue("\033[1m", "input settings for radarr:", "\033[0m")
+				color.Blue("\033[1m input settings for radarr:\033[0m")
 				waitForPodReady("media", "radarr")
 				if ingress == "cloudflaretunnel" {
 					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "radarr." + domain})
@@ -914,7 +914,7 @@ func main() {
 			}
 			// wave 23
 			if installSonarr == "true" {
-				color.Blue("\033[1m", "input settings for sonarr:", "\033[0m")
+				color.Blue("\033[1m input settings for sonarr:\033[0m")
 				waitForPodReady("media", "sonarr")
 				if ingress == "cloudflaretunnel" {
 					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "sonarr." + domain})
@@ -923,7 +923,7 @@ func main() {
 
 			// wave 30
 			if installLoki == "true" {
-				color.Blue("\033[1m", "input settings for loki:", "\033[0m")
+				color.Blue("\033[1m input settings for loki:\033[0m")
 				loadSecretFromTemplate("loki", "loki")
 				waitForPodReady("loki", "loki-stack-charts")
 				if ingress == "cloudflaretunnel" {
@@ -932,7 +932,7 @@ func main() {
 			}
 			// wave 30
 			if installHa == "true" {
-				color.Blue("\033[1m", "input settings for home-assistant:", "\033[0m")
+				color.Blue("\033[1m input settings for home-assistant:\033[0m")
 				loadSecretFromTemplate("home-assistant", "home-assistant")
 
 				color.Blue("we ll now wait for home assistant to be up this can take a bit of time - expect errors to be displayed untill its up")
@@ -982,6 +982,7 @@ func main() {
 			runCommand("../deploy/terraform/proxmox-debian-11-template", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
 			runCommand("../deploy/terraform/proxmox", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
 
+			runCommand("../tmp", "cloudflared", []string{"tunnel", "cleanup", "homelab-tunnel"})
 			runCommand("../tmp", "cloudflared", []string{"tunnel", "delete", "homelab-tunnel"})
 		},
 	}

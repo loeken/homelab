@@ -60,8 +60,8 @@ var options = []configOption{
 	{"smtp_username", "homelab@example.com", "the username used to login to your email", nil, []string{"install"}},
 	{"smtp_domain", "example.com", "the domain from which the email is sent from", nil, []string{"install"}},
 	{"ssh_password", "demotime", "ssh password", nil, []string{"install"}},
-	{"ssh_private_key", "~/.ssh/id_rsa", "location of ssh private key, id_ed25519 when generated with gh auth login", nil, []string{"install"}},
-	{"ssh_public_key", "~/.ssh/id_rsa.pub", "location of ssh public key, id_ed25519.pub when generated with gh auth login", nil, []string{"install"}},
+	{"ssh_private_key", "~/.ssh/id_ed25519", "location of ssh private key, id_ed25519 when generated with gh auth login", nil, []string{"install"}},
+	{"ssh_public_key", "~/.ssh/id_ed25519.pub", "location of ssh public key, id_ed25519.pub when generated with gh auth login", nil, []string{"install"}},
 	{"ssh_server_address", "172.16.137.36", "ip address of server for ssh connection", []string{"proxmox"}, []string{"install"}},
 	{"ssh_server_gateway", "172.16.137.254", "gateway of server ( example 172.16.137.254 )", nil, []string{"install"}},
 	{"ssh_server_netmask", "24", "amount of ram in MB to assign to the VM ", nil, []string{"install"}},
@@ -184,7 +184,7 @@ func main() {
 			// registering loeken/homelab as an upstream for the new repo
 			runCommand(local_path+"/"+parts[1], "git", []string{"remote", "add", "upstream", "https://github.com/loeken/homelab.git"})
 
-			// genearting a ssh-keyring of type id_rsa
+			// genearting a ssh-keyring of type id_ed25519
 			runCommand(local_path+"/"+parts[1]+"/tmp", "ssh-keygen", []string{"-t", "ed25519", "-f", "id_ed25519", "-C", "argocd@homelab"})
 
 			// uploading the newly created key's public key to github as a deploy key so argocd will be able to pull from the repo
@@ -215,8 +215,8 @@ func main() {
 						--loki true \
 						--new_repo loeken/homelab-beelink \
 						--nextcloud true \
-						--nzbget true \
-						--platform baremetal \
+						--nzbget false \
+						--platform proxmox \
 						--prowlarr true \
 						--radarr true \
 						--sonarr true \
@@ -228,8 +228,8 @@ func main() {
 						--ssh_server_gateway 172.16.137.254 \
 						--ssh_server_netmask 24 \
 						--ssh_username loeken \
-						--shared_media_disk_size 1500Gi \
-						--shared_media_disk_device sdb \
+						--shared_media_disk_size 2000Gi \
+						--shared_media_disk_device sda \
 						--smtp_domain internetz.me \
 						--smtp_host mail.internetz.me \
 						--smtp_port 587 \
@@ -1435,8 +1435,8 @@ func loadSecretFromTemplate(namespace string, application string) {
 			strValue = url
 		}
 		if strKey == "sshPrivateKey" {
-			// Read the contents of the file "../tmp/id_rsa"
-			privateKeyBytes, err := ioutil.ReadFile("../tmp/id_rsa")
+			// Read the contents of the file "../tmp/id_ed25519"
+			privateKeyBytes, err := ioutil.ReadFile("../tmp/id_ed25519")
 			if err != nil {
 				fmt.Printf("Error reading sshPrivateKey from file: %v\n", err)
 				return

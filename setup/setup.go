@@ -119,6 +119,7 @@ func main() {
 			}
 			parts := strings.Split(new_repo, "/")
 			checkDependencies(true, parts[1])
+
 		},
 	}
 	// enableArgocdApp := &cobra.Command{
@@ -1184,6 +1185,8 @@ func checkDependencies(verbose bool, repoName string) {
 		os.Exit(0)
 	}
 
+	checkGitAccount()
+
 	if repoName != "" {
 		if isContextActive(repoName) {
 			color.Green("The current Kubernetes context is %s\n", repoName)
@@ -1652,5 +1655,44 @@ func waitForPodReady(namespace string, podName string) {
 		fmt.Printf("Error waiting for pod to be ready: %v\n", err)
 	} else {
 		fmt.Printf("Pod is ready: %s\n", out)
+	}
+}
+func checkGitAccount() {
+	rebaseStrategy, err := exec.Command("git", "config", "pull.rebase").Output()
+	if err != nil {
+		// Handle error
+		color.Red("Error checking rebase strategy: " + err.Error())
+		return
+	}
+	if len(strings.TrimSpace(string(rebaseStrategy))) == 0 {
+		color.Red("Git rebase strategy not set suggestion: git --global config pull rebase false")
+	} else {
+		color.Green("Git rebase strategy set to: " + string(rebaseStrategy))
+	}
+
+	// Check if the user has set a Git user email
+	userEmail, err := exec.Command("git", "config", "user.email").Output()
+	if err != nil {
+		// Handle error
+		color.Red("Error checking user email:" + err.Error())
+		return
+	}
+	if len(strings.TrimSpace(string(userEmail))) == 0 {
+		color.Red("Git user email not set: git --global config user.email your.em@il.org")
+	} else {
+		color.Green("Git user email set to: " + string(userEmail))
+	}
+
+	// Check if the user has set a Git user name
+	userName, err := exec.Command("git", "config", "user.name").Output()
+	if err != nil {
+		// Handle error
+		color.Red("Error checking user name: " + err.Error())
+		return
+	}
+	if len(strings.TrimSpace(string(userName))) == 0 {
+		color.Red("Git user name not set: git --global config user.name anonymous")
+	} else {
+		color.Green("Git user name set to: " + string(userName))
 	}
 }

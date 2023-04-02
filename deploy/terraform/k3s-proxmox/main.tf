@@ -25,7 +25,7 @@ resource "proxmox_vm_qemu" "k3s-vm" {
   scsihw            = "virtio-scsi-pci"
   ipconfig0 = "ip=dhcp"
   sshkeys = file("${var.ssh_public_key}")
-  ciuser = ${var.ssh_username}
+  ciuser = var.ssh_username
   qemu_os = "l26"
   vcpus = var.cores_k3s
   disk {
@@ -67,7 +67,7 @@ resource "null_resource" "upload_ips" {
   connection {
     type     = "ssh"
     host     = proxmox_vm_qemu.k3s-vm.default_ipv4_address
-    user     = ${var.ssh_username}
+    user     = var.ssh_username
     private_key = file("${var.ssh_private_key}")
   }
   provisioner "file" {
@@ -87,7 +87,7 @@ resource "null_resource" "nfs_server" {
   connection {
     type     = "ssh"
     host     = proxmox_vm_qemu.k3s-vm.default_ipv4_address
-    user     = ${var.ssh_username}
+    user     = var.ssh_username
     private_key = file("${var.ssh_private_key}")
   }
   

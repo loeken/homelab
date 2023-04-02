@@ -740,15 +740,15 @@ func main() {
 			if os.IsNotExist(err) {
 				fmt.Println("file does not exist")
 			} else {
-				runCommand("~", "cp", []string{"-n", ".kube/config", ".kube/config.bak"})	
+				runCommand("~", "cp", []string{"-n", ".kube/config", ".kube/config.bak"})
 			}
 			runCommand("../tmp", "sed", []string{"-i", "s/default/" + git_parts[1] + "/g", "kubeconfig"})
 
 			fmt.Println(u.HomeDir + "/.kube/config.tmp")
 
 			if os.IsNotExist(err) {
-				runCommand("..", "mkdir", []string{u.HomeDir+"/.kube/"})
-				runCommand("../tmp", "cp", []string{"kubeconfig", u.HomeDir+"/.kube/config"})	
+				runCommand("..", "mkdir", []string{u.HomeDir + "/.kube/"})
+				runCommand("../tmp", "cp", []string{"kubeconfig", u.HomeDir + "/.kube/config"})
 			} else {
 				MergeConfigs("../tmp/kubeconfig", u.HomeDir+"/.kube/config", u.HomeDir+"/.kube/config")
 			}
@@ -959,16 +959,17 @@ func main() {
 		Use:   "destroy",
 		Short: "destroy the stack ( DANGER DANGER! :) )",
 		Run: func(cmd *cobra.Command, args []string) {
-			new_repo := viper.GetString("new_repo")
+			mycmd := exec.Command("sh", "-c", "cat ../.git/config | grep url |grep -v loeken/homelab.git| cut -d' ' -f 3")
+
+			var out bytes.Buffer
+			mycmd.Stdout = &out
+			err := mycmd.Run()
+			if err != nil {
+				fmt.Println("Error running command:", err)
+				return
+			}
+			new_repo := strings.TrimSpace(out.String())
 			parts := strings.Split(new_repo, "/")
-			if len(parts) != 2 {
-				color.Red("--new_repo should be in the format user/repository")
-				os.Exit(0)
-			}
-			if new_repo == "" {
-				color.Red("--new_repo should be set")
-				os.Exit(0)
-			}
 
 			checkDependencies(true, parts[1])
 
@@ -1382,11 +1383,8 @@ func loadSecretFromTemplate(namespace string, application string) {
 		return
 	}
 
-
 	// Read the secret YAML template file
 	data, err := ioutil.ReadFile("../deploy/mysecrets/argocd-" + application + ".yaml.example")
-
-
 
 	if err != nil {
 		fmt.Printf("Error loading secrets file: %v\n", err)

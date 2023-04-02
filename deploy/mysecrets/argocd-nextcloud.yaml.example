@@ -9,5 +9,5 @@ stringData:
   smtp_username: "nextcloud smtp username: homelab@example.com"
   smtp_password: "nextcloud smtp password: topsecure"
   password: "nextcloud admin password: topsecurebitches"
-  username: admin
+  username: nextcloud
   postgres-password: "password for nextcloud to connect to postgresql: topsecurebitches"

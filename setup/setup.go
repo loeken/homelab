@@ -60,8 +60,8 @@ var options = []configOption{
 	{"smtp_username", "homelab@example.com", "the username used to login to your email", nil, []string{"install"}},
 	{"smtp_domain", "example.com", "the domain from which the email is sent from", nil, []string{"install"}},
 	{"ssh_password", "demotime", "ssh password", nil, []string{"install"}},
-	{"ssh_private_key", "~/.ssh/id_rsa", "location of ssh private key", nil, []string{"install"}},
-	{"ssh_public_key", "~/.ssh/id_rsa.pub", "location of ssh public key", nil, []string{"install"}},
+	{"ssh_private_key", "~/.ssh/id_rsa", "location of ssh private key, id_ed25519 when generated with gh auth login", nil, []string{"install"}},
+	{"ssh_public_key", "~/.ssh/id_rsa.pub", "location of ssh public key, id_ed25519.pub when generated with gh auth login", nil, []string{"install"}},
 	{"ssh_server_address", "172.16.137.36", "ip address of server for ssh connection", []string{"proxmox"}, []string{"install"}},
 	{"ssh_server_gateway", "172.16.137.254", "gateway of server ( example 172.16.137.254 )", nil, []string{"install"}},
 	{"ssh_server_netmask", "24", "amount of ram in MB to assign to the VM ", nil, []string{"install"}},
@@ -220,8 +220,15 @@ func main() {
 						--radarr true \
 						--sonarr true \
 						--rtorrentflood true \
-						--shared_media_disk_size 400Gi \
-						--shared_media_disk_device vdb \
+						--ssh_password demotime \
+						--ssh_private_key ~/.ssh/id_ed25519 \
+						--ssh_public_key ~/.ssh/id_ed25519.pub \
+						--ssh_server_address 172.16.137.36 \
+						--ssh_server_gateway 172.16.137.254 \
+						--ssh_server_netmask 24 \
+						--ssh_username loeken \
+						--shared_media_disk_size 1500Gi \
+						--shared_media_disk_device sdb \
 						--smtp_domain internetz.me \
 						--smtp_host mail.internetz.me \
 						--smtp_port 587 \
@@ -275,8 +282,24 @@ func main() {
 			installSonarr := viper.GetString("sonarr")
 			installVaultwarden := viper.GetString("vaultwarden")
 
+			privateKey := viper.GetString("ssh_private_key")
+			publicKey := viper.GetString("ssh_public_key")
+
 			// pciPassthrough := viper.GetString("pci_passthrough")
 			// pciDevice := viper.GetString("pci_device")
+
+			filename1 := os.ExpandEnv(privateKey)
+			_, err := os.Stat(filename1)
+			if os.IsNotExist(err) {
+				fmt.Printf("private key %s does not exist\n", filename1)
+				os.Exit(0)
+			}
+			filename2 := os.ExpandEnv(publicKey)
+			_, err = os.Stat(filename2)
+			if os.IsNotExist(err) {
+				fmt.Printf("public key %s does not exist\n", filename2)
+				os.Exit(0)
+			}
 
 			u, err := user.Current()
 			if err != nil {

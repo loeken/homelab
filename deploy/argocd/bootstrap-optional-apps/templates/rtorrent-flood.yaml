@@ -41,15 +41,7 @@ spec:
             readOnly: false
           downloads:
             mountPath: /downloads
-            type: pvc
             enabled: true
-            accessMode: ReadWriteOnce
-            size: {{ .Values.rtorrentflood.size }}
-            storageClass: {{ .Values.rtorrentflood.storageClass }}
-            readOnly: false
-          media:
-            enabled: true
-            mountPath: /media
             type: pvc
             accessMode: ReadWriteMany
             size: {{ .Values.sharedmedia.size }}

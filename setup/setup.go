@@ -801,12 +801,12 @@ func main() {
 				fmt.Println("you selected cloudflare ingress please login")
 				runCommand("../tmp", "cloudflared", []string{"login"})
 				runCommand("../tmp", "kubectl", []string{"create", "namespace", "cloudflaretunnel"})
-				runCommand("../tmp", "cloudflared", []string{"tunnel", "create", "homelab-tunnel"})
-				runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "whoami." + domain})
+				runCommand("../tmp", "cloudflared", []string{"tunnel", "create", "homelab-tunnel_" + new_repo})
+				runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "whoami." + domain})
 				// runCommand(".", "kubectl", []string{"wait", "--for=condition=ready", "pod", "-n", "kube-system", "-l", "app.kubernetes.io/instance=sealed-secrets-controller", "--timeout=300s"})
 
 				waitForPodReady("kube-system", "sealed-secrets-controller")
-				cfTunnelId := cloudflaretunnel("homelab-tunnel")
+				cfTunnelId := cloudflaretunnel("homelab-tunnel_" + new_repo)
 				cloudflaresecret(cfTunnelId, *u)
 			}
 			color.Green("---")
@@ -846,7 +846,7 @@ func main() {
 				runCommand("../tmp", "kubectl", []string{"cp", "authelia_users_database.yml", "authelia/authelia-0:/config/users_database.yml"})
 
 				if ingress == "cloudflaretunnel" {
-					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "auth." + domain})
+					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "auth." + domain})
 				}
 			}
 			// wave 13
@@ -855,7 +855,7 @@ func main() {
 				loadSecretFromTemplate("vaultwarden", "vaultwarden")
 				waitForPodReady("vaultwarden", "vaultwarden")
 				if ingress == "cloudflaretunnel" {
-					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "vaultwarden." + domain})
+					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "vaultwarden." + domain})
 				}
 			}
 			// wave 14
@@ -864,7 +864,7 @@ func main() {
 				loadSecretFromTemplate("nextcloud", "nextcloud")
 				waitForPodReady("nextcloud", "nextcloud")
 				if ingress == "cloudflaretunnel" {
-					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "nextcloud." + domain})
+					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "nextcloud." + domain})
 				}
 			}
 
@@ -899,7 +899,7 @@ func main() {
 					createFolderJellyfin(podName, "/media/movie")
 				}
 				if ingress == "cloudflaretunnel" {
-					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "jellyfin." + domain})
+					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "jellyfin." + domain})
 				}
 			}
 			// wave 21
@@ -907,7 +907,7 @@ func main() {
 				color.Blue("\033[1m input settings for jellyseerr:\033[0m")
 				waitForPodReady("media", "jellyseerr")
 				if ingress == "cloudflaretunnel" {
-					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "jellyseerr." + domain})
+					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "jellyseerr." + domain})
 				}
 			}
 
@@ -916,7 +916,7 @@ func main() {
 				color.Blue("\033[1m input settings for rtorrent:\033[0m")
 				waitForPodReady("media", "rtorrent-flood")
 				if ingress == "cloudflaretunnel" {
-					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "rtorrent." + domain})
+					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "rtorrent." + domain})
 				}
 			}
 
@@ -926,7 +926,7 @@ func main() {
 				loadSecretFromTemplate("media", "nzbget")
 				waitForPodReady("media", "nzbget")
 				if ingress == "cloudflaretunnel" {
-					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "rtorrent." + domain})
+					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "rtorrent." + domain})
 				}
 			}
 
@@ -935,7 +935,7 @@ func main() {
 				color.Blue("\033[1m input settings for prowlarr:\033[0m")
 				waitForPodReady("media", "prowlarr")
 				if ingress == "cloudflaretunnel" {
-					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "prowlarr." + domain})
+					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "prowlarr." + domain})
 				}
 			}
 			// wave 23
@@ -943,7 +943,7 @@ func main() {
 				color.Blue("\033[1m input settings for radarr:\033[0m")
 				waitForPodReady("media", "radarr")
 				if ingress == "cloudflaretunnel" {
-					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "radarr." + domain})
+					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "radarr." + domain})
 				}
 			}
 			// wave 23
@@ -951,7 +951,7 @@ func main() {
 				color.Blue("\033[1m input settings for sonarr:\033[0m")
 				waitForPodReady("media", "sonarr")
 				if ingress == "cloudflaretunnel" {
-					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "sonarr." + domain})
+					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "sonarr." + domain})
 				}
 			}
 
@@ -961,7 +961,7 @@ func main() {
 				loadSecretFromTemplate("loki", "loki")
 				waitForPodReady("loki", "loki-stack-charts")
 				if ingress == "cloudflaretunnel" {
-					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "grafana." + domain})
+					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "grafana." + domain})
 				}
 			}
 			// wave 30
@@ -977,7 +977,7 @@ func main() {
 				runCommand(".", "kubectl", []string{"rollout", "restart", "statefulset", "home-assistant", "-n", "home-assistant"})
 
 				if ingress == "cloudflaretunnel" {
-					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel", "ha." + domain})
+					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "ha." + domain})
 				}
 			}
 
@@ -1021,8 +1021,8 @@ func main() {
 			runCommand("../deploy/terraform/proxmox", "terraform", []string{"init"})
 			runCommand("../deploy/terraform/proxmox", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
 
-			runCommand("../tmp", "cloudflared", []string{"tunnel", "cleanup", "homelab-tunnel"})
-			runCommand("../tmp", "cloudflared", []string{"tunnel", "delete", "homelab-tunnel"})
+			runCommand("../tmp", "cloudflared", []string{"tunnel", "cleanup", "homelab-tunnel_" + new_repo})
+			runCommand("../tmp", "cloudflared", []string{"tunnel", "delete", "homelab-tunnel_" + new_repo})
 		},
 	}
 

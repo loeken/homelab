@@ -254,6 +254,7 @@ func main() {
 						--platform proxmox \
 						--prowlarr false \
 						--proxmox_node_name homeserver \
+						--proxmox_vm_name kubeflow \
 						--radarr false \
 						--sonarr false \
 						--rtorrentflood false \
@@ -272,7 +273,8 @@ func main() {
 						--smtp_sender homelab-beelink@internetz.me \
 						--smtp_username homelab-beelink@internetz.me \
 						--storage local-path \
-						--vaultwarden false
+						--vaultwarden false \
+						--whoami false
 	`,
 		Run: func(cmd *cobra.Command, args []string) {
 			checkDependencies(false, "")

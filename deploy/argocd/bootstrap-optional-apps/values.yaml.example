@@ -18,6 +18,8 @@ ceph:
 cloudflaretunnel:
   enabled: true
 clusterIssuer: letsencrypt-staging
+certmanager:
+  enabled: false
 democratic_iscsi:
   chartVersion: 0.13.5
   enabled: false

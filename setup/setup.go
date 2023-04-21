@@ -190,9 +190,6 @@ func main() {
 			// uploading the newly created key's public key to github as a deploy key so argocd will be able to pull from the repo
 			runCommand(local_path+"/"+parts[1]+"/tmp", "gh", []string{"repo", "deploy-key", "add", "id_ed25519.pub", "--repo", new_repo})
 
-			// opening up a new instance of vscode, cd setup there and ./setup install -h
-			runCommand(".", "code", []string{local_path + "/" + parts[1]})
-
 		},
 	}
 	installCmd := &cobra.Command{
@@ -237,6 +234,43 @@ func main() {
 						--smtp_username homelab-beelink@internetz.me \
 						--storage local-path \
 						--vaultwarden true
+
+	minimal install
+		./setup install --authelia false \
+						--domain loeken.xyz \
+						--email loeken@internetz.me \
+						--external_ip 94.134.58.102 \
+						--externaldns false \
+						--ha false \
+						--ingress cloudflaretunnel \
+						--jellyfin false \
+						--jellyseerr false \
+						--kasten-k10 false \
+						--loki false \
+						--new_repo loeken/homelab-kubeflow \
+						--nextcloud false \
+						--nzbget false \
+						--platform proxmox \
+						--prowlarr false \
+						--radarr false \
+						--sonarr false \
+						--rtorrentflood false \
+						--ssh_password demotime \
+						--ssh_private_key ~/.ssh/id_ed25519 \
+						--ssh_public_key ~/.ssh/id_ed25519.pub \
+						--ssh_server_address 172.16.137.250 \
+						--ssh_server_gateway 172.16.137.254 \
+						--ssh_server_netmask 24 \
+						--ssh_username loeken \
+						--shared_media_disk_size false \
+						--shared_media_disk_device false \
+						--smtp_domain internetz.me \
+						--smtp_host mail.internetz.me \
+						--smtp_port 587 \
+						--smtp_sender homelab-beelink@internetz.me \
+						--smtp_username homelab-beelink@internetz.me \
+						--storage local-path \
+						--vaultwarden false
 	`,
 		Run: func(cmd *cobra.Command, args []string) {
 			checkDependencies(false, "")
@@ -1103,7 +1137,8 @@ func runCommand(folder string, command string, args []string) (string, error) {
 
 	// Wait for the command to finish
 	if err := cmd.Wait(); err != nil {
-		return stderr.String(), fmt.Errorf("error running command %s: %w\nstderr: %s", command, err, stderr.String())
+		fmt.Fprintf(os.Stderr, "Error running command %s: %s\n", cmd.Args, err)
+		os.Exit(1) // exit with an error code
 	}
 
 	return stdout.String(), nil

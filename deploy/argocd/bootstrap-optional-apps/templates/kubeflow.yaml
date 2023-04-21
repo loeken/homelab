@@ -1,0 +1,22 @@
+{{ if .Values.loki.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    name: my-kubeflow
+    namespace: argocd
+spec:
+    project: default
+    source:
+        repoURL: https://alauda.github.io/kubeflow-chart
+        targetRevision: 1.6.2
+        chart: kubeflow
+    destination:
+        server: https://kubernetes.default.svc
+        namespace: kubeflow
+    syncPolicy:
+    automated:
+        prune: true
+        selfHeal: true
+    syncOptions:
+        - CreateNamespace=true
+{{ end }}

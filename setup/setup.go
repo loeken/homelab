@@ -41,7 +41,7 @@ var options = []configOption{
 	{"domain", "", "the domain you want to use", nil, []string{"install"}},
 	{"email", "", "the folder into which new_repo will be cloned into", nil, []string{"install"}},
 	{"external_ip", "1.2.3.4", "your external ipv4 ( curl -4 ifconfig.co )", nil, []string{"install"}},
-	{"iface", "enp3s0", "name of the primary interface", nil, []string{"install"}},
+	{"interface", "enp3s0", "name of the primary interface", nil, []string{"install"}},
 	{"ingress", "cloudflaretunnel", "which ingress to use ( nginx/cloudflaretunnel )", []string{"nginx", "cloudflaretunnel"}, []string{"install"}},
 	{"kubernetes_version", "v1.25.6+k3s1", "kubernetes version", nil, []string{"install"}},
 	{"local_path", "", "the folder into which new_repo will be cloned into", nil, []string{"install", "github"}},
@@ -243,6 +243,7 @@ func main() {
 						--externaldns false \
 						--ha false \
 						--ingress cloudflaretunnel \
+						--interface eno1 \
 						--jellyfin false \
 						--jellyseerr false \
 						--kasten-k10 false \

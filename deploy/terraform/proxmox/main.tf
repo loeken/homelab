@@ -51,8 +51,9 @@ resource "null_resource" "migrate" {
       "echo vfio_pci | sudo tee -a /etc/modules",
       "echo vfio_virqfd | sudo tee -a /etc/modules",
       "sudo update-grub",
-      "if uname -r | grep -q pve; then echo 'PVE kernel is active'; else echo 'PVE kernel is not active, triggering reboot'; sudo systemctl reboot; fi",
-      #"if sudo update-grub | grep 'update-initramfs: Generating /boot/initrd.img-'; then sudo systemctl reboot; fi"
+      # "if uname -r | grep -q pve; then echo 'PVE kernel is active'; else echo 'PVE kernel is not active, triggering reboot'; sudo systemctl reboot; fi",
+      "if sudo update-grub",
+      "if ! uname -r | grep -q pve; then sudo shutdown -r now; fi"
     ]
   }
   depends_on = [

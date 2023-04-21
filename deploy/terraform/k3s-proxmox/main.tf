@@ -86,14 +86,36 @@ resource "null_resource" "upload_ips" {
 }
 
 resource "null_resource" "nfs_server" {
-  count = var.storage == "local-path" ? 1 : 0
+  count = var.storage == "local-path" && !var.partition_external_shared_media_disk ? 1 : 0
+
   connection {
-    type     = "ssh"
-    host     = proxmox_vm_qemu.k3s-vm.default_ipv4_address
-    user     = var.ssh_username
+    type        = "ssh"
+    host        = proxmox_vm_qemu.k3s-vm.default_ipv4_address
+    user        = var.ssh_username
     private_key = file("${var.ssh_private_key}")
   }
-  
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo apt update -y",
+      "DEBIAN_FRONTEND=noninteractive sudo apt install -y nfs-kernel-server parted",
+      "sudo mkdir -p /mnt/data",
+      "echo '/mnt/data ${proxmox_vm_qemu.k3s-vm.default_ipv4_address}/32(rw,all_squash,anonuid=1000,anongid=1000)' | sudo tee /etc/exports",
+      "sudo chown -R ${var.ssh_username}:${var.ssh_username} /mnt/data",
+      "sudo systemctl restart nfs-kernel-server",
+    ]
+  }
+}
+resource "null_resource" "nfs_server_extradisk" {
+  count = var.storage == "local-path" && var.partition_external_shared_media_disk ? 1 : 0
+
+  connection {
+    type        = "ssh"
+    host        = proxmox_vm_qemu.k3s-vm.default_ipv4_address
+    user        = var.ssh_username
+    private_key = file("${var.ssh_private_key}")
+  }
+
   provisioner "remote-exec" {
     inline = [
       "sudo apt update -y",

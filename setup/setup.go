@@ -253,7 +253,7 @@ func main() {
 						--nzbget false \
 						--platform proxmox \
 						--prowlarr false \
-						--proxmox-node-name homelab \
+						--proxmox_node_name homeserver \
 						--radarr false \
 						--sonarr false \
 						--rtorrentflood false \
@@ -783,7 +783,7 @@ func main() {
 			fmt.Println(u.HomeDir + "/.kube/config.tmp")
 
 			if os.IsNotExist(err) {
-				runCommand("..", "mkdir", []string{u.HomeDir + "/.kube/"})
+				runCommand("..", "mkdir", []string{"-p", u.HomeDir + "/.kube/"})
 				runCommand("../tmp", "cp", []string{"kubeconfig", u.HomeDir + "/.kube/config"})
 			} else {
 				MergeConfigs("../tmp/kubeconfig", u.HomeDir+"/.kube/config", u.HomeDir+"/.kube/config")

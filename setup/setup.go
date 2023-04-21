@@ -1010,10 +1010,15 @@ func main() {
 
 			color.Red("this will run terraform destroys on all terraform folders")
 			confirmContinue()
+			runCommand("../deploy/terraform/bootstrap-argocd", "terraform", []string{"init"})
 			runCommand("../deploy/terraform/bootstrap-argocd", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
+			runCommand("../deploy/terraform/k3s-proxmox", "terraform", []string{"init"})
 			runCommand("../deploy/terraform/k3s-proxmox", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
+			runCommand("../deploy/terraform/k3s", "terraform", []string{"init"})
 			runCommand("../deploy/terraform/k3s", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
+			runCommand("../deploy/terraform/proxmox-debian-11-template", "terraform", []string{"init"})
 			runCommand("../deploy/terraform/proxmox-debian-11-template", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
+			runCommand("../deploy/terraform/proxmox", "terraform", []string{"init"})
 			runCommand("../deploy/terraform/proxmox", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
 
 			runCommand("../tmp", "cloudflared", []string{"tunnel", "cleanup", "homelab-tunnel"})
@@ -1140,6 +1145,7 @@ func runCommand(folder string, command string, args []string) (string, error) {
 	if err := cmd.Wait(); err != nil {
 		fmt.Fprintf(os.Stderr, "Error running command %s: %s\n", cmd.Args, err)
 		os.Exit(1) // exit with an error code
+
 	}
 
 	return stdout.String(), nil

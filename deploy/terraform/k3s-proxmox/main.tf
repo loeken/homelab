@@ -34,10 +34,13 @@ resource "proxmox_vm_qemu" "k3s-vm" {
     size = "50G"
   }
     # Second disk
-  disk {
-    type = "virtio"
-    storage = var.partition_external_shared_media_disk ? "external-disk" : "local"
-    size = var.shared_media_disk_size
+  dynamic "disk" {
+    for_each = var.partition_external_shared_media_disk ? [1] : []
+    content {
+      type    = "virtio"
+      storage = var.partition_external_shared_media_disk ? "external-disk" : "local"
+      size    = var.shared_media_disk_size
+    }
   }
   lifecycle {
     ignore_changes = [

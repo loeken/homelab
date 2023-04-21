@@ -253,6 +253,7 @@ func main() {
 						--nzbget false \
 						--platform proxmox \
 						--prowlarr false \
+						--proxmox-node-name homelab \
 						--radarr false \
 						--sonarr false \
 						--rtorrentflood false \

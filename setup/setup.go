@@ -558,7 +558,6 @@ func main() {
 				rtorrentConfig["enabled"] = true
 				rtorrentConfig["useAuthelia"] = false
 				rtorrentConfig["linkerd"] = false
-				rtorrentConfig["size"] = "10Gi"
 				rtorrentConfig["storageClass"] = storage
 
 				rtorrentConfig["ingress"] = make(map[interface{}]interface{})

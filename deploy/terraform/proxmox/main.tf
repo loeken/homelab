@@ -79,7 +79,7 @@ resource "null_resource" "pve_setup" {
       "uname -a",
       "echo \"postfix postfix/mailname string my.hostname.example\" | sudo debconf-set-selections",
       "echo \"postfix postfix/main_mailer_type string 'Internet Site'\" | sudo debconf-set-selections",
-      "DEBIAN_FRONTEND=noninteractive sudo apt install -y lvm2 proxmox-ve postfix open-iscsi ifupdown2",
+      "DEBIAN_FRONTEND=noninteractive sudo apt install -y lvm2 proxmox-ve postfix open-iscsi ifupdown2 bridge-utils",
       "sudo apt remove -y os-prober",
       "sudo apt autoremove -y",
       "sudo rm -rf /etc/apt/sources.list.d/pve-enterprise.list"

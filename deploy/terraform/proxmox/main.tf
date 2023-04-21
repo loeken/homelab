@@ -50,7 +50,7 @@ resource "null_resource" "migrate" {
       "echo vfio_iommu_type1 | sudo tee -a /etc/modules",
       "echo vfio_pci | sudo tee -a /etc/modules",
       "echo vfio_virqfd | sudo tee -a /etc/modules",
-      "sudo update-grub",
+      "sudo apt remove linux-image-amd64 'linux-image-5.10*' -y",
       "if sudo update-grub; then",
       "  if ! uname -r | grep -q pve; then sudo shutdown -r now; fi",
       "fi"

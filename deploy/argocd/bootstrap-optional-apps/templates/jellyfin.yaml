@@ -13,7 +13,7 @@ spec:
   source:
     chart: jellyfin
     repoURL: https://loeken.github.io/helm-charts
-    targetRevision: 10.8.9
+    targetRevision: {{ .Values.jellyfin.chartVersion }}
     helm:
       values: |
         {{- if .Values.jellyfin.linkerd }}

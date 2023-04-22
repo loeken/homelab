@@ -162,7 +162,7 @@ prowlarr:
   storageClass: local-path
   useAuthelia: false
 radarr:
-  chartVersion: 0.0.5
+  chartVersion: 4.3.2
   enabled: false
   ingress:
     cloudflaretunnel:

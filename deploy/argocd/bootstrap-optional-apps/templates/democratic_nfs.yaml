@@ -12,7 +12,7 @@ spec:
   project: default
   source:
     repoURL: https://democratic-csi.github.io/charts/
-    targetRevision: 0.13.5
+    targetRevision: {{ .Values.democratic_iscsi.chartVersion }}
     chart: democratic-csi
     helm:
       values: |

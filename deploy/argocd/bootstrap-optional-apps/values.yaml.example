@@ -1,6 +1,5 @@
----
 authelia:
-  chartVersion: 0.8.54
+  chartVersion: 0.8.57
   enabled: false
   ingress:
     cloudflaretunnel:

@@ -185,6 +185,7 @@ func main() {
 			}
 			fmt.Println("saved a new file: updated_secret_" + namespace + "_" + secret + ".yaml inside deploy/mysecrets with the new values")
 			fmt.Println("to encrypt and apply the new secret use: cat updated_secret_" + namespace + "_" + secret + ".yaml | kubeseal | kubectl apply -f -")
+			fmt.Println("to overwrite your encrypted version: cat updated_secret_" + namespace + "_" + secret + ".yaml | kubeseal > templates/argocd-" + secret + ".yaml")
 		},
 	}
 	githubCmd := &cobra.Command{

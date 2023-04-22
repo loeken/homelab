@@ -1,5 +1,5 @@
 authelia:
-  chartVersion: 0.8.57
+  chartVersion: v4.37.5
   enabled: false
   ingress:
     cloudflaretunnel:
@@ -14,11 +14,11 @@ authelia:
   storageClass: local-path
 ceph:
   enabled: false
+certmanager:
+  enabled: false
 cloudflaretunnel:
   enabled: true
 clusterIssuer: letsencrypt-staging
-certmanager:
-  enabled: false
 democratic_iscsi:
   chartVersion: 0.13.5
   enabled: false
@@ -196,13 +196,13 @@ sonarr:
 storageClass: local-path
 vaultwarden:
   enabled: false
-  storageClass: local-path
-  useAuthelia: true
   ingress:
     cloudflaretunnel:
       enabled: true
     nginx:
       enabled: false
+  storageClass: local-path
+  useAuthelia: true
 volumesnapshots:
   enabled: true
 whoami:

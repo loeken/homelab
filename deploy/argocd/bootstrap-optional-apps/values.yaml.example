@@ -60,8 +60,8 @@ jellyfin:
   linkerd: false
   useAuthelia: false
 jellyseerr:
-  enabled: false
   chartVersion: 1.4.1
+  enabled: false
   ingress:
     cloudflaretunnel:
       enabled: true
@@ -113,7 +113,7 @@ loki:
   storageClass: local-path
   storageSize: 10Gi
 nextcloud:
-  chartVersion: 3.5.3
+  chartVersion: 3.5.9
   data:
     size: 10Gi
     storageClass: local-path

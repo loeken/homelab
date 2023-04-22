@@ -60,8 +60,8 @@ jellyfin:
   linkerd: false
   useAuthelia: false
 jellyseerr:
-  enabled: false
   chartVersion: 1.4.1
+  enabled: false
   ingress:
     cloudflaretunnel:
       enabled: true
@@ -70,6 +70,7 @@ jellyseerr:
   linkerd: false
   useAuthelia: false
 k10:
+  chartVersion: 5.5.9
   enabled: false
   storageClass: local-path
 kubeflow:

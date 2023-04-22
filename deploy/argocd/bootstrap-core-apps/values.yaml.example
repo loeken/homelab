@@ -2,7 +2,5 @@
 email: youremail@example.com
 githubUser: loeken
 githubRepo: homelab-example
-certManager:
-  chartVersion: v1.11.0
 sealedSecrets:
-  chartVersion: v0.19.5
+  chartVersion: 2.8.2

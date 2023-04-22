@@ -13,7 +13,7 @@ spec:
   source:
     chart: whoami
     repoURL: 'https://gitlab.com/api/v4/projects/37200623/packages/helm/stable'
-    targetRevision: 0.1.6
+    targetRevision: {{ .Values.prowlarr.chartVersion }}
     helm:
       values: |
         service:

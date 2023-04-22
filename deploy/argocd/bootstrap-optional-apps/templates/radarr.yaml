@@ -13,7 +13,7 @@ spec:
   source:
     chart: radarr
     repoURL: https://loeken.github.io/helm-charts
-    targetRevision: 0.0.5
+    targetRevision: {{ .Values.prowlarr.chartVersion }}
     helm:
       values: |
         {{- if .Values.radarr.linkerd }}

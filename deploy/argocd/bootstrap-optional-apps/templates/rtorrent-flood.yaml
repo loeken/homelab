@@ -13,7 +13,7 @@ spec:
   source:
     chart: rtorrent-flood
     repoURL: 'https://loeken.github.io/helm-charts'
-    targetRevision: 4.7.0
+    targetRevision: {{ .Values.prowlarr.chartVersion }}
     helm:
       values: |
         {{- if .Values.rtorrentflood.linkerd }}

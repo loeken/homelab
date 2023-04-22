@@ -13,7 +13,7 @@ spec:
   source:
     chart: jellyseerr
     repoURL: https://loeken.github.io/helm-charts
-    targetRevision: 1.4.1
+    targetRevision: {{ .Values.jellyseerr.chartVersion }}
     helm:
       values: |
         {{- if .Values.jellyseerr.linkerd }}

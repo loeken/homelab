@@ -46,6 +46,7 @@ jellyfin:
     enabled: true
     size: 10Gi
     storageClass: local-path
+  chartVersion: 10.8.9
   config:
     enabled: true
     size: 1Gi
@@ -60,6 +61,7 @@ jellyfin:
   useAuthelia: false
 jellyseerr:
   enabled: false
+  chartVersion: 1.4.1
   ingress:
     cloudflaretunnel:
       enabled: true

@@ -3,6 +3,8 @@ package main
 import (
 	"bufio"
 	"bytes"
+	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -33,6 +35,12 @@ type configOption struct {
 }
 
 var options = []configOption{
+	//./setup update-secret <namespace> <name> <item> <value>
+	{"namespace", "vaultwarden", "the namespace to update the secret in", nil, []string{"update-secret"}},
+	{"name", "vaultwarden", "the name of the secret", nil, []string{"update-secret"}},
+	{"key", "vaultwarden", "the key inside the secret for example: smtp_username", nil, []string{"update-secret"}},
+	{"value", "topsecure", "the value of the key for example: topsecure", nil, []string{"update-secret"}},
+
 	{"bridge", "vmbr0", "name of the bridge", nil, []string{"install"}},
 	{"cores_k3s", "10", "the amount of virtual cores to pass to the k3s vm", nil, []string{"install"}},
 	{"cluster-issuer", "staging", "when using nginx ingress, select cluster issuer ( staging / prod )", nil, []string{"install"}},
@@ -122,17 +130,63 @@ func main() {
 
 		},
 	}
-	// enableArgocdApp := &cobra.Command{
-	// 	Use:   "enable-argocd-app",
-	// 	Short: "little helper to load sealed secrets",
-	// 	Run: func(cmd *cobra.Command, args []string) {
-	// 		authelia := viper.GetString("authelia")
-	// 		if authelia != "" {
-	// 			runCommand(".", "kubectl", []string{"create", "namespace", "authelia"})
-	// 			loadSecretFromTemplate("authelia", "authelia")
-	// 		}
-	// 	},
-	// }
+	updateSecrets := &cobra.Command{
+		Use:   "update-secret",
+		Short: "updates a value inside the secret",
+		Run: func(cmd *cobra.Command, args []string) {
+
+			namespace := viper.GetString("namespace")
+			secret := viper.GetString("name")
+			outputFile := fmt.Sprintf("../deploy/mysecrets/updated_secret_%s_%s.yaml", namespace, secret)
+
+			// Execute kubectl command to fetch the secret data
+			//fmt.Println("kubectl", "get", "secret", secret, "-n", namespace, "-o", "yaml")
+			ExecuteCommand := exec.Command("kubectl", "get", "secret", secret, "-n", namespace, "-o", "yaml")
+			out, err := ExecuteCommand.Output()
+			if err != nil {
+				fmt.Printf("Error executing kubectl command: %s\n", err.Error())
+				os.Exit(1)
+			}
+
+			// Use yq to extract data section
+			yqCmd := exec.Command("yq", ".data", "-j")
+			yqCmd.Stdin = ioutil.NopCloser(strings.NewReader(string(out)))
+			yqOut, err := yqCmd.Output()
+			if err != nil {
+				fmt.Printf("Error executing yq command: %s\n", err.Error())
+				os.Exit(1)
+			}
+
+			// Parse JSON output to get data values
+			var data map[string]string
+			err = json.Unmarshal(yqOut, &data)
+			if err != nil {
+				fmt.Printf("Error decoding yq output: %s\n", err.Error())
+				os.Exit(1)
+			}
+
+			// Update data values
+			for key, value := range data {
+				decoded, err := base64.StdEncoding.DecodeString(value)
+				if err != nil {
+					fmt.Printf("Error decoding data value for key %s: %s\n", key, err.Error())
+					continue
+				}
+				data[key] = (string(decoded))
+			}
+			// Generate YAML output with updated data section
+			yamlOut := mapToYaml(data)
+
+			// Write YAML output to file
+			err = ioutil.WriteFile(outputFile, []byte(yamlOut), 0644)
+			if err != nil {
+				fmt.Printf("Error writing output file: %s\n", err.Error())
+				os.Exit(1)
+			}
+			fmt.Println("saved a new file: updated_secret_" + namespace + "_" + secret + ".yaml inside deploy/mysecrets with the new values")
+			fmt.Println("to encrypt and apply the new secret use: cat updated_secret_" + namespace + "_" + secret + ".yaml | kubeseal | kubectl apply -f -")
+		},
+	}
 	githubCmd := &cobra.Command{
 		Use: "github",
 		Example: `
@@ -1031,6 +1085,7 @@ func main() {
 
 	// Add subcommands to root command
 	rootCmd.AddCommand(githubCmd)
+	rootCmd.AddCommand(updateSecrets)
 	//rootCmd.AddCommand(enableArgocdApp)
 	rootCmd.AddCommand(installCmd)
 	rootCmd.AddCommand(destroyCmd)
@@ -1057,8 +1112,14 @@ func main() {
 				// 	cmdToAddOptions = enableArgocdApp
 				case "destroy":
 					cmdToAddOptions = destroyCmd
+				case "update-secret":
+					cmdToAddOptions = updateSecrets
 				}
-				cmdToAddOptions.Flags().String(opt.name, opt.defaultValue, opt.usage)
+				cmdToAddOptions.Flags().String(
+					opt.name,
+					opt.defaultValue,
+					opt.usage,
+				)
 				cmdToAddOptions.RegisterFlagCompletionFunc(opt.name, func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 					return opt.tags, cobra.ShellCompDirectiveNoFileComp
 				})
@@ -1743,4 +1804,17 @@ func checkGitAccount() {
 	} else {
 		color.Green("Git user name set to: " + string(userName))
 	}
+}
+func mapToYaml(m map[string]string) string {
+	yaml := "apiVersion: v1\n"
+	yaml += "kind: Secret\n"
+	yaml += "metadata:\n"
+	yaml += "  name: " + viper.GetString("secret") + "\n"
+	yaml += "  namespace: " + viper.GetString("namespace") + "\n"
+	yaml += "type: Opaque\n"
+	yaml += "stringData:\n"
+	for key, value := range m {
+		yaml += fmt.Sprintf("  %s: %s\n", key, value)
+	}
+	return yaml
 }

@@ -13,7 +13,7 @@ spec:
   source:
     chart: nginx-ingress
     repoURL: https://helm.nginx.com/stable
-    targetRevision: 0.16.2
+    targetRevision: {{ .Values.nginxingress.chartVersion }}
     helm:
       values: |
         controller:

@@ -17,7 +17,7 @@ spec:
     helm:
       values: |
         image:
-          tag: 25.0.4-fpm-alpine
+          tag: 26.0.1-fpm-alpine
         nginx:
           ## You need to set an fpm version of the image for nextcloud if you want to use nginx!
           enabled: true

@@ -15,7 +15,7 @@ authelia:
 ceph:
   enabled: false
 certmanager:
-  chartVersion: 1.11.1
+  chartVersion: 1.11.0
   enabled: false
 cloudflaretunnel:
   enabled: true
@@ -127,6 +127,7 @@ nextcloud:
 nfsprovisioner:
   ip: 172.16.137.200
 nginxingress:
+  chartVersion: 0.16.2
   enabled: false
   linkerd: false
 nzbget:

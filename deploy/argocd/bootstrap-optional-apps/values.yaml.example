@@ -173,6 +173,8 @@ radarr:
   size: 1Gi
   storageClass: local-path
   useAuthelia: false
+robusta:
+  enabled: false
 rtorrentflood:
   chartVersion: 4.7.0
   enabled: false

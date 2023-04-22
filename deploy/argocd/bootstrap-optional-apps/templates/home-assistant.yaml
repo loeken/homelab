@@ -13,7 +13,7 @@ spec:
   source:
     chart: home-assistant
     repoURL: https://loeken.github.io/helm-charts
-    targetRevision: 2023.3.3
+    targetRevision: 2023.4.6
     helm:
       values: |
         controller:

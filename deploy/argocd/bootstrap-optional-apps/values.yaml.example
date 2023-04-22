@@ -21,7 +21,7 @@ cloudflaretunnel:
   enabled: true
 clusterIssuer: letsencrypt-staging
 democratic_iscsi:
-  chartVersion: 0.13.5
+  chartVersion: 0.13.7
   enabled: false
 democratic_nfs:
   chartVersion: 0.13.5

@@ -51,15 +51,15 @@ resource "null_resource" "migrate" {
       "echo vfio_pci | sudo tee -a /etc/modules",
       "echo vfio_virqfd | sudo tee -a /etc/modules",
       "sudo DEBIAN_FRONTEND=noninteractive apt remove linux-image-amd64 'linux-image-*' -y",
-      "if sudo update-grub; then",
-      "  if ! uname -r | grep -q pve; then sudo shutdown -r now; fi",
-      "fi"
+      "sudo update-grub",
+      "if ! uname -r | grep -q pve; then sudo shutdown -r now; fi",
     ]
   }
   depends_on = [
     null_resource.sudo_setup
   ]
 }
+
 resource "null_resource" "wait_for_reboot" {
   provisioner "local-exec" {
     command = "sleep 3 && until ping -c1 ${var.ssh_server_address}; do sleep 1; done"

@@ -43,14 +43,14 @@ resource "null_resource" "migrate" {
       "sudo wget https://enterprise.proxmox.com/debian/proxmox-release-bullseye.gpg -O /etc/apt/trusted.gpg.d/proxmox-release-bullseye.gpg",
       "sudo apt update -y",
       "sudo apt full-upgrade -y",
-      "sudo apt install -y pve-kernel-5.15",
+      "sudo apt install -y pve-kernel-5.19",
       "sudo sed -i 's/quiet/quiet intel_iommu=on/g' /etc/default/grub",
-
       "echo vfio | sudo tee -a /etc/modules",
       "echo vfio_iommu_type1 | sudo tee -a /etc/modules",
       "echo vfio_pci | sudo tee -a /etc/modules",
       "echo vfio_virqfd | sudo tee -a /etc/modules",
       "sudo DEBIAN_FRONTEND=noninteractive apt remove 'linux-image-5.*' 'linux-image-6.*' -y",
+      "sudo update-initramfs -u -k 5.19",
       "sudo update-grub",
       "if ! uname -r | grep -q pve; then sudo shutdown -r now; fi",
     ]

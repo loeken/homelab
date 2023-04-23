@@ -51,7 +51,7 @@ resource "null_resource" "migrate" {
       "echo vfio_virqfd | sudo tee -a /etc/modules",
       "sudo DEBIAN_FRONTEND=noninteractive apt remove 'linux-image-5.*' linux-image-amd64 -y",
       "sudo update-grub",
-      "if ! uname -r | grep -q pve; then sudo shutdown -r now; fi",
+      "if ! uname -r | grep -q pve; then sudo shutdown -r now; true; fi",
     ]
   }
   depends_on = [

@@ -1,6 +1,6 @@
 # Installation of Debian FDE
 
-we ll start by grabbing the last version of debian's netinstall:
+we ll start by grabbing the last version of debian's netinstall, we ll use the non free variant which should increase your chance of having all drivers/firmware.
 
 ```bash
 wget https://cdimage.debian.org/cdimage/unofficial/non-free/cd-including-firmware/11.6.0+nonfree/amd64/iso-cd/firmware-11.6.0-amd64-netinst.iso

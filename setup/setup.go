@@ -1772,10 +1772,11 @@ func checkGitAccount() {
 	if err != nil {
 		// Handle error
 		color.Red("Error checking rebase strategy: " + err.Error())
+		color.Green("Git rebase strategy not set suggestion: git config pull rebase false")
 		return
 	}
 	if len(strings.TrimSpace(string(rebaseStrategy))) == 0 {
-		color.Red("Git rebase strategy not set suggestion: git --global config pull rebase false")
+		color.Red("Git rebase strategy not set suggestion: git config pull rebase false")
 	} else {
 		color.Green("Git rebase strategy set to: " + string(rebaseStrategy))
 	}
@@ -1785,10 +1786,11 @@ func checkGitAccount() {
 	if err != nil {
 		// Handle error
 		color.Red("Error checking user email:" + err.Error())
+		color.Red("Git user email not set: git config user.email your.em@il.org")
 		return
 	}
 	if len(strings.TrimSpace(string(userEmail))) == 0 {
-		color.Red("Git user email not set: git --global config user.email your.em@il.org")
+		color.Red("Git user email not set: git config user.email your.em@il.org")
 	} else {
 		color.Green("Git user email set to: " + string(userEmail))
 	}
@@ -1798,6 +1800,7 @@ func checkGitAccount() {
 	if err != nil {
 		// Handle error
 		color.Red("Error checking user name: " + err.Error())
+		color.Red("Git user name not set: git --global config user.name anonymous")
 		return
 	}
 	if len(strings.TrimSpace(string(userName))) == 0 {

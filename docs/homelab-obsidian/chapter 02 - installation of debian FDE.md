@@ -3,7 +3,7 @@
 we ll start by grabbing the last version of debian's netinstall:
 
 ```bash
-wget https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-11.6.0-amd64-netinst.iso
+wget https://cdimage.debian.org/cdimage/unofficial/non-free/cd-including-firmware/11.6.0+nonfree/amd64/iso-cd/firmware-11.6.0-amd64-netinst.iso
 ```
 
 and we prepare a bootable usb stick. first identify the stick. plug it in then run this command:
@@ -20,7 +20,7 @@ sudo dmesg -T |grep sd
 
 so this is a 16 GB USB stick called /dev/sda so lets write the image to it
 ```bash
-sudo dd if=debian-11.6.0-amd64-netinst.iso of=/dev/sda bs=4M status=progress
+sudo dd if=firmware-11.6.0-amd64-netinst.iso of=/dev/sda bs=4M status=progress
 sudo sync
 ```
 

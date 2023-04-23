@@ -74,7 +74,7 @@ var options = []configOption{
 	{"ssh_server_gateway", "172.16.137.254", "gateway of server ( example 172.16.137.254 )", nil, []string{"install"}},
 	{"ssh_server_netmask", "24", "amount of ram in MB to assign to the VM ", nil, []string{"install"}},
 	{"ssh_username", "loeken", "ssh usernamer", nil, []string{"install"}},
-	{"storage", "local-path", "storage type ( democratic-csi, local-path, ceph )", []string{"democratic-csi", "local-path", "ceph"}, []string{"install"}},
+	{"storage", "local-path", "storage type ( democratic-csi, local-path)", []string{"democratic-csi", "local-path"}, []string{"install"}},
 
 	// app section
 	{"authelia", "false", "enable argocd app authelia", nil, []string{"enable-argocd-app", "install"}},

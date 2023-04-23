@@ -13,7 +13,19 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "chapter 02 - installation of debian FDE.md",
+                "file": "chapter 03 - github repository.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "fa8245e53845b496",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "chapter 04 - installation.md",
                 "mode": "source",
                 "source": false
               }
@@ -51,7 +63,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -117,7 +130,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "chapter 02 - installation of debian FDE.md",
+                "file": "chapter 04 - installation.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -134,7 +147,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "chapter 02 - installation of debian FDE.md",
+                "file": "chapter 04 - installation.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -157,7 +170,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "chapter 02 - installation of debian FDE.md"
+                "file": "chapter 04 - installation.md"
               }
             }
           }
@@ -180,10 +193,12 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "65b5073cb8dcd73a",
+  "active": "fa8245e53845b496",
   "lastOpenFiles": [
-    "chapter 03 - github repository.md",
+    "chapter 04 - installation with proxmox 1.md",
+    "chapter 04 - installation.md",
     "Excalidraw/upsteam_clone.md",
+    "chapter 03 - github repository.md",
     "chapter 02 - installation of debian FDE.md",
     "chapter 01 - introduction.md",
     "Excalidraw/minikube-stack.excalidraw.md",

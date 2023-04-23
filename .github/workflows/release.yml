@@ -15,12 +15,12 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
-          go-version: '1.19'
+          go-version: '1.20'
 
       - name: Build binary
         run: |
           cd setup
-          go build -ldflags="-s -w" -o setup .
+          ./build.sh
 
       - name: Create release
         id: create_release

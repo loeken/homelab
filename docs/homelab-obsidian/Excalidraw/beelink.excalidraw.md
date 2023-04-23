@@ -20,7 +20,7 @@ authelia ^oMjwrpv9
 
 external-dns ^Jcp3udKh
 
-lokie ^ncNDQ76t
+loki ^ncNDQ76t
 
 home-assistant ^1uidCPYX
 
@@ -58,8 +58,8 @@ nginx-ingress ^AS2Rnodr
 	"elements": [
 		{
 			"type": "rectangle",
-			"version": 372,
-			"versionNonce": 514293669,
+			"version": 373,
+			"versionNonce": 637015755,
 			"isDeleted": false,
 			"id": "Ym2tbMqoHdw7mx46eW4SS",
 			"fillStyle": "hachure",
@@ -80,7 +80,35 @@ nginx-ingress ^AS2Rnodr
 				"type": 3
 			},
 			"boundElements": [],
-			"updated": 1682286621851,
+			"updated": 1682292109018,
+			"link": null,
+			"locked": false
+		},
+		{
+			"type": "rectangle",
+			"version": 410,
+			"versionNonce": 1120785451,
+			"isDeleted": false,
+			"id": "juc0xxPlHV4Z3M_MbD_mT",
+			"fillStyle": "hachure",
+			"strokeWidth": 1,
+			"strokeStyle": "solid",
+			"roughness": 1,
+			"opacity": 100,
+			"angle": 0,
+			"x": -315.34782608695656,
+			"y": -234.79347826086956,
+			"strokeColor": "#000000",
+			"backgroundColor": "#15aabf",
+			"width": 718,
+			"height": 515.7826086956522,
+			"seed": 636111781,
+			"groupIds": [],
+			"roundness": {
+				"type": 3
+			},
+			"boundElements": [],
+			"updated": 1682292103036,
 			"link": null,
 			"locked": false
 		},
@@ -121,34 +149,6 @@ nginx-ingress ^AS2Rnodr
 			"baseline": 18
 		},
 		{
-			"type": "rectangle",
-			"version": 409,
-			"versionNonce": 772814827,
-			"isDeleted": false,
-			"id": "juc0xxPlHV4Z3M_MbD_mT",
-			"fillStyle": "hachure",
-			"strokeWidth": 1,
-			"strokeStyle": "solid",
-			"roughness": 1,
-			"opacity": 100,
-			"angle": 0,
-			"x": -315.34782608695656,
-			"y": -234.79347826086956,
-			"strokeColor": "#000000",
-			"backgroundColor": "#15aabf",
-			"width": 718,
-			"height": 515.7826086956522,
-			"seed": 636111781,
-			"groupIds": [],
-			"roundness": {
-				"type": 3
-			},
-			"boundElements": [],
-			"updated": 1682286616061,
-			"link": null,
-			"locked": false
-		},
-		{
 			"type": "text",
 			"version": 109,
 			"versionNonce": 292624453,
@@ -183,34 +183,6 @@ nginx-ingress ^AS2Rnodr
 			"originalText": "KVM - k3s-beelink-01",
 			"lineHeight": 1.25,
 			"baseline": 18
-		},
-		{
-			"type": "rectangle",
-			"version": 214,
-			"versionNonce": 1275017867,
-			"isDeleted": false,
-			"id": "aHnz_uZ62cSleXhZ8-FaC",
-			"fillStyle": "hachure",
-			"strokeWidth": 1,
-			"strokeStyle": "solid",
-			"roughness": 1,
-			"opacity": 100,
-			"angle": 0,
-			"x": -283.4347826086957,
-			"y": -150.70652173913038,
-			"strokeColor": "#000000",
-			"backgroundColor": "#82c91e",
-			"width": 285.21739130434787,
-			"height": 101.73913043478262,
-			"seed": 907116811,
-			"groupIds": [],
-			"roundness": {
-				"type": 3
-			},
-			"boundElements": [],
-			"updated": 1682286378929,
-			"link": null,
-			"locked": false
 		},
 		{
 			"type": "text",
@@ -250,18 +222,18 @@ nginx-ingress ^AS2Rnodr
 		},
 		{
 			"type": "rectangle",
-			"version": 260,
-			"versionNonce": 619557163,
+			"version": 215,
+			"versionNonce": 1407696267,
 			"isDeleted": false,
-			"id": "RmG7p22K-EafD8ECXv40s",
+			"id": "aHnz_uZ62cSleXhZ8-FaC",
 			"fillStyle": "hachure",
 			"strokeWidth": 1,
 			"strokeStyle": "solid",
 			"roughness": 1,
 			"opacity": 100,
 			"angle": 0,
-			"x": 46.99999999999994,
-			"y": -153.74999999999997,
+			"x": -283.4347826086957,
+			"y": -150.70652173913038,
 			"strokeColor": "#000000",
 			"backgroundColor": "#82c91e",
 			"width": 285.21739130434787,
@@ -272,7 +244,7 @@ nginx-ingress ^AS2Rnodr
 				"type": 3
 			},
 			"boundElements": [],
-			"updated": 1682286378930,
+			"updated": 1682292098507,
 			"link": null,
 			"locked": false
 		},
@@ -311,6 +283,34 @@ nginx-ingress ^AS2Rnodr
 			"originalText": "Bootstrap optional apps",
 			"lineHeight": 1.25,
 			"baseline": 18
+		},
+		{
+			"type": "rectangle",
+			"version": 261,
+			"versionNonce": 962286315,
+			"isDeleted": false,
+			"id": "RmG7p22K-EafD8ECXv40s",
+			"fillStyle": "hachure",
+			"strokeWidth": 1,
+			"strokeStyle": "solid",
+			"roughness": 1,
+			"opacity": 100,
+			"angle": 0,
+			"x": 46.99999999999994,
+			"y": -153.74999999999997,
+			"strokeColor": "#000000",
+			"backgroundColor": "#82c91e",
+			"width": 285.21739130434787,
+			"height": 101.73913043478262,
+			"seed": 907116811,
+			"groupIds": [],
+			"roundness": {
+				"type": 3
+			},
+			"boundElements": [],
+			"updated": 1682292093504,
+			"link": null,
+			"locked": false
 		},
 		{
 			"type": "rectangle",
@@ -485,8 +485,8 @@ nginx-ingress ^AS2Rnodr
 		},
 		{
 			"type": "text",
-			"version": 107,
-			"versionNonce": 999330731,
+			"version": 108,
+			"versionNonce": 1150065349,
 			"isDeleted": false,
 			"id": "ncNDQ76t",
 			"fillStyle": "hachure",
@@ -495,27 +495,27 @@ nginx-ingress ^AS2Rnodr
 			"roughness": 1,
 			"opacity": 100,
 			"angle": 0,
-			"x": 100.87474690312922,
+			"x": 105.25075398320735,
 			"y": -15.923913043478251,
 			"strokeColor": "#000000",
 			"backgroundColor": "#868e96",
-			"width": 33.12007141113281,
+			"width": 24.368057250976562,
 			"height": 20,
 			"seed": 964759301,
 			"groupIds": [],
 			"roundness": null,
 			"boundElements": [],
-			"updated": 1682286407440,
+			"updated": 1682292115536,
 			"link": null,
 			"locked": false,
 			"fontSize": 16,
 			"fontFamily": 1,
-			"text": "lokie",
-			"rawText": "lokie",
+			"text": "loki",
+			"rawText": "loki",
 			"textAlign": "center",
 			"verticalAlign": "middle",
 			"containerId": "V-YB-XiL_MyXrfRAth2fh",
-			"originalText": "lokie",
+			"originalText": "loki",
 			"lineHeight": 1.25,
 			"baseline": 14
 		},

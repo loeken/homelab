@@ -11,9 +11,11 @@
             "id": "de6e3c245eb759ee",
             "type": "leaf",
             "state": {
-              "type": "excalidraw",
+              "type": "markdown",
               "state": {
-                "file": "Excalidraw/beelink.excalidraw.md"
+                "file": "chapter 01 - introduction.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -83,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Excalidraw/beelink.excalidraw.md",
+                "file": "chapter 01 - introduction.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Excalidraw/beelink.excalidraw.md",
+                "file": "chapter 01 - introduction.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -123,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Excalidraw/beelink.excalidraw.md"
+                "file": "chapter 01 - introduction.md"
               }
             }
           }
@@ -146,14 +148,23 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "de6e3c245eb759ee",
+  "active": "a7d19fa4fecfbb82",
   "lastOpenFiles": [
+    "Excalidraw/beelink.png",
+    "chapter 01 - introduction.md",
+    "Excalidraw/beelink.md",
+    "output/chapter 01 - introduction.md",
+    "output/chapter 05 - beelink way.md",
+    "output/chapter 04 - installation overview.md",
+    "output/chapter 03 - github repository.md",
+    "output/chapter 02 - installation of debian FDE.md",
+    "output/attachment",
+    "output",
     "chapter 05 - beelink way.md",
+    "obsidian",
     "chapter 04 - installation overview.md",
     "chapter 03 - github repository.md",
     "chapter 02 - installation of debian FDE.md",
-    "chapter 01 - introduction.md",
-    "Excalidraw/beelink.excalidraw.md",
     "Excalidraw/minikube-stack.excalidraw.md",
     "Excalidraw/upsteam_clone.md",
     "chapter 04 - installation with proxmox 1.md",

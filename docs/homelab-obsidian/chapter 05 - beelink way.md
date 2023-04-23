@@ -1,7 +1,7 @@
 # Installation on beelink sei-12
 I have a beelink sei12 with 32GB of ram, this comes with an interal ssd ( 500GB ) and ive added a 4TB 2.5" evo ssd in there. This one i ll be setting up with proxmox as it will run a few small other vms besides the kvm that runs homelab. Of that external 4TB ill use 3TB for homelab
 
-![[beelink.excalidraw|100%]]
+![[beelink|100%]]
 
 since i want to partition the /dev/sda i ll ssh into the server and prepare it
 ```bash

@@ -47,7 +47,7 @@ var options = []configOption{
 	{"disksize", "100G", "disk size + metric ( example: 100G )", nil, []string{"install"}},
 	{"disaster_recovery", "k10", "disaster recovery type", []string{"k10", "none"}, []string{"install"}},
 	{"domain", "", "the domain you want to use", nil, []string{"install"}},
-	{"email", "", "the folder into which new_repo will be cloned into", nil, []string{"install"}},
+	{"email", "", "the email used for most configs", nil, []string{"install"}},
 	{"external_ip", "1.2.3.4", "your external ipv4 ( curl -4 ifconfig.co )", nil, []string{"install"}},
 	{"interface", "enp3s0", "name of the primary interface", nil, []string{"install"}},
 	{"ingress", "cloudflaretunnel", "which ingress to use ( nginx/cloudflaretunnel )", []string{"nginx", "cloudflaretunnel"}, []string{"install"}},
@@ -95,8 +95,6 @@ var options = []configOption{
 	{"sonarr", "false", "enable argocd app sonarr", nil, []string{"enable-argocd-app", "install"}},
 	{"vaultwarden", "false", "enable argocd app vaultwarden", nil, []string{"enable-argocd-app", "install"}},
 	{"whoami", "true", "enable argocd app whoami", nil, []string{"enable-argocd-app", "install"}},
-
-	{"nginxingress", "false", "enable argocd app nginx-ingress", nil, []string{"enable-argocd-app", "install"}},
 }
 
 type Command struct {

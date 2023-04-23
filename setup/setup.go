@@ -58,7 +58,7 @@ var options = []configOption{
 	{"new_repo", "", "the name of your new repo", nil, []string{"install", "github", "check-dependencies", "destroy"}},
 	{"pci_passthrough", "intel", "prepare pci passthrough", []string{"null", "intel", "amd"}, []string{"install"}},
 	{"pci_device", "0000:02:00.0", "the pci address of your gpu ( lspci |grep VGA )", nil, []string{"install"}},
-	{"platform", "proxmox", "storage type", []string{"proxmox", "minikube", "baremetal"}, []string{"install"}},
+	{"platform", "proxmox", "server type: proxmox, minikube, baremetal", []string{"proxmox", "minikube", "baremetal"}, []string{"install"}},
 	{"proxmox_node_name", "beelink-sei12", "the name of the proxmox node ( hostname )", nil, []string{"install"}},
 	{"proxmox_vm_name", "k3s-beelink-01", "name of the virtual machine in proxmox", nil, []string{"install"}},
 	{"root_password", "topsecure", "root password ( used for login to proxmox )", nil, []string{"install"}},

@@ -86,7 +86,7 @@ loki:
         enabled: true
     storageClass: local-path
     storageSize: 10Gi
-  chartVersion: 2.8.9
+  chartVersion: 2.9.10
   enabled: false
   filebeat:
     enabled: false

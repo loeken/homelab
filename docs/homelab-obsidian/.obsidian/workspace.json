@@ -11,9 +11,11 @@
             "id": "65b5073cb8dcd73a",
             "type": "leaf",
             "state": {
-              "type": "excalidraw",
+              "type": "markdown",
               "state": {
-                "file": "Excalidraw/upsteam_clone.md"
+                "file": "chapter 02 - installation of debian FDE.md",
+                "mode": "source",
+                "source": false
               }
             }
           },
@@ -115,7 +117,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Excalidraw/upsteam_clone.md",
+                "file": "chapter 02 - installation of debian FDE.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -132,7 +134,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Excalidraw/upsteam_clone.md",
+                "file": "chapter 02 - installation of debian FDE.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -155,7 +157,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Excalidraw/upsteam_clone.md"
+                "file": "chapter 02 - installation of debian FDE.md"
               }
             }
           }
@@ -180,11 +182,11 @@
   },
   "active": "65b5073cb8dcd73a",
   "lastOpenFiles": [
-    "Excalidraw/minikube-stack.excalidraw.md",
-    "chapter 02 - installation of debian FDE.md",
     "chapter 03 - github repository.md",
-    "chapter 01 - introduction.md",
     "Excalidraw/upsteam_clone.md",
+    "chapter 02 - installation of debian FDE.md",
+    "chapter 01 - introduction.md",
+    "Excalidraw/minikube-stack.excalidraw.md",
     "Excalidraw/proxmox-stack.excalidraw.md",
     "Excalidraw",
     "Excalidraw/Drawing 2023-04-22 22.15.47.excalidraw.md",

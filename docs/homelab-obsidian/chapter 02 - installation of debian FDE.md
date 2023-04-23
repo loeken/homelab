@@ -1,4 +1,4 @@
-# Installation of Debian FDE
+<# Installation of Debian FDE
 
 we ll start by grabbing the last version of debian's netinstall:
 

@@ -1772,7 +1772,7 @@ func checkGitAccount() {
 	if err != nil {
 		// Handle error
 		color.Red("Error checking rebase strategy: " + err.Error())
-		color.Green("Git rebase strategy not set suggestion: git config pull rebase false")
+		color.Red("Git rebase strategy not set suggestion: git config pull rebase false")
 		return
 	}
 	if len(strings.TrimSpace(string(rebaseStrategy))) == 0 {

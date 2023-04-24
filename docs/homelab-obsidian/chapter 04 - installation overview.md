@@ -77,7 +77,7 @@ the arr tools tools such as radarr/sonarr/prowlarr etc all work with the concept
 
 --shared-media-disk can be set to false or to a disk. When you only have 1 disk in your server set it to false. if you have 1 disk set it to that disk for example --shared-media-disk /dev/sdb. If you have more then 1 disk create a software array and set it to --shared-media-disk /dev/md0 ( or whatever your raid device is named ).
 
---shared_media_disk_size will specify how much of the data is allocated to the nfs server
+--shared_media_disk_size will specify how much of the data is allocated to the nfs server. When using --platform proxmox, it will partition the external disk and mount under /mnt/data. it will then add that to proxmox as a datastore and when creating the kvm it will add a second virtual disk and place it inside /mnt/data, you can set how big that virtual disk image should be here.
 
 --partition_external_shared_media_disk can be used to make terraform partition your disk and create filesystems on them.
 

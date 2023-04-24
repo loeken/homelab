@@ -13,13 +13,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "chapter 05 - beelink way.md",
+                "file": "chapter 05 - beelink way - nginx ingress.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "efd7386b2379dd94",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "chapter 06 - beelink way - cloudflare tunnels.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -85,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "chapter 05 - beelink way.md",
+                "file": "chapter 06 - beelink way - cloudflare tunnels.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "chapter 05 - beelink way.md",
+                "file": "chapter 06 - beelink way - cloudflare tunnels.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "chapter 05 - beelink way.md"
+                "file": "chapter 06 - beelink way - cloudflare tunnels.md"
               }
             }
           }
@@ -148,11 +161,12 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "22ecd1eb7bfafcb1",
+  "active": "a7d19fa4fecfbb82",
   "lastOpenFiles": [
-    "Excalidraw/beelink.svg",
-    "chapter 05 - beelink way.md",
+    "chapter 05 - beelink way - nginx ingress.md",
+    "chapter 06 - beelink way - cloudflare tunnels.md",
     "chapter 04 - installation overview.md",
+    "Excalidraw/beelink.svg",
     "chapter 03 - github repository.md",
     "Excalidraw/upstream_clone.md",
     "chapter 01 - introduction.md",

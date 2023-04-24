@@ -1238,7 +1238,10 @@ func runCommandWithRetries(folder string, command string, args []string, maxRetr
 
 	for i := 0; i <= maxRetries; i++ {
 		// Check if the resource exists
-		checkArgs := []string{"get", args[0], args[2], "-n", args[4]}
+		checkArgs := []string{"get", args[0], args[2], "-n"}
+		if len(args) >= 5 {
+			checkArgs = append(checkArgs, args[4])
+		}
 		_, checkErr := runCommand(folder, command, checkArgs)
 		if checkErr == nil {
 			// Resource exists, wait for condition

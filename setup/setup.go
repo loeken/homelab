@@ -864,6 +864,12 @@ func main() {
 				cfTunnelId := cloudflaretunnel("homelab-tunnel_" + new_repo)
 				cloudflaresecret(cfTunnelId, *u)
 			}
+			waitForPodReady("argocd", "argocd-server")
+			color.Green("---")
+			color.Green("argocd is now up you can follow the rest of the installation")
+			color.Green("---")
+			color.Green("	kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath=\"{.data.password}\" | base64 -d && echo")
+			color.Green("	kubectl port-forward service/argocd-server -n argocd 8080:443")
 			color.Green("---")
 			color.Green("starting installation of additional apps")
 			color.Green("supports multiline input, if single line input press enter twice")
@@ -1036,12 +1042,7 @@ func main() {
 				}
 			}
 
-			color.Green("installation finished you can connect to argocd now:")
-			color.Green("---")
-			color.Green("	kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath=\"{.data.password}\" | base64 -d && echo")
-			color.Green("	kubectl port-forward service/argocd-server -n argocd 8080:443")
-			color.Green("---")
-			color.Green("login and refresh both apps, or wait up to 5 minutes")
+			color.Green("installation finished!")
 		},
 	}
 

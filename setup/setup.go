@@ -1092,7 +1092,8 @@ func main() {
 
 			runCommand("../tmp", "cloudflared", []string{"tunnel", "cleanup", "homelab-tunnel_" + new_repo})
 			runCommand("../tmp", "cloudflared", []string{"tunnel", "delete", "homelab-tunnel_" + new_repo})
-			runCommand("../tmp", "rm", []string{"../tmp/authelia_users_database.yml"})
+			runCommand("../tmp", "rm", []string{"authelia_users_database.yml"})
+			runCommand("../deploy/mysecrets/templates", "rm", []string{"*"})
 			if cloudflare_api_token != "false" && domain != "" {
 				deleteAllDNSRecords(cloudflare_api_token, domain)
 			}

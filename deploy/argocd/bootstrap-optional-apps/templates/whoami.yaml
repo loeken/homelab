@@ -20,10 +20,10 @@ spec:
           service.externalTrafficPolicy: Local
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
-            external-dns.alpha.kubernetes.io/hostname: whoami.{{ .Values.domain }}.
-            external-dns.alpha.kubernetes.io/cloudflare-proxied: false
-            external-dns.alpha.kubernetes.io/ttl: 120
+            cert-manager.io/cluster-issuer: "{{ .Values.clusterIssuer }}"
+            external-dns.alpha.kubernetes.io/hostname: "whoami.{{ .Values.domain }}."
+            external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+            external-dns.alpha.kubernetes.io/ttl: "120"
             nginx.ingress.kubernetes.io/auth-snippet: |
               proxy_set_header X-Forwarded-Method $request_method;
             nginx.ingress.kubernetes.io/configuration-snippet: |

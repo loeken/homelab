@@ -75,11 +75,11 @@ spec:
               enabled: false
           ingress:
             annotations:
-              cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
-              external-dns.alpha.kubernetes.io/hostname: grafana.{{ .Values.domain }}.
-              external-dns.alpha.kubernetes.io/cloudflare-proxied: false
-              external-dns.alpha.kubernetes.io/ttl: 120
-              kubernetes.io/ingress.class: nginx
+              cert-manager.io/cluster-issuer: "{{ .Values.clusterIssuer }}"
+              external-dns.alpha.kubernetes.io/hostname: "grafana.{{ .Values.domain }}."
+              external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+              external-dns.alpha.kubernetes.io/ttl: "120"
+              kubernetes.io/ingress.class: "nginx"
             enabled: {{ .Values.loki.ingress.nginx.enabled }}
             pathType: ImplementationSpecific
             hosts:
@@ -280,11 +280,11 @@ spec:
             {{ end }}
             ingress:
               annotations:
-                cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
-                external-dns.alpha.kubernetes.io/hostname: alertmanager.prod.{{ .Values.domain }}.
-                external-dns.alpha.kubernetes.io/cloudflare-proxied: false
-                external-dns.alpha.kubernetes.io/ttl: 120
-                kubernetes.io/ingress.class: nginx
+                cert-manager.io/cluster-issuer: "{{ .Values.clusterIssuer }}"
+                external-dns.alpha.kubernetes.io/hostname: "alertmanager.prod.{{ .Values.domain }}."
+                external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+                external-dns.alpha.kubernetes.io/ttl: "120"
+                kubernetes.io/ingress.class: "nginx"
               enabled: {{ .Values.loki.alertmanager.ingress.enabled }}
               pathType: ImplementationSpecific
               hosts:

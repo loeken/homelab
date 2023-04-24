@@ -39,10 +39,10 @@ spec:
           main:
             annotations:
               kubernetes.io/ingress.class: nginx
-              cert-manager.io/cluster-issuer: letsencrypt-prod
-              external-dns.alpha.kubernetes.io/hostname: prowlarr.{{ .Values.domain }}.
-              external-dns.alpha.kubernetes.io/cloudflare-proxied: false
-              external-dns.alpha.kubernetes.io/ttl: 120
+              cert-manager.io/cluster-issuer: "{{ .Values.clusterIssuer }}"
+              external-dns.alpha.kubernetes.io/hostname: "prowlarr.{{ .Values.domain }}."
+              external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+              external-dns.alpha.kubernetes.io/ttl: "120"
             enabled: {{ .Values.prowlarr.ingress.nginx.enabled }}
             hosts:
               - host: prowlarr.{{ .Values.domain }}

@@ -1063,7 +1063,6 @@ func main() {
 			mycmd := exec.Command("sh", "-c", "cat ../.git/config | grep url |grep -v loeken/homelab.git| cut -d' ' -f 3")
 			cloudflare_api_token := viper.GetString("cloudflare_api_token")
 			domain := viper.GetString("domain")
-			email := viper.GetString("email")
 			var out bytes.Buffer
 			mycmd.Stdout = &out
 			err := mycmd.Run()
@@ -1094,8 +1093,8 @@ func main() {
 			runCommand("../tmp", "cloudflared", []string{"tunnel", "cleanup", "homelab-tunnel_" + new_repo})
 			runCommand("../tmp", "cloudflared", []string{"tunnel", "delete", "homelab-tunnel_" + new_repo})
 
-			if cloudflare_api_token != "false" {
-				deleteAllDNSRecords(cloudflare_api_token, email, domain)
+			if cloudflare_api_token != "false" && domain != "" {
+				deleteAllDNSRecords(cloudflare_api_token, domain)
 			}
 		},
 	}
@@ -1881,7 +1880,8 @@ type ZonesResponse struct {
 	Result []Zone `json:"result"`
 }
 
-func getZoneID(apiKey, email, domainName string) (string, error) {
+func getZoneID(apiToken, domainName string) (string, error) {
+	fmt.Println("getZoneID() called...")
 	client := &http.Client{}
 
 	req, err := http.NewRequest("GET", cloudflareAPIBase+"zones?name="+domainName, nil)
@@ -1889,8 +1889,7 @@ func getZoneID(apiKey, email, domainName string) (string, error) {
 		return "", err
 	}
 
-	req.Header.Set("X-Auth-Email", email)
-	req.Header.Set("X-Auth-Key", apiKey)
+	req.Header.Set("Authorization", "Bearer "+apiToken)
 	req.Header.Set("Content-Type", "application/json")
 
 	resp, err := client.Do(req)
@@ -1917,8 +1916,8 @@ func getZoneID(apiKey, email, domainName string) (string, error) {
 	return zonesResponse.Result[0].ID, nil
 }
 
-func deleteAllDNSRecords(apiKey, email, domainName string) error {
-	zoneID, err := getZoneID(apiKey, email, domainName)
+func deleteAllDNSRecords(apiToken, domainName string) error {
+	zoneID, err := getZoneID(apiToken, domainName)
 	if err != nil {
 		return err
 	}
@@ -1930,8 +1929,7 @@ func deleteAllDNSRecords(apiKey, email, domainName string) error {
 		return err
 	}
 
-	req.Header.Set("X-Auth-Email", email)
-	req.Header.Set("X-Auth-Key", apiKey)
+	req.Header.Set("Authorization", "Bearer "+apiToken)
 	req.Header.Set("Content-Type", "application/json")
 
 	resp, err := client.Do(req)
@@ -1957,8 +1955,7 @@ func deleteAllDNSRecords(apiKey, email, domainName string) error {
 			return err
 		}
 
-		req.Header.Set("X-Auth-Email", email)
-		req.Header.Set("X-Auth-Key", apiKey)
+		req.Header.Set("Authorization", "Bearer "+apiToken)
 		req.Header.Set("Content-Type", "application/json")
 
 		resp, err := client.Do(req)

@@ -51,20 +51,28 @@ resource "null_resource" "migrate" {
       "echo vfio_virqfd | sudo tee -a /etc/modules",
       "sudo DEBIAN_FRONTEND=noninteractive apt remove 'linux-image-5.*' linux-image-amd64 -y",
       "sudo update-grub",
-      "if ! uname -r | grep -q pve; then sudo reboot; true; fi",
+      // "if ! uname -r | grep -q pve; then nohup sudo sh -c 'sleep 5 && reboot' &>/dev/null &; true; fi",
+
     ]
   }
   depends_on = [
     null_resource.sudo_setup
   ]
 }
-
+resource "null_resource" "reboot" {
+  depends_on = [
+    null_resource.migrate
+  ]
+  provisioner "local-exec" {
+    command = "ssh -i ${var.ssh_private_key} ${var.ssh_username}@${var.ssh_server_address} 'if ! uname -r | grep -q pve; then sudo reboot; fi'"
+  }
+}
 resource "null_resource" "wait_for_reboot" {
   provisioner "local-exec" {
     command = "sleep 3 && until ping -c1 ${var.ssh_server_address}; do sleep 1; done"
   }
   depends_on = [
-    null_resource.migrate
+    null_resource.reboot
   ]
 }
 resource "null_resource" "pve_setup" {

@@ -1216,8 +1216,10 @@ func runCommand(folder string, command string, args []string) (string, error) {
 	if err := cmd.Wait(); err != nil {
 		fmt.Fprintf(os.Stderr, "Error running command step 2 %s: %s\n", cmd.Args, err)
 		if command == "terraform" {
-			fmt.Println("terraform failed executing halting operations")
-			os.Exit(3)
+			if cmd.Args[1] != "destroy" {
+				fmt.Println("terraform failed executing halting operations")
+				os.Exit(3)
+			}
 		}
 	}
 

@@ -1,3 +1,4 @@
+---
 authelia:
   chartVersion: 0.8.57
   enabled: false
@@ -211,10 +212,10 @@ vaultwarden:
       enabled: true
     nginx:
       enabled: false
+  linkerd: false
+  size: 10Gi
   storageClass: local-path
   useAuthelia: true
-  size: 10Gi
-  linkerd: false
 volumesnapshots:
   enabled: true
 whoami:

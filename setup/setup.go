@@ -539,8 +539,8 @@ func main() {
 				config["clusterIssuer"] = clusterissuer
 			}
 			if installAuthelia == "true" {
-				config["authelia"].(map[interface{}]interface{})["enabled"] = true
-				autheliaConfig := make(map[interface{}]interface{})
+				autheliaConfig := config["authelia"].(map[interface{}]interface{})
+				autheliaConfig["enabled"] = true
 				autheliaConfig["smtp"] = make(map[interface{}]interface{})
 				autheliaConfig["smtp"].(map[interface{}]interface{})["host"] = smtp_host
 				autheliaConfig["smtp"].(map[interface{}]interface{})["port"] = smtp_port
@@ -549,13 +549,19 @@ func main() {
 				config["authelia"].(map[interface{}]interface{})["smtp"] = autheliaConfig["smtp"]
 			}
 			if installExternalDns == "true" {
-				config["externaldns"].(map[interface{}]interface{})["enabled"] = true
+				externaldnsConfig := config["externaldns"].(map[interface{}]interface{})
+				externaldnsConfig["enabled"] = true
+				config["externaldns"] = externaldnsConfig
 			}
 			if installLoki == "true" {
-				config["loki"].(map[interface{}]interface{})["enabled"] = true
+				lokiConfig := config["loki"].(map[interface{}]interface{})
+				lokiConfig["enabled"] = true
+				config["loki"] = lokiConfig
 			}
 			if installHa == "true" {
-				config["ha"].(map[interface{}]interface{})["enabled"] = true
+				haConfig := config["nextcloud"].(map[interface{}]interface{})
+				haConfig["enabled"] = true
+				config["ha"] = haConfig
 			}
 			if installSharedMediaDiskSize != "false" {
 				// config["jellyfin"].(map[interface{}]interface{})["enabled"] = true
@@ -609,7 +615,7 @@ func main() {
 
 			}
 			if installJellyfin == "true" {
-				jellyfinConfig := make(map[interface{}]interface{})
+				jellyfinConfig := config["jellyfin"].(map[interface{}]interface{})
 				jellyfinConfig["enabled"] = true
 				jellyfinConfig["sharedmedia"] = make(map[interface{}]interface{})
 				jellyfinConfig["sharedmedia"].(map[interface{}]interface{})["size"] = installSharedMediaDiskSize
@@ -646,7 +652,7 @@ func main() {
 				config["jellyfin"] = jellyfinConfig
 			}
 			if installRtorrentFlood == "true" {
-				rtorrentConfig := make(map[interface{}]interface{})
+				rtorrentConfig := config["rtorrentflood"].(map[interface{}]interface{})
 				rtorrentConfig["enabled"] = true
 				rtorrentConfig["useAuthelia"] = false
 				rtorrentConfig["linkerd"] = false
@@ -667,7 +673,7 @@ func main() {
 				config["rtorrentflood"] = rtorrentConfig
 			}
 			if installNzbget == "true" {
-				nzbgetConfig := make(map[interface{}]interface{})
+				nzbgetConfig := config["nzbget"].(map[interface{}]interface{})
 				nzbgetConfig["enabled"] = true
 				nzbgetConfig["useAuthelia"] = false
 				nzbgetConfig["linkerd"] = false
@@ -691,7 +697,7 @@ func main() {
 				config["nzbget"] = nzbgetConfig
 			}
 			if installRadarr == "true" {
-				radarrConfig := make(map[interface{}]interface{})
+				radarrConfig := config["radarr"].(map[interface{}]interface{})
 				radarrConfig["enabled"] = true
 				radarrConfig["useAuthelia"] = false
 				radarrConfig["linkerd"] = false
@@ -715,7 +721,7 @@ func main() {
 				config["radarr"] = radarrConfig
 			}
 			if installSonarr == "true" {
-				sonarrConfig := make(map[interface{}]interface{})
+				sonarrConfig := config["sonarr"].(map[interface{}]interface{})
 				sonarrConfig["enabled"] = true
 				sonarrConfig["useAuthelia"] = false
 				sonarrConfig["linkerd"] = false
@@ -762,7 +768,7 @@ func main() {
 				config["vaultwarden"] = vaultwardenConfig
 			}
 			if installProwlarr == "true" {
-				prowlarrConfig := make(map[interface{}]interface{})
+				prowlarrConfig := config["prowlarr"].(map[interface{}]interface{})
 				prowlarrConfig["enabled"] = true
 				prowlarrConfig["useAuthelia"] = false
 				prowlarrConfig["linkerd"] = false
@@ -786,7 +792,7 @@ func main() {
 				config["prowlarr"] = prowlarrConfig
 			}
 			if installJellyseerr == "true" {
-				jellyseerrConfig := make(map[interface{}]interface{})
+				jellyseerrConfig := config["jellyfin"].(map[interface{}]interface{})
 				jellyseerrConfig["enabled"] = true
 				jellyseerrConfig["useAuthelia"] = false
 				jellyseerrConfig["linkerd"] = false

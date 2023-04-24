@@ -559,7 +559,7 @@ func main() {
 				config["loki"] = lokiConfig
 			}
 			if installHa == "true" {
-				haConfig := config["nextcloud"].(map[interface{}]interface{})
+				haConfig := config["ha"].(map[interface{}]interface{})
 				haConfig["enabled"] = true
 				config["ha"] = haConfig
 			}

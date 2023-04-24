@@ -734,11 +734,10 @@ func main() {
 					sonarrConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = true
 					sonarrConfig["ingress"].(map[interface{}]interface{})["nginx"].(map[interface{}]interface{})["enabled"] = false
 				}
-
 				config["sonarr"] = sonarrConfig
 			}
 			if installVaultwarden == "true" {
-				vaultwardenConfig := make(map[interface{}]interface{})
+				vaultwardenConfig := config["vaultwarden"].(map[interface{}]interface{})
 				vaultwardenConfig["enabled"] = true
 				vaultwardenConfig["useAuthelia"] = false
 				vaultwardenConfig["linkerd"] = false

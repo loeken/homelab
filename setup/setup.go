@@ -1788,6 +1788,15 @@ func createFolderJellyfin(podName string, folderName string) {
 	}
 }
 func waitForPodReady(namespace string, podName string) {
+	// First, check if the namespace has been created
+	nsCreated, nsErr := runCommandWithRetries(".", "kubectl", []string{"get", "namespace", namespace}, 10, 5*time.Second)
+	if nsErr != nil {
+		fmt.Printf("Error checking for namespace existence: %v\n", nsErr)
+		return
+	}
+	fmt.Printf("Namespace is created: %s\n", nsCreated)
+
+	// Now wait for the pod to be ready
 	out, err := runCommandWithRetries(".", "kubectl", []string{"wait", "--for=condition=ready", "pod", "-n", namespace, "-l", "app.kubernetes.io/instance=" + podName, "--timeout=300s"}, 10, 5*time.Second)
 	if err != nil {
 		fmt.Printf("Error waiting for pod to be ready: %v\n", err)

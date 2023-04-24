@@ -1237,31 +1237,15 @@ func runCommandWithRetries(folder string, command string, args []string, maxRetr
 	var err error
 
 	for i := 0; i <= maxRetries; i++ {
-		// Check if the resource exists
-		checkArgs := []string{"get", args[0], args[2], "-n"}
-		if len(args) >= 5 {
-			checkArgs = append(checkArgs, args[4])
+		out, err = runCommand(folder, command, args)
+		if err == nil {
+			return out, nil
 		}
-		_, checkErr := runCommand(folder, command, checkArgs)
-		if checkErr == nil {
-			// Resource exists, wait for condition
-			out, err = runCommand(folder, command, args)
-			if err == nil {
-				return out, nil
-			}
-		} else {
-			// Resource does not exist yet
-			fmt.Printf("Resource not found, retrying in %v...\n", retryTimeout)
-			time.Sleep(retryTimeout)
-		}
-
 		fmt.Printf("Error executing command: %v\nRetrying in %v...\n", err, retryTimeout)
 		time.Sleep(retryTimeout)
 	}
-
 	return out, fmt.Errorf("command execution failed after %d attempts: %v", maxRetries, err)
 }
-
 func checkRepo() {
 
 	cmd := exec.Command("sh", "-c", "cat ../.git/config | grep url |grep -v loeken/homelab.git| cut -d' ' -f 3")

@@ -1212,15 +1212,7 @@ func runCommand(folder string, command string, args []string) (string, error) {
 
 	// Wait for the command to finish
 	if err := cmd.Wait(); err != nil {
-		fmt.Fprintf(os.Stderr, "Error running command1 %s: %s\n", cmd.Args, err)
-		if command == "git" {
-			fmt.Fprintf(os.Stderr, "Error running command2 %s: %s\n", cmd.Args, err)
-		} else if command == "kubectl" {
-			fmt.Fprintf(os.Stderr, "Error running command2 %s: %s\n", cmd.Args, err)
-		} else {
-			fmt.Errorf("error running command3 %s: %w", cmd.Args, err)
-			os.Exit(3)
-		}
+		fmt.Fprintf(os.Stderr, "Error running command step 2 %s: %s\n", cmd.Args, err)
 	}
 
 	return stdout.String(), nil

@@ -214,7 +214,7 @@ vaultwarden:
   storageClass: local-path
   useAuthelia: true
   size: 10Gi
-  linkerd false
+  linkerd: false
 volumesnapshots:
   enabled: true
 whoami:

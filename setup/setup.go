@@ -954,21 +954,17 @@ func main() {
 			// wave 20
 			if installJellyfin == "true" {
 				color.Blue("\033[1m input settings for jellyfin:\033[0m")
-				out, err := runCommandWithRetries(".", "kubectl", []string{"wait", "--for=condition=ready", "pod", "-n", "media", "-l", "app.kubernetes.io/instance=jellyfin", "--timeout=300s"}, 30, 10*time.Second)
+				waitForPodReady("media", "jellyseerr")
+				podName, err := runCommand(".", "kubectl", []string{"get", "pods", "-n", "media", "-l", "app.kubernetes.io/instance=jellyfin", "-o", "jsonpath='{.items[0].metadata.name}'"})
 				if err != nil {
-					fmt.Printf("Error waiting for pod to be ready: %v\n", err)
-				} else {
-					fmt.Printf("Pod is ready: %s\n", out)
-					podName, err := runCommand(".", "kubectl", []string{"get", "pods", "-n", "media", "-l", "app.kubernetes.io/instance=jellyfin", "-o", "jsonpath='{.items[0].metadata.name}'"})
-					if err != nil {
-						// handle error
-						fmt.Println("error: ", err)
-						os.Exit(3)
-					}
-
-					createFolderJellyfin(podName, "/media/tv")
-					createFolderJellyfin(podName, "/media/movie")
+					// handle error
+					fmt.Println("error: ", err)
+					os.Exit(3)
 				}
+
+				createFolderJellyfin(podName, "/media/tv")
+				createFolderJellyfin(podName, "/media/movie")
+
 				if ingress == "cloudflaretunnel" {
 					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "jellyfin." + domain})
 				}
@@ -1241,15 +1237,28 @@ func runCommandWithRetries(folder string, command string, args []string, maxRetr
 	var err error
 
 	for i := 0; i <= maxRetries; i++ {
-		out, err = runCommand(folder, command, args)
-		if err == nil {
-			return out, nil
+		// Check if the resource exists
+		checkArgs := []string{"get", args[0], args[2], "-n", args[4]}
+		_, checkErr := runCommand(folder, command, checkArgs)
+		if checkErr == nil {
+			// Resource exists, wait for condition
+			out, err = runCommand(folder, command, args)
+			if err == nil {
+				return out, nil
+			}
+		} else {
+			// Resource does not exist yet
+			fmt.Printf("Resource not found, retrying in %v...\n", retryTimeout)
+			time.Sleep(retryTimeout)
 		}
+
 		fmt.Printf("Error executing command: %v\nRetrying in %v...\n", err, retryTimeout)
 		time.Sleep(retryTimeout)
 	}
+
 	return out, fmt.Errorf("command execution failed after %d attempts: %v", maxRetries, err)
 }
+
 func checkRepo() {
 
 	cmd := exec.Command("sh", "-c", "cat ../.git/config | grep url |grep -v loeken/homelab.git| cut -d' ' -f 3")

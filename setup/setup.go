@@ -889,6 +889,7 @@ func main() {
 				color.Green("the helm chart is also setup for external dns to only use the --domain you specified")
 				color.Blue("\033[1m input settings for external-dns:\033[0m")
 				loadSecretFromTemplate("external-dns", "externaldns")
+				waitForPodReady("external-dns", "external-dns")
 			}
 
 			// wave 13
@@ -897,9 +898,11 @@ func main() {
 				color.Blue("\033[1m input settings for authelia:\033[0m")
 				_, err := os.Stat("../tmp/authelia_users_database.yml")
 				if err != nil {
+					fmt.Println("no errors")
 					loadSecretFromTemplate("authelia", "authelia")
-
+					fmt.Println("loaded Secrets")
 					generateAutheliaUsersDatabase()
+					fmt.Println("generated authelia")
 					color.Green("waiting for authelia to be up, to upload /config/users_database.yml")
 				}
 
@@ -1216,12 +1219,12 @@ func runCommand(folder string, command string, args []string) (string, error) {
 	// Wait for the command to finish
 	if err := cmd.Wait(); err != nil {
 		fmt.Fprintf(os.Stderr, "Error running command step 2 %s: %s\n", cmd.Args, err)
-		if command == "terraform" {
-			if cmd.Args[1] != "destroy" {
-				fmt.Println("terraform failed executing halting operations")
-				os.Exit(3)
-			}
-		}
+		// if command == "terraform" {
+		// 	if cmd.Args[1] != "destroy" {
+		// 		fmt.Println("terraform failed executing halting operations")
+		// 		os.Exit(3)
+		// 	}
+		// }
 	}
 
 	return stdout.String(), nil

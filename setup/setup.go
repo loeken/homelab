@@ -570,7 +570,8 @@ func main() {
 				}
 			}
 			if installNextcloud == "true" {
-				nextcloudConfig := make(map[interface{}]interface{})
+				nextcloudConfig := config["nextcloud"].(map[interface{}]interface{})
+				// nextcloudConfig := make(map[interface{}]interface{})
 				nextcloudConfig["enabled"] = true
 				nextcloudConfig["authelia"] = installAuthelia
 

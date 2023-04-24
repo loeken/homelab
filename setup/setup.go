@@ -1077,6 +1077,8 @@ func main() {
 			runCommand("../deploy/terraform/proxmox-debian-11-template", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
 			runCommand("../deploy/terraform/proxmox", "terraform", []string{"init"})
 			runCommand("../deploy/terraform/proxmox", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
+			runCommand("../deploy/terraform/external-disk", "terraform", []string{"init"})
+			runCommand("../deploy/terraform/external-disk", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
 
 			runCommand("../tmp", "cloudflared", []string{"tunnel", "cleanup", "homelab-tunnel_" + new_repo})
 			runCommand("../tmp", "cloudflared", []string{"tunnel", "delete", "homelab-tunnel_" + new_repo})

@@ -47,7 +47,6 @@ var options = []configOption{
 	{"cluster-issuer", "staging", "when using nginx ingress, select cluster issuer ( staging / prod )", nil, []string{"install"}},
 	{"cloudflare_api_token", "false", "used for external-dns and to destroy dns records", nil, []string{"install", "destroy"}},
 	{"disksize", "100G", "disk size + metric ( example: 100G )", nil, []string{"install"}},
-	{"disaster_recovery", "k10", "disaster recovery type", []string{"k10", "none"}, []string{"install"}},
 	{"domain", "", "the domain you want to use", nil, []string{"install", "destroy"}},
 	{"email", "", "the email used for most configs", nil, []string{"install", "destroy"}},
 	{"external_ip", "1.2.3.4", "your external ipv4 ( curl -4 ifconfig.co )", nil, []string{"install"}},
@@ -334,7 +333,6 @@ func main() {
 		Run: func(cmd *cobra.Command, args []string) {
 			checkDependencies(false, "")
 			storage := viper.GetString("storage")
-			//dr := viper.GetString("disaster_recovery")
 			platform := viper.GetString("platform")
 
 			new_repo := viper.GetString("new_repo")
@@ -1216,6 +1214,8 @@ func runCommand(folder string, command string, args []string) (string, error) {
 	if err := cmd.Wait(); err != nil {
 		fmt.Fprintf(os.Stderr, "Error running command1 %s: %s\n", cmd.Args, err)
 		if command == "git" {
+			fmt.Fprintf(os.Stderr, "Error running command2 %s: %s\n", cmd.Args, err)
+		} else if command == "kubectl" {
 			fmt.Fprintf(os.Stderr, "Error running command2 %s: %s\n", cmd.Args, err)
 		} else {
 			fmt.Errorf("error running command3 %s: %w", cmd.Args, err)

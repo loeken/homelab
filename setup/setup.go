@@ -1189,6 +1189,7 @@ func runCommand(folder string, command string, args []string) (string, error) {
 		if err != nil {
 			return "", fmt.Errorf("error getting absolute path for folder %s: %w", folder, err)
 		}
+
 	}
 
 	// Create the command
@@ -1212,6 +1213,10 @@ func runCommand(folder string, command string, args []string) (string, error) {
 	// Wait for the command to finish
 	if err := cmd.Wait(); err != nil {
 		fmt.Fprintf(os.Stderr, "Error running command step 2 %s: %s\n", cmd.Args, err)
+		if command == "terraform" {
+			fmt.Println("terraform failed executing halting operations")
+			os.Exit(3)
+		}
 	}
 
 	return stdout.String(), nil

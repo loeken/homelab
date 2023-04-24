@@ -38,4 +38,4 @@ wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudfla
 sudo dpkg -i cloudflared-linux-amd64.deb
 
 sudo apt update
-sudo apt install gh terraform kubectl sshpass -y
+sudo apt install gh terraform kubectl sshpass docker.io -y

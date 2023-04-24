@@ -1274,7 +1274,7 @@ func checkRepo() {
 func checkDependencies(verbose bool, repoName string) {
 	// Define the commands to check
 	color.Blue("there is a helper script for ubuntu ./dependencies_ubuntu2204.sh to install dependencies")
-	commands := []string{"gh", "cloudflared", "git", "terraform", "kubectl", "sshpass", "kubeseal", "k3sup"}
+	commands := []string{"gh", "cloudflared", "git", "terraform", "kubectl", "sshpass", "kubeseal", "k3sup", "docker"}
 	// Loop through the commands and check if they're available
 	for _, cmd := range commands {
 		// Check if the command is available
@@ -1316,6 +1316,16 @@ func checkDependencies(verbose bool, repoName string) {
 			color.Green("The current Kubernetes context is %s\n", repoName)
 		} else {
 			color.Red("The current Kubernetes context is not %s\n", repoName)
+		}
+	}
+
+	canRun, err := canRunDocker()
+	if canRun {
+		color.Green("Docker is installed, and the user can run Docker containers.")
+	} else {
+		color.Red("Docker may not be installed, or the user may not have the necessary permissions.")
+		if err != nil {
+			color.Red("Error:", err)
 		}
 	}
 }
@@ -1952,4 +1962,12 @@ func deleteAllDNSRecords(apiKey, email, domainName string) error {
 	}
 
 	return nil
+}
+func canRunDocker() (bool, error) {
+	cmd := exec.Command("docker", "version")
+	_, err := cmd.CombinedOutput()
+	if err != nil {
+		return false, err
+	}
+	return true, nil
 }

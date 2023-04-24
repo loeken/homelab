@@ -2,7 +2,7 @@
 
 To view this documentation properly (with all images) open this folder in obsidian
 
-![[beelink|100%]]
+![Beelink](Excalidraw/beelink.svg)
 
 - [Index](#index)
 - [The stack from bottom to top](#the-stack-from-bottom-to-top)

@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "477e746d50619ffd",
+        "id": "0e9e3680efa51eea",
         "type": "tabs",
         "children": [
           {
-            "id": "de6e3c245eb759ee",
+            "id": "22ecd1eb7bfafcb1",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "chapter 01 - introduction.md",
+                "file": "chapter 05 - beelink way.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "chapter 01 - introduction.md",
+                "file": "chapter 05 - beelink way.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "chapter 01 - introduction.md",
+                "file": "chapter 05 - beelink way.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "chapter 01 - introduction.md"
+                "file": "chapter 05 - beelink way.md"
               }
             }
           }
@@ -148,25 +148,29 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "a7d19fa4fecfbb82",
+  "active": "22ecd1eb7bfafcb1",
   "lastOpenFiles": [
-    "Excalidraw/beelink.png",
+    "Excalidraw/beelink.svg",
+    "chapter 05 - beelink way.md",
+    "chapter 04 - installation overview.md",
+    "chapter 03 - github repository.md",
+    "Excalidraw/upstream_clone.md",
     "chapter 01 - introduction.md",
+    "upstream_clone.svg.md",
+    "Excalidraw/upstream_clone.svg",
+    "Excalidraw/upstream_clone.svg.md",
+    "chapter 02 - installation of debian FDE.md",
     "Excalidraw/beelink.md",
     "output/chapter 01 - introduction.md",
+    "output/attachment",
+    "output",
+    "Excalidraw/beelink.png",
     "output/chapter 05 - beelink way.md",
     "output/chapter 04 - installation overview.md",
     "output/chapter 03 - github repository.md",
     "output/chapter 02 - installation of debian FDE.md",
-    "output/attachment",
-    "output",
-    "chapter 05 - beelink way.md",
     "obsidian",
-    "chapter 04 - installation overview.md",
-    "chapter 03 - github repository.md",
-    "chapter 02 - installation of debian FDE.md",
     "Excalidraw/minikube-stack.excalidraw.md",
-    "Excalidraw/upsteam_clone.md",
     "chapter 04 - installation with proxmox 1.md",
     "Excalidraw/proxmox-stack.excalidraw.md",
     "Excalidraw",

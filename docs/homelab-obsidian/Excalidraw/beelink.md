@@ -8,8 +8,6 @@ tags: [excalidraw]
 
 
 # Text Elements
-Proxmox - beelink-sei12 ^QQu2b4Eh
-
 KVM - k3s-beelink-01 ^XRJcz0RH
 
 Bootstrap core apps ^HRVC4Rir
@@ -48,6 +46,8 @@ whoami ^UwJjLKPU
 
 nginx-ingress ^AS2Rnodr
 
+Proxmox ^GBpUJ6vF
+
 %%
 # Drawing
 ```json
@@ -58,8 +58,8 @@ nginx-ingress ^AS2Rnodr
 	"elements": [
 		{
 			"type": "rectangle",
-			"version": 373,
-			"versionNonce": 637015755,
+			"version": 377,
+			"versionNonce": 1688302976,
 			"isDeleted": false,
 			"id": "Ym2tbMqoHdw7mx46eW4SS",
 			"fillStyle": "hachure",
@@ -69,7 +69,7 @@ nginx-ingress ^AS2Rnodr
 			"opacity": 100,
 			"angle": 0,
 			"x": -379.2173913043479,
-			"y": -301.70652173913044,
+			"y": -303.03985507246375,
 			"strokeColor": "#000000",
 			"backgroundColor": "#ced4da",
 			"width": 962,
@@ -80,14 +80,14 @@ nginx-ingress ^AS2Rnodr
 				"type": 3
 			},
 			"boundElements": [],
-			"updated": 1682292109018,
+			"updated": 1682296103155,
 			"link": null,
 			"locked": false
 		},
 		{
 			"type": "rectangle",
-			"version": 410,
-			"versionNonce": 1120785451,
+			"version": 412,
+			"versionNonce": 1266295424,
 			"isDeleted": false,
 			"id": "juc0xxPlHV4Z3M_MbD_mT",
 			"fillStyle": "hachure",
@@ -108,50 +108,14 @@ nginx-ingress ^AS2Rnodr
 				"type": 3
 			},
 			"boundElements": [],
-			"updated": 1682292103036,
+			"updated": 1682296087366,
 			"link": null,
 			"locked": false
 		},
 		{
 			"type": "text",
-			"version": 113,
-			"versionNonce": 1230503141,
-			"isDeleted": false,
-			"id": "QQu2b4Eh",
-			"fillStyle": "hachure",
-			"strokeWidth": 1,
-			"strokeStyle": "solid",
-			"roughness": 1,
-			"opacity": 100,
-			"angle": 0,
-			"x": -351.2173913043479,
-			"y": -273.8369565217391,
-			"strokeColor": "#000000",
-			"backgroundColor": "transparent",
-			"width": 222.1597442626953,
-			"height": 25,
-			"seed": 329838987,
-			"groupIds": [],
-			"roundness": null,
-			"boundElements": [],
-			"updated": 1682286378929,
-			"link": null,
-			"locked": false,
-			"fontSize": 20,
-			"fontFamily": 1,
-			"text": "Proxmox - beelink-sei12",
-			"rawText": "Proxmox - beelink-sei12",
-			"textAlign": "left",
-			"verticalAlign": "top",
-			"containerId": null,
-			"originalText": "Proxmox - beelink-sei12",
-			"lineHeight": 1.25,
-			"baseline": 18
-		},
-		{
-			"type": "text",
-			"version": 109,
-			"versionNonce": 292624453,
+			"version": 123,
+			"versionNonce": 1519338880,
 			"isDeleted": false,
 			"id": "XRJcz0RH",
 			"fillStyle": "hachure",
@@ -160,8 +124,8 @@ nginx-ingress ^AS2Rnodr
 			"roughness": 1,
 			"opacity": 100,
 			"angle": 0,
-			"x": -285.17391304347825,
-			"y": -191.5760869565217,
+			"x": -289.17391304347825,
+			"y": -196.90942028985503,
 			"strokeColor": "#000000",
 			"backgroundColor": "#be4bdb",
 			"width": 196.7397918701172,
@@ -170,7 +134,7 @@ nginx-ingress ^AS2Rnodr
 			"groupIds": [],
 			"roundness": null,
 			"boundElements": [],
-			"updated": 1682286378929,
+			"updated": 1682296087366,
 			"link": null,
 			"locked": false,
 			"fontSize": 20,
@@ -186,8 +150,8 @@ nginx-ingress ^AS2Rnodr
 		},
 		{
 			"type": "text",
-			"version": 130,
-			"versionNonce": 1653589925,
+			"version": 132,
+			"versionNonce": 1293013632,
 			"isDeleted": false,
 			"id": "HRVC4Rir",
 			"fillStyle": "hachure",
@@ -206,7 +170,7 @@ nginx-ingress ^AS2Rnodr
 			"groupIds": [],
 			"roundness": null,
 			"boundElements": [],
-			"updated": 1682286378930,
+			"updated": 1682296087366,
 			"link": null,
 			"locked": false,
 			"fontSize": 20,
@@ -222,8 +186,8 @@ nginx-ingress ^AS2Rnodr
 		},
 		{
 			"type": "rectangle",
-			"version": 215,
-			"versionNonce": 1407696267,
+			"version": 217,
+			"versionNonce": 596284800,
 			"isDeleted": false,
 			"id": "aHnz_uZ62cSleXhZ8-FaC",
 			"fillStyle": "hachure",
@@ -244,14 +208,14 @@ nginx-ingress ^AS2Rnodr
 				"type": 3
 			},
 			"boundElements": [],
-			"updated": 1682292098507,
+			"updated": 1682296087366,
 			"link": null,
 			"locked": false
 		},
 		{
 			"type": "text",
-			"version": 181,
-			"versionNonce": 786533125,
+			"version": 183,
+			"versionNonce": 540246656,
 			"isDeleted": false,
 			"id": "Z97qwKeG",
 			"fillStyle": "hachure",
@@ -270,7 +234,7 @@ nginx-ingress ^AS2Rnodr
 			"groupIds": [],
 			"roundness": null,
 			"boundElements": [],
-			"updated": 1682286378930,
+			"updated": 1682296087366,
 			"link": null,
 			"locked": false,
 			"fontSize": 20,
@@ -286,8 +250,8 @@ nginx-ingress ^AS2Rnodr
 		},
 		{
 			"type": "rectangle",
-			"version": 261,
-			"versionNonce": 962286315,
+			"version": 263,
+			"versionNonce": 1352394112,
 			"isDeleted": false,
 			"id": "RmG7p22K-EafD8ECXv40s",
 			"fillStyle": "hachure",
@@ -308,14 +272,14 @@ nginx-ingress ^AS2Rnodr
 				"type": 3
 			},
 			"boundElements": [],
-			"updated": 1682292093504,
+			"updated": 1682296087366,
 			"link": null,
 			"locked": false
 		},
 		{
 			"type": "rectangle",
-			"version": 117,
-			"versionNonce": 782590085,
+			"version": 119,
+			"versionNonce": 60764800,
 			"isDeleted": false,
 			"id": "TKQy66-JIrTiHGZQ7BaRu",
 			"fillStyle": "hachure",
@@ -341,14 +305,14 @@ nginx-ingress ^AS2Rnodr
 					"id": "oMjwrpv9"
 				}
 			],
-			"updated": 1682286380065,
+			"updated": 1682296087366,
 			"link": null,
 			"locked": false
 		},
 		{
 			"type": "text",
-			"version": 58,
-			"versionNonce": 21141067,
+			"version": 60,
+			"versionNonce": 1862481280,
 			"isDeleted": false,
 			"id": "oMjwrpv9",
 			"fillStyle": "hachure",
@@ -367,7 +331,7 @@ nginx-ingress ^AS2Rnodr
 			"groupIds": [],
 			"roundness": null,
 			"boundElements": [],
-			"updated": 1682286380065,
+			"updated": 1682296087366,
 			"link": null,
 			"locked": false,
 			"fontSize": 16,
@@ -383,8 +347,8 @@ nginx-ingress ^AS2Rnodr
 		},
 		{
 			"type": "rectangle",
-			"version": 134,
-			"versionNonce": 2041000933,
+			"version": 136,
+			"versionNonce": 1578427008,
 			"isDeleted": false,
 			"id": "ZZsWIQEnUIw9xZdFspDKv",
 			"fillStyle": "hachure",
@@ -410,14 +374,14 @@ nginx-ingress ^AS2Rnodr
 					"id": "Jcp3udKh"
 				}
 			],
-			"updated": 1682286395457,
+			"updated": 1682296087366,
 			"link": null,
 			"locked": false
 		},
 		{
 			"type": "text",
-			"version": 87,
-			"versionNonce": 1048717547,
+			"version": 89,
+			"versionNonce": 1677755776,
 			"isDeleted": false,
 			"id": "Jcp3udKh",
 			"fillStyle": "hachure",
@@ -436,7 +400,7 @@ nginx-ingress ^AS2Rnodr
 			"groupIds": [],
 			"roundness": null,
 			"boundElements": [],
-			"updated": 1682286395457,
+			"updated": 1682296087366,
 			"link": null,
 			"locked": false,
 			"fontSize": 16,
@@ -452,8 +416,8 @@ nginx-ingress ^AS2Rnodr
 		},
 		{
 			"type": "rectangle",
-			"version": 161,
-			"versionNonce": 779061899,
+			"version": 163,
+			"versionNonce": 1045729920,
 			"isDeleted": false,
 			"id": "V-YB-XiL_MyXrfRAth2fh",
 			"fillStyle": "hachure",
@@ -479,14 +443,14 @@ nginx-ingress ^AS2Rnodr
 					"id": "ncNDQ76t"
 				}
 			],
-			"updated": 1682286402610,
+			"updated": 1682296087366,
 			"link": null,
 			"locked": false
 		},
 		{
 			"type": "text",
-			"version": 108,
-			"versionNonce": 1150065349,
+			"version": 110,
+			"versionNonce": 1825822080,
 			"isDeleted": false,
 			"id": "ncNDQ76t",
 			"fillStyle": "hachure",
@@ -505,7 +469,7 @@ nginx-ingress ^AS2Rnodr
 			"groupIds": [],
 			"roundness": null,
 			"boundElements": [],
-			"updated": 1682292115536,
+			"updated": 1682296087366,
 			"link": null,
 			"locked": false,
 			"fontSize": 16,
@@ -521,8 +485,8 @@ nginx-ingress ^AS2Rnodr
 		},
 		{
 			"type": "rectangle",
-			"version": 178,
-			"versionNonce": 1960050987,
+			"version": 180,
+			"versionNonce": 1528709760,
 			"isDeleted": false,
 			"id": "5viEJpfOgrdVvd9tjRHoC",
 			"fillStyle": "hachure",
@@ -548,14 +512,14 @@ nginx-ingress ^AS2Rnodr
 					"id": "1uidCPYX"
 				}
 			],
-			"updated": 1682286402610,
+			"updated": 1682296087366,
 			"link": null,
 			"locked": false
 		},
 		{
 			"type": "text",
-			"version": 145,
-			"versionNonce": 324139179,
+			"version": 147,
+			"versionNonce": 515712384,
 			"isDeleted": false,
 			"id": "1uidCPYX",
 			"fillStyle": "hachure",
@@ -574,7 +538,7 @@ nginx-ingress ^AS2Rnodr
 			"groupIds": [],
 			"roundness": null,
 			"boundElements": [],
-			"updated": 1682286412580,
+			"updated": 1682296087366,
 			"link": null,
 			"locked": false,
 			"fontSize": 16,
@@ -590,8 +554,8 @@ nginx-ingress ^AS2Rnodr
 		},
 		{
 			"type": "rectangle",
-			"version": 180,
-			"versionNonce": 2069918059,
+			"version": 182,
+			"versionNonce": 322040448,
 			"isDeleted": false,
 			"id": "KacZgyiIAaruEyV9d0wnU",
 			"fillStyle": "hachure",
@@ -617,14 +581,14 @@ nginx-ingress ^AS2Rnodr
 					"id": "TIRrDkXo"
 				}
 			],
-			"updated": 1682286654876,
+			"updated": 1682296087366,
 			"link": null,
 			"locked": false
 		},
 		{
 			"type": "text",
-			"version": 129,
-			"versionNonce": 1042935493,
+			"version": 131,
+			"versionNonce": 1727821184,
 			"isDeleted": false,
 			"id": "TIRrDkXo",
 			"fillStyle": "hachure",
@@ -643,7 +607,7 @@ nginx-ingress ^AS2Rnodr
 			"groupIds": [],
 			"roundness": null,
 			"boundElements": [],
-			"updated": 1682286654876,
+			"updated": 1682296087366,
 			"link": null,
 			"locked": false,
 			"fontSize": 16,
@@ -659,8 +623,8 @@ nginx-ingress ^AS2Rnodr
 		},
 		{
 			"type": "rectangle",
-			"version": 196,
-			"versionNonce": 80022539,
+			"version": 198,
+			"versionNonce": 1833935488,
 			"isDeleted": false,
 			"id": "RxAracZzMfcLH8gbCf0Dn",
 			"fillStyle": "hachure",
@@ -686,14 +650,14 @@ nginx-ingress ^AS2Rnodr
 					"id": "zmOv4qvJ"
 				}
 			],
-			"updated": 1682286654876,
+			"updated": 1682296087366,
 			"link": null,
 			"locked": false
 		},
 		{
 			"type": "text",
-			"version": 159,
-			"versionNonce": 1592380965,
+			"version": 161,
+			"versionNonce": 181519744,
 			"isDeleted": false,
 			"id": "zmOv4qvJ",
 			"fillStyle": "hachure",
@@ -712,7 +676,7 @@ nginx-ingress ^AS2Rnodr
 			"groupIds": [],
 			"roundness": null,
 			"boundElements": [],
-			"updated": 1682286654876,
+			"updated": 1682296087366,
 			"link": null,
 			"locked": false,
 			"fontSize": 16,
@@ -728,8 +692,8 @@ nginx-ingress ^AS2Rnodr
 		},
 		{
 			"type": "rectangle",
-			"version": 223,
-			"versionNonce": 939348651,
+			"version": 225,
+			"versionNonce": 406278784,
 			"isDeleted": false,
 			"id": "NYazuxpdlFy-6SpYy5ePe",
 			"fillStyle": "hachure",
@@ -755,14 +719,14 @@ nginx-ingress ^AS2Rnodr
 					"id": "Oubfj9ct"
 				}
 			],
-			"updated": 1682286654876,
+			"updated": 1682296087366,
 			"link": null,
 			"locked": false
 		},
 		{
 			"type": "text",
-			"version": 179,
-			"versionNonce": 1328988549,
+			"version": 181,
+			"versionNonce": 662508928,
 			"isDeleted": false,
 			"id": "Oubfj9ct",
 			"fillStyle": "hachure",
@@ -781,7 +745,7 @@ nginx-ingress ^AS2Rnodr
 			"groupIds": [],
 			"roundness": null,
 			"boundElements": [],
-			"updated": 1682286654876,
+			"updated": 1682296087366,
 			"link": null,
 			"locked": false,
 			"fontSize": 16,
@@ -797,8 +761,8 @@ nginx-ingress ^AS2Rnodr
 		},
 		{
 			"type": "rectangle",
-			"version": 240,
-			"versionNonce": 1974715723,
+			"version": 242,
+			"versionNonce": 1789461120,
 			"isDeleted": false,
 			"id": "cqj_UDumKl4iPhTF68z8C",
 			"fillStyle": "hachure",
@@ -824,14 +788,14 @@ nginx-ingress ^AS2Rnodr
 					"id": "gPDtnluv"
 				}
 			],
-			"updated": 1682286654876,
+			"updated": 1682296087367,
 			"link": null,
 			"locked": false
 		},
 		{
 			"type": "text",
-			"version": 217,
-			"versionNonce": 1145981157,
+			"version": 219,
+			"versionNonce": 842950016,
 			"isDeleted": false,
 			"id": "gPDtnluv",
 			"fillStyle": "hachure",
@@ -850,7 +814,7 @@ nginx-ingress ^AS2Rnodr
 			"groupIds": [],
 			"roundness": null,
 			"boundElements": [],
-			"updated": 1682286654876,
+			"updated": 1682296087367,
 			"link": null,
 			"locked": false,
 			"fontSize": 16,
@@ -866,8 +830,8 @@ nginx-ingress ^AS2Rnodr
 		},
 		{
 			"type": "rectangle",
-			"version": 181,
-			"versionNonce": 625140715,
+			"version": 183,
+			"versionNonce": 1667543680,
 			"isDeleted": false,
 			"id": "gfqaxcHkxJsEGcQsOdGvm",
 			"fillStyle": "hachure",
@@ -893,14 +857,14 @@ nginx-ingress ^AS2Rnodr
 					"id": "NmO11ab4"
 				}
 			],
-			"updated": 1682286654876,
+			"updated": 1682296087367,
 			"link": null,
 			"locked": false
 		},
 		{
 			"type": "text",
-			"version": 136,
-			"versionNonce": 1874715717,
+			"version": 138,
+			"versionNonce": 2018882944,
 			"isDeleted": false,
 			"id": "NmO11ab4",
 			"fillStyle": "hachure",
@@ -919,7 +883,7 @@ nginx-ingress ^AS2Rnodr
 			"groupIds": [],
 			"roundness": null,
 			"boundElements": [],
-			"updated": 1682286654876,
+			"updated": 1682296087367,
 			"link": null,
 			"locked": false,
 			"fontSize": 16,
@@ -935,8 +899,8 @@ nginx-ingress ^AS2Rnodr
 		},
 		{
 			"type": "rectangle",
-			"version": 198,
-			"versionNonce": 1588932235,
+			"version": 200,
+			"versionNonce": 690643584,
 			"isDeleted": false,
 			"id": "ln-i9kocB1CqQmi6ZHgG8",
 			"fillStyle": "hachure",
@@ -962,14 +926,14 @@ nginx-ingress ^AS2Rnodr
 					"id": "GKj4mVDB"
 				}
 			],
-			"updated": 1682286654876,
+			"updated": 1682296087367,
 			"link": null,
 			"locked": false
 		},
 		{
 			"type": "text",
-			"version": 169,
-			"versionNonce": 1969427365,
+			"version": 171,
+			"versionNonce": 520291712,
 			"isDeleted": false,
 			"id": "GKj4mVDB",
 			"fillStyle": "hachure",
@@ -988,7 +952,7 @@ nginx-ingress ^AS2Rnodr
 			"groupIds": [],
 			"roundness": null,
 			"boundElements": [],
-			"updated": 1682286654876,
+			"updated": 1682296087367,
 			"link": null,
 			"locked": false,
 			"fontSize": 16,
@@ -1004,8 +968,8 @@ nginx-ingress ^AS2Rnodr
 		},
 		{
 			"type": "rectangle",
-			"version": 228,
-			"versionNonce": 1422206251,
+			"version": 230,
+			"versionNonce": 179966592,
 			"isDeleted": false,
 			"id": "ToTHOAf4Slj8KeryRfOrC",
 			"fillStyle": "hachure",
@@ -1031,14 +995,14 @@ nginx-ingress ^AS2Rnodr
 					"id": "SstSqLvD"
 				}
 			],
-			"updated": 1682286654876,
+			"updated": 1682296087367,
 			"link": null,
 			"locked": false
 		},
 		{
 			"type": "text",
-			"version": 190,
-			"versionNonce": 560682757,
+			"version": 192,
+			"versionNonce": 596006272,
 			"isDeleted": false,
 			"id": "SstSqLvD",
 			"fillStyle": "hachure",
@@ -1057,7 +1021,7 @@ nginx-ingress ^AS2Rnodr
 			"groupIds": [],
 			"roundness": null,
 			"boundElements": [],
-			"updated": 1682286654876,
+			"updated": 1682296087367,
 			"link": null,
 			"locked": false,
 			"fontSize": 16,
@@ -1073,8 +1037,8 @@ nginx-ingress ^AS2Rnodr
 		},
 		{
 			"type": "rectangle",
-			"version": 245,
-			"versionNonce": 2128431051,
+			"version": 247,
+			"versionNonce": 2127807104,
 			"isDeleted": false,
 			"id": "2AdQqgz_H3Lx7YOeIoLS0",
 			"fillStyle": "hachure",
@@ -1100,14 +1064,14 @@ nginx-ingress ^AS2Rnodr
 					"id": "AAJq6Yrk"
 				}
 			],
-			"updated": 1682286654876,
+			"updated": 1682296087367,
 			"link": null,
 			"locked": false
 		},
 		{
 			"type": "text",
-			"version": 236,
-			"versionNonce": 1582575205,
+			"version": 238,
+			"versionNonce": 1528800640,
 			"isDeleted": false,
 			"id": "AAJq6Yrk",
 			"fillStyle": "hachure",
@@ -1126,7 +1090,7 @@ nginx-ingress ^AS2Rnodr
 			"groupIds": [],
 			"roundness": null,
 			"boundElements": [],
-			"updated": 1682286654876,
+			"updated": 1682296087367,
 			"link": null,
 			"locked": false,
 			"fontSize": 16,
@@ -1142,8 +1106,8 @@ nginx-ingress ^AS2Rnodr
 		},
 		{
 			"type": "rectangle",
-			"version": 154,
-			"versionNonce": 1595244971,
+			"version": 156,
+			"versionNonce": 607613568,
 			"isDeleted": false,
 			"id": "vjljN6QFKhVthdLc8h0hq",
 			"fillStyle": "hachure",
@@ -1169,14 +1133,14 @@ nginx-ingress ^AS2Rnodr
 					"id": "U6osubOE"
 				}
 			],
-			"updated": 1682286659493,
+			"updated": 1682296087367,
 			"link": null,
 			"locked": false
 		},
 		{
 			"type": "text",
-			"version": 115,
-			"versionNonce": 1748828805,
+			"version": 117,
+			"versionNonce": 1930360192,
 			"isDeleted": false,
 			"id": "U6osubOE",
 			"fillStyle": "hachure",
@@ -1195,7 +1159,7 @@ nginx-ingress ^AS2Rnodr
 			"groupIds": [],
 			"roundness": null,
 			"boundElements": [],
-			"updated": 1682286659494,
+			"updated": 1682296087367,
 			"link": null,
 			"locked": false,
 			"fontSize": 16,
@@ -1211,8 +1175,8 @@ nginx-ingress ^AS2Rnodr
 		},
 		{
 			"type": "rectangle",
-			"version": 200,
-			"versionNonce": 51910251,
+			"version": 202,
+			"versionNonce": 1101341312,
 			"isDeleted": false,
 			"id": "SHeZ6puDcdGsJRxDLrAXs",
 			"fillStyle": "hachure",
@@ -1238,14 +1202,14 @@ nginx-ingress ^AS2Rnodr
 					"id": "zk9eAs3n"
 				}
 			],
-			"updated": 1682286654876,
+			"updated": 1682296087367,
 			"link": null,
 			"locked": false
 		},
 		{
 			"type": "text",
-			"version": 182,
-			"versionNonce": 1793792453,
+			"version": 184,
+			"versionNonce": 1888765312,
 			"isDeleted": false,
 			"id": "zk9eAs3n",
 			"fillStyle": "hachure",
@@ -1264,7 +1228,7 @@ nginx-ingress ^AS2Rnodr
 			"groupIds": [],
 			"roundness": null,
 			"boundElements": [],
-			"updated": 1682286654876,
+			"updated": 1682296087367,
 			"link": null,
 			"locked": false,
 			"fontSize": 16,
@@ -1280,8 +1244,8 @@ nginx-ingress ^AS2Rnodr
 		},
 		{
 			"type": "rectangle",
-			"version": 230,
-			"versionNonce": 1614811403,
+			"version": 232,
+			"versionNonce": 1172099712,
 			"isDeleted": false,
 			"id": "CgZ0FuaYmOplshTskLomk",
 			"fillStyle": "hachure",
@@ -1307,14 +1271,14 @@ nginx-ingress ^AS2Rnodr
 					"id": "UwJjLKPU"
 				}
 			],
-			"updated": 1682286654876,
+			"updated": 1682296087367,
 			"link": null,
 			"locked": false
 		},
 		{
 			"type": "text",
-			"version": 198,
-			"versionNonce": 1347262757,
+			"version": 200,
+			"versionNonce": 821007744,
 			"isDeleted": false,
 			"id": "UwJjLKPU",
 			"fillStyle": "hachure",
@@ -1333,7 +1297,7 @@ nginx-ingress ^AS2Rnodr
 			"groupIds": [],
 			"roundness": null,
 			"boundElements": [],
-			"updated": 1682286654876,
+			"updated": 1682296087367,
 			"link": null,
 			"locked": false,
 			"fontSize": 16,
@@ -1349,8 +1313,8 @@ nginx-ingress ^AS2Rnodr
 		},
 		{
 			"type": "rectangle",
-			"version": 247,
-			"versionNonce": 1473230763,
+			"version": 249,
+			"versionNonce": 1201570432,
 			"isDeleted": false,
 			"id": "FY0sa4d2JAzTTo6Mxro--",
 			"fillStyle": "hachure",
@@ -1376,14 +1340,14 @@ nginx-ingress ^AS2Rnodr
 					"id": "AS2Rnodr"
 				}
 			],
-			"updated": 1682286654876,
+			"updated": 1682296087367,
 			"link": null,
 			"locked": false
 		},
 		{
 			"type": "text",
-			"version": 251,
-			"versionNonce": 401157253,
+			"version": 253,
+			"versionNonce": 1767957888,
 			"isDeleted": false,
 			"id": "AS2Rnodr",
 			"fillStyle": "hachure",
@@ -1402,7 +1366,7 @@ nginx-ingress ^AS2Rnodr
 			"groupIds": [],
 			"roundness": null,
 			"boundElements": [],
-			"updated": 1682286654876,
+			"updated": 1682296087367,
 			"link": null,
 			"locked": false,
 			"fontSize": 16,
@@ -1415,6 +1379,42 @@ nginx-ingress ^AS2Rnodr
 			"originalText": "nginx-ingress",
 			"lineHeight": 1.25,
 			"baseline": 14
+		},
+		{
+			"id": "GBpUJ6vF",
+			"type": "text",
+			"x": -346.8840579710146,
+			"y": -277.91666666666663,
+			"width": 63.29612731933594,
+			"height": 20,
+			"angle": 0,
+			"strokeColor": "#000000",
+			"backgroundColor": "#ced4da",
+			"fillStyle": "hachure",
+			"strokeWidth": 1,
+			"strokeStyle": "solid",
+			"roughness": 1,
+			"opacity": 100,
+			"groupIds": [],
+			"roundness": null,
+			"seed": 95040128,
+			"version": 8,
+			"versionNonce": 755115392,
+			"isDeleted": false,
+			"boundElements": null,
+			"updated": 1682296099518,
+			"link": null,
+			"locked": false,
+			"text": "Proxmox",
+			"rawText": "Proxmox",
+			"fontSize": 16,
+			"fontFamily": 1,
+			"textAlign": "left",
+			"verticalAlign": "top",
+			"baseline": 14,
+			"containerId": null,
+			"originalText": "Proxmox",
+			"lineHeight": 1.25
 		}
 	],
 	"appState": {

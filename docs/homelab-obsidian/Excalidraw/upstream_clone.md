@@ -252,8 +252,8 @@ Pull updates from upstream ^nNszrchm
 		},
 		{
 			"type": "arrow",
-			"version": 278,
-			"versionNonce": 1323758656,
+			"version": 279,
+			"versionNonce": 1215996544,
 			"isDeleted": false,
 			"id": "uosYWbYPwnn8-NdahkqeY",
 			"fillStyle": "hachure",
@@ -262,11 +262,11 @@ Pull updates from upstream ^nNszrchm
 			"roughness": 1,
 			"opacity": 100,
 			"angle": 0,
-			"x": 226.5591698381305,
+			"x": -170.4408301618695,
 			"y": -6.75,
 			"strokeColor": "#000000",
 			"backgroundColor": "#82c91e",
-			"width": 397,
+			"width": 205,
 			"height": 113,
 			"seed": 840183888,
 			"groupIds": [],
@@ -274,7 +274,7 @@ Pull updates from upstream ^nNszrchm
 				"type": 2
 			},
 			"boundElements": [],
-			"updated": 1682207665444,
+			"updated": 1682296153240,
 			"link": null,
 			"locked": false,
 			"startBinding": null,
@@ -288,15 +288,15 @@ Pull updates from upstream ^nNszrchm
 			"endArrowhead": "arrow",
 			"points": [
 				[
-					-397,
+					0,
 					0
 				],
 				[
-					-192,
+					205,
 					113
 				],
 				[
-					0,
+					5.230600678902306,
 					9
 				]
 			]

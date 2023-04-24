@@ -9,7 +9,8 @@ cd homelab
 
 Everybody has different needs, not everybody wants to run all applications. This means that everybody will need different files in their repositories. So the first step would be to create a private copy of my homelab repository. And then we'll point the newly created repo to use github.com/loeken/homelab as an upstream. This allows to fetch any updates in the future from the main repository.
 
-![[upsteam_clone|100%]]
+![DAFQ](Excalidraw/upstream_clone.svg)
+
 
 This might sound more complicated then it as as the ./setup will do most of the work for you. Let's say you picked the new github repo your/homelab. Let's first see if all dependencies needed for running 
 

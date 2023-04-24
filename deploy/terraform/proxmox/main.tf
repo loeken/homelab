@@ -60,12 +60,12 @@ resource "null_resource" "migrate" {
   ]
 }
 resource "null_resource" "reboot" {
+  provisioner "local-exec" {
+    command = "ssh -i ${var.ssh_private_key} ${var.ssh_username}@${var.ssh_server_address} 'if ! uname -r | grep -q pve; then nohup sudo sh -c \"sleep 5 && reboot\" &>/dev/null &; true; fi'"
+  }
   depends_on = [
     null_resource.migrate
   ]
-  provisioner "local-exec" {
-    command = "ssh -i ${var.ssh_private_key} ${var.ssh_username}@${var.ssh_server_address} 'if ! uname -r | grep -q pve; then sudo reboot; fi'"
-  }
 }
 resource "null_resource" "wait_for_reboot" {
   provisioner "local-exec" {

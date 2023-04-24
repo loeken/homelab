@@ -904,6 +904,9 @@ func main() {
 					generateAutheliaUsersDatabase()
 					fmt.Println("generated authelia")
 					color.Green("waiting for authelia to be up, to upload /config/users_database.yml")
+				} else {
+					fmt.Println("the error:", err.Error())
+					os.Exit(3)
 				}
 
 				waitForPodReady("authelia", "authelia")

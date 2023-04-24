@@ -9,6 +9,7 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"net/http"
 	"os"
 	"os/exec"
 	"os/user"
@@ -44,10 +45,11 @@ var options = []configOption{
 	{"bridge", "vmbr0", "name of the bridge", nil, []string{"install"}},
 	{"cores_k3s", "10", "the amount of virtual cores to pass to the k3s vm", nil, []string{"install"}},
 	{"cluster-issuer", "staging", "when using nginx ingress, select cluster issuer ( staging / prod )", nil, []string{"install"}},
+	{"cloudflare_api_token", "false", "used for external-dns and to destroy dns records", nil, []string{"install", "destroy"}},
 	{"disksize", "100G", "disk size + metric ( example: 100G )", nil, []string{"install"}},
 	{"disaster_recovery", "k10", "disaster recovery type", []string{"k10", "none"}, []string{"install"}},
-	{"domain", "", "the domain you want to use", nil, []string{"install"}},
-	{"email", "", "the email used for most configs", nil, []string{"install"}},
+	{"domain", "", "the domain you want to use", nil, []string{"install", "destroy"}},
+	{"email", "", "the email used for most configs", nil, []string{"install", "destroy"}},
 	{"external_ip", "1.2.3.4", "your external ipv4 ( curl -4 ifconfig.co )", nil, []string{"install"}},
 	{"interface", "enp3s0", "name of the primary interface", nil, []string{"install"}},
 	{"ingress", "cloudflaretunnel", "which ingress to use ( nginx/cloudflaretunnel )", []string{"nginx", "cloudflaretunnel"}, []string{"install"}},
@@ -1051,7 +1053,9 @@ func main() {
 		Short: "destroy the stack ( DANGER DANGER! :) )",
 		Run: func(cmd *cobra.Command, args []string) {
 			mycmd := exec.Command("sh", "-c", "cat ../.git/config | grep url |grep -v loeken/homelab.git| cut -d' ' -f 3")
-
+			cloudflare_api_token := viper.GetString("cloudflare_api_token")
+			domain := viper.GetString("domain")
+			email := viper.GetString("email")
 			var out bytes.Buffer
 			mycmd.Stdout = &out
 			err := mycmd.Run()
@@ -1079,6 +1083,10 @@ func main() {
 
 			runCommand("../tmp", "cloudflared", []string{"tunnel", "cleanup", "homelab-tunnel_" + new_repo})
 			runCommand("../tmp", "cloudflared", []string{"tunnel", "delete", "homelab-tunnel_" + new_repo})
+
+			if cloudflare_api_token != "false" {
+				deleteAllDNSRecords(cloudflare_api_token, email, domain)
+			}
 		},
 	}
 
@@ -1820,4 +1828,121 @@ func mapToYaml(m map[string]string) string {
 		yaml += fmt.Sprintf("  %s: %s\n", key, value)
 	}
 	return yaml
+}
+
+const (
+	cloudflareAPIBase = "https://api.cloudflare.com/client/v4/"
+)
+
+type DNSRecord struct {
+	ID string `json:"id"`
+}
+
+type DNSRecordsResponse struct {
+	Result []DNSRecord `json:"result"`
+}
+
+type Zone struct {
+	ID   string `json:"id"`
+	Name string `json:"name"`
+}
+
+type ZonesResponse struct {
+	Result []Zone `json:"result"`
+}
+
+func getZoneID(apiKey, email, domainName string) (string, error) {
+	client := &http.Client{}
+
+	req, err := http.NewRequest("GET", cloudflareAPIBase+"zones?name="+domainName, nil)
+	if err != nil {
+		return "", err
+	}
+
+	req.Header.Set("X-Auth-Email", email)
+	req.Header.Set("X-Auth-Key", apiKey)
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return "", err
+	}
+
+	var zonesResponse ZonesResponse
+	err = json.Unmarshal(body, &zonesResponse)
+	if err != nil {
+		return "", err
+	}
+
+	if len(zonesResponse.Result) == 0 {
+		return "", fmt.Errorf("no zone found with domain name %s", domainName)
+	}
+
+	return zonesResponse.Result[0].ID, nil
+}
+
+func deleteAllDNSRecords(apiKey, email, domainName string) error {
+	zoneID, err := getZoneID(apiKey, email, domainName)
+	if err != nil {
+		return err
+	}
+
+	client := &http.Client{}
+
+	req, err := http.NewRequest("GET", cloudflareAPIBase+"zones/"+zoneID+"/dns_records", nil)
+	if err != nil {
+		return err
+	}
+
+	req.Header.Set("X-Auth-Email", email)
+	req.Header.Set("X-Auth-Key", apiKey)
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
+
+	var dnsRecords DNSRecordsResponse
+	err = json.Unmarshal(body, &dnsRecords)
+	if err != nil {
+		return err
+	}
+
+	for _, record := range dnsRecords.Result {
+		req, err := http.NewRequest("DELETE", cloudflareAPIBase+"zones/"+zoneID+"/dns_records/"+record.ID, nil)
+		if err != nil {
+			return err
+		}
+
+		req.Header.Set("X-Auth-Email", email)
+		req.Header.Set("X-Auth-Key", apiKey)
+		req.Header.Set("Content-Type", "application/json")
+
+		resp, err := client.Do(req)
+		if err != nil {
+			return err
+		}
+		resp.Body.Close()
+
+		if resp.StatusCode == http.StatusOK {
+			fmt.Println("Deleted DNS record:", record.ID)
+		} else {
+			return fmt.Errorf("failed to delete DNS record %s, status code: %d", record.ID, resp.StatusCode)
+		}
+	}
+
+	return nil
 }

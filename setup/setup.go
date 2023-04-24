@@ -792,7 +792,7 @@ func main() {
 				config["prowlarr"] = prowlarrConfig
 			}
 			if installJellyseerr == "true" {
-				jellyseerrConfig := config["jellyfin"].(map[interface{}]interface{})
+				jellyseerrConfig := config["jellyseerr"].(map[interface{}]interface{})
 				jellyseerrConfig["enabled"] = true
 				jellyseerrConfig["useAuthelia"] = false
 				jellyseerrConfig["linkerd"] = false

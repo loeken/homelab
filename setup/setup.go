@@ -867,7 +867,7 @@ func main() {
 				runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "whoami." + domain})
 				// runCommand(".", "kubectl", []string{"wait", "--for=condition=ready", "pod", "-n", "kube-system", "-l", "app.kubernetes.io/instance=sealed-secrets-controller", "--timeout=300s"})
 
-				waitForPodReady("kube-system", "sealed-secrets-controller")
+				waitForPodReady("cloudflare-tunnel", "cloudflared")
 				cfTunnelId := cloudflaretunnel("homelab-tunnel_" + new_repo)
 				cloudflaresecret(cfTunnelId, *u)
 			}

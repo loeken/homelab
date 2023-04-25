@@ -99,7 +99,7 @@ wipefs --all /dev/yourdisk
 
 the --ssh_* flags specify how to connect to your server. you specify the non root user created during install and the password, ./setup will then login over ssh and set the root password ( as we lll need that later on to login to the proxmox webui ).
 
-If you already have an (older) ssh keypair in your system of the type id_rsa you need to point the private/public key to their location. if you followed the github video and used the "gh auth login" to generate a command then you should already have ~/.ssh/id_ed25519 and ~/.ssh/id_ed25519.pub and dont need to specify any flags
+If you already have an (older) ssh keypair in your system of the type id_ed25519 you need to point the private/public key to their location. if you followed the github video and used the "gh auth login" to generate a command then you should already have ~/.ssh/id_ed25519 and ~/.ssh/id_ed25519.pub and dont need to specify any flags
 
 ## --external_ip 
 

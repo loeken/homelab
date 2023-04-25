@@ -6,8 +6,7 @@ metadata:
   namespace: vaultwarden
 type: Opaque
 stringData:
-  DATABASE_URL: postgresql://vaultwarden:pguserpass@vaultwarden-postgresql/vaultwarden
-  DOMAIN: https://loeken.xyz
+  DOMAIN: https://example.com
   SMTP_HOST: vaultwarden mail.example.com
   SMTP_FROM: vaultwarden@example.com
   SMTP_FROM_NAME: vaultwarden
@@ -20,5 +19,5 @@ stringData:
   SMTP_AUTH_MECHANISM: "STARTTLS"
   HELO_NAME: mail.example.com
   SMTP_SECURITY: starttls
-  pgadminpass: "vaultwarden postgresql admin password - for admin purposes"
-  pguserpass: "vaultwarden postgresql user password - used by vaultwarden to connect to postgresql"
+  pgadminpass: "generate|16"
+  pguserpass: "generate|16"

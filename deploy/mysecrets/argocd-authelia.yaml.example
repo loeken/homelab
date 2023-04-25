@@ -6,7 +6,7 @@ metadata:
   namespace: authelia
 type: Opaque
 stringData:
-  STORAGE_ENCRYPTION_KEY: "The storage encryption key is used to encrypt your database - The minimum length of this key is 20 characters."
-  SESSION_ENCRYPTION_KEY: "The session key used to encrypt session data in Redis. It's strongly recommended this is a Random Alphanumeric String with 64 or more characters."
+  STORAGE_ENCRYPTION_KEY: "generate|32"
+  SESSION_ENCRYPTION_KEY: "generate|64"
   SMTP_PASSWORD: "smtp-password used by authelia when sending emails"
-  JWT_TOKEN: "a long string used as part of your authentication process, make it long, unique and secure. generateSomeLongSecureRandomTokenDontBeLazy"
+  JWT_TOKEN: "generate|32"

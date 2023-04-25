@@ -10,7 +10,7 @@ variable "ssh_username" {
 }
 variable "ssh_private_key" {
   type = string
-  default = "~/.ssh/id_rsa"
+  default = "~/.ssh/id_ed25519"
   description = "The path to the private key to use when connecting to the server via SSH."
 }
 variable "shared_media_disk_device" {

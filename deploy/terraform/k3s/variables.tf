@@ -7,7 +7,7 @@ variable "ssh_username" {
 }
 variable "ssh_private_key" {
   type = string
-  default = "~/.ssh/id_rsa"
+  default = "~/.ssh/id_ed25519"
   description = "The path to the private key to use when connecting to the server via SSH."
 }
 variable "kubernetes_version" {
@@ -27,7 +27,7 @@ variable "ssh_password" {
 }
 variable "ssh_public_key" {
   type = string
-  default = "~/.ssh/id_rsa.pub"
+  default = "~/.ssh/id_ed25519.pub"
   description = "The path to the public key to use when connecting to the server via SSH."
 }
 variable "ssh_server_address" {

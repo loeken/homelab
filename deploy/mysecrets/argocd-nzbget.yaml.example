@@ -5,5 +5,5 @@ metadata:
   name: nzbget
   namespace: media
 stringData:
-  password: "nzbget password: topsecret"
+  password: "genearte|16"
   username: "nzbget username: loeken"

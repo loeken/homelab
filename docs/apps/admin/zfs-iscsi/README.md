@@ -55,12 +55,12 @@ The key's randomart image is:
 |   oo. .         |
 |  ++..           |
 +----[SHA256]-----+
-❯ ls |grep id_rsa_truenas
-id_rsa_truenas
-id_rsa_truenas.pub
+❯ ls |grep id_ed25519_truenas
+id_ed25519_truenas
+id_ed25519_truenas.pub
 ```
 
-enter the contents of id_rsa_truenas.pub in the authorized_keys section of the truenas root user. ( I am only using truenas to provide storage for my k3s, if you run other apps conside creating a dedidated user on truenas). the private key will be used in the config of the democratic-csi argocd app.
+enter the contents of id_ed25519_truenas.pub in the authorized_keys section of the truenas root user. ( I am only using truenas to provide storage for my k3s, if you run other apps conside creating a dedidated user on truenas). the private key will be used in the config of the democratic-csi argocd app.
 
 Note: you need to go to Services to enable the SSH server.
 
@@ -94,7 +94,7 @@ cp argocd-democratic-csi-iscsi.yaml.example argocd-democratic-csi-iscsi.yaml
 nano argocd-democratic-csi-iscsi.yaml
 ```
 
-now in here change the ip 172.16.137.13 with the ip of your truenas, update the root password for truenas and insert the id_rsa_truenas private key, after that is done we can send this to kubeseal and apply the encrypted version
+now in here change the ip 172.16.137.13 with the ip of your truenas, update the root password for truenas and insert the id_ed25519_truenas private key, after that is done we can send this to kubeseal and apply the encrypted version
 
 ```
 cat argocd-democratic-csi-iscsi.yaml | kubeseal > argocd-democratic-csi-iscsi-encrypted.yaml 

@@ -8,5 +8,5 @@ type: Opaque
 stringData:
   smtp_username: nextcloud@example.com
   smtp_password: emailpassword
-  postgres-password: topsecretpg
+  postgres-password: generate|32
   postgres-username: postgres

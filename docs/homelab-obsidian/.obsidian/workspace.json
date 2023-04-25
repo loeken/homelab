@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "chapter 05 - beelink way - nginx ingress.md",
+                "file": "chapter 06 - beelink way - cloudflare tunnels.md",
                 "mode": "source",
                 "source": false
               }
@@ -31,8 +31,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -163,17 +162,17 @@
   },
   "active": "a7d19fa4fecfbb82",
   "lastOpenFiles": [
+    "chapter 03 - github repository.md",
+    "chapter 02 - installation of debian FDE.md",
+    "chapter 01 - introduction.md",
     "chapter 05 - beelink way - nginx ingress.md",
     "chapter 06 - beelink way - cloudflare tunnels.md",
     "chapter 04 - installation overview.md",
     "Excalidraw/beelink.svg",
-    "chapter 03 - github repository.md",
     "Excalidraw/upstream_clone.md",
-    "chapter 01 - introduction.md",
     "upstream_clone.svg.md",
     "Excalidraw/upstream_clone.svg",
     "Excalidraw/upstream_clone.svg.md",
-    "chapter 02 - installation of debian FDE.md",
     "Excalidraw/beelink.md",
     "output/chapter 01 - introduction.md",
     "output/attachment",

@@ -9,11 +9,13 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"math/rand"
 	"net/http"
 	"os"
 	"os/exec"
 	"os/user"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"time"
 
@@ -68,6 +70,7 @@ var options = []configOption{
 	{"smtp_sender", "homelab@example.com", "the email address used to send emails", nil, []string{"install"}},
 	{"smtp_username", "homelab@example.com", "the username used to login to your email", nil, []string{"install"}},
 	{"smtp_domain", "example.com", "the domain from which the email is sent from", nil, []string{"install"}},
+	{"smtp_password", "example.com", "the password for the email", nil, []string{"install"}},
 	{"ssh_password", "demotime", "ssh password", nil, []string{"install"}},
 	{"ssh_private_key", "~/.ssh/id_ed25519", "location of ssh private key, id_ed25519 when generated with gh auth login", nil, []string{"install"}},
 	{"ssh_public_key", "~/.ssh/id_ed25519.pub", "location of ssh public key, id_ed25519.pub when generated with gh auth login", nil, []string{"install"}},
@@ -1578,7 +1581,17 @@ func loadSecretFromTemplate(namespace string, application string) {
 			secrets["stringData"].(map[interface{}]interface{})[key] = string(privateKeyBytes)
 			continue
 		}
-
+		if strings.HasPrefix(strValue, "generate|") {
+			parts := strings.Split(strValue, "generate|")
+			if len(parts) > 1 {
+				fmt.Println("Part after 'generate|':", parts[1])
+				length, err := strconv.Atoi("12")
+				if err != nil {
+					fmt.Println("error converting length")
+				}
+				strValue = generatePassword(length)
+			}
+		}
 		// Print secret name and default value
 		fmt.Printf("%s (%s):\n", strKey, strValue)
 		var input string
@@ -1620,6 +1633,17 @@ func loadSecretFromTemplate(namespace string, application string) {
 		return
 	}
 	createSecret(namespace, string(sealedSecret))
+}
+func generatePassword(n int) string {
+	const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+
+	rand.Seed(time.Now().UnixNano())
+
+	password := make([]byte, n)
+	for i := range password {
+		password[i] = letters[rand.Intn(len(letters))]
+	}
+	return string(password)
 }
 
 func createSecret(namespace string, yamlString string) ([]byte, error) {

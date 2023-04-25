@@ -5,7 +5,7 @@ metadata:
   name: whoami
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "12"
+    argocd.argoproj.io/sync-wave: "3"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:

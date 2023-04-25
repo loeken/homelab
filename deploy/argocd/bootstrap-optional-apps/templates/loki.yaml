@@ -5,9 +5,9 @@ metadata:
   name: loki-stack-charts
   namespace: argocd
   finalizers:
-  - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io
   annotations:
-    argocd.argoproj.io/sync-wave: "30"
+    argocd.argoproj.io/sync-wave: "8"
 spec:
   syncPolicy:
     automated:

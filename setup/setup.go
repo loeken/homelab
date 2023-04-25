@@ -861,6 +861,15 @@ func main() {
 			fmt.Println("terraform bootstrap argocd")
 
 			runTerraformCommand("bootstrap-argocd")
+			waitForPodReady("argocd", "argocd-server")
+			color.Green("---")
+			color.Green("argocd is now up you can follow the rest of the installation")
+			color.Green("---")
+			color.Green("	kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath=\"{.data.password}\" | base64 -d && echo")
+			color.Green("	kubectl port-forward service/argocd-server -n argocd 8080:443")
+			color.Green("---")
+			color.Green("starting installation of additional apps")
+			color.Green("supports multiline input, if single line input press enter twice")
 
 			if ingress == "cloudflaretunnel" {
 				fmt.Println("you selected cloudflare ingress please login")
@@ -875,15 +884,6 @@ func main() {
 
 				waitForPodReady("cloudflaretunnel", "cloudflared")
 			}
-			waitForPodReady("argocd", "argocd-server")
-			color.Green("---")
-			color.Green("argocd is now up you can follow the rest of the installation")
-			color.Green("---")
-			color.Green("	kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath=\"{.data.password}\" | base64 -d && echo")
-			color.Green("	kubectl port-forward service/argocd-server -n argocd 8080:443")
-			color.Green("---")
-			color.Green("starting installation of additional apps")
-			color.Green("supports multiline input, if single line input press enter twice")
 
 			// wave 12
 			if installExternalDns == "true" {
@@ -924,7 +924,7 @@ func main() {
 					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "auth." + domain})
 				}
 			}
-			// wave 13
+			// wave 4
 			if installVaultwarden == "true" {
 				color.Blue("\033[1m input settings for vaultwarden:\033[0m")
 				loadSecretFromTemplate("vaultwarden", "vaultwarden")
@@ -965,10 +965,8 @@ func main() {
 					fmt.Println("error: ", err)
 					os.Exit(3)
 				}
-
 				createFolderJellyfin(podName, "/media/tv")
 				createFolderJellyfin(podName, "/media/movie")
-
 				if ingress == "cloudflaretunnel" {
 					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "jellyfin." + domain})
 				}

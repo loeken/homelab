@@ -14,7 +14,7 @@ now I can get ready to start the install
 ./setup install --platform proxmox \
 				--email loeken@internetz.me \
 				--external_ip REPLACE \
-				--ingress cloudflaretunnels \
+				--ingress cloudflaretunnel \
 				--domain loeken.xyz \
 				--cores_k3s 10 \
 				--memory_k3s 28672 \

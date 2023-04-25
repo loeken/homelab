@@ -5,7 +5,7 @@ metadata:
   name: nzbget
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "22"
+    argocd.argoproj.io/sync-wave: "7"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:

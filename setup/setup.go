@@ -1627,6 +1627,12 @@ func loadSecretFromTemplate(namespace string, application string) {
 		fmt.Printf("Error converting secrets to YAML: %v\n", err)
 		return
 	}
+	err = ioutil.WriteFile("../deploy/mysecrets/argocd-"+namespace+".yaml", output, 0644)
+	if err != nil {
+		fmt.Printf("Error saving secrets to file: %v\n", err)
+		return
+	}
+
 	sealedSecret, err := sealSecret(string(output))
 	if err != nil {
 		fmt.Printf("Failed to seal secret1: %v\n", err)

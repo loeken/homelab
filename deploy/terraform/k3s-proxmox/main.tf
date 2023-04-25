@@ -38,7 +38,7 @@ resource "proxmox_vm_qemu" "k3s-vm" {
     for_each = var.partition_external_shared_media_disk ? [1] : []
     content {
       type    = "virtio"
-      storage = "local-path"
+      storage = "external-disk"
       size    = var.shared_media_disk_size
     }
   }

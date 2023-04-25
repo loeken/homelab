@@ -241,7 +241,7 @@ func main() {
 			// registering loeken/homelab as an upstream for the new repo
 			runCommand(local_path+"/"+parts[1], "git", []string{"remote", "add", "upstream", "https://github.com/loeken/homelab.git"})
 
-			// genearting a ssh-keyring of type id_ed25519
+			// generating a ssh-keyring of type id_ed25519
 			runCommand(local_path+"/"+parts[1]+"/tmp", "ssh-keygen", []string{"-t", "ed25519", "-f", "id_ed25519", "-C", "argocd@homelab"})
 
 			// uploading the newly created key's public key to github as a deploy key so argocd will be able to pull from the repo

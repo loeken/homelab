@@ -118,6 +118,7 @@ resource "null_resource" "nfs_server_extradisk" {
 
   provisioner "remote-exec" {
     inline = [
+      "if ! grep -qs '/dev/sda' /proc/mounts; then",
       "sudo apt update -y",
       "DEBIAN_FRONTEND=noninteractive sudo apt install -y nfs-kernel-server parted",
       "sudo parted /dev/vdb mklabel msdos",
@@ -129,6 +130,7 @@ resource "null_resource" "nfs_server_extradisk" {
       "echo '/mnt/data ${proxmox_vm_qemu.k3s-vm.default_ipv4_address}/32(rw,all_squash,anonuid=1000,anongid=1000)' | sudo tee /etc/exports",
       "sudo chown -R ${var.ssh_username}:${var.ssh_username} /mnt/data",
       "sudo systemctl restart nfs-kernel-server",
+      "fi",
     ]
   }
 }

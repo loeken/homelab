@@ -873,7 +873,7 @@ func main() {
 				cfTunnelId := cloudflaretunnel("homelab-tunnel_" + new_repo)
 				cloudflaresecret(cfTunnelId, *u)
 
-				waitForPodReady("cloudflare-tunnel", "cloudflared")
+				waitForPodReady("cloudflaretunnel", "cloudflared")
 			}
 			waitForPodReady("argocd", "argocd-server")
 			color.Green("---")
@@ -1092,7 +1092,7 @@ func main() {
 
 			runCommand("../tmp", "cloudflared", []string{"tunnel", "cleanup", "homelab-tunnel_" + new_repo})
 			runCommand("../tmp", "cloudflared", []string{"tunnel", "delete", "homelab-tunnel_" + new_repo})
-			runCommand("../tmp", "rm", []string{"authelia_users_database.yml"})
+			runCommand("../tmp", "rm", []string{"-rf", "authelia_users_database.yml"})
 			// runCommand("../deploy/mysecrets/templates", "rm", []string{"argocd-*.yaml"})
 			if cloudflare_api_token != "false" && domain != "" {
 				deleteAllDNSRecords(cloudflare_api_token, domain)

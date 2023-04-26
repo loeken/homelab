@@ -11,9 +11,9 @@
             "id": "9b23d53f4b058ff2",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "excalidraw",
               "state": {
-                "file": "docs/Excalidraw/gitops.svg"
+                "file": "docs/Excalidraw/beelink.md"
               }
             }
           }
@@ -83,7 +83,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/Excalidraw/gitops.svg",
+                "file": "docs/Excalidraw/beelink.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,7 +100,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docs/Excalidraw/gitops.svg",
+                "file": "docs/Excalidraw/beelink.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -123,7 +123,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/Excalidraw/gitops.svg"
+                "file": "docs/Excalidraw/beelink.md"
               }
             }
           }
@@ -146,10 +146,13 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "9b23d53f4b058ff2",
+  "active": "ad27be037ada685e",
   "lastOpenFiles": [
-    "docs/Excalidraw/gitops.png",
+    "docs/Excalidraw/upstream_clone.md",
+    "docs/Excalidraw/upstream_clone.png",
+    "docs/index.md",
     "docs/Excalidraw/gitops.svg",
+    "docs/Excalidraw/gitops.png",
     "docs/Excalidraw/gitops.md",
     "docs/chapter01/gitops_concepts.md",
     "img/three-choices.md",
@@ -157,7 +160,6 @@
     "docs/Excalidraw/three-choices.png",
     "docs/Excalidraw/three-choices.md",
     "img/three-choices.png",
-    "docs/index.md",
     "img/three-choices.svg",
     "docs/chapter03/debian_install.md",
     "docs/chapter06/beelink_cloudflare_tunnel.md",
@@ -173,7 +175,6 @@
     "chapter01/gitops.svg",
     "Excalidraw/minikube.svg",
     "Excalidraw/upstream_clone.svg",
-    "Excalidraw/gitops.svg",
     "Excalidraw/gitops.md",
     "README.md.md",
     "Excalidraw/three-choices.md",

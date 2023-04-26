@@ -1841,6 +1841,10 @@ func waitForPodReady(namespace string, podName string) {
 			if namespace == "cloudflaretunnel" {
 				searchTag = "app="
 			}
+			if namespace == "home-assistant" {
+				searchTag = "app.kubernetes.io/component=primary"
+				podName = ""
+			}
 			out, err := runCommand(".", "kubectl", []string{"get", "pods", "-n", namespace, "-l", searchTag + podName})
 			if err == nil && strings.Contains(out, "Running") {
 				fmt.Printf("Pod is ready: %s\n", out)

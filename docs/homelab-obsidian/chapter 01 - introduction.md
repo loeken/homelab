@@ -5,7 +5,7 @@
 
 # Three choices
 
-![three-choices.svg](three-choices.svg)
+![three-choices.svg](Excalidraw/three-choices.svg)
 
 # show me de wey!
 

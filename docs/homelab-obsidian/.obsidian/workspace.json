@@ -35,24 +35,16 @@
             "id": "eb0269fe7a10e008",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
-            }
-          },
-          {
-            "id": "5e15402a31aa77ab",
-            "type": "leaf",
-            "state": {
               "type": "markdown",
               "state": {
-                "file": "chapter 07 - beelink way - cloudflare tunnels.md",
+                "file": "README.md.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -118,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "chapter 07 - beelink way - cloudflare tunnels.md",
+                "file": "README.md.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -135,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "chapter 07 - beelink way - cloudflare tunnels.md",
+                "file": "README.md.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -158,7 +150,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "chapter 07 - beelink way - cloudflare tunnels.md"
+                "file": "README.md.md"
               }
             }
           }
@@ -181,15 +173,21 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "5e15402a31aa77ab",
+  "active": "a7d19fa4fecfbb82",
   "lastOpenFiles": [
-    "chapter 06 - beelink way - nginx ingress.md",
-    "chapter 05 - installation overview.md",
-    "chapter 04 - installation of debian FDE.md",
-    "chapter 03 - github repository.md",
-    "chapter 02 - gitops & argocd concepts.md",
-    "chapter 01 - introduction.md",
-    "chapter 07 - beelink way - cloudflare tunnels.md",
+    "chapter06/beelink way - cloudflare tunnels.md",
+    "chapter05/beelink way - nginx ingress.md",
+    "chapter04/installation overview.md",
+    "chapter03/installation of debian FDE.md",
+    "README.md.md",
+    "chapter06",
+    "chapter05",
+    "chapter04",
+    "chapter03",
+    "chapter02/github repository.md",
+    "chapter02",
+    "chapter01/gitops & argocd concepts.md",
+    "chapter01",
     "chapter.md",
     "Excalidraw/gitops.md",
     "Excalidraw/gitops.svg",
@@ -220,9 +218,6 @@
     "obsidian",
     "chapter 04 - installation with proxmox 1.md",
     "Excalidraw",
-    "Excalidraw/Drawing 2023-04-22 22.15.47.excalidraw.md",
-    "chapter 01 - introduction",
-    "chapter 02 - installation of debian FDE",
     "Untitled.canvas"
   ]
 }

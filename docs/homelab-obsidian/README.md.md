@@ -10,25 +10,25 @@
 # show me de wey!
 
 ## 1. Read this introduction
-[chapter 01 - introduction](chapter%2001%20-%20introduction.md)
+[README.md](README.md.md)
 
 ## 2. Gitops/Argocd Concept
-[chapter 02 - gitops & argocd concepts](chapter%2002%20-%20gitops%20&%20argocd%20concepts.md)
+[gitops & argocd concepts](gitops%20&%20argocd%20concepts.md)
 
 ## 3. Installation of debian 11 with full disk encryption
-[chapter 04 - installation of debian FDE](chapter%2004%20-%20installation%20of%20debian%20FDE.md)
+[installation of debian FDE](installation%20of%20debian%20FDE.md)
 
 ## 4. Clone loeken/homelab github repo in your account
-[chapter 03 - github repository](chapter%2003%20-%20github%20repository.md)
+[github repository](github%20repository.md)
 
 ## 5. Installation Overview
-[chapter 05 - installation overview](chapter%2005%20-%20installation%20overview.md)
+[installation overview](installation%20overview.md)
 
 ## 6. Installation of homelab with Proxmox with nginx
-[chapter 06 - beelink way - nginx ingress](chapter%2006%20-%20beelink%20way%20-%20nginx%20ingress.md)
+[beelink way - nginx ingress](beelink%20way%20-%20nginx%20ingress.md)
 
 ## 7. Installation of homelab with Proxmox with cloudflare tunnels
-[chapter 07 - beelink way - cloudflare tunnels](chapter%2007%20-%20beelink%20way%20-%20cloudflare%20tunnels.md)
+[beelink way - cloudflare tunnels](beelink%20way%20-%20cloudflare%20tunnels.md)
 
 # The stack from bottom to top
 

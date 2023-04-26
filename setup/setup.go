@@ -1837,7 +1837,11 @@ func waitForPodReady(namespace string, podName string) {
 	err := waitWithRetries(10, 10*time.Second, func() (bool, error) {
 		_, nsErr := runCommand(".", "kubectl", []string{"get", "namespace", namespace})
 		if nsErr == nil {
-			out, err := runCommand(".", "kubectl", []string{"get", "pods", "-n", namespace, "-l", "app.kubernetes.io/instance=" + podName})
+			searchTag := "app.kubernetes.io/instance="
+			if namespace == "cloudflaretunnel" {
+				searchTag = "app="
+			}
+			out, err := runCommand(".", "kubectl", []string{"get", "pods", "-n", namespace, "-l", searchTag + podName})
 			if err == nil && strings.Contains(out, "Running") {
 				fmt.Printf("Pod is ready: %s\n", out)
 				return true, nil

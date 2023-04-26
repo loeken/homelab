@@ -861,7 +861,7 @@ func main() {
 			fmt.Println("terraform bootstrap argocd")
 
 			runTerraformCommand("bootstrap-argocd")
-			waitForPodReady("argocd", "argocd-server")
+			waitForPodReady("argocd", "argocd")
 			color.Green("---")
 			color.Green("argocd is now up you can follow the rest of the installation")
 			color.Green("---")
@@ -958,7 +958,7 @@ func main() {
 			// wave 20
 			if installJellyfin == "true" {
 				color.Blue("\033[1m input settings for jellyfin:\033[0m")
-				waitForPodReady("media", "jellyseerr")
+				waitForPodReady("media", "jellyfin")
 				podName, err := runCommand(".", "kubectl", []string{"get", "pods", "-n", "media", "-l", "app.kubernetes.io/instance=jellyfin", "-o", "jsonpath='{.items[0].metadata.name}'"})
 				if err != nil {
 					// handle error
@@ -1834,7 +1834,7 @@ func createFolderJellyfin(podName string, folderName string) {
 */
 func waitForPodReady(namespace string, podName string) {
 	// Wait for the namespace and pod to be ready
-	err := waitWithRetries(10, 5*time.Second, func() (bool, error) {
+	err := waitWithRetries(10, 10*time.Second, func() (bool, error) {
 		_, nsErr := runCommand(".", "kubectl", []string{"get", "namespace", namespace})
 		if nsErr == nil {
 			out, err := runCommand(".", "kubectl", []string{"get", "pods", "-n", namespace, "-l", "app.kubernetes.io/instance=" + podName})

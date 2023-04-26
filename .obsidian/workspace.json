@@ -173,12 +173,12 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "c9597f19e8d9207d",
+  "active": "ad27be037ada685e",
   "lastOpenFiles": [
     "docs/07_updates.md",
+    "docs/06_beelink_cloudflare_tunnel.md",
     "docs/08_troubleshooting.md",
     "docs/02_github_repository.md",
-    "docs/06_beelink_cloudflare_tunnel.md",
     "docs/index.md",
     "docs/01_gitops_concepts.md",
     "docs/05_beelink_nginx.md",

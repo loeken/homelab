@@ -1,4 +1,4 @@
-# updates in homelab
+# 07 updates in homelab
 
 along github.com/loeken/homelab there is also github.com/loeken/homelab-updater.
 

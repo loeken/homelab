@@ -1,6 +1,6 @@
 # Gitops & Argocd Concepts
 
-![[gitops.svg]]
+![gitops.svg](gitops.svg)
 
 GitOps is a method of managing and updating computer systems using Git, which helps track changes in files. In GitOps, you define the desired state of your system, like the configuration and settings, in a Git repository.
 

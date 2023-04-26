@@ -45,7 +45,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "chapter 01 - introduction.md",
+                "file": "chapter 07 - beelink way - cloudflare tunnels.md",
                 "mode": "source",
                 "source": false
               }
@@ -118,7 +118,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "chapter 01 - introduction.md",
+                "file": "chapter 07 - beelink way - cloudflare tunnels.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -135,7 +135,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "chapter 01 - introduction.md",
+                "file": "chapter 07 - beelink way - cloudflare tunnels.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -158,7 +158,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "chapter 01 - introduction.md"
+                "file": "chapter 07 - beelink way - cloudflare tunnels.md"
               }
             }
           }
@@ -181,16 +181,16 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "a7d19fa4fecfbb82",
+  "active": "5e15402a31aa77ab",
   "lastOpenFiles": [
-    "chapter.md",
-    "chapter 07 - beelink way - cloudflare tunnels.md",
     "chapter 06 - beelink way - nginx ingress.md",
     "chapter 05 - installation overview.md",
     "chapter 04 - installation of debian FDE.md",
     "chapter 03 - github repository.md",
     "chapter 02 - gitops & argocd concepts.md",
     "chapter 01 - introduction.md",
+    "chapter.md",
+    "chapter 07 - beelink way - cloudflare tunnels.md",
     "Excalidraw/gitops.md",
     "Excalidraw/gitops.svg",
     "Excalidraw/three-choices.md",

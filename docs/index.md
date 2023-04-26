@@ -17,10 +17,10 @@
 ## 5. Installation Overview
 [installation overview](04_installation_overview.md)
 
-## 6. Installation of homelab with Proxmox with nginx
+## 6. Installation of homelab with Proxmox and nginx
 [installation with nginx](05_beelink_nginx.md)
 
-## 7. Installation of homelab with Proxmox with cloudflare tunnels
+## 7. Installation of homelab with Proxmox and cloudflare tunnel
 [installation with cloudflare tunnel](06_beelink_cloudflare_tunnel.md)
 
 # The stack from bottom to top

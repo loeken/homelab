@@ -1812,22 +1812,62 @@ func createFolderJellyfin(podName string, folderName string) {
 		os.Exit(3)
 	}
 }
-func waitForPodReady(namespace string, podName string) {
-	// First, check if the namespace has been created
-	nsCreated, nsErr := runCommandWithRetries(".", "kubectl", []string{"get", "namespace", namespace}, 10, 5*time.Second)
-	if nsErr != nil {
-		fmt.Printf("Error checking for namespace existence: %v\n", nsErr)
-		return
-	}
-	fmt.Printf("Namespace is created: %s\n", nsCreated)
 
-	// Now wait for the pod to be ready
-	out, err := runCommandWithRetries(".", "kubectl", []string{"wait", "--for=condition=ready", "pod", "-n", namespace, "-l", "app.kubernetes.io/instance=" + podName, "--timeout=300s"}, 10, 5*time.Second)
+/*
+	func waitForPodReady(namespace string, podName string) {
+		// First, check if the namespace has been created
+		nsCreated, nsErr := runCommandWithRetries(".", "kubectl", []string{"get", "namespace", namespace}, 10, 5*time.Second)
+		if nsErr != nil {
+			fmt.Printf("Error checking for namespace existence: %v\n", nsErr)
+			return
+		}
+		fmt.Printf("Namespace is created: %s\n", nsCreated)
+
+		// Now wait for the pod to be ready
+		out, err := runCommandWithRetries(".", "kubectl", []string{"wait", "--for=condition=ready", "pod", "-n", namespace, "-l", "app.kubernetes.io/instance=" + podName, "--timeout=300s"}, 10, 5*time.Second)
+		if err != nil {
+			fmt.Printf("Error waiting for pod to be ready: %v\n", err)
+		} else {
+			fmt.Printf("Pod is ready: %s\n", out)
+		}
+	}
+*/
+func waitForPodReady(namespace string, podName string) {
+	// Wait for the namespace and pod to be ready
+	err := waitWithRetries(10, 5*time.Second, func() (bool, error) {
+		_, nsErr := runCommand(".", "kubectl", []string{"get", "namespace", namespace})
+		if nsErr == nil {
+			out, err := runCommand(".", "kubectl", []string{"get", "pods", "-n", namespace, "-l", "app.kubernetes.io/instance=" + podName})
+			if err == nil && strings.Contains(out, "Running") {
+				fmt.Printf("Pod is ready: %s\n", out)
+				return true, nil
+			} else {
+				fmt.Printf("Error getting pod status: %v\n", err)
+			}
+		} else {
+			fmt.Printf("Error checking for namespace existence: %v\n", nsErr)
+		}
+		return false, nil
+	})
 	if err != nil {
 		fmt.Printf("Error waiting for pod to be ready: %v\n", err)
-	} else {
-		fmt.Printf("Pod is ready: %s\n", out)
 	}
+}
+
+func waitWithRetries(maxRetries int, retryTimeout time.Duration, conditionFunc func() (bool, error)) error {
+	for i := 0; i <= maxRetries; i++ {
+		success, err := conditionFunc()
+		if success {
+			return nil
+		}
+		if err == nil {
+			fmt.Printf("Retrying in %v...\n", retryTimeout)
+		} else {
+			fmt.Printf("Error: %v\nRetrying in %v...\n", err, retryTimeout)
+		}
+		time.Sleep(retryTimeout)
+	}
+	return fmt.Errorf("condition not met after %d attempts", maxRetries)
 }
 func checkGitAccount() {
 	rebaseStrategy, err := exec.Command("git", "config", "pull.rebase").Output()

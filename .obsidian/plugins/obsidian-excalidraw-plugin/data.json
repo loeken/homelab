@@ -48,7 +48,7 @@
   "pngExportScale": 1,
   "exportWithTheme": false,
   "exportWithBackground": true,
-  "exportPaddingSVG": 10,
+  "exportPaddingSVG": 5,
   "keepInSync": true,
   "autoexportSVG": true,
   "autoexportPNG": true,

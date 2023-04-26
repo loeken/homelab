@@ -1,4 +1,4 @@
-# Gitops & Argocd Concepts
+# 01 - Gitops & Argocd
 
 ![gitops.svg](Excalidraw/gitops.png)
 

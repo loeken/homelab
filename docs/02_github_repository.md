@@ -1,4 +1,4 @@
-# Github Repository
+# 02 - Github Repository
 
 github.com/loeken/homelab is the repo containing my setup. The first thing that you should do is to grab a local copy of it
 

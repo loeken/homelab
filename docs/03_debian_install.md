@@ -1,4 +1,4 @@
-# Installation of Debian FDE
+# 03 - Debian encrypted install
 
 we ll start by grabbing the last version of debian's netinstall, we ll use the non free variant which should increase your chance of having all drivers/firmware.
 

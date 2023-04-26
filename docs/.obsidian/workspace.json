@@ -21,26 +21,6 @@
             "id": "62fe8f9f9fd1fac6",
             "type": "leaf",
             "state": {
-              "type": "image",
-              "state": {
-                "file": "Excalidraw/minikube.svg"
-              }
-            }
-          },
-          {
-            "id": "73cb60c9e0a58b8e",
-            "type": "leaf",
-            "state": {
-              "type": "image",
-              "state": {
-                "file": "Excalidraw/gitops.svg"
-              }
-            }
-          },
-          {
-            "id": "ce4365aeb5c35eaf",
-            "type": "leaf",
-            "state": {
               "type": "markdown",
               "state": {
                 "file": "index.md",
@@ -50,7 +30,7 @@
             }
           },
           {
-            "id": "9c4f5feadcabab51",
+            "id": "47a700247c8abe55",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -60,9 +40,19 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "ce4365aeb5c35eaf",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "Excalidraw/gitops.svg"
+              }
+            }
           }
         ],
-        "currentTab": 4
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -191,15 +181,17 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "9c4f5feadcabab51",
+  "active": "47a700247c8abe55",
   "lastOpenFiles": [
     "index.md",
+    "Excalidraw/minikube.svg",
+    "Excalidraw/upstream_clone.svg",
+    "Excalidraw/gitops.svg",
+    "Excalidraw/gitops.md",
+    "chapter01/gitops & argocd concepts.md",
     "README.md.md",
     "Excalidraw/beelink.svg",
-    "Excalidraw/gitops.svg",
-    "Excalidraw/minikube.svg",
     "Excalidraw/three-choices.svg",
-    "Excalidraw/upstream_clone.svg",
     "Excalidraw/three-choices.md",
     "Excalidraw/minikube.md"
   ]

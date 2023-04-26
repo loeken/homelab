@@ -21,11 +21,9 @@
             "id": "ccf853741d829e59",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "excalidraw",
               "state": {
-                "file": "docs/01_gitops_concepts.md",
-                "mode": "source",
-                "source": false
+                "file": "docs/Excalidraw/gitops.md"
               }
             }
           }
@@ -96,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/01_gitops_concepts.md",
+                "file": "docs/Excalidraw/gitops.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -113,7 +111,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docs/01_gitops_concepts.md",
+                "file": "docs/Excalidraw/gitops.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -136,7 +134,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/01_gitops_concepts.md"
+                "file": "docs/Excalidraw/gitops.md"
               }
             }
           }
@@ -159,15 +157,15 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "ad27be037ada685e",
+  "active": "ccf853741d829e59",
   "lastOpenFiles": [
+    "docs/01_gitops_concepts.md",
     "docs/Excalidraw/three-choices.md",
     "docs/Excalidraw/gitops.md",
     "docs/Excalidraw/gitops.light.png",
     "docs/Excalidraw/gitops.dark.png",
     "docs/Excalidraw/gitops.light.svg",
     "docs/Excalidraw/gitops.dark.svg",
-    "docs/01_gitops_concepts.md",
     "docs/06_beelink_cloudflare_tunnel.md",
     "docs/Excalidraw/three-choices.light.png",
     "docs/Excalidraw/three-choices.dark.png",

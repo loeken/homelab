@@ -85,7 +85,7 @@ var options = []configOption{
 	{"externaldns", "false", "enable argocd app external-dns", nil, []string{"enable-argocd-app", "install"}},
 	{"loki", "false", "enable argocd app loki", nil, []string{"enable-argocd-app", "install"}},
 	{"ha", "false", "enable argocd app home-assistant", nil, []string{"enable-argocd-app", "install"}},
-	{"partition_external_shared_media_disk", "false", "will partition --shared-media-disk-device", nil, []string{"enable-argocd-app", "install"}},
+	{"partition_external_shared_media_disk", "false", "will partition --shared-media-disk-device", nil, []string{"enable-argocd-app", "install", "destroy"}},
 	{"shared_media_disk_size", "100Gi", "define the size of the shared media disk", nil, []string{"enable-argocd-app", "install"}},
 	{"shared_media_disk_device", "sda", "give the device name of your external shared media disk", nil, []string{"enable-argocd-app", "install"}},
 	{"jellyfin", "false", "enable argocd app jellyfin", nil, []string{"enable-argocd-app", "install"}},
@@ -256,42 +256,6 @@ func main() {
 1. in Proxmox
 	# to install onto a debian 11 inside a kvm, using local-path storage and cloudflare tunnels for ingress
 	
-		./setup install --authelia false \
-						--domain loeken.xyz \
-						--email loeken@internetz.me \
-						--external_ip 94.134.58.102 \
-						--externaldns false \
-						--ha true \
-						--ingress cloudflaretunnel \
-						--jellyfin true \
-						--jellyseerr true \
-						--kasten-k10 true \
-						--loki true \
-						--new_repo loeken/homelab-beelink \
-						--nextcloud true \
-						--nzbget false \
-						--platform proxmox \
-						--prowlarr true \
-						--radarr true \
-						--sonarr true \
-						--rtorrentflood true \
-						--ssh_password demotime \
-						--ssh_private_key ~/.ssh/id_ed25519 \
-						--ssh_public_key ~/.ssh/id_ed25519.pub \
-						--ssh_server_address 172.16.137.36 \
-						--ssh_server_gateway 172.16.137.254 \
-						--ssh_server_netmask 24 \
-						--ssh_username loeken \
-						--shared_media_disk_size 2000Gi \
-						--shared_media_disk_device sda \
-						--smtp_domain internetz.me \
-						--smtp_host mail.internetz.me \
-						--smtp_port 587 \
-						--smtp_sender homelab-beelink@internetz.me \
-						--smtp_username homelab-beelink@internetz.me \
-						--storage local-path \
-						--vaultwarden true
-
 	minimal install
 		./setup install --authelia false \
 						--domain loeken.xyz \
@@ -1041,6 +1005,7 @@ func main() {
 				color.Blue("we ll now wait for home assistant to be up this can take a bit of time - expect errors to be displayed untill its up")
 
 				waitForPodReady("home-assistant", "home-assistant")
+				time.Sleep(5 * time.Second)
 				runCommand("../tmp", "kubectl", []string{"cp", "../deploy/helpers/ha_configuration.yml", "home-assistant/home-assistant-0:/config/configuration.yaml"})
 				runCommand("../tmp", "echo", []string{"kubectl", "cp", "../deploy/helpers/ha_configuration.yaml", "home-assistant/home-assistant-0:/config/configuration.yaml"})
 				runCommand(".", "kubectl", []string{"rollout", "restart", "statefulset", "home-assistant", "-n", "home-assistant"})
@@ -1070,11 +1035,12 @@ func main() {
 			}
 			new_repo := strings.TrimSpace(out.String())
 			parts := strings.Split(new_repo, "/")
-
+			installPartitionSharedMediaDisk := viper.GetString("partition_external_shared_media_disk")
 			checkDependencies(true, parts[1])
 
 			color.Red("this will run terraform destroys on all terraform folders")
 			confirmContinue()
+			fmt.Println("dont forget to wipefs disk: ", installPartitionSharedMediaDisk)
 			runCommand("../deploy/terraform/bootstrap-argocd", "terraform", []string{"init"})
 			runCommand("../deploy/terraform/bootstrap-argocd", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
 			runCommand("../deploy/terraform/k3s-proxmox", "terraform", []string{"init"})

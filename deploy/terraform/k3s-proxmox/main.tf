@@ -118,10 +118,10 @@ resource "null_resource" "nfs_server_extradisk" {
 
   provisioner "remote-exec" {
     inline = [
-      "if ! grep -qs '/dev/sda' /proc/mounts; then",
+      "if ! grep -qs '/dev/vdb' /proc/mounts; then",
       "sudo apt update -y",
       "DEBIAN_FRONTEND=noninteractive sudo apt install -y nfs-kernel-server parted",
-      "sudo parted /dev/vdb mklabel msdos",
+      "sudo parted /dev/vdb mklabel gpt",
       "sudo parted /dev/vdb mkpart primary ext4 0% 100%",
       "sudo mkfs.ext4 -F /dev/vdb1",
       "sudo mkdir -p /mnt/data",

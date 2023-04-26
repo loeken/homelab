@@ -3,7 +3,7 @@
 ![three choices to install](Excalidraw/three-choices.png)
 
 ## 1. Read this introduction
-[index](index.md)
+[link to this document](index.md) in case you want to share it/save it for later on
 
 ## 2. Gitops/Argocd Concept
 [concepts of gitops and argocd](01_gitops_concepts.md)

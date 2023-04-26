@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/08_troubleshooting.md",
+                "file": "docs/index.md",
                 "mode": "source",
                 "source": false
               }
@@ -110,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/08_troubleshooting.md",
+                "file": "docs/index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docs/08_troubleshooting.md",
+                "file": "docs/index.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +150,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/08_troubleshooting.md"
+                "file": "docs/index.md"
               }
             }
           }
@@ -175,9 +175,9 @@
   },
   "active": "ad27be037ada685e",
   "lastOpenFiles": [
+    "docs/08_troubleshooting.md",
     "docs/07_updates.md",
     "docs/06_beelink_cloudflare_tunnel.md",
-    "docs/08_troubleshooting.md",
     "docs/02_github_repository.md",
     "docs/index.md",
     "docs/01_gitops_concepts.md",

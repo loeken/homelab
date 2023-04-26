@@ -35,11 +35,9 @@
             "id": "c9597f19e8d9207d",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "excalidraw",
               "state": {
-                "file": "docs/index.md",
-                "mode": "source",
-                "source": false
+                "file": "docs/Excalidraw/three-choices.md"
               }
             }
           }
@@ -110,7 +108,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/index.md",
+                "file": "docs/Excalidraw/three-choices.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +125,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docs/index.md",
+                "file": "docs/Excalidraw/three-choices.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +148,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/index.md"
+                "file": "docs/Excalidraw/three-choices.md"
               }
             }
           }
@@ -175,11 +173,11 @@
   },
   "active": "ad27be037ada685e",
   "lastOpenFiles": [
+    "docs/index.md",
     "docs/08_troubleshooting.md",
     "docs/07_updates.md",
     "docs/06_beelink_cloudflare_tunnel.md",
     "docs/02_github_repository.md",
-    "docs/index.md",
     "docs/01_gitops_concepts.md",
     "docs/05_beelink_nginx.md",
     "docs/03_debian_install.md",

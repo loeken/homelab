@@ -11,9 +11,11 @@
             "id": "9b23d53f4b058ff2",
             "type": "leaf",
             "state": {
-              "type": "excalidraw",
+              "type": "markdown",
               "state": {
-                "file": "docs/Excalidraw/beelink.md"
+                "file": "docs/index.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -83,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/Excalidraw/beelink.md",
+                "file": "docs/index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docs/Excalidraw/beelink.md",
+                "file": "docs/index.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -123,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/Excalidraw/beelink.md"
+                "file": "docs/index.md"
               }
             }
           }
@@ -148,24 +150,25 @@
   },
   "active": "ad27be037ada685e",
   "lastOpenFiles": [
+    "docs/06_beelink_cloudflare_tunnel.md",
+    "docs/05_beelink_nginx.md",
+    "docs/04_installation_overview.md",
+    "docs/03_debian_install.md",
+    "docs/02_github_repository.md",
+    "docs/01_gitops_concepts.md",
+    "docs/Excalidraw/beelink.md",
     "docs/Excalidraw/upstream_clone.md",
     "docs/Excalidraw/upstream_clone.png",
     "docs/index.md",
     "docs/Excalidraw/gitops.svg",
     "docs/Excalidraw/gitops.png",
     "docs/Excalidraw/gitops.md",
-    "docs/chapter01/gitops_concepts.md",
     "img/three-choices.md",
     "docs/Excalidraw/three-choices.svg",
     "docs/Excalidraw/three-choices.png",
     "docs/Excalidraw/three-choices.md",
     "img/three-choices.png",
     "img/three-choices.svg",
-    "docs/chapter03/debian_install.md",
-    "docs/chapter06/beelink_cloudflare_tunnel.md",
-    "docs/chapter05/beelink_nginx.md",
-    "docs/chapter04/installation_overview.md",
-    "docs/chapter02/github_repository.md",
     "docs/README.md.md",
     "README.md",
     "index.md",
@@ -176,8 +179,6 @@
     "Excalidraw/minikube.svg",
     "Excalidraw/upstream_clone.svg",
     "Excalidraw/gitops.md",
-    "README.md.md",
-    "Excalidraw/three-choices.md",
-    "Excalidraw/minikube.md"
+    "README.md.md"
   ]
 }

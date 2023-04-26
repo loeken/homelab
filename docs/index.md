@@ -15,20 +15,20 @@
 ## 2. Gitops/Argocd Concept
 [gitops_concepts](chapter01/gitops_concepts.md)
 
-## 3. Installation of debian 11 with full disk encryption
-[installation of debian FDE](installation%20of%20debian%20FDE.md)
+## 3. Clone loeken/homelab github repo in your account
+[github_repository](chapter02/github_repository.md)
 
-## 4. Clone loeken/homelab github repo in your account
-[github repository](github%20repository.md)
+## 4. Installation of debian 11 with full disk encryption
+[installation of debian FDE](chapter03/debian_install.md)
 
 ## 5. Installation Overview
-[installation overview](installation%20overview.md)
+[installation overview](chapter04/installation_overview.md)
 
 ## 6. Installation of homelab with Proxmox with nginx
-[beelink way - nginx ingress](beelink%20way%20-%20nginx%20ingress.md)
+[beelink_nginx](chapter05/beelink_nginx.md)
 
 ## 7. Installation of homelab with Proxmox with cloudflare tunnels
-[beelink way - cloudflare tunnels](beelink%20way%20-%20cloudflare%20tunnels.md)
+[beelink_cloudflare_tunnel](chapter06/beelink_cloudflare_tunnel.md)
 
 # The stack from bottom to top
 

@@ -896,7 +896,7 @@ func main() {
 			if installVaultwarden == "true" {
 				color.Blue("\033[1m input settings for vaultwarden:\033[0m")
 				loadSecretFromTemplate("vaultwarden", "vaultwarden")
-				waitForPodReady("vaultwarden", "app.kubernetes.io/instance=vaultwarden")
+				waitForPodReady("vaultwarden", "app.kubernetes.io/name=vaultwarden")
 				if ingress == "cloudflaretunnel" {
 					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "vaultwarden." + domain})
 				}
@@ -996,7 +996,7 @@ func main() {
 			if installLoki == "true" {
 				color.Blue("\033[1m input settings for loki:\033[0m")
 				loadSecretFromTemplate("loki", "loki")
-				waitForPodReady("loki", "app.kubernetes.io/instance=loki-stack-charts")
+				waitForPodReady("loki", "statefulset.kubernetes.io/pod-name=loki-stack-charts-0")
 				if ingress == "cloudflaretunnel" {
 					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "grafana." + domain})
 				}

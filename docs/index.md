@@ -10,7 +10,7 @@
 # show me de wey!
 
 ## 1. Read this introduction
-[README.md](README.md.md)
+[[index]]
 
 ## 2. Gitops/Argocd Concept
 [gitops & argocd concepts](gitops%20&%20argocd%20concepts.md)

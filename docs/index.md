@@ -5,7 +5,7 @@
 
 # Three choices
 
-![[Excalidraw/three-choices.svg]]
+![three choices to install](/img/three-choices.svg)
 
 # show me de wey!
 

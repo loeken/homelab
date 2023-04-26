@@ -1,4 +1,4 @@
-# 06 installation with cloudflare tunnel
+# 06 - installation cloudflare tunnel
 I have a beelink sei12 with 32GB of ram, this comes with an interal ssd ( 500GB ) and ive added a 4TB 2.5" evo ssd in there. This one i ll be setting up with proxmox as it will run a few small other vms besides the kvm that runs homelab. Of that external 4TB ill use 3TB for homelab
 
 ![Beelink](Excalidraw/beelink.png)

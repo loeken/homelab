@@ -33,29 +33,29 @@ deploys ^ffl88FOX
 	"source": "https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/1.8.26",
 	"elements": [
 		{
-			"id": "u7u7zSOtFN6kRKwWiZcd3",
 			"type": "rectangle",
-			"x": -409.075569584724,
-			"y": -449.58358989950784,
-			"width": 891,
-			"height": 636,
-			"angle": 0,
-			"strokeColor": "#000000",
-			"backgroundColor": "#ced4da",
+			"version": 97,
+			"versionNonce": 1531920808,
+			"isDeleted": false,
+			"id": "u7u7zSOtFN6kRKwWiZcd3",
 			"fillStyle": "hachure",
 			"strokeWidth": 1,
 			"strokeStyle": "solid",
 			"roughness": 1,
 			"opacity": 100,
+			"angle": 0,
+			"x": -409.075569584724,
+			"y": -449.58358989950784,
+			"strokeColor": "#000000",
+			"backgroundColor": "#ced4da",
+			"width": 891,
+			"height": 636,
+			"seed": 1974743464,
 			"groupIds": [],
 			"roundness": {
 				"type": 3
 			},
-			"seed": 1974743464,
-			"version": 97,
-			"versionNonce": 1531920808,
-			"isDeleted": false,
-			"boundElements": null,
+			"boundElements": [],
 			"updated": 1682546365360,
 			"link": null,
 			"locked": false
@@ -98,8 +98,8 @@ deploys ^ffl88FOX
 		},
 		{
 			"type": "arrow",
-			"version": 602,
-			"versionNonce": 973565400,
+			"version": 606,
+			"versionNonce": 2088895960,
 			"isDeleted": false,
 			"id": "jeb5vtgqfgV7qZcL64plT",
 			"fillStyle": "hachure",
@@ -125,7 +125,7 @@ deploys ^ffl88FOX
 					"id": "C216NDj0"
 				}
 			],
-			"updated": 1682546349581,
+			"updated": 1682546448079,
 			"link": null,
 			"locked": false,
 			"startBinding": {
@@ -344,8 +344,8 @@ deploys ^ffl88FOX
 		},
 		{
 			"type": "arrow",
-			"version": 847,
-			"versionNonce": 128222168,
+			"version": 851,
+			"versionNonce": 2137332696,
 			"isDeleted": false,
 			"id": "-48LjWheyHDZuB7qjw9Hp",
 			"fillStyle": "hachure",
@@ -371,7 +371,7 @@ deploys ^ffl88FOX
 					"id": "ZqwWGwxC"
 				}
 			],
-			"updated": 1682546349577,
+			"updated": 1682546448073,
 			"link": null,
 			"locked": false,
 			"startBinding": {
@@ -436,8 +436,8 @@ deploys ^ffl88FOX
 		},
 		{
 			"type": "arrow",
-			"version": 421,
-			"versionNonce": 1871442648,
+			"version": 425,
+			"versionNonce": 921930456,
 			"isDeleted": false,
 			"id": "4nyMsX075Yv1S7o89XaMr",
 			"fillStyle": "hachure",
@@ -463,7 +463,7 @@ deploys ^ffl88FOX
 					"id": "ffl88FOX"
 				}
 			],
-			"updated": 1682546349583,
+			"updated": 1682546448081,
 			"link": null,
 			"locked": false,
 			"startBinding": {
@@ -688,10 +688,10 @@ deploys ^ffl88FOX
 		"currentItemTextAlign": "left",
 		"currentItemStartArrowhead": null,
 		"currentItemEndArrowhead": "arrow",
-		"scrollX": 752.075569584724,
-		"scrollY": 599.0835898995078,
+		"scrollX": 525.7184267275811,
+		"scrollY": 476.76216132807923,
 		"zoom": {
-			"value": 1
+			"value": 1.4000000000000001
 		},
 		"currentItemRoundness": "round",
 		"gridSize": null,

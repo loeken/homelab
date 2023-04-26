@@ -11,9 +11,9 @@
             "id": "9b23d53f4b058ff2",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "excalidraw",
               "state": {
-                "file": "docs/Excalidraw/gitops.png"
+                "file": "docs/Excalidraw/gitops.md"
               }
             }
           }
@@ -83,7 +83,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/Excalidraw/gitops.png",
+                "file": "docs/Excalidraw/gitops.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,7 +100,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docs/Excalidraw/gitops.png",
+                "file": "docs/Excalidraw/gitops.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -123,7 +123,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/Excalidraw/gitops.png"
+                "file": "docs/Excalidraw/gitops.md"
               }
             }
           }
@@ -148,9 +148,9 @@
   },
   "active": "9b23d53f4b058ff2",
   "lastOpenFiles": [
+    "docs/Excalidraw/gitops.png",
     "docs/Excalidraw/gitops.svg",
     "docs/Excalidraw/gitops.md",
-    "docs/Excalidraw/gitops.png",
     "docs/01_gitops_concepts.md",
     "docs/02_github_repository.md",
     "docs/Excalidraw/minikube.png",

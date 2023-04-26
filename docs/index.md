@@ -13,7 +13,7 @@
 [[index]]
 
 ## 2. Gitops/Argocd Concept
-[gitops & argocd concepts](gitops%20&%20argocd%20concepts.md)
+[gitops_concepts](chapter01/gitops_concepts.md)
 
 ## 3. Installation of debian 11 with full disk encryption
 [installation of debian FDE](installation%20of%20debian%20FDE.md)

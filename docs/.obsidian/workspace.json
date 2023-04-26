@@ -35,24 +35,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "chapter01/gitops & argocd concepts.md",
+                "file": "index.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "ce4365aeb5c35eaf",
+            "id": "9f0deaa400f55a2f",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "Excalidraw/gitops.svg"
+                "file": "chapter01/gitops_concepts.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -118,7 +120,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "chapter01/gitops & argocd concepts.md",
+                "file": "chapter01/gitops_concepts.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -135,7 +137,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "chapter01/gitops & argocd concepts.md",
+                "file": "chapter01/gitops_concepts.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -158,7 +160,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "chapter01/gitops & argocd concepts.md"
+                "file": "chapter01/gitops_concepts.md"
               }
             }
           }
@@ -181,14 +183,17 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "47a700247c8abe55",
+  "active": "9f0deaa400f55a2f",
   "lastOpenFiles": [
     "index.md",
+    "chapter01/gitops_concepts.md",
+    "chapter01/gitops.md",
+    "chapter02/github repository.md",
+    "chapter01/gitops.svg",
     "Excalidraw/minikube.svg",
     "Excalidraw/upstream_clone.svg",
     "Excalidraw/gitops.svg",
     "Excalidraw/gitops.md",
-    "chapter01/gitops & argocd concepts.md",
     "README.md.md",
     "Excalidraw/beelink.svg",
     "Excalidraw/three-choices.svg",

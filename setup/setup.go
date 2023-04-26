@@ -2044,24 +2044,27 @@ func writeExecutedCommand(commandWithFlags string) {
 	configFileName := ".setup.sh"
 	configPath := filepath.Join(".", configFileName)
 
-	// Check if the config file exists
-	if _, err := os.Stat(configPath); os.IsNotExist(err) {
-		// Create the config file if it doesn't exist
-		f, err := os.Create(configPath)
-		if err != nil {
-			// Handle errors creating the file
-			fmt.Println("error creating config file")
-			return
-		}
-		defer f.Close()
+	// Open or create the config file, truncating it if it exists
+	f, err := os.OpenFile(configPath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0755)
+	if err != nil {
+		// Handle errors opening or creating the file
+		fmt.Println("error opening or creating config file:", err)
+		return
+	}
+	defer f.Close()
 
-		_, err = f.WriteString(commandWithFlags)
-		if err != nil {
-			// Handle errors writing to the file
-			fmt.Println("error writing to config file")
-			return
-		}
-	} else {
-		fmt.Println("Config file already exists")
+	_, err = f.WriteString(commandWithFlags)
+	if err != nil {
+		// Handle errors writing to the file
+		fmt.Println("error writing to config file:", err)
+		return
+	}
+
+	// Make the file executable
+	err = os.Chmod(configPath, 0755)
+	if err != nil {
+		// Handle errors changing file permissions
+		fmt.Println("error making config file executable:", err)
+		return
 	}
 }

@@ -5,7 +5,7 @@
 
 # Three choices
 
-![three choices to install](/img/three-choices.svg)
+![three choices to install](img/three-choices.svg)
 
 # show me de wey!
 

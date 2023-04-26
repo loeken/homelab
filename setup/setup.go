@@ -366,6 +366,10 @@ func main() {
 				return
 			}
 
+			if ingress != "nginx" && ingress != "cloudflaretunnel" {
+				fmt.Printf("only valid inputs are nginx/cloudflaretunnel")
+				os.Exit(0)
+			}
 			// validation section start
 			checkRepo()
 			color.Yellow("validating inputs")

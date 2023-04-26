@@ -11,9 +11,11 @@
             "id": "9b23d53f4b058ff2",
             "type": "leaf",
             "state": {
-              "type": "excalidraw",
+              "type": "markdown",
               "state": {
-                "file": "img/three-choices.md"
+                "file": "docs/chapter01/gitops_concepts.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -83,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "img/three-choices.md",
+                "file": "docs/chapter01/gitops_concepts.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "img/three-choices.md",
+                "file": "docs/chapter01/gitops_concepts.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -123,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "img/three-choices.md"
+                "file": "docs/chapter01/gitops_concepts.md"
               }
             }
           }
@@ -146,11 +148,16 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "9b23d53f4b058ff2",
+  "active": "ad27be037ada685e",
   "lastOpenFiles": [
+    "img/three-choices.md",
+    "docs/Excalidraw/three-choices.svg",
+    "docs/Excalidraw/three-choices.png",
+    "docs/Excalidraw/three-choices.md",
+    "docs/Excalidraw/gitops.svg",
+    "docs/Excalidraw/gitops.md",
     "img/three-choices.png",
     "docs/index.md",
-    "img/three-choices.md",
     "img/three-choices.svg",
     "docs/chapter03/debian_install.md",
     "docs/chapter06/beelink_cloudflare_tunnel.md",
@@ -171,7 +178,6 @@
     "Excalidraw/gitops.md",
     "README.md.md",
     "Excalidraw/beelink.svg",
-    "Excalidraw/three-choices.svg",
     "Excalidraw/three-choices.md",
     "Excalidraw/minikube.md"
   ]

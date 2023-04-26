@@ -52,7 +52,7 @@
   "keepInSync": true,
   "autoexportSVG": true,
   "autoexportPNG": true,
-  "autoExportLightAndDark": false,
+  "autoExportLightAndDark": true,
   "autoexportExcalidraw": false,
   "embedType": "excalidraw",
   "embedWikiLink": false,

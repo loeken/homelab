@@ -33,29 +33,29 @@ deploys ^ffl88FOX
 	"source": "https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/1.8.26",
 	"elements": [
 		{
-			"id": "Jr-MTa4Jvw-fHlAUVC4ge",
 			"type": "rectangle",
-			"x": -424.075569584724,
-			"y": -441.58358989950784,
-			"width": 924,
-			"height": 641,
-			"angle": 0,
-			"strokeColor": "#000000",
-			"backgroundColor": "#ced4da",
+			"version": 143,
+			"versionNonce": 609156861,
+			"isDeleted": false,
+			"id": "Jr-MTa4Jvw-fHlAUVC4ge",
 			"fillStyle": "hachure",
 			"strokeWidth": 1,
 			"strokeStyle": "solid",
 			"roughness": 1,
 			"opacity": 100,
+			"angle": 0,
+			"x": -424.075569584724,
+			"y": -441.58358989950784,
+			"strokeColor": "#000000",
+			"backgroundColor": "#ced4da",
+			"width": 924,
+			"height": 641,
+			"seed": 1803660349,
 			"groupIds": [],
 			"roundness": {
 				"type": 3
 			},
-			"seed": 1803660349,
-			"version": 143,
-			"versionNonce": 609156861,
-			"isDeleted": false,
-			"boundElements": null,
+			"boundElements": [],
 			"updated": 1682533725347,
 			"link": null,
 			"locked": false
@@ -175,8 +175,8 @@ deploys ^ffl88FOX
 		},
 		{
 			"type": "arrow",
-			"version": 339,
-			"versionNonce": 1493801459,
+			"version": 343,
+			"versionNonce": 375106063,
 			"isDeleted": false,
 			"id": "jeb5vtgqfgV7qZcL64plT",
 			"fillStyle": "hachure",
@@ -185,12 +185,12 @@ deploys ^ffl88FOX
 			"roughness": 1,
 			"opacity": 100,
 			"angle": 0,
-			"x": -272.57232722847147,
-			"y": -249.43915856011296,
+			"x": -272.57227109875,
+			"y": -249.4391052368776,
 			"strokeColor": "#000000",
 			"backgroundColor": "transparent",
-			"width": 103.22313611097152,
-			"height": 1.0873878367302154,
+			"width": 103.22307998125007,
+			"height": 1.0874117825661358,
 			"seed": 1123536003,
 			"groupIds": [],
 			"roundness": {
@@ -202,7 +202,7 @@ deploys ^ffl88FOX
 					"id": "C216NDj0"
 				}
 			],
-			"updated": 1682533389808,
+			"updated": 1682544932372,
 			"link": null,
 			"locked": false,
 			"startBinding": {
@@ -224,8 +224,8 @@ deploys ^ffl88FOX
 					0
 				],
 				[
-					103.22313611097152,
-					-1.0873878367302154
+					103.22307998125007,
+					-1.0874117825661358
 				]
 			]
 		},
@@ -344,8 +344,8 @@ deploys ^ffl88FOX
 		},
 		{
 			"type": "arrow",
-			"version": 584,
-			"versionNonce": 1582037299,
+			"version": 588,
+			"versionNonce": 1425170351,
 			"isDeleted": false,
 			"id": "-48LjWheyHDZuB7qjw9Hp",
 			"fillStyle": "hachure",
@@ -354,12 +354,12 @@ deploys ^ffl88FOX
 			"roughness": 1,
 			"opacity": 100,
 			"angle": 0,
-			"x": 343.9505025596637,
-			"y": -118.23372304032698,
+			"x": 343.95059027702644,
+			"y": -118.23380093858194,
 			"strokeColor": "#000000",
 			"backgroundColor": "transparent",
-			"width": 237.10921748668744,
-			"height": 84.0499183813189,
+			"width": 237.1093052040502,
+			"height": 84.04987891328662,
 			"seed": 1153312205,
 			"groupIds": [],
 			"roundness": {
@@ -371,7 +371,7 @@ deploys ^ffl88FOX
 					"id": "ZqwWGwxC"
 				}
 			],
-			"updated": 1682533389811,
+			"updated": 1682544932367,
 			"link": null,
 			"locked": false,
 			"startBinding": {
@@ -393,8 +393,8 @@ deploys ^ffl88FOX
 					0
 				],
 				[
-					-237.10921748668744,
-					-84.0499183813189
+					-237.1093052040502,
+					-84.04987891328662
 				]
 			]
 		},
@@ -509,8 +509,8 @@ deploys ^ffl88FOX
 		},
 		{
 			"type": "arrow",
-			"version": 344,
-			"versionNonce": 1802471539,
+			"version": 348,
+			"versionNonce": 1439924207,
 			"isDeleted": false,
 			"id": "4nyMsX075Yv1S7o89XaMr",
 			"fillStyle": "hachure",
@@ -536,7 +536,7 @@ deploys ^ffl88FOX
 					"id": "ffl88FOX"
 				}
 			],
-			"updated": 1682533389815,
+			"updated": 1682544932370,
 			"link": null,
 			"locked": false,
 			"startBinding": {
@@ -688,10 +688,10 @@ deploys ^ffl88FOX
 		"currentItemTextAlign": "left",
 		"currentItemStartArrowhead": null,
 		"currentItemEndArrowhead": "arrow",
-		"scrollX": 752.075569584724,
-		"scrollY": 599.0835898995078,
+		"scrollX": 524.2184267275811,
+		"scrollY": 466.26216132807923,
 		"zoom": {
-			"value": 1
+			"value": 1.4000000000000001
 		},
 		"currentItemRoundness": "round",
 		"gridSize": null,

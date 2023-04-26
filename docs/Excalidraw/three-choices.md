@@ -42,8 +42,8 @@ Minikube ^E6HB5i2B
 	"elements": [
 		{
 			"type": "rectangle",
-			"version": 164,
-			"versionNonce": 553191384,
+			"version": 165,
+			"versionNonce": 134188200,
 			"isDeleted": false,
 			"id": "n0wgANVJMFlWRWMNM3_X6",
 			"fillStyle": "hachure",
@@ -55,7 +55,7 @@ Minikube ^E6HB5i2B
 			"x": 676.9756513033992,
 			"y": -425.1821658615136,
 			"strokeColor": "#000000",
-			"backgroundColor": "#ced4da",
+			"backgroundColor": "transparent",
 			"width": 1079,
 			"height": 354,
 			"seed": 2046604456,
@@ -64,7 +64,7 @@ Minikube ^E6HB5i2B
 				"type": 3
 			},
 			"boundElements": [],
-			"updated": 1682547485418,
+			"updated": 1682547631220,
 			"link": null,
 			"locked": false
 		},
@@ -289,7 +289,7 @@ Minikube ^E6HB5i2B
 		"theme": "dark",
 		"viewBackgroundColor": "#ffffff",
 		"currentItemStrokeColor": "#000000",
-		"currentItemBackgroundColor": "#ced4da",
+		"currentItemBackgroundColor": "transparent",
 		"currentItemFillStyle": "hachure",
 		"currentItemStrokeWidth": 1,
 		"currentItemStrokeStyle": "solid",

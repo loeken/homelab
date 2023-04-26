@@ -11,9 +11,9 @@
             "id": "9b23d53f4b058ff2",
             "type": "leaf",
             "state": {
-              "type": "excalidraw",
+              "type": "image",
               "state": {
-                "file": "docs/Excalidraw/three-choices.md"
+                "file": "docs/Excalidraw/three-choices.svg"
               }
             }
           }
@@ -83,7 +83,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/Excalidraw/three-choices.md",
+                "file": "docs/Excalidraw/three-choices.svg",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,7 +100,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docs/Excalidraw/three-choices.md",
+                "file": "docs/Excalidraw/three-choices.svg",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -123,7 +123,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/Excalidraw/three-choices.md"
+                "file": "docs/Excalidraw/three-choices.svg"
               }
             }
           }
@@ -149,8 +149,8 @@
   "active": "9b23d53f4b058ff2",
   "lastOpenFiles": [
     "docs/Excalidraw/three-choices.png",
-    "docs/Excalidraw/three-choices.svg",
     "docs/Excalidraw/three-choices.md",
+    "docs/Excalidraw/three-choices.svg",
     "docs/Excalidraw/gitops.md",
     "docs/Excalidraw/gitops.png",
     "docs/Excalidraw/gitops.svg",

@@ -23,7 +23,7 @@ Pull updates from upstream ^nNszrchm
 {
 	"type": "excalidraw",
 	"version": 2,
-	"source": "https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/1.8.25",
+	"source": "https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/1.8.26",
 	"elements": [
 		{
 			"type": "rectangle",
@@ -177,8 +177,8 @@ Pull updates from upstream ^nNszrchm
 		},
 		{
 			"type": "arrow",
-			"version": 154,
-			"versionNonce": 1942768951,
+			"version": 155,
+			"versionNonce": 1086675187,
 			"isDeleted": false,
 			"id": "Mn1sAlhlGYd6rrWwyZTIr",
 			"fillStyle": "hachure",
@@ -199,13 +199,13 @@ Pull updates from upstream ^nNszrchm
 				"type": 2
 			},
 			"boundElements": [],
-			"updated": 1682513913780,
+			"updated": 1682534245201,
 			"link": null,
 			"locked": false,
 			"startBinding": {
 				"elementId": "RbDPQt5aKCrjCsdGnHIln",
-				"focus": -0.19626317683276248,
-				"gap": 2.3333333333333144
+				"gap": 2.3333333333333144,
+				"focus": -0.19626317683276248
 			},
 			"endBinding": null,
 			"lastCommittedPoint": null,
@@ -300,8 +300,8 @@ Pull updates from upstream ^nNszrchm
 		},
 		{
 			"type": "arrow",
-			"version": 260,
-			"versionNonce": 695874009,
+			"version": 262,
+			"versionNonce": 462365629,
 			"isDeleted": false,
 			"id": "4L0tnLa7xFnS_RfV2u_Op",
 			"fillStyle": "hachure",
@@ -310,11 +310,11 @@ Pull updates from upstream ^nNszrchm
 			"roughness": 1,
 			"opacity": 100,
 			"angle": 3.141592653589793,
-			"x": -169.97596423427245,
-			"y": 68.0168553194359,
+			"x": -169.9759642342724,
+			"y": 68.28486170535464,
 			"strokeColor": "#000000",
 			"backgroundColor": "#82c91e",
-			"width": 402.9999999999998,
+			"width": 403.1812937347225,
 			"height": 72,
 			"seed": 1259321936,
 			"groupIds": [],
@@ -322,18 +322,18 @@ Pull updates from upstream ^nNszrchm
 				"type": 2
 			},
 			"boundElements": [],
-			"updated": 1682513911439,
+			"updated": 1682534245203,
 			"link": null,
 			"locked": false,
 			"startBinding": {
 				"elementId": "GOnsB1KZ6rwAtOjnN88F_",
-				"focus": -0.24733424077367505,
-				"gap": 2.165491258799136
+				"gap": 2.165491258799136,
+				"focus": -0.24733424077367505
 			},
 			"endBinding": {
 				"elementId": "RbDPQt5aKCrjCsdGnHIln",
-				"focus": 0.23934579334022235,
-				"gap": 1.8321579254657934
+				"gap": 1.8321579254657934,
+				"focus": 0.23934579334022235
 			},
 			"lastCommittedPoint": null,
 			"startArrowhead": null,
@@ -344,12 +344,12 @@ Pull updates from upstream ^nNszrchm
 					0
 				],
 				[
-					201.9999999999999,
-					-68.66666666666663
+					202.18129373472266,
+					-68.93469739397011
 				],
 				[
-					402.9999999999998,
-					3.3333333333333712
+					403.1812937347225,
+					3.0653026060298885
 				]
 			]
 		}

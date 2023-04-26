@@ -5,12 +5,10 @@
 
 # Three choices
 
-![three choices to install](img/three-choices.svg)
-
-# show me de wey!
+![three choices to install](Excalidraw/three-choices.png)
 
 ## 1. Read this introduction
-[[index]]
+[index](index.md)
 
 ## 2. Gitops/Argocd Concept
 [gitops_concepts](chapter01/gitops_concepts.md)

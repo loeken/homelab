@@ -11,78 +11,48 @@
             "id": "efd7386b2379dd94",
             "type": "leaf",
             "state": {
-              "type": "excalidraw",
-              "state": {
-                "file": "Excalidraw/beelink.md"
-              }
+              "type": "empty",
+              "state": {}
             }
           },
           {
             "id": "a62c18407bf38c3b",
             "type": "leaf",
             "state": {
-              "type": "excalidraw",
-              "state": {
-                "file": "Excalidraw/beelink.md"
-              }
+              "type": "empty",
+              "state": {}
             }
           },
           {
             "id": "0ea15af5e677c7ac",
             "type": "leaf",
             "state": {
-              "type": "excalidraw",
-              "state": {
-                "file": "Excalidraw/beelink.md"
-              }
+              "type": "empty",
+              "state": {}
             }
           },
           {
             "id": "eb0269fe7a10e008",
             "type": "leaf",
             "state": {
-              "type": "excalidraw",
-              "state": {
-                "file": "Excalidraw/beelink.md"
-              }
-            }
-          },
-          {
-            "id": "2dd45a8476a7d8ef",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "chapter 01 - introduction.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "9c3a2206f4339079",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "chapter 01 - introduction.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           },
           {
             "id": "5e15402a31aa77ab",
             "type": "leaf",
             "state": {
-              "type": "excalidraw",
+              "type": "markdown",
               "state": {
-                "file": "Excalidraw/gitops.md"
+                "file": "chapter 01 - introduction.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -207,21 +177,22 @@
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "obsidian-excalidraw-plugin:Create new drawing": false,
-      "table-editor-obsidian:Advanced Tables Toolbar": false
+      "table-editor-obsidian:Advanced Tables Toolbar": false,
+      "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
   "active": "a7d19fa4fecfbb82",
   "lastOpenFiles": [
+    "chapter.md",
+    "chapter 07 - beelink way - cloudflare tunnels.md",
+    "chapter 06 - beelink way - nginx ingress.md",
+    "chapter 05 - installation overview.md",
+    "chapter 04 - installation of debian FDE.md",
+    "chapter 03 - github repository.md",
     "chapter 02 - gitops & argocd concepts.md",
     "chapter 01 - introduction.md",
-    "chapter 03 - github repository.md",
     "Excalidraw/gitops.md",
     "Excalidraw/gitops.svg",
-    "chapter 04 - installation of debian FDE.md",
-    "chapter 05 - installation overview.md",
-    "chapter 06 - beelink way - nginx ingress.md",
-    "chapter 07 - beelink way - cloudflare tunnels.md",
     "Excalidraw/three-choices.md",
     "Excalidraw/minikube.md",
     "Excalidraw/beelink.md",

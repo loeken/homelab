@@ -11,9 +11,9 @@
             "id": "9b23d53f4b058ff2",
             "type": "leaf",
             "state": {
-              "type": "excalidraw",
+              "type": "image",
               "state": {
-                "file": "docs/Excalidraw/gitops.md"
+                "file": "docs/Excalidraw/gitops.png"
               }
             }
           }
@@ -83,7 +83,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/Excalidraw/gitops.md",
+                "file": "docs/Excalidraw/gitops.png",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,7 +100,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docs/Excalidraw/gitops.md",
+                "file": "docs/Excalidraw/gitops.png",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -123,7 +123,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/Excalidraw/gitops.md"
+                "file": "docs/Excalidraw/gitops.png"
               }
             }
           }
@@ -142,30 +142,31 @@
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "obsidian-excalidraw-plugin:Create new drawing": false,
-      "table-editor-obsidian:Advanced Tables Toolbar": false
+      "table-editor-obsidian:Advanced Tables Toolbar": false,
+      "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
   "active": "9b23d53f4b058ff2",
   "lastOpenFiles": [
-    "docs/Excalidraw/gitops.png",
     "docs/Excalidraw/gitops.svg",
     "docs/Excalidraw/gitops.md",
+    "docs/Excalidraw/gitops.png",
+    "docs/01_gitops_concepts.md",
+    "docs/02_github_repository.md",
+    "docs/Excalidraw/minikube.png",
+    "docs/Excalidraw/minikube.md",
     "docs/Excalidraw/three-choices.dark.svg",
     "docs/Excalidraw/gitops.dark.svg",
     "docs/Excalidraw/gitops.dark.png",
     "docs/Excalidraw/gitops.light.png",
     "docs/Excalidraw/gitops.light.svg",
-    "docs/01_gitops_concepts.md",
     "docs/Excalidraw/three-choices.md",
     "docs/06_beelink_cloudflare_tunnel.md",
     "docs/Excalidraw/three-choices.light.png",
     "docs/Excalidraw/three-choices.dark.png",
-    "docs/Excalidraw/three-choices.light.svg",
     "docs/07_updates.md",
     "docs/index.md",
     "docs/08_troubleshooting.md",
-    "docs/02_github_repository.md",
     "docs/05_beelink_nginx.md",
     "docs/03_debian_install.md",
     "docs/04_installation_overview.md",

@@ -1,6 +1,6 @@
 # 01 - Gitops & Argocd
 
-![gitops.svg](Excalidraw/gitops.png)
+![gitops.png](Excalidraw/gitops.png)
 
 GitOps is a method of managing and updating computer systems using Git, which helps track changes in files. In GitOps, you define the desired state of your system, like the configuration and settings, in a Git repository.
 

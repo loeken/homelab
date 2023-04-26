@@ -33,6 +33,34 @@ deploys ^ffl88FOX
 	"source": "https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/1.8.26",
 	"elements": [
 		{
+			"id": "Jr-MTa4Jvw-fHlAUVC4ge",
+			"type": "rectangle",
+			"x": -424.075569584724,
+			"y": -441.58358989950784,
+			"width": 924,
+			"height": 641,
+			"angle": 0,
+			"strokeColor": "#000000",
+			"backgroundColor": "transparent",
+			"fillStyle": "hachure",
+			"strokeWidth": 1,
+			"strokeStyle": "solid",
+			"roughness": 1,
+			"opacity": 100,
+			"groupIds": [],
+			"roundness": {
+				"type": 3
+			},
+			"seed": 1803660349,
+			"version": 132,
+			"versionNonce": 1826299635,
+			"isDeleted": false,
+			"boundElements": null,
+			"updated": 1682533435596,
+			"link": null,
+			"locked": false
+		},
+		{
 			"type": "text",
 			"version": 50,
 			"versionNonce": 215872717,
@@ -220,8 +248,8 @@ deploys ^ffl88FOX
 		},
 		{
 			"type": "arrow",
-			"version": 335,
-			"versionNonce": 1745214930,
+			"version": 339,
+			"versionNonce": 1493801459,
 			"isDeleted": false,
 			"id": "jeb5vtgqfgV7qZcL64plT",
 			"fillStyle": "hachure",
@@ -230,12 +258,12 @@ deploys ^ffl88FOX
 			"roughness": 1,
 			"opacity": 100,
 			"angle": 0,
-			"x": -272.5737018640021,
-			"y": -249.4404644638671,
+			"x": -272.57232722847147,
+			"y": -249.43915856011296,
 			"strokeColor": "#000000",
 			"backgroundColor": "transparent",
-			"width": 103.22451074650218,
-			"height": 1.0868013907112868,
+			"width": 103.22313611097152,
+			"height": 1.0873878367302154,
 			"seed": 1123536003,
 			"groupIds": [],
 			"roundness": {
@@ -247,7 +275,7 @@ deploys ^ffl88FOX
 					"id": "C216NDj0"
 				}
 			],
-			"updated": 1682531850628,
+			"updated": 1682533389808,
 			"link": null,
 			"locked": false,
 			"startBinding": {
@@ -269,8 +297,8 @@ deploys ^ffl88FOX
 					0
 				],
 				[
-					103.22451074650218,
-					-1.0868013907112868
+					103.22313611097152,
+					-1.0873878367302154
 				]
 			]
 		},
@@ -389,8 +417,8 @@ deploys ^ffl88FOX
 		},
 		{
 			"type": "arrow",
-			"version": 580,
-			"versionNonce": 1928221586,
+			"version": 584,
+			"versionNonce": 1582037299,
 			"isDeleted": false,
 			"id": "-48LjWheyHDZuB7qjw9Hp",
 			"fillStyle": "hachure",
@@ -399,12 +427,12 @@ deploys ^ffl88FOX
 			"roughness": 1,
 			"opacity": 100,
 			"angle": 0,
-			"x": 343.9289097831061,
-			"y": -118.21454736562285,
+			"x": 343.9505025596637,
+			"y": -118.23372304032698,
 			"strokeColor": "#000000",
 			"backgroundColor": "transparent",
-			"width": 237.08762471012986,
-			"height": 84.05963339384923,
+			"width": 237.10921748668744,
+			"height": 84.0499183813189,
 			"seed": 1153312205,
 			"groupIds": [],
 			"roundness": {
@@ -416,7 +444,7 @@ deploys ^ffl88FOX
 					"id": "ZqwWGwxC"
 				}
 			],
-			"updated": 1682531850629,
+			"updated": 1682533389811,
 			"link": null,
 			"locked": false,
 			"startBinding": {
@@ -438,8 +466,8 @@ deploys ^ffl88FOX
 					0
 				],
 				[
-					-237.08762471012986,
-					-84.05963339384923
+					-237.10921748668744,
+					-84.0499183813189
 				]
 			]
 		},
@@ -554,8 +582,8 @@ deploys ^ffl88FOX
 		},
 		{
 			"type": "arrow",
-			"version": 340,
-			"versionNonce": 611872462,
+			"version": 344,
+			"versionNonce": 1802471539,
 			"isDeleted": false,
 			"id": "4nyMsX075Yv1S7o89XaMr",
 			"fillStyle": "hachure",
@@ -581,7 +609,7 @@ deploys ^ffl88FOX
 					"id": "ffl88FOX"
 				}
 			],
-			"updated": 1682531848840,
+			"updated": 1682533389815,
 			"link": null,
 			"locked": false,
 			"startBinding": {
@@ -649,7 +677,7 @@ deploys ^ffl88FOX
 		"theme": "dark",
 		"viewBackgroundColor": "#ffffff",
 		"currentItemStrokeColor": "#000000",
-		"currentItemBackgroundColor": "#82c91e",
+		"currentItemBackgroundColor": "transparent",
 		"currentItemFillStyle": "hachure",
 		"currentItemStrokeWidth": 1,
 		"currentItemStrokeStyle": "solid",
@@ -660,10 +688,10 @@ deploys ^ffl88FOX
 		"currentItemTextAlign": "left",
 		"currentItemStartArrowhead": null,
 		"currentItemEndArrowhead": "arrow",
-		"scrollX": 442.0452665544209,
-		"scrollY": 408.7123777782957,
+		"scrollX": 752.075569584724,
+		"scrollY": 599.0835898995078,
 		"zoom": {
-			"value": 1.6500000000000001
+			"value": 1
 		},
 		"currentItemRoundness": "round",
 		"gridSize": null,

@@ -829,7 +829,7 @@ func main() {
 			fmt.Println("terraform bootstrap argocd")
 
 			runTerraformCommand("bootstrap-argocd")
-			waitForPodReady("argocd", "argocd")
+			waitForPodReady("argocd", "app.kubernetes.io/instance=argocd")
 			color.Green("---")
 			color.Green("argocd is now up you can follow the rest of the installation")
 			color.Green("---")
@@ -850,7 +850,7 @@ func main() {
 				cfTunnelId := cloudflaretunnel("homelab-tunnel_" + new_repo)
 				cloudflaresecret(cfTunnelId, *u)
 
-				waitForPodReady("cloudflaretunnel", "cloudflared")
+				waitForPodReady("cloudflaretunnel", "app=cloudflared")
 			}
 
 			// wave 12
@@ -868,7 +868,7 @@ func main() {
 				color.Green("the helm chart is also setup for external dns to only use the --domain you specified")
 				color.Blue("\033[1m input settings for external-dns:\033[0m")
 				loadSecretFromTemplate("external-dns", "externaldns")
-				waitForPodReady("external-dns", "external-dns")
+				waitForPodReady("external-dns", "app.kubernetes.io/instance=external-dns")
 			}
 
 			// wave 13
@@ -885,7 +885,7 @@ func main() {
 					color.Green("waiting for authelia to be up, to upload /config/users_database.yml")
 				}
 
-				waitForPodReady("authelia", "authelia")
+				waitForPodReady("authelia", "app.kubernetes.io/instance=authelia")
 				runCommand("../tmp", "kubectl", []string{"cp", "authelia_users_database.yml", "authelia/authelia-0:/config/users_database.yml"})
 
 				if ingress == "cloudflaretunnel" {
@@ -896,7 +896,7 @@ func main() {
 			if installVaultwarden == "true" {
 				color.Blue("\033[1m input settings for vaultwarden:\033[0m")
 				loadSecretFromTemplate("vaultwarden", "vaultwarden")
-				waitForPodReady("vaultwarden", "vaultwarden")
+				waitForPodReady("vaultwarden", "app.kubernetes.io/instance=vaultwarden")
 				if ingress == "cloudflaretunnel" {
 					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "vaultwarden." + domain})
 				}
@@ -905,7 +905,7 @@ func main() {
 			if installNextcloud == "true" {
 				color.Blue("\033[1m input settings for nextcloud:\033[0m")
 				loadSecretFromTemplate("nextcloud", "nextcloud")
-				waitForPodReady("nextcloud", "nextcloud")
+				waitForPodReady("nextcloud", "app.kubernetes.io/instance=nextcloud")
 				if ingress == "cloudflaretunnel" {
 					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "nextcloud." + domain})
 				}
@@ -926,7 +926,7 @@ func main() {
 			// wave 20
 			if installJellyfin == "true" {
 				color.Blue("\033[1m input settings for jellyfin:\033[0m")
-				waitForPodReady("media", "jellyfin")
+				waitForPodReady("media", "app.kubernetes.io/instance=jellyfin")
 				podName, err := runCommand(".", "kubectl", []string{"get", "pods", "-n", "media", "-l", "app.kubernetes.io/instance=jellyfin", "-o", "jsonpath='{.items[0].metadata.name}'"})
 				if err != nil {
 					// handle error
@@ -942,7 +942,7 @@ func main() {
 			// wave 21
 			if installJellyseerr == "true" {
 				color.Blue("\033[1m input settings for jellyseerr:\033[0m")
-				waitForPodReady("media", "jellyseerr")
+				waitForPodReady("media", "app.kubernetes.io/instance=jellyseerr")
 				if ingress == "cloudflaretunnel" {
 					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "jellyseerr." + domain})
 				}
@@ -951,7 +951,7 @@ func main() {
 			// wave 22
 			if installRtorrentFlood == "true" {
 				color.Blue("\033[1m input settings for rtorrent:\033[0m")
-				waitForPodReady("media", "rtorrent-flood")
+				waitForPodReady("media", "app.kubernetes.io/instance=rtorrent-flood")
 				if ingress == "cloudflaretunnel" {
 					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "rtorrent." + domain})
 				}
@@ -961,7 +961,7 @@ func main() {
 			if installNzbget == "true" {
 				color.Blue("\033[1m input settings for nzbget:\033[0m")
 				loadSecretFromTemplate("media", "nzbget")
-				waitForPodReady("media", "nzbget")
+				waitForPodReady("media", "app.kubernetes.io/instance=nzbget")
 				if ingress == "cloudflaretunnel" {
 					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "rtorrent." + domain})
 				}
@@ -970,7 +970,7 @@ func main() {
 			// wave 23
 			if installProwlarr == "true" {
 				color.Blue("\033[1m input settings for prowlarr:\033[0m")
-				waitForPodReady("media", "prowlarr")
+				waitForPodReady("media", "app.kubernetes.io/instance=prowlarr")
 				if ingress == "cloudflaretunnel" {
 					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "prowlarr." + domain})
 				}
@@ -978,7 +978,7 @@ func main() {
 			// wave 23
 			if installRadarr == "true" {
 				color.Blue("\033[1m input settings for radarr:\033[0m")
-				waitForPodReady("media", "radarr")
+				waitForPodReady("media", "app.kubernetes.io/instance=radarr")
 				if ingress == "cloudflaretunnel" {
 					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "radarr." + domain})
 				}
@@ -986,7 +986,7 @@ func main() {
 			// wave 23
 			if installSonarr == "true" {
 				color.Blue("\033[1m input settings for sonarr:\033[0m")
-				waitForPodReady("media", "sonarr")
+				waitForPodReady("media", "app.kubernetes.io/instance=sonarr")
 				if ingress == "cloudflaretunnel" {
 					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "sonarr." + domain})
 				}
@@ -996,7 +996,7 @@ func main() {
 			if installLoki == "true" {
 				color.Blue("\033[1m input settings for loki:\033[0m")
 				loadSecretFromTemplate("loki", "loki")
-				waitForPodReady("loki", "loki-stack-charts")
+				waitForPodReady("loki", "app.kubernetes.io/instance=loki-stack-charts")
 				if ingress == "cloudflaretunnel" {
 					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "grafana." + domain})
 				}
@@ -1008,7 +1008,7 @@ func main() {
 
 				color.Blue("we ll now wait for home assistant to be up this can take a bit of time - expect errors to be displayed untill its up")
 
-				waitForPodReady("home-assistant", "home-assistant")
+				waitForPodReady("home-assistant", "statefulset.kubernetes.io/pod-name=home-assistant-0")
 				time.Sleep(5 * time.Second)
 				runCommand("../tmp", "kubectl", []string{"cp", "../deploy/helpers/ha_configuration.yml", "home-assistant/home-assistant-0:/config/configuration.yaml"})
 				runCommand("../tmp", "echo", []string{"kubectl", "cp", "../deploy/helpers/ha_configuration.yaml", "home-assistant/home-assistant-0:/config/configuration.yaml"})
@@ -1803,20 +1803,12 @@ func createFolderJellyfin(podName string, folderName string) {
 		}
 	}
 */
-func waitForPodReady(namespace string, podName string) {
+func waitForPodReady(namespace string, searchTag string) {
 	// Wait for the namespace and pod to be ready
 	err := waitWithRetries(10, 10*time.Second, func() (bool, error) {
 		_, nsErr := runCommand(".", "kubectl", []string{"get", "namespace", namespace})
 		if nsErr == nil {
-			searchTag := "app.kubernetes.io/instance="
-			if namespace == "cloudflaretunnel" {
-				searchTag = "app="
-			}
-			if namespace == "home-assistant" {
-				searchTag = "app.kubernetes.io/component=primary"
-				podName = ""
-			}
-			out, err := runCommand(".", "kubectl", []string{"get", "pods", "-n", namespace, "-l", searchTag + podName})
+			out, err := runCommand(".", "kubectl", []string{"get", "pods", "-n", namespace, "-l", searchTag})
 			if err == nil && strings.Contains(out, "Running") {
 				fmt.Printf("Pod is ready: %s\n", out)
 				return true, nil

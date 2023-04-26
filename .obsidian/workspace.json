@@ -16,19 +16,8 @@
                 "file": "docs/Excalidraw/gitops.md"
               }
             }
-          },
-          {
-            "id": "ccf853741d829e59",
-            "type": "leaf",
-            "state": {
-              "type": "excalidraw",
-              "state": {
-                "file": "docs/Excalidraw/gitops.md"
-              }
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -157,20 +146,21 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "ccf853741d829e59",
+  "active": "ad27be037ada685e",
   "lastOpenFiles": [
+    "docs/Excalidraw/three-choices.dark.svg",
+    "docs/Excalidraw/gitops.dark.svg",
+    "docs/Excalidraw/gitops.dark.png",
+    "docs/Excalidraw/gitops.light.png",
+    "docs/Excalidraw/gitops.light.svg",
+    "docs/Excalidraw/gitops.png",
+    "docs/Excalidraw/gitops.md",
     "docs/01_gitops_concepts.md",
     "docs/Excalidraw/three-choices.md",
-    "docs/Excalidraw/gitops.md",
-    "docs/Excalidraw/gitops.light.png",
-    "docs/Excalidraw/gitops.dark.png",
-    "docs/Excalidraw/gitops.light.svg",
-    "docs/Excalidraw/gitops.dark.svg",
     "docs/06_beelink_cloudflare_tunnel.md",
     "docs/Excalidraw/three-choices.light.png",
     "docs/Excalidraw/three-choices.dark.png",
     "docs/Excalidraw/three-choices.light.svg",
-    "docs/Excalidraw/three-choices.dark.svg",
     "docs/07_updates.md",
     "docs/Excalidraw/three-choices.png",
     "docs/index.md",

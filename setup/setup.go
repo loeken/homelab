@@ -21,6 +21,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
+	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 	"gopkg.in/yaml.v2"
 
@@ -112,6 +113,17 @@ func main() {
 	rootCmd := &cobra.Command{
 		Use:   "./setup",
 		Short: "My command line app",
+		PersistentPreRun: func(cmd *cobra.Command, args []string) {
+			// Capture executed command with flags
+			commandWithFlags := cmd.CommandPath() // Get the command path
+			flagSet := cmd.Flags()                // Get the set of flags associated with the command
+			flagSet.VisitAll(func(flag *pflag.Flag) {
+				commandWithFlags += fmt.Sprintf(" --%s=%s", flag.Name, flag.Value)
+			})
+
+			// Write the executed command with flags to .setup.sh
+			writeExecutedCommand(commandWithFlags)
+		},
 	}
 	dependencyCheckCmd := &cobra.Command{
 		Use:   "check-dependencies",
@@ -838,6 +850,16 @@ func main() {
 			color.Green("---")
 			color.Green("starting installation of additional apps")
 			color.Green("supports multiline input, if single line input press enter twice")
+
+			reader := bufio.NewReader(os.Stdin)
+			fmt.Print("Once you logged into argocd, Press any key to continue...")
+			_, confirmationErr := reader.ReadByte()
+
+			if confirmationErr != nil {
+				fmt.Println("Error reading input:", confirmationErr)
+			} else {
+				fmt.Println("Continuing...")
+			}
 
 			if ingress == "cloudflaretunnel" {
 				fmt.Println("you selected cloudflare ingress please login")
@@ -2017,4 +2039,29 @@ func canRunDocker() (bool, error) {
 		return false, err
 	}
 	return true, nil
+}
+func writeExecutedCommand(commandWithFlags string) {
+	configFileName := ".setup.sh"
+	configPath := filepath.Join(".", configFileName)
+
+	// Check if the config file exists
+	if _, err := os.Stat(configPath); os.IsNotExist(err) {
+		// Create the config file if it doesn't exist
+		f, err := os.Create(configPath)
+		if err != nil {
+			// Handle errors creating the file
+			fmt.Println("error creating config file")
+			return
+		}
+		defer f.Close()
+
+		_, err = f.WriteString(commandWithFlags)
+		if err != nil {
+			// Handle errors writing to the file
+			fmt.Println("error writing to config file")
+			return
+		}
+	} else {
+		fmt.Println("Config file already exists")
+	}
 }

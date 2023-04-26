@@ -13,13 +13,38 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/index.md",
+                "file": "docs/06_beelink_cloudflare_tunnel.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "ccf853741d829e59",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "docs/07_updates.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "c9597f19e8d9207d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "docs/08_troubleshooting.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -85,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/index.md",
+                "file": "docs/08_troubleshooting.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docs/index.md",
+                "file": "docs/08_troubleshooting.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +150,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/index.md"
+                "file": "docs/08_troubleshooting.md"
               }
             }
           }
@@ -148,15 +173,17 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "ad27be037ada685e",
+  "active": "c9597f19e8d9207d",
   "lastOpenFiles": [
-    "docs/01_gitops_concepts.md",
+    "docs/07_updates.md",
+    "docs/08_troubleshooting.md",
     "docs/02_github_repository.md",
+    "docs/06_beelink_cloudflare_tunnel.md",
+    "docs/index.md",
+    "docs/01_gitops_concepts.md",
     "docs/05_beelink_nginx.md",
     "docs/03_debian_install.md",
     "docs/04_installation_overview.md",
-    "docs/index.md",
-    "docs/06_beelink_cloudflare_tunnel.md",
     "docs/Excalidraw/beelink.md",
     "docs/Excalidraw/upstream_clone.md",
     "docs/Excalidraw/upstream_clone.png",

@@ -11,9 +11,9 @@
             "id": "9b23d53f4b058ff2",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "excalidraw",
               "state": {
-                "file": "docs/Excalidraw/three-choices.svg"
+                "file": "docs/Excalidraw/three-choices.md"
               }
             }
           }
@@ -83,7 +83,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/Excalidraw/three-choices.svg",
+                "file": "docs/Excalidraw/three-choices.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,7 +100,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docs/Excalidraw/three-choices.svg",
+                "file": "docs/Excalidraw/three-choices.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -123,7 +123,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/Excalidraw/three-choices.svg"
+                "file": "docs/Excalidraw/three-choices.md"
               }
             }
           }
@@ -146,9 +146,10 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "ad27be037ada685e",
+  "active": "9b23d53f4b058ff2",
   "lastOpenFiles": [
     "docs/Excalidraw/three-choices.png",
+    "docs/Excalidraw/three-choices.svg",
     "docs/Excalidraw/three-choices.md",
     "docs/Excalidraw/gitops.md",
     "docs/Excalidraw/gitops.png",
@@ -163,8 +164,6 @@
     "docs/Excalidraw/gitops.light.png",
     "docs/Excalidraw/gitops.light.svg",
     "docs/06_beelink_cloudflare_tunnel.md",
-    "docs/Excalidraw/three-choices.light.png",
-    "docs/Excalidraw/three-choices.dark.png",
     "docs/07_updates.md",
     "docs/index.md",
     "docs/08_troubleshooting.md",

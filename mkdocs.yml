@@ -53,7 +53,7 @@ plugins:
   - roamlinks
   - exclude:
       glob:
-        - docs/Excalidraw**
+        - "**Excalidraw**"
 
 extra_javascript:
   - javascripts/mathjax.js

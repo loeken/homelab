@@ -35,7 +35,7 @@ resource "proxmox_vm_qemu" "k3s-vm" {
   }
     # Second disk
   dynamic "disk" {
-    for_each = var.partition_external_shared_media_disk ? [1] : []
+    for_each = var.partition_external_shared_media_disk == "true" ? [1] : []
     content {
       type    = "virtio"
       storage = "external-disk"
@@ -86,7 +86,7 @@ resource "null_resource" "upload_ips" {
 }
 
 resource "null_resource" "nfs_server" {
-  count = var.storage == "local-path" && !var.partition_external_shared_media_disk ? 1 : 0
+  count = var.storage == "local-path" && !var.partition_external_shared_media_disk == "true" ? 1 : 0
 
   connection {
     type        = "ssh"
@@ -107,7 +107,7 @@ resource "null_resource" "nfs_server" {
   }
 }
 resource "null_resource" "nfs_server_extradisk" {
-  count = var.storage == "local-path" && var.partition_external_shared_media_disk ? 1 : 0
+  count = var.storage == "local-path" && var.partition_external_shared_media_disk == "true" ? 1 : 0
 
   connection {
     type        = "ssh"

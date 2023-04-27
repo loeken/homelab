@@ -13,7 +13,7 @@ now I can get ready to start the install
 ```bash
 ./setup install --platform proxmox \
 				--email loeken@internetz.me \
-				--external_ip 94.134.58.102 \
+				--external_ip 1.2.3.4 \
 				--ingress nginx \
 				--domain loeken.xyz \
 				--cores_k3s 10 \
@@ -55,8 +55,10 @@ now I can get ready to start the install
 				--smtp_port 587 \
 				--smtp_sender homelab-beelink@internetz.me \
 				--smtp_username homelab-beelink@internetz.me \
+				--smtp_password REPLACE \
 				--root_password topsecure \
-				--storage local-path
+				--storage local-path \
+				--cloudflare_api_token REPLACE
 
 ```
 

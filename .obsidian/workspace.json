@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/08_troubleshooting.md",
+                "file": "docs/05_beelink_nginx.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/08_troubleshooting.md",
+                "file": "docs/05_beelink_nginx.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docs/08_troubleshooting.md",
+                "file": "docs/05_beelink_nginx.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/08_troubleshooting.md"
+                "file": "docs/05_beelink_nginx.md"
               }
             }
           }
@@ -148,8 +148,14 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "ad27be037ada685e",
+  "active": "e352d5f4cd8b0eeb",
   "lastOpenFiles": [
+    "docs/06_beelink_cloudflare_tunnel.md",
+    "docs/05_beelink_nginx.md",
+    "docs/Excalidraw/beelink.png",
+    "docs/Excalidraw/three-choices.png",
+    "docs/Excalidraw/minikube.png",
+    "docs/08_troubleshooting.md",
     "docs/07_updates.md",
     "README.md",
     "docs/03_debian_install.md",
@@ -167,14 +173,8 @@
     "docs/Excalidraw/baremetal.svg",
     "docs/Excalidraw/beelink.svg",
     "docs/Excalidraw/gitops.dark.svg",
-    "docs/Excalidraw/gitops.light.svg",
-    "docs/Excalidraw/minikube.svg",
-    "docs/Excalidraw/three-choices.svg",
     "docs/Excalidraw/minikube.md",
-    "docs/06_beelink_cloudflare_tunnel.md",
     "docs/index.md",
-    "docs/08_troubleshooting.md",
-    "docs/05_beelink_nginx.md",
     "docs/04_installation_overview.md",
     "docs/Excalidraw/beelink.md",
     "img/three-choices.md",

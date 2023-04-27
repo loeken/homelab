@@ -13,7 +13,7 @@ now I can get ready to start the install
 ```bash
 ./setup install --platform proxmox \
 				--email loeken@internetz.me \
-				--external_ip REPLACE \
+				--external_ip 1.2.3.4 \
 				--ingress cloudflaretunnel \
 				--domain loeken.xyz \
 				--cores_k3s 10 \
@@ -26,7 +26,7 @@ now I can get ready to start the install
 				--proxmox_node_name beelink-sei12 \
 				--proxmox_vm_name k3s-beelink-01 \
 				--authelia false \
-				--externaldns true \
+				--externaldns false \
 				--ha true \
 				--jellyfin true \
 				--jellyseerr true \

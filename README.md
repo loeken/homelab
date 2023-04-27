@@ -8,7 +8,7 @@ This repo contains definitions for a k3s-based kubernetes (atm-single node) clus
 ## pre-requisits
 - either a dedicated "server", a vm (debian 11) or just minikube
 - hardware wise it requires 8GB of ram to run the entire stack ( without load ), recommended 16GB+
-- a  https://github.com account to store your configs/secrets
+- a [github](https://github.com) account to store your configs/secrets
 - some apps require an email to send with, such as authelia and nextcloud.
 
 ## features

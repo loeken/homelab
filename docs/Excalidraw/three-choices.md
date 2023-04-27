@@ -42,8 +42,8 @@ Minikube ^E6HB5i2B
 	"elements": [
 		{
 			"type": "rectangle",
-			"version": 166,
-			"versionNonce": 1795028184,
+			"version": 168,
+			"versionNonce": 366681380,
 			"isDeleted": false,
 			"id": "n0wgANVJMFlWRWMNM3_X6",
 			"fillStyle": "hachure",
@@ -64,7 +64,7 @@ Minikube ^E6HB5i2B
 				"type": 3
 			},
 			"boundElements": [],
-			"updated": 1682552035973,
+			"updated": 1682620417159,
 			"link": null,
 			"locked": false
 		},
@@ -285,15 +285,15 @@ Minikube ^E6HB5i2B
 			"baseline": 134
 		},
 		{
-			"id": "dROywyIy",
+			"id": "qfRlFuOx",
 			"type": "text",
-			"x": 706.8460216737697,
-			"y": -323.55253623188406,
+			"x": 1212.4756436740047,
+			"y": -258.1821658615136,
 			"width": 8.000015258789062,
 			"height": 20,
 			"angle": 0,
 			"strokeColor": "#000000",
-			"backgroundColor": "transparent",
+			"backgroundColor": "#ced4da",
 			"fillStyle": "hachure",
 			"strokeWidth": 1,
 			"strokeStyle": "solid",
@@ -301,22 +301,22 @@ Minikube ^E6HB5i2B
 			"opacity": 100,
 			"groupIds": [],
 			"roundness": null,
-			"seed": 874586328,
+			"seed": 203485604,
 			"version": 2,
-			"versionNonce": 1923086504,
+			"versionNonce": 516667164,
 			"isDeleted": true,
 			"boundElements": null,
-			"updated": 1682552030113,
+			"updated": 1682620417172,
 			"link": null,
 			"locked": false,
 			"text": "",
 			"rawText": "",
 			"fontSize": 16,
 			"fontFamily": 1,
-			"textAlign": "left",
-			"verticalAlign": "top",
+			"textAlign": "center",
+			"verticalAlign": "middle",
 			"baseline": 14,
-			"containerId": null,
+			"containerId": "n0wgANVJMFlWRWMNM3_X6",
 			"originalText": "",
 			"lineHeight": 1.25
 		}
@@ -336,10 +336,10 @@ Minikube ^E6HB5i2B
 		"currentItemTextAlign": "left",
 		"currentItemStartArrowhead": null,
 		"currentItemEndArrowhead": "arrow",
-		"scrollX": -633.5126883404363,
-		"scrollY": 606.1451288244766,
+		"scrollX": -630.3886947816602,
+		"scrollY": 814.3234702093396,
 		"zoom": {
-			"value": 1.35
+			"value": 1.1500000000000001
 		},
 		"currentItemRoundness": "round",
 		"gridSize": null,

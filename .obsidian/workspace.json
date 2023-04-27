@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "56217c9e3d68ed27",
+        "id": "536c741d8b7414ba",
         "type": "tabs",
         "children": [
           {
-            "id": "9b23d53f4b058ff2",
+            "id": "e352d5f4cd8b0eeb",
             "type": "leaf",
             "state": {
-              "type": "excalidraw",
+              "type": "image",
               "state": {
-                "file": "docs/Excalidraw/three-choices.md"
+                "file": "docs/Excalidraw/gitops.png"
               }
             }
           }
@@ -83,7 +83,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/Excalidraw/three-choices.md",
+                "file": "docs/Excalidraw/gitops.png",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,7 +100,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docs/Excalidraw/three-choices.md",
+                "file": "docs/Excalidraw/gitops.png",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -123,7 +123,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/Excalidraw/three-choices.md"
+                "file": "docs/Excalidraw/gitops.png"
               }
             }
           }
@@ -146,32 +146,34 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "9b23d53f4b058ff2",
+  "active": "e352d5f4cd8b0eeb",
   "lastOpenFiles": [
-    "docs/Excalidraw/three-choices.svg",
-    "docs/Excalidraw/three-choices.png",
-    "docs/Excalidraw/three-choices.md",
     "docs/Excalidraw/gitops.md",
     "docs/Excalidraw/gitops.png",
-    "docs/Excalidraw/gitops.svg",
-    "docs/01_gitops_concepts.md",
-    "docs/02_github_repository.md",
-    "docs/Excalidraw/minikube.png",
-    "docs/Excalidraw/minikube.md",
-    "docs/Excalidraw/three-choices.dark.svg",
-    "docs/Excalidraw/gitops.dark.svg",
     "docs/Excalidraw/gitops.dark.png",
     "docs/Excalidraw/gitops.light.png",
+    "docs/01_gitops_concepts.md",
+    "Excalidraw/gitops.png.md",
+    "Excalidraw",
+    "docs/Excalidraw/baremetal.svg",
+    "docs/Excalidraw/beelink.svg",
+    "docs/Excalidraw/gitops.dark.svg",
     "docs/Excalidraw/gitops.light.svg",
+    "docs/Excalidraw/minikube.svg",
+    "docs/Excalidraw/three-choices.svg",
+    "docs/Excalidraw/upstream_clone.svg",
+    "docs/03_debian_install.md",
+    "docs/02_github_repository.md",
+    "docs/Excalidraw/three-choices.md",
+    "docs/Excalidraw/upstream_clone.md",
+    "docs/Excalidraw/minikube.md",
     "docs/06_beelink_cloudflare_tunnel.md",
     "docs/07_updates.md",
     "docs/index.md",
     "docs/08_troubleshooting.md",
     "docs/05_beelink_nginx.md",
-    "docs/03_debian_install.md",
     "docs/04_installation_overview.md",
     "docs/Excalidraw/beelink.md",
-    "docs/Excalidraw/upstream_clone.md",
     "img/three-choices.md",
     "docs/README.md.md",
     "README.md",

@@ -24,7 +24,6 @@
 [installation with cloudflare tunnel](06_beelink_cloudflare_tunnel.md)
 
 # The stack from bottom to top
-
 These are all the apps that are part of this repo and can be installed via the ./setup util. It can either be installed in baremetal debian, in proxmox ( setup converts debian to proxmox & creates templates/kvms ). This allows intalling debian with FullDiskEncryption :luc_lock: easily with the debian installer.
 
 | Name                    | Type                    | Description                                      | Optional |

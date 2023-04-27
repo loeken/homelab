@@ -38,7 +38,11 @@ This repo contains definitions for a k3s-based kubernetes (atm-single node) clus
 - documentation with obsidian ( ./docs ) or [online](https://loeken.github.io/homelab)
 
 ## installation & docs
-docs are written in obsidian markdown inside the docs folder, an online version can be found [here](https://loeken.github.io/homelab/) you can also access it via [github](https://github.com/loeken/homelab/blob/main/docs/index.md)
+docs are written in obsidian markdown inside the [docs](./docs) folder, an online version can be found [here](https://loeken.github.io/homelab/) 
+
+[![here](img/docs.png)](https://loeken.github.io/homelab)
+
+you can also access it via [github](https://github.com/loeken/homelab/blob/main/docs/index.md)
 
 # The stack from bottom to top
 These are all the apps that are part of this repo and can be installed via the ./setup util. It can either be installed in baremetal debian, in proxmox ( setup converts debian to proxmox & creates templates/kvms ). This allows intalling debian with FullDiskEncryption :luc_lock: easily with the debian installer.

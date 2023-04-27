@@ -55,7 +55,7 @@ var options = []configOption{
 	{"external_ip", "1.2.3.4", "your external ipv4 ( curl -4 ifconfig.co )", nil, []string{"install"}},
 	{"interface", "enp3s0", "name of the primary interface", nil, []string{"install"}},
 	{"ingress", "cloudflaretunnel", "which ingress to use ( nginx/cloudflaretunnel )", []string{"nginx", "cloudflaretunnel"}, []string{"install"}},
-	{"kubernetes_version", "v1.25.6+k3s1", "kubernetes version", nil, []string{"install"}},
+	{"kubernetes_version", "v1.26.4+k3s1", "kubernetes version", nil, []string{"install"}},
 	{"local_path", "", "the folder into which new_repo will be cloned into", nil, []string{"install", "github"}},
 	{"macaddr", "6E:1F:26:B6:DF:20", "mac address used for the k3s vm", nil, []string{"install"}},
 	{"memory_k3s", "28672", "amount of ram in MB to assign to the VM ", nil, []string{"install"}},
@@ -841,7 +841,7 @@ func main() {
 			fmt.Println("terraform bootstrap argocd")
 
 			runTerraformCommand("bootstrap-argocd")
-			waitForPodReady("argocd", "app.kubernetes.io/instance=argocd")
+			waitForPodReady("argocd", "app.kubernetes.io/component=server")
 			color.Green("---")
 			color.Green("argocd is now up you can follow the rest of the installation")
 			color.Green("---")
@@ -1577,7 +1577,7 @@ func loadSecretFromTemplate(namespace string, application string) {
 			parts := strings.Split(strValue, "generate|")
 			if len(parts) > 1 {
 				fmt.Println("Part after 'generate|':", parts[1])
-				length, err := strconv.Atoi("12")
+				length, err := strconv.Atoi(parts[1])
 				if err != nil {
 					fmt.Println("error converting length")
 				}
@@ -1700,6 +1700,7 @@ func cloudflaresecret(cfTunnelId string, u user.User) {
 	fmt.Println("Secret created and applied successfully")
 }
 func hashAutheliaPassword(password string) string {
+	color.Green("launching authelia/authelia via docker to generate a users file:")
 	cmd := exec.Command("docker", "run", "--rm", "authelia/authelia:latest", "authelia", "hash-password", password)
 	stdout, err := cmd.Output()
 	if err != nil {

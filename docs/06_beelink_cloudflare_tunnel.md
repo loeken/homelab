@@ -21,7 +21,7 @@ now I can get ready to start the install
 				--cluster-issuer staging \
 				--disksize 100GB \
 				--interface enp3s0 \
-				--kubernetes_version v1.25.6+k3s1 \
+				--kubernetes_version v1.26.4+k3s1 \
 				--macaddr 6E:1F:26:B6:DF:20 \
 				--proxmox_node_name beelink-sei12 \
 				--proxmox_vm_name k3s-beelink-01 \
@@ -33,7 +33,7 @@ now I can get ready to start the install
 				--kasten-k10 true \
 				--loki true \
 				--new_repo loeken/homelab-beelink \
-				--nextcloud true \
+				--nextcloud false \
 				--nzbget false \
 				--prowlarr true \
 				--radarr true \

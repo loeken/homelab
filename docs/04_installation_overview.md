@@ -22,7 +22,7 @@ Flags:
 --jellyfin string                               enable argocd app jellyfin (default "false")
 --jellyseerr string                             enable argocd app jellyseerr (default "false")
 --kasten-k10 string                             enable argocd app kasten-k10 (default "false")
---kubernetes_version string                     kubernetes version (default "v1.25.6+k3s1")
+--kubernetes_version string                     kubernetes version (default "v1.26.4+k3s1")
 --local_path string                             the folder into which new_repo will be cloned into
 --loki string                                   enable argocd app loki (default "false")
 --macaddr string                                mac address used for the k3s vm (default "6E:1F:26:B6:DF:20")

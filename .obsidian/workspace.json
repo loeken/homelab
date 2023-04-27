@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/03_debian_install.md",
+                "file": "README.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/03_debian_install.md",
+                "file": "README.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docs/03_debian_install.md",
+                "file": "README.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/03_debian_install.md"
+                "file": "README.md"
               }
             }
           }
@@ -150,10 +150,11 @@
   },
   "active": "ad27be037ada685e",
   "lastOpenFiles": [
+    "docs/07_updates.md",
+    "docs/03_debian_install.md",
     "docs/02_github_repository.md",
     "docs/Excalidraw/upstream_clone.png",
     "docs/Excalidraw/upstream_clone.md",
-    "docs/03_debian_install.md",
     "docs/01_gitops_concepts.md",
     "docs/Excalidraw/gitops.md",
     "docs/Excalidraw/three-choices.md",
@@ -171,7 +172,6 @@
     "docs/Excalidraw/three-choices.svg",
     "docs/Excalidraw/minikube.md",
     "docs/06_beelink_cloudflare_tunnel.md",
-    "docs/07_updates.md",
     "docs/index.md",
     "docs/08_troubleshooting.md",
     "docs/05_beelink_nginx.md",

@@ -1,5 +1,5 @@
 # Homelab
-This repo contains definitions for a k3s-based kubernetes cluster that uses argocd and GitOps principles to deploy the applications running in the cluster. 
+This repo contains definitions for a k3s-based kubernetes (atm-single node) cluster that uses argocd and GitOps principles to deploy the applications running in the cluster. 
 
 ## three choices to install
 ![three choices to install](/docs/Excalidraw/three-choices.png)

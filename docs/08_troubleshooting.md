@@ -1,4 +1,4 @@
-# 08 troubleshooting
+# 08 - troubleshooting
 
 If you have have issue with anything homelab related feel free to open issues on the corresponding github repositories
 

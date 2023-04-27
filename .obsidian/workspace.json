@@ -11,9 +11,11 @@
             "id": "e352d5f4cd8b0eeb",
             "type": "leaf",
             "state": {
-              "type": "excalidraw",
+              "type": "markdown",
               "state": {
-                "file": "docs/Excalidraw/three-choices.md"
+                "file": "docs/03_debian_install.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -83,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/Excalidraw/three-choices.md",
+                "file": "docs/03_debian_install.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docs/Excalidraw/three-choices.md",
+                "file": "docs/03_debian_install.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -123,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/Excalidraw/three-choices.md"
+                "file": "docs/03_debian_install.md"
               }
             }
           }
@@ -148,9 +150,14 @@
   },
   "active": "ad27be037ada685e",
   "lastOpenFiles": [
-    "README.md",
-    "docs/Excalidraw/gitops.md",
+    "docs/02_github_repository.md",
+    "docs/Excalidraw/upstream_clone.png",
+    "docs/Excalidraw/upstream_clone.md",
+    "docs/03_debian_install.md",
     "docs/01_gitops_concepts.md",
+    "docs/Excalidraw/gitops.md",
+    "docs/Excalidraw/three-choices.md",
+    "README.md",
     "docs/Excalidraw/gitops.png",
     "docs/Excalidraw/gitops.dark.png",
     "docs/Excalidraw/gitops.light.png",
@@ -162,11 +169,6 @@
     "docs/Excalidraw/gitops.light.svg",
     "docs/Excalidraw/minikube.svg",
     "docs/Excalidraw/three-choices.svg",
-    "docs/Excalidraw/upstream_clone.svg",
-    "docs/03_debian_install.md",
-    "docs/02_github_repository.md",
-    "docs/Excalidraw/three-choices.md",
-    "docs/Excalidraw/upstream_clone.md",
     "docs/Excalidraw/minikube.md",
     "docs/06_beelink_cloudflare_tunnel.md",
     "docs/07_updates.md",

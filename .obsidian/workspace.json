@@ -11,9 +11,11 @@
             "id": "e352d5f4cd8b0eeb",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "docs/Excalidraw/gitops.png"
+                "file": "docs/01_gitops_concepts.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -83,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/Excalidraw/gitops.png",
+                "file": "docs/01_gitops_concepts.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docs/Excalidraw/gitops.png",
+                "file": "docs/01_gitops_concepts.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -123,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/Excalidraw/gitops.png"
+                "file": "docs/01_gitops_concepts.md"
               }
             }
           }
@@ -146,10 +148,10 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "e352d5f4cd8b0eeb",
+  "active": "ad27be037ada685e",
   "lastOpenFiles": [
-    "docs/Excalidraw/gitops.md",
     "docs/Excalidraw/gitops.png",
+    "docs/Excalidraw/gitops.md",
     "docs/Excalidraw/gitops.dark.png",
     "docs/Excalidraw/gitops.light.png",
     "docs/01_gitops_concepts.md",

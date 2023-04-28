@@ -6,11 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/metallb/metallb.git'
-    targetRevision: main
-    path: manifests
-    kustomize:
-      namePrefix: metallb-
+    repoURL: https://metallb.github.io/metallb
+    targetRevision: 4.3.0
+    chart: metallb
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: metallb-system

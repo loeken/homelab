@@ -20,10 +20,10 @@ spec:
           service:
             externalTrafficPolicy: Local
             type: NodePort
-            httpPort:
-              nodePort: 30080
-            httpsPort:
-              nodePort: 30443
+            # httpPort:
+            #   nodePort: 30080
+            # httpsPort:
+            #   nodePort: 30443
           kind: daemonset
   destination:
     namespace: nginx-ingress

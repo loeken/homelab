@@ -27,15 +27,6 @@ spec:
             pullPolicy: IfNotPresent
         internalDatabase:
           enabled: false
-        # externalDatabase:
-        #   enabled: true
-        #   type: postgresql
-        #   host: nextcloud
-        #   existingSecret:
-        #     enabled: true
-        #     secretName: nextcloud
-        #     usernameKey: username
-        #     passwordKey: password
         externalDatabase:
           enabled: true
           type: "pgsql"
@@ -43,7 +34,11 @@ spec:
           port: 5432
           user: nextcloud
           password: ""
-          existingSecret: nextcloud
+          existingSecret:
+            enabled: true
+            secretName: nextcloud
+            userKey: nextcloud-username
+            passwordKey: nextcloud-password
           database: nextcloud
         postgresql:
           enabled: true

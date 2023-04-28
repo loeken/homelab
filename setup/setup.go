@@ -1540,7 +1540,7 @@ func loadSecretFromTemplate(namespace string, application string) {
 		strValue := value.(string)
 
 		if strKey == "DOMAIN" {
-			if !strings.HasPrefix(strValue, "https://") {
+			if !strings.HasPrefix(viper.GetString("domain"), "https://") {
 				color.Green("found " + strKey + " value in arguments, reusing that as default, adding https:// prefix")
 				strValue = "https://" + viper.GetString(strKey)
 			} else {

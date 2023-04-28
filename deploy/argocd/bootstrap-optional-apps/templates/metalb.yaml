@@ -11,12 +11,8 @@ spec:
     chart: metallb
     helm:
       values: |
-        configInline:
-          address-pools:
-          - name: default
-            protocol: layer2
-            addresses:
-            - 172.16.137.1-172.16.137.9
+        configMap:
+            name: metallb-config
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: metallb-system

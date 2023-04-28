@@ -10,4 +10,5 @@ stringData:
   smtp_password: "nextcloud smtp password: topsecure"
   nextcloud-password: "generate|16"
   nextcloud-username: nextcloud
-  postgresql-password: "generate|16"
+  postgres-password: "generate|16"
+  postgres-username: db_nextcloud

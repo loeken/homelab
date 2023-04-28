@@ -36,8 +36,8 @@ spec:
           existingSecret: 
             enabled: true
             secretName: nextcloud
-            usernameKey: db-username
-            passwordKey: db-password
+            usernameKey: postgres-username
+            passwordKey: postgres-password
           database: nextcloud
         postgresql:
           enabled: true

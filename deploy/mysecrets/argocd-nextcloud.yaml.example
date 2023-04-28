@@ -6,8 +6,8 @@ metadata:
   namespace: nextcloud
 type: Opaque
 stringData:
-  smtp_username: "nextcloud smtp username: homelab@example.com"
-  smtp_password: "nextcloud smtp password: topsecure"
+  smtp-username: "nextcloud smtp username: homelab@example.com"
+  smtp-password: "nextcloud smtp password: topsecure"
   nextcloud-password: "generate|16"
   nextcloud-username: nextcloud
   postgres-password: "generate|16"

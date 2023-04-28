@@ -49,9 +49,9 @@ spec:
                 existingSecret: 
                   enabled: true
                   secretName: nextcloud
-                  adminPasswordKey: db-password
-                  userPasswordKey: db-password
-                  replicationPasswordKey: db-password
+                  adminPasswordKey: postgres-admin-password
+                  userPasswordKey: postgres-password
+                  replicationPasswordKey: postgresql-replication-password
                 database: nextcloud
           primary:
             persistence:

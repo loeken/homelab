@@ -29,7 +29,7 @@ spec:
             nginx.ingress.kubernetes.io/configuration-snippet: |
               proxy_set_header X-Forwarded-Method $request_method;
 
-          enabled: 'true'
+          enabled: true
           ingressClassName: nginx
           pathType: ImplementationSpecific
           hosts:

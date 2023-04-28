@@ -2042,11 +2042,11 @@ func canRunDocker() (bool, error) {
 	return true, nil
 }
 func writeExecutedCommand(commandWithFlags string) {
-	configFileName := ".setup.sh"
+	configFileName := ".setup.log"
 	configPath := filepath.Join(".", configFileName)
 
-	// Open or create the config file, truncating it if it exists
-	f, err := os.OpenFile(configPath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0755)
+	// Open or create the config file, appending to it if it exists
+	f, err := os.OpenFile(configPath, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
 		// Handle errors opening or creating the file
 		fmt.Println("error opening or creating config file:", err)
@@ -2054,18 +2054,14 @@ func writeExecutedCommand(commandWithFlags string) {
 	}
 	defer f.Close()
 
+	// Add a timestamp and a newline to separate commands
+	timestamp := time.Now().Format("2006-01-02 15:04:05")
+	commandWithFlags = fmt.Sprintf("%s %s\n", timestamp, commandWithFlags)
+
 	_, err = f.WriteString(commandWithFlags)
 	if err != nil {
 		// Handle errors writing to the file
 		fmt.Println("error writing to config file:", err)
-		return
-	}
-
-	// Make the file executable
-	err = os.Chmod(configPath, 0755)
-	if err != nil {
-		// Handle errors changing file permissions
-		fmt.Println("error making config file executable:", err)
 		return
 	}
 }

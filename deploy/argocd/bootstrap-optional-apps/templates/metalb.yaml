@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://metallb.github.io/metallb
-    targetRevision: 0.13.9
+    targetRevision: 0.12.1
     chart: metallb
     helm:
       values: |
@@ -20,7 +20,7 @@ spec:
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: metallb-system
-  syncPolicy:
+  syncPolicy:1
     automated:
       prune: true
       selfHeal: true

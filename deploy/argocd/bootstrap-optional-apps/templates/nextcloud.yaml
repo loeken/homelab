@@ -19,7 +19,6 @@ spec:
         image:
           tag: 26.0.1-fpm-alpine
         nginx:
-          ## You need to set an fpm version of the image for nextcloud if you want to use nginx!
           enabled: true
           image:
             repository: nginx
@@ -34,11 +33,11 @@ spec:
           port: 5432
           user: nextcloud
           password: ""
-          existingSecret:
+          existingSecret: 
             enabled: true
             secretName: nextcloud
-            userKey: nextcloud-username
-            passwordKey: nextcloud-password
+            usernameKey: db-username
+            passwordKey: db-password
           database: nextcloud
         postgresql:
           enabled: true
@@ -47,14 +46,13 @@ spec:
               auth:
                 username: nextcloud
                 password: ""
-                existingSecret: nextcloud
+                existingSecret: 
+                  enabled: true
+                  secretName: nextcloud
+                  adminPasswordKey: db-password
+                  userPasswordKey: db-password
+                  replicationPasswordKey: db-password
                 database: nextcloud
-          # global:
-          #   postgresql:
-          #     auth:
-          #       database: nextcloud
-          #       username: nextcloud
-          #       existingSecret: nextcloud
           primary:
             persistence:
               enabled: true
@@ -62,7 +60,6 @@ spec:
               accessModes:
                 - ReadWriteOnce
         nextcloud:
-          ## Use an existing secret
           existingSecret:
             enabled: true
             secretName: nextcloud
@@ -122,13 +119,10 @@ spec:
             - nextcloud.{{ .Values.domain }}
 
         persistence:
-          # Nextcloud Data (/var/www/html)
           enabled: true
           storageClass: {{ .Values.storageClass }}
           accessMode: ReadWriteOnce
           size: 8Gi
-          ## Use an additional pvc for the data directory rather than a subpath of the default PVC
-          ## Useful to store data on a different storageClass (e.g. on slower disks)
           nextcloudData:
             enabled: true
             storageClass: {{ .Values.nextcloud.data.storageClass }}

@@ -76,9 +76,9 @@ spec:
           ingress:
             annotations:
               cert-manager.io/cluster-issuer: "{{ .Values.clusterIssuer }}"
-              externaldns.nginx.org/hostname: "grafana.{{ .Values.domain }}."
-              externaldns.nginx.org/cloudflare-proxied: "false"
-              externaldns.nginx.org/ttl: "120"
+              external-dns.alpha.kubernetes.io/hostname: "grafana.{{ .Values.domain }}."
+              external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+              external-dns.alpha.kubernetes.io/ttl: "120"
               kubernetes.io/ingress.class: "nginx"
             enabled: {{ .Values.loki.ingress.nginx.enabled }}
             pathType: ImplementationSpecific
@@ -281,9 +281,9 @@ spec:
             ingress:
               annotations:
                 cert-manager.io/cluster-issuer: "{{ .Values.clusterIssuer }}"
-                externaldns.nginx.org/hostname: "alertmanager.prod.{{ .Values.domain }}."
-                externaldns.nginx.org/cloudflare-proxied: "false"
-                externaldns.nginx.org/ttl: "120"
+                external-dns.alpha.kubernetes.io/hostname: "alertmanager.prod.{{ .Values.domain }}."
+                external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+                external-dns.alpha.kubernetes.io/ttl: "120"
                 kubernetes.io/ingress.class: "nginx"
               enabled: {{ .Values.loki.alertmanager.ingress.enabled }}
               pathType: ImplementationSpecific

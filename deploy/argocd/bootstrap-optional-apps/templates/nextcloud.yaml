@@ -48,7 +48,7 @@ spec:
                 existingSecret: nextcloud
                 secretKeys:
                   secretName: nextcloud
-                  adminPasswordKey: postgres-admin-password
+                  adminPasswordKey: postgres-password
                   userPasswordKey: postgres-password
                   replicationPasswordKey: postgresql-replication-password
                 database: nextcloud

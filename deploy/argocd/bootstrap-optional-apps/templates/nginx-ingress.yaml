@@ -19,6 +19,7 @@ spec:
         controller:
           service:
             externalTrafficPolicy: Local
+            type: LoadBalancer
   destination:
     namespace: nginx-ingress
     server: https://kubernetes.default.svc

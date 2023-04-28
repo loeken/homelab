@@ -53,6 +53,7 @@ var options = []configOption{
 	{"domain", "", "the domain you want to use", nil, []string{"install", "destroy"}},
 	{"email", "", "the email used for most configs", nil, []string{"install", "destroy"}},
 	{"external_ip", "1.2.3.4", "your external ipv4 ( curl -4 ifconfig.co )", nil, []string{"install"}},
+	{"helo_name", "mail.example.com", "when sending email this is sent to the mail server while logging on", nil, []string{"install"}},
 	{"interface", "enp3s0", "name of the primary interface", nil, []string{"install"}},
 	{"ingress", "cloudflaretunnel", "which ingress to use ( nginx/cloudflaretunnel )", []string{"nginx", "cloudflaretunnel"}, []string{"install"}},
 	{"kubernetes_version", "v1.26.4+k3s1", "kubernetes version", nil, []string{"install"}},
@@ -1538,7 +1539,7 @@ func loadSecretFromTemplate(namespace string, application string) {
 		strValue := value.(string)
 
 		if viper.GetString(strKey) != "" {
-			if strKey == "DOMAIN" {
+			if strKey == "domain" {
 				if !strings.HasPrefix(strValue, "https://") {
 					color.Green("found " + strKey + " value in arguments, reusing that as default")
 					strValue = "https://" + viper.GetString(strKey)
@@ -1549,6 +1550,9 @@ func loadSecretFromTemplate(namespace string, application string) {
 			}
 		}
 
+		if strKey == "smtp_from" {
+			strValue = viper.GetString("smtp_sender")
+		}
 		if strKey == "url" {
 			cmd := exec.Command("bash", "-c", "cat ../.git/config|grep url|grep git@| cut -d' ' -f 3")
 
@@ -1700,7 +1704,6 @@ func cloudflaresecret(cfTunnelId string, u user.User) {
 	fmt.Println("Secret created and applied successfully")
 }
 func hashAutheliaPassword(password string) string {
-	color.Green("launching authelia/authelia via docker to generate a users file:")
 	cmd := exec.Command("docker", "run", "--rm", "authelia/authelia:latest", "authelia", "hash-password", password)
 	stdout, err := cmd.Output()
 	if err != nil {
@@ -1717,6 +1720,10 @@ func hashAutheliaPassword(password string) string {
 	return output
 }
 func generateAutheliaUsersDatabase() {
+	color.Green("---")
+	color.Green("launching authelia/authelia via docker to generate a users file:")
+	color.Green("---")
+
 	// Prompt user to enter user details
 	fmt.Print("Enter username: ")
 	scanner := bufio.NewScanner(os.Stdin)

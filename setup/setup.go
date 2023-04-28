@@ -929,7 +929,7 @@ func main() {
 
 			if installCertManager == "true" {
 				color.Blue("\033[1m input settings for authelia:\033[0m")
-				waitForPodReady("cert-manager", "app.kubernetes.io/instance=cert-manager")
+				waitForPodReady("cert-manager", "app.kubernetes.io/name=cert-manager")
 			}
 			// wave 13
 			if installAuthelia == "true" {
@@ -1766,25 +1766,25 @@ func generateAutheliaUsersDatabase() {
 	color.Green("---")
 
 	// Prompt user to enter user details
-	fmt.Print("Enter username: ")
+	fmt.Print("Enter username (example: loeken): ")
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
 	username := scanner.Text()
 
-	fmt.Print("Enter display name: ")
+	fmt.Print("Enter display name (example: luke filewalker): ")
 	scanner.Scan()
 	displayName := scanner.Text()
 
-	fmt.Print("Enter email address: ")
+	fmt.Print("Enter email address (example: loeken@example.com): ")
 	scanner.Scan()
 	email := scanner.Text()
 
-	fmt.Print("Enter groups (comma separated): ")
+	fmt.Print("Enter groups (comma separated): ( example: dev,admin) ")
 	scanner.Scan()
 	groups := scanner.Text()
 	groupList := strings.Split(groups, ",")
 
-	fmt.Print("Enter password: ")
+	fmt.Print("Enter password: (example: topsecure)")
 	scanner.Scan()
 	password := scanner.Text()
 

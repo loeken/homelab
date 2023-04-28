@@ -1590,7 +1590,7 @@ func loadSecretFromTemplate(namespace string, application string) {
 			} else {
 				strValue = viper.GetString("smtp_from")
 			}
-		} else if strKey == "URL" {
+		} else if strKey == "url" {
 			cmd := exec.Command("bash", "-c", "cat ../.git/config|grep url|grep git@| cut -d' ' -f 3")
 
 			// Run the command and capture its output

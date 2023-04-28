@@ -14,12 +14,6 @@ spec:
     chart: nginx-ingress
     repoURL: https://helm.nginx.com/stable
     targetRevision: {{ .Values.nginxingress.chartVersion }}
-    helm:
-      values: |
-        controller:
-          service:
-            externalTrafficPolicy: Local
-            type: LoadBalancer
   destination:
     namespace: nginx-ingress
     server: https://kubernetes.default.svc

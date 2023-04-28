@@ -1876,7 +1876,7 @@ func createFolderJellyfin(podName string, folderName string) {
 */
 func waitForPodReady(namespace string, searchTag string) {
 	// Wait for the namespace and pod to be ready
-	err := waitWithRetries(10, 10*time.Second, func() (bool, error) {
+	err := waitWithRetries(30, 10*time.Second, func() (bool, error) {
 		_, nsErr := runCommand(".", "kubectl", []string{"get", "namespace", namespace})
 		if nsErr == nil {
 			out, err := runCommand(".", "kubectl", []string{"get", "pods", "-n", namespace, "-l", searchTag})

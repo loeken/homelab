@@ -129,9 +129,9 @@ spec:
           annotations:
             kubernetes.io/ingress.class: "nginx"
             cert-manager.io/cluster-issuer: "{{ .Values.clusterIssuer }}"
-            external-dns.alpha.kubernetes.io/hostname: "auth.{{ .Values.domain }}."
-            external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
-            external-dns.alpha.kubernetes.io/ttl: "120"
+            externaldns.nginx.org/hostname: "auth.{{ .Values.domain }}."
+            externaldns.nginx.org/cloudflare-proxied: "false"
+            externaldns.nginx.org/ttl: "120"
           enabled: false
           hosts:
             - host: auth.loeken.xyz

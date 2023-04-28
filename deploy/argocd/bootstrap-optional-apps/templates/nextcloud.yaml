@@ -45,9 +45,8 @@ spec:
             postgresql:
               auth:
                 username: nextcloud
-                password: null
-                existingSecret: 
-                  enabled: true
+                existingSecret: nextcloud
+                secretKeys:
                   secretName: nextcloud
                   adminPasswordKey: postgres-admin-password
                   userPasswordKey: postgres-password

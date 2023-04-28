@@ -85,6 +85,7 @@ var options = []configOption{
 
 	// app section
 	{"authelia", "false", "enable argocd app authelia", nil, []string{"enable-argocd-app", "install"}},
+	{"cert-manager", "false", "enable argocd app cert-manager", nil, []string{"enable-argocd-app", "install"}},
 	{"externaldns", "false", "enable argocd app external-dns", nil, []string{"enable-argocd-app", "install"}},
 	{"loki", "false", "enable argocd app loki", nil, []string{"enable-argocd-app", "install"}},
 	{"ha", "false", "enable argocd app home-assistant", nil, []string{"enable-argocd-app", "install"}},
@@ -337,6 +338,7 @@ func main() {
 			smtp_domain := viper.GetString("smtp_domain")
 
 			installAuthelia := viper.GetString("authelia")
+			installCertManager := viper.GetString("cert-manager")
 			installExternalDns := viper.GetString("externaldns")
 			installLoki := viper.GetString("loki")
 			installHa := viper.GetString("ha")
@@ -517,6 +519,11 @@ func main() {
 			if ingress == "cloudflaretunnel" {
 				config["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = true
 				config["nginxingress"].(map[interface{}]interface{})["enabled"] = false
+			}
+			if installCertManager == "true" {
+				certManagerConfig := config["certmanager"].(map[interface{}]interface{})
+				certManagerConfig["enabled"] = true
+				config["certmanager"] = certManagerConfig
 			}
 			if ingress == "nginx" {
 				config["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = false
@@ -895,6 +902,10 @@ func main() {
 				waitForPodReady("external-dns", "app.kubernetes.io/instance=external-dns")
 			}
 
+			if installCertManager == "true" {
+				color.Blue("\033[1m input settings for authelia:\033[0m")
+				waitForPodReady("cert-manager", "app.kubernetes.io/instance=cert-manager")
+			}
 			// wave 13
 			if installAuthelia == "true" {
 				// Generate password hash

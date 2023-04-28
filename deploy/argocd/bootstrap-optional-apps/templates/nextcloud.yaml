@@ -27,24 +27,39 @@ spec:
             pullPolicy: IfNotPresent
         internalDatabase:
           enabled: false
+        # externalDatabase:
+        #   enabled: true
+        #   type: postgresql
+        #   host: nextcloud
+        #   existingSecret:
+        #     enabled: true
+        #     secretName: nextcloud
+        #     usernameKey: username
+        #     passwordKey: password
         externalDatabase:
           enabled: true
-          type: postgresql
-          host: nextcloud
-          existingSecret:
-            enabled: true
-            secretName: nextcloud
-            usernameKey: username
-            passwordKey: password
-        ##
+          type: "pgsql"
+          host: nextcloud-postgresql
+          port: 5432
+          user: nextcloud
+          password: ""
+          existingSecret: nextcloud
+          database: nextcloud
         postgresql:
           enabled: true
           global:
             postgresql:
               auth:
-                database: nextcloud
                 username: nextcloud
+                password: ""
                 existingSecret: nextcloud
+                database: nextcloud
+          # global:
+          #   postgresql:
+          #     auth:
+          #       database: nextcloud
+          #       username: nextcloud
+          #       existingSecret: nextcloud
           primary:
             persistence:
               enabled: true
@@ -56,10 +71,10 @@ spec:
           existingSecret:
             enabled: true
             secretName: nextcloud
-            usernameKey: username
-            passwordKey: password
-            smtpUsernameKey: smtp_username
-            smtpPasswordKey: smtp_password
+            usernameKey: nextcloud-username
+            passwordKey: nextcloud-password
+            smtpUsernameKey: smtp-username
+            smtpPasswordKey: smtp-password
           host: nextcloud.{{ .Values.domain }}
           mail:
             enabled: true
@@ -98,31 +113,6 @@ spec:
             nginx.ingress.kubernetes.io/auth-signin: https://auth.{{ .Values.domain }}
             {{end}}
             nginx.ingress.kubernetes.io/proxy-body-size: 4G
-            nginx.ingress.kubernetes.io/server-snippet: |-
-              server_tokens off;
-              proxy_hide_header X-Powered-By;
-            
-              rewrite ^/.well-known/webfinger /public.php?service=webfinger last;
-              rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
-              rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
-
-              location = /.well-known/carddav {
-                return 301 $scheme://$host/remote.php/dav;
-              }
-              location = /.well-known/caldav {
-                return 301 $scheme://$host/remote.php/dav;
-              }
-              location = /robots.txt {
-                allow all;
-                log_not_found off;
-                access_log off;
-              }
-              location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
-                deny all;
-              }
-              location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
-                deny all;
-              }
           enabled: {{ .Values.nextcloud.ingress.nginx.enabled }}
           hosts:
             - host: nextcloud.{{ .Values.domain }}

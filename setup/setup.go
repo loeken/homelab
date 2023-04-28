@@ -927,7 +927,7 @@ func main() {
 			if installNextcloud == "true" {
 				color.Blue("\033[1m input settings for nextcloud:\033[0m")
 				loadSecretFromTemplate("nextcloud", "nextcloud")
-				waitForPodReady("nextcloud", "app.kubernetes.io/instance=nextcloud")
+				waitForPodReady("nextcloud", "app.kubernetes.io/instance=nextcloud-server")
 				if ingress == "cloudflaretunnel" {
 					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "nextcloud." + domain})
 				}

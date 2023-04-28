@@ -8,6 +8,6 @@ type: Opaque
 stringData:
   smtp_username: "nextcloud smtp username: homelab@example.com"
   smtp_password: "nextcloud smtp password: topsecure"
-  password: "generate|16"
-  username: nextcloud
-  postgres-password: "generate|16"
+  nextcloud-password: "generate|16"
+  nextcloud-username: nextcloud
+  postgresql-password: "generate|16"

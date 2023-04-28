@@ -67,7 +67,7 @@ var options = []configOption{
 	{"proxmox_node_name", "beelink-sei12", "the name of the proxmox node ( hostname )", nil, []string{"install"}},
 	{"proxmox_vm_name", "k3s-beelink-01", "name of the virtual machine in proxmox", nil, []string{"install"}},
 	{"root_password", "topsecure", "root password ( used for login to proxmox )", nil, []string{"install"}},
-	{"smtp_from", "homelab@example.com", "the email address used by vaultwarden to send emails with", nil, []string{"install"}},
+	{"smtp_from", "smtp_sender", "the email address used by vaultwarden to send emails with defaults to using the value of smtp_sender", nil, []string{"install"}},
 	{"smtp_host", "mail.example.com", "the host of your email server", nil, []string{"install"}},
 	{"smtp_port", "587", "the port of your email server", nil, []string{"install"}},
 	{"smtp_sender", "homelab@example.com", "the email address used to send emails", nil, []string{"install"}},
@@ -1549,8 +1549,8 @@ func loadSecretFromTemplate(namespace string, application string) {
 			}
 		}
 
-		if strKey == "smtp_from" && viper.GetString("smtp_from") != "false" {
-			color.Green("found " + strKey + " value in arguments, reusing that as default")
+		if strKey == "smtp_from" && viper.GetString("smtp_from") == "smtp_sender" {
+			color.Green("found " + strKey + " value in arguments, reusing the value of --smtp_sender as default")
 			strValue = viper.GetString("smtp_sender")
 		}
 

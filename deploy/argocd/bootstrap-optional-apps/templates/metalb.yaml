@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: 'https://charts.bitnami.com/bitnami'
-    targetRevision: HEAD
+    targetRevision: 4.3.0
     chart: metallb
     helm:
       values: |

@@ -538,7 +538,17 @@ func main() {
 				autheliaConfig["smtp"].(map[interface{}]interface{})["port"] = smtp_port
 				autheliaConfig["smtp"].(map[interface{}]interface{})["sender"] = smtp_sender
 				autheliaConfig["smtp"].(map[interface{}]interface{})["username"] = smtp_username
+
+				if ingress == "nginx" {
+					autheliaConfig["ingress"].(map[interface{}]interface{})["nginx"].(map[interface{}]interface{})["enabled"] = true
+					autheliaConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = false
+				}
+				if ingress == "cloudflaretunnel" {
+					autheliaConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = true
+					autheliaConfig["ingress"].(map[interface{}]interface{})["nginx"].(map[interface{}]interface{})["enabled"] = false
+				}
 				config["authelia"].(map[interface{}]interface{})["smtp"] = autheliaConfig["smtp"]
+
 			}
 			if installExternalDns == "true" {
 				externaldnsConfig := config["externaldns"].(map[interface{}]interface{})
@@ -548,11 +558,28 @@ func main() {
 			if installLoki == "true" {
 				lokiConfig := config["loki"].(map[interface{}]interface{})
 				lokiConfig["enabled"] = true
+
+				if ingress == "nginx" {
+					lokiConfig["ingress"].(map[interface{}]interface{})["nginx"].(map[interface{}]interface{})["enabled"] = true
+					lokiConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = false
+				}
+				if ingress == "cloudflaretunnel" {
+					lokiConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = true
+					lokiConfig["ingress"].(map[interface{}]interface{})["nginx"].(map[interface{}]interface{})["enabled"] = false
+				}
 				config["loki"] = lokiConfig
 			}
 			if installHa == "true" {
 				haConfig := config["ha"].(map[interface{}]interface{})
 				haConfig["enabled"] = true
+				if ingress == "nginx" {
+					haConfig["ingress"].(map[interface{}]interface{})["nginx"].(map[interface{}]interface{})["enabled"] = true
+					haConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = false
+				}
+				if ingress == "cloudflaretunnel" {
+					haConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"].(map[interface{}]interface{})["enabled"] = true
+					haConfig["ingress"].(map[interface{}]interface{})["nginx"].(map[interface{}]interface{})["enabled"] = false
+				}
 				config["ha"] = haConfig
 			}
 			if installSharedMediaDiskSize != "false" {
@@ -599,12 +626,10 @@ func main() {
 				config["nextcloud"] = nextcloudConfig
 			}
 			if storage == "local-path" {
-
 				config["nfsprovisioner"].(map[interface{}]interface{})["enabled"] = true
 				if platform == "baremetal" {
 					config["nfsprovisioner"].(map[interface{}]interface{})["ip"] = viper.GetString("ssh_server_address")
 				}
-
 			}
 			if installJellyfin == "true" {
 				jellyfinConfig := config["jellyfin"].(map[interface{}]interface{})

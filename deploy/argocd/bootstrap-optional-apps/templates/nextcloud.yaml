@@ -32,7 +32,7 @@ spec:
           host: nextcloud-postgresql
           port: 5432
           user: nextcloud
-          password: ""
+          password: null
           existingSecret: 
             enabled: true
             secretName: nextcloud
@@ -45,7 +45,7 @@ spec:
             postgresql:
               auth:
                 username: nextcloud
-                password: ""
+                password: null
                 existingSecret: 
                   enabled: true
                   secretName: nextcloud

@@ -1539,7 +1539,7 @@ func loadSecretFromTemplate(namespace string, application string) {
 		strKey := key.(string)
 		strValue := value.(string)
 
-		if strKey == "domain" {
+		if strKey == "DOMAIN" {
 			if !strings.HasPrefix(strValue, "https://") {
 				color.Green("found " + strKey + " value in arguments, reusing that as default, adding https:// prefix")
 				strValue = "https://" + viper.GetString(strKey)
@@ -1549,12 +1549,12 @@ func loadSecretFromTemplate(namespace string, application string) {
 			}
 		}
 
-		if strKey == "smtp_from" && viper.GetString("smtp_from") == "smtp_sender" {
+		if strKey == "SMTP_FROM" && viper.GetString("SMTP_FROM") == "smtp_sender" {
 			color.Green("found " + strKey + " value in arguments, reusing the value of --smtp_sender as default")
 			strValue = viper.GetString("smtp_sender")
 		}
 
-		if strKey == "url" {
+		if strKey == "URL" {
 			cmd := exec.Command("bash", "-c", "cat ../.git/config|grep url|grep git@| cut -d' ' -f 3")
 
 			// Run the command and capture its output

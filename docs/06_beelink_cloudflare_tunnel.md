@@ -18,7 +18,7 @@ now I can get ready to start the install
 				--domain loeken.xyz \
 				--cores_k3s 10 \
 				--memory_k3s 28672 \
-				--cluster-issuer staging \
+				--cluster-issuer letsencrypt-staging \
 				--disksize 100GB \
 				--helo_name mail.example.com \
 				--interface enp3s0 \

@@ -19,7 +19,7 @@ now I can get ready to start the install
 				--cores_k3s 10 \
 				--memory_k3s 28672 \
 				--cert-manager true \
-				--cluster-issuer staging \
+				--cluster-issuer letsencrypt-staging \
 				--disksize 100GB \
 				--helo_name mail.example.com \
 				--interface enp3s0 \

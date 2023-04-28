@@ -1577,7 +1577,7 @@ func loadSecretFromTemplate(namespace string, application string) {
 		} else if strings.HasPrefix(strValue, "generate|") {
 			parts := strings.Split(strValue, "generate|")
 			if len(parts) > 1 {
-				fmt.Println("Part after 'generate|':", parts[1])
+				fmt.Println("generating a password with " + parts[1] + " characters in length")
 				length, err := strconv.Atoi(parts[1])
 				if err != nil {
 					fmt.Println("error converting length")
@@ -1591,6 +1591,7 @@ func loadSecretFromTemplate(namespace string, application string) {
 			}
 		}
 		// Print secret name and default value
+		color.Blue("no arguments found for these secrets, loading defaults")
 		fmt.Printf("%s (%s):\n", strKey, strValue)
 		var input string
 

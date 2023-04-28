@@ -1551,6 +1551,8 @@ func loadSecretFromTemplate(namespace string, application string) {
 			if viper.GetString("SMTP_FROM") == "smtp_sender" {
 				color.Green("found " + strKey + " value in arguments, reusing the value of --smtp_sender as default")
 				strValue = viper.GetString("smtp_sender")
+			} else {
+				strValue = viper.GetString("smtp_from")
 			}
 		} else if strKey == "URL" {
 			cmd := exec.Command("bash", "-c", "cat ../.git/config|grep url|grep git@| cut -d' ' -f 3")

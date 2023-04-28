@@ -931,6 +931,13 @@ func main() {
 				color.Blue("\033[1m input settings for authelia:\033[0m")
 				waitForPodReady("cert-manager", "app.kubernetes.io/name=cert-manager")
 			}
+			if ingress == "nginx" {
+				color.Blue("\033[1m bootstrapping ingress:\033[0m")
+				waitForPodReady("cert-manager", "app.kubernetes.io/instance=nginx-ingress")
+				runCommand(".", "kubectl", []string{"get", "svc", "-n", "nginx-ingress"})
+				color.Green("Now route traffic from 80/443 towards the nginx ingress ports")
+				confirmContinue()
+			}
 			// wave 13
 			if installAuthelia == "true" {
 				// Generate password hash

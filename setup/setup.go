@@ -1588,10 +1588,11 @@ func loadSecretFromTemplate(namespace string, application string) {
 				}
 				strValue = generatePassword(length)
 			}
-		}
-		if viper.GetString(strKey) != "" {
-			color.Green("found " + strKey + " value in arguments, reusing that as default")
-			strValue = viper.GetString(strKey)
+		} else {
+			if viper.GetString(strKey) != "" {
+				color.Green("found " + strKey + " value in arguments, reusing that as default")
+				strValue = viper.GetString(strKey)
+			}
 		}
 		// Print secret name and default value
 		fmt.Printf("%s (%s):\n", strKey, strValue)

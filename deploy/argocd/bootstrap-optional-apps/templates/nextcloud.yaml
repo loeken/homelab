@@ -64,8 +64,8 @@ spec:
             secretName: nextcloud
             usernameKey: nextcloud-username
             passwordKey: nextcloud-password
-            smtpUsernameKey: smtp-username
-            smtpPasswordKey: smtp-password
+            smtpUsernameKey: smtp_username
+            smtpPasswordKey: smtp_password
           host: nextcloud.{{ .Values.domain }}
           mail:
             enabled: true

@@ -1547,10 +1547,14 @@ func loadSecretFromTemplate(namespace string, application string) {
 				color.Green("found " + strKey + " value in arguments, reusing that as default")
 				strValue = viper.GetString(strKey)
 			}
-		} else if strKey == "SMTP_FROM" && viper.GetString("SMTP_FROM") == "smtp_sender" {
-			color.Green("found " + strKey + " value in arguments, reusing the value of --smtp_sender as default")
-			strValue = viper.GetString("smtp_sender")
-		} else if strKey == "URL" {
+		}
+		if strKey == "SMTP_FROM" {
+			if viper.GetString("SMTP_FROM") == "smtp_sender" {
+				color.Green("found " + strKey + " value in arguments, reusing the value of --smtp_sender as default")
+				strValue = viper.GetString("smtp_sender")
+			}
+		}
+		if strKey == "URL" {
 			cmd := exec.Command("bash", "-c", "cat ../.git/config|grep url|grep git@| cut -d' ' -f 3")
 
 			// Run the command and capture its output
@@ -1563,7 +1567,8 @@ func loadSecretFromTemplate(namespace string, application string) {
 			// Convert the output to a string and remove any trailing newline characters
 			url := strings.TrimSpace(string(output))
 			strValue = url
-		} else if strKey == "sshPrivateKey" {
+		}
+		if strKey == "sshPrivateKey" {
 			// Read the contents of the file "../tmp/id_ed25519"
 			privateKeyBytes, err := ioutil.ReadFile("../tmp/id_ed25519")
 			if err != nil {
@@ -1572,7 +1577,8 @@ func loadSecretFromTemplate(namespace string, application string) {
 			}
 			secrets["stringData"].(map[interface{}]interface{})[key] = string(privateKeyBytes)
 			continue
-		} else if strings.HasPrefix(strValue, "generate|") {
+		}
+		if strings.HasPrefix(strValue, "generate|") {
 			parts := strings.Split(strValue, "generate|")
 			if len(parts) > 1 {
 				fmt.Println("Part after 'generate|':", parts[1])
@@ -1582,7 +1588,8 @@ func loadSecretFromTemplate(namespace string, application string) {
 				}
 				strValue = generatePassword(length)
 			}
-		} else if viper.GetString(strKey) != "" {
+		}
+		if viper.GetString(strKey) != "" {
 			color.Green("found " + strKey + " value in arguments, reusing that as default")
 			strValue = viper.GetString(strKey)
 		}

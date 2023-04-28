@@ -1865,7 +1865,7 @@ func waitWithRetries(maxRetries int, retryTimeout time.Duration, conditionFunc f
 			return nil
 		}
 		if err == nil {
-			fmt.Printf("Retrying in %v...\n", retryTimeout)
+			fmt.Printf("Retrying in %v... attempt %d/%d\n", retryTimeout, i, maxRetries)
 		} else {
 			fmt.Printf("Error: %v\nRetrying in %v...\n", err, retryTimeout)
 		}

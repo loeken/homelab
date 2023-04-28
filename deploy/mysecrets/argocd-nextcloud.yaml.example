@@ -13,4 +13,4 @@ stringData:
   postgres-password: "generate|16"
   postgres-admin-password: "generate|16"
   postgresql-replication-password: "generate|16"
-  postgres-username: db_nextcloud
+  postgres-username: nextcloud

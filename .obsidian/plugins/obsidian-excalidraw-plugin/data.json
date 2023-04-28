@@ -47,7 +47,7 @@
   "iframelyAllowed": true,
   "pngExportScale": 1,
   "exportWithTheme": true,
-  "exportWithBackground": true,
+  "exportWithBackground": false,
   "exportPaddingSVG": 20,
   "keepInSync": true,
   "autoexportSVG": false,

@@ -12,7 +12,7 @@ now I can get ready to start the install
 
 ```bash
 ./setup install --platform proxmox \
-				--email loeken@internetz.me \
+				--email loeken@example.com \
 				--external_ip 1.2.3.4 \
 				--ingress nginx \
 				--domain loeken.xyz \
@@ -20,6 +20,7 @@ now I can get ready to start the install
 				--memory_k3s 28672 \
 				--cluster-issuer staging \
 				--disksize 100GB \
+				--helo_name mail.example.com \
 				--interface enp3s0 \
 				--kubernetes_version v1.26.4+k3s1 \
 				--macaddr 6E:1F:26:B6:DF:20 \
@@ -50,11 +51,11 @@ now I can get ready to start the install
 				--shared_media_disk_size 3000G \
 				--shared_media_disk_device sda \
 				--partition_external_shared_media_disk true \
-				--smtp_domain internetz.me \
-				--smtp_host mail.internetz.me \
+				--smtp_domain example.com \
+				--smtp_host mail.example.com \
 				--smtp_port 587 \
-				--smtp_sender homelab-beelink@internetz.me \
-				--smtp_username homelab-beelink@internetz.me \
+				--smtp_sender homelab-beelink@example.com \
+				--smtp_username homelab-beelink@example.com \
 				--smtp_password REPLACE \
 				--root_password topsecure \
 				--storage local-path \

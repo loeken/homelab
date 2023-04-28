@@ -98,8 +98,8 @@ deploys ^ffl88FOX
 		},
 		{
 			"type": "arrow",
-			"version": 652,
-			"versionNonce": 1612865052,
+			"version": 660,
+			"versionNonce": 1238527245,
 			"isDeleted": false,
 			"id": "jeb5vtgqfgV7qZcL64plT",
 			"fillStyle": "hachure",
@@ -125,7 +125,7 @@ deploys ^ffl88FOX
 					"id": "C216NDj0"
 				}
 			],
-			"updated": 1682622294817,
+			"updated": 1682697792994,
 			"link": null,
 			"locked": false,
 			"startBinding": {
@@ -190,8 +190,8 @@ deploys ^ffl88FOX
 		},
 		{
 			"type": "rectangle",
-			"version": 251,
-			"versionNonce": 1491614364,
+			"version": 253,
+			"versionNonce": 1907424909,
 			"isDeleted": false,
 			"id": "kLS8z6zJOK-h-JcVIsNQb",
 			"fillStyle": "hachure",
@@ -225,7 +225,7 @@ deploys ^ffl88FOX
 					"type": "arrow"
 				}
 			],
-			"updated": 1682622294817,
+			"updated": 1682697796019,
 			"link": null,
 			"locked": false
 		},
@@ -344,8 +344,8 @@ deploys ^ffl88FOX
 		},
 		{
 			"type": "arrow",
-			"version": 897,
-			"versionNonce": 186074012,
+			"version": 905,
+			"versionNonce": 1747803213,
 			"isDeleted": false,
 			"id": "-48LjWheyHDZuB7qjw9Hp",
 			"fillStyle": "hachure",
@@ -371,7 +371,7 @@ deploys ^ffl88FOX
 					"id": "ZqwWGwxC"
 				}
 			],
-			"updated": 1682622294817,
+			"updated": 1682697792989,
 			"link": null,
 			"locked": false,
 			"startBinding": {
@@ -436,8 +436,8 @@ deploys ^ffl88FOX
 		},
 		{
 			"type": "arrow",
-			"version": 471,
-			"versionNonce": 1864658972,
+			"version": 479,
+			"versionNonce": 746275693,
 			"isDeleted": false,
 			"id": "4nyMsX075Yv1S7o89XaMr",
 			"fillStyle": "hachure",
@@ -463,7 +463,7 @@ deploys ^ffl88FOX
 					"id": "ffl88FOX"
 				}
 			],
-			"updated": 1682622294817,
+			"updated": 1682697792996,
 			"link": null,
 			"locked": false,
 			"startBinding": {
@@ -671,13 +671,93 @@ deploys ^ffl88FOX
 			"originalText": "k3s",
 			"lineHeight": 1.25,
 			"baseline": 32
+		},
+		{
+			"type": "rectangle",
+			"version": 29,
+			"versionNonce": 1148865997,
+			"isDeleted": true,
+			"id": "PDmF1_f9GVaKVKvQKjYMj",
+			"fillStyle": "solid",
+			"strokeWidth": 1,
+			"strokeStyle": "solid",
+			"roughness": 1,
+			"opacity": 100,
+			"angle": 0,
+			"x": 225.7101447009902,
+			"y": -371.4050184709364,
+			"strokeColor": "#000000",
+			"backgroundColor": "#4c6ef5",
+			"width": 147.8571428571429,
+			"height": 100,
+			"seed": 2002075309,
+			"groupIds": [],
+			"roundness": {
+				"type": 3
+			},
+			"boundElements": [
+				{
+					"id": "NcWF8fih0m2UdRdqjvehS",
+					"type": "arrow"
+				}
+			],
+			"updated": 1682697795442,
+			"link": null,
+			"locked": false
+		},
+		{
+			"type": "arrow",
+			"version": 30,
+			"versionNonce": 924768547,
+			"isDeleted": true,
+			"id": "NcWF8fih0m2UdRdqjvehS",
+			"fillStyle": "solid",
+			"strokeWidth": 1,
+			"strokeStyle": "solid",
+			"roughness": 1,
+			"opacity": 100,
+			"angle": 0,
+			"x": 109.28157327241877,
+			"y": -257.1193041852221,
+			"strokeColor": "#000000",
+			"backgroundColor": "#4c6ef5",
+			"width": 114.28571428571433,
+			"height": 70.71428571428572,
+			"seed": 1736529347,
+			"groupIds": [],
+			"roundness": {
+				"type": 2
+			},
+			"boundElements": [],
+			"updated": 1682697796019,
+			"link": null,
+			"locked": false,
+			"startBinding": {
+				"elementId": "kLS8z6zJOK-h-JcVIsNQb",
+				"gap": 4.106954866109163,
+				"focus": 0.5112689239702982
+			},
+			"endBinding": null,
+			"lastCommittedPoint": null,
+			"startArrowhead": null,
+			"endArrowhead": "arrow",
+			"points": [
+				[
+					0,
+					0
+				],
+				[
+					114.28571428571433,
+					-70.71428571428572
+				]
+			]
 		}
 	],
 	"appState": {
 		"theme": "dark",
 		"viewBackgroundColor": "#ffffff",
 		"currentItemStrokeColor": "#000000",
-		"currentItemBackgroundColor": "#ced4da",
+		"currentItemBackgroundColor": "#4c6ef5",
 		"currentItemFillStyle": "solid",
 		"currentItemStrokeWidth": 1,
 		"currentItemStrokeStyle": "solid",
@@ -688,8 +768,8 @@ deploys ^ffl88FOX
 		"currentItemTextAlign": "left",
 		"currentItemStartArrowhead": null,
 		"currentItemEndArrowhead": "arrow",
-		"scrollX": 445.0041410132954,
-		"scrollY": 597.3425184709364,
+		"scrollX": 525.7184267275811,
+		"scrollY": 477.47644704236495,
 		"zoom": {
 			"value": 1.4000000000000001
 		},

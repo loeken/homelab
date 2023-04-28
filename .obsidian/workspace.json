@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/05_beelink_nginx.md",
+                "file": "docs/01_gitops_concepts.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/05_beelink_nginx.md",
+                "file": "docs/01_gitops_concepts.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docs/05_beelink_nginx.md",
+                "file": "docs/01_gitops_concepts.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/05_beelink_nginx.md"
+                "file": "docs/01_gitops_concepts.md"
               }
             }
           }
@@ -150,8 +150,12 @@
   },
   "active": "e352d5f4cd8b0eeb",
   "lastOpenFiles": [
-    "docs/06_beelink_cloudflare_tunnel.md",
+    "docs/Excalidraw/gitops.md",
+    "docs/Excalidraw/gitops.png",
+    "docs/01_gitops_concepts.md",
+    "docs/Excalidraw/beelink.md",
     "docs/05_beelink_nginx.md",
+    "docs/06_beelink_cloudflare_tunnel.md",
     "docs/Excalidraw/beelink.png",
     "docs/Excalidraw/three-choices.png",
     "docs/Excalidraw/minikube.png",
@@ -162,10 +166,7 @@
     "docs/02_github_repository.md",
     "docs/Excalidraw/upstream_clone.png",
     "docs/Excalidraw/upstream_clone.md",
-    "docs/01_gitops_concepts.md",
-    "docs/Excalidraw/gitops.md",
     "docs/Excalidraw/three-choices.md",
-    "docs/Excalidraw/gitops.png",
     "docs/Excalidraw/gitops.dark.png",
     "docs/Excalidraw/gitops.light.png",
     "Excalidraw/gitops.png.md",
@@ -176,7 +177,6 @@
     "docs/Excalidraw/minikube.md",
     "docs/index.md",
     "docs/04_installation_overview.md",
-    "docs/Excalidraw/beelink.md",
     "img/three-choices.md",
     "docs/README.md.md",
     "index.md",

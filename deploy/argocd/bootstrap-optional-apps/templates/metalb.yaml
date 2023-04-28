@@ -6,17 +6,11 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://charts.bitnami.com/bitnami'
-    targetRevision: 4.3.0
-    chart: metallb
-    helm:
-      values: |
-        configInline:
-          address-pools:
-          - name: default
-            protocol: layer2
-            addresses:
-            - 172.16.137.1-172.16.137.9
+    repoURL: 'https://github.com/metallb/metallb.git'
+    targetRevision: main
+    path: manifests
+    kustomize:
+      namePrefix: metallb-
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: metallb-system
@@ -26,3 +20,16 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+---
+apiVersion: metallb.io/v1alpha1
+kind: ConfigMap
+metadata:
+  namespace: metallb-system
+  name: metallb-config
+data:
+  config: |
+    address-pools:
+    - name: default
+      protocol: layer2
+      addresses:
+      - 172.16.137.1-172.16.137.9

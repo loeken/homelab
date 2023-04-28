@@ -1582,7 +1582,7 @@ func loadSecretFromTemplate(namespace string, application string) {
 				}
 				strValue = generatePassword(length)
 			}
-		} else {
+		} else if viper.GetString(strKey) != "" {
 			color.Green("found " + strKey + " value in arguments, reusing that as default")
 			strValue = viper.GetString(strKey)
 		}

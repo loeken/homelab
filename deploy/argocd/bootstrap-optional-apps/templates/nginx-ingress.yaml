@@ -19,12 +19,6 @@ spec:
         controller:
           service:
             externalTrafficPolicy: Local
-            type: NodePort
-            # httpPort:
-            #   nodePort: 30080
-            # httpsPort:
-            #   nodePort: 30443
-          kind: daemonset
   destination:
     namespace: nginx-ingress
     server: https://kubernetes.default.svc

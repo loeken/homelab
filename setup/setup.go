@@ -45,6 +45,8 @@ var options = []configOption{
 	{"key", "vaultwarden", "the key inside the secret for example: smtp_username", nil, []string{"update-secret"}},
 	{"value", "topsecure", "the value of the key for example: topsecure", nil, []string{"update-secret"}},
 
+	{"upgrade", "false", "upgrade the helm charts to the last version", nil, []string{"update"}},
+
 	{"bridge", "vmbr0", "name of the bridge", nil, []string{"install"}},
 	{"cores_k3s", "10", "the amount of virtual cores to pass to the k3s vm", nil, []string{"install"}},
 	{"cluster-issuer", "staging", "when using nginx ingress, select cluster issuer ( staging / prod )", nil, []string{"install"}},
@@ -145,6 +147,37 @@ func main() {
 			parts := strings.Split(new_repo, "/")
 			checkDependencies(true, parts[1])
 
+		},
+	}
+
+	updateCheckCommand := &cobra.Command{
+		Use:   "update",
+		Short: "check/update charts",
+		Run: func(cmd *cobra.Command, args []string) {
+			file1 := "../deploy/argocd/bootstrap-optional-apps/values.yaml.example"
+			file2 := "../deploy/argocd/bootstrap-optional-apps/values.yaml"
+
+			diff, err := compareChartVersions(file1, file2)
+			if err != nil {
+				log.Fatalf("Error comparing chart versions: %v", err)
+			}
+
+			if len(diff) > 0 {
+				fmt.Println("Differences found:")
+				for _, d := range diff {
+					fmt.Printf("Parent: %s\nChartVersion 1: %s\nChartVersion 2: %s\n\n", d.Parent, d.ChartVersion1, d.ChartVersion2)
+				}
+
+				if viper.GetString("upgrade") == "true" {
+					err = updateChartVersions(file2, diff)
+					if err != nil {
+						log.Fatalf("Error updating chart versions: %v", err)
+					}
+					fmt.Println("Updated chart versions in the second file.")
+				}
+			} else {
+				fmt.Println("No differences found.")
+			}
 		},
 	}
 	updateSecrets := &cobra.Command{
@@ -1139,6 +1172,7 @@ func main() {
 	// Add subcommands to root command
 	rootCmd.AddCommand(githubCmd)
 	rootCmd.AddCommand(updateSecrets)
+	rootCmd.AddCommand(updateCheckCommand)
 	//rootCmd.AddCommand(enableArgocdApp)
 	rootCmd.AddCommand(installCmd)
 	rootCmd.AddCommand(destroyCmd)
@@ -1165,6 +1199,8 @@ func main() {
 				// 	cmdToAddOptions = enableArgocdApp
 				case "destroy":
 					cmdToAddOptions = destroyCmd
+				case "update":
+					cmdToAddOptions = updateCheckCommand
 				case "update-secret":
 					cmdToAddOptions = updateSecrets
 				}
@@ -2119,4 +2155,87 @@ func writeExecutedCommand(commandWithFlags string) {
 		fmt.Println("error writing to config file:", err)
 		return
 	}
+}
+
+type Diff struct {
+	Parent        string
+	ChartVersion1 string
+	ChartVersion2 string
+}
+
+func compareChartVersions(file1, file2 string) ([]Diff, error) {
+	content1, err := ioutil.ReadFile(file1)
+	if err != nil {
+		return nil, fmt.Errorf("reading file1: %v", err)
+	}
+
+	content2, err := ioutil.ReadFile(file2)
+	if err != nil {
+		return nil, fmt.Errorf("reading file2: %v", err)
+	}
+
+	var yaml1, yaml2 map[string]interface{}
+	err = yaml.Unmarshal(content1, &yaml1)
+	if err != nil {
+		return nil, fmt.Errorf("unmarshaling file1: %v", err)
+	}
+
+	err = yaml.Unmarshal(content2, &yaml2)
+	if err != nil {
+		return nil, fmt.Errorf("unmarshaling file2: %v", err)
+	}
+
+	var diff []Diff
+	for key, val := range yaml1 {
+		if submap1, ok := val.(map[interface{}]interface{}); ok {
+			if submap2, ok := yaml2[key].(map[interface{}]interface{}); ok {
+				cv1 := getChartVersion(submap1)
+				cv2 := getChartVersion(submap2)
+				if cv1 != "" && cv2 != "" && cv1 != cv2 {
+					diff = append(diff, Diff{Parent: key, ChartVersion1: cv1, ChartVersion2: cv2})
+				}
+			}
+		}
+	}
+
+	return diff, nil
+}
+
+func getChartVersion(m map[interface{}]interface{}) string {
+	if cv, ok := m["chartVersion"]; ok {
+		return fmt.Sprint(cv)
+	}
+	if cv, ok := m["chart_version"]; ok {
+		return fmt.Sprint(cv)
+	}
+	return ""
+}
+func updateChartVersions(file string, diff []Diff) error {
+	content, err := ioutil.ReadFile(file)
+	if err != nil {
+		return fmt.Errorf("reading file: %v", err)
+	}
+
+	lines := strings.Split(string(content), "\n")
+	for _, d := range diff {
+		parentFound := false
+		for i, line := range lines {
+			if strings.Contains(line, d.Parent+":") {
+				parentFound = true
+			}
+
+			if parentFound && (strings.Contains(line, "chartVersion:") || strings.Contains(line, "chart_version:")) {
+				lines[i] = strings.Replace(lines[i], d.ChartVersion2, d.ChartVersion1, 1)
+				break
+			}
+		}
+	}
+
+	updatedContent := strings.Join(lines, "\n")
+	err = ioutil.WriteFile(file, []byte(updatedContent), 0644)
+	if err != nil {
+		return fmt.Errorf("writing file: %v", err)
+	}
+
+	return nil
 }

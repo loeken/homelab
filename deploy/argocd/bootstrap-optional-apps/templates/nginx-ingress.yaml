@@ -19,7 +19,7 @@ spec:
         controller:
           service:
             externalTrafficPolicy: Local
-            type: NodePort
+            type: LoadBalancer
           kind: daemonset
   destination:
     namespace: nginx-ingress

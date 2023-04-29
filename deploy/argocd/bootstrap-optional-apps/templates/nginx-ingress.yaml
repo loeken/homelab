@@ -21,6 +21,8 @@ spec:
             externalTrafficPolicy: Local
             type: LoadBalancer
           kind: daemonset
+          publishService:
+            enabled: true
   destination:
     namespace: nginx-ingress
     server: https://kubernetes.default.svc

@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: 'https://charts.bitnami.com/bitnami'
     targetRevision: 4.3.0
-    path: metallb
+    chart: metallb
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: metallb-system

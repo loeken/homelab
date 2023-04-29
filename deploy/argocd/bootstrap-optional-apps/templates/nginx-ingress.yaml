@@ -10,7 +10,7 @@ spec:
   source:
     chart: nginx-ingress-controller
     repoURL: https://charts.bitnami.com/bitnami
-    targetRevision: "9.1.5"
+    targetRevision: "9.5.1"
     helm:
       values: |
         service:

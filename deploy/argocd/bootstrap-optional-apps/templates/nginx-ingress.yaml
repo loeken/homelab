@@ -18,8 +18,8 @@ spec:
           type: NodePort
           kind: DaemonSet
           nodePorts:
-            http: 30385
-            https: 31820
+            http: 30080
+            https: 30443
   destination:
     namespace: nginx-ingress
     server: https://kubernetes.default.svc

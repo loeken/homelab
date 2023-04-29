@@ -20,6 +20,7 @@ spec:
           service:
             externalTrafficPolicy: Local
             type: NodePort
+          kind: daemonset
   destination:
     namespace: nginx-ingress
     server: https://kubernetes.default.svc

@@ -8,10 +8,8 @@ spec:
   source:
     repoURL: 'https://charts.bitnami.com/bitnami'
     targetRevision: 4.0.1
-    path: metallb
+    chart: metallb
     helm:
-      name: metallb
-      namespace: metallb-system
       values: |
         configInline:
           address-pools:

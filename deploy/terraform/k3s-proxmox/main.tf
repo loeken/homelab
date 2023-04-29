@@ -28,6 +28,7 @@ resource "proxmox_vm_qemu" "k3s-vm" {
   ciuser = var.ssh_username
   qemu_os = "l26"
   vcpus = var.cores_k3s
+  user_data = file("cloud-init.cfg")
   disk {
     type    = "virtio"
     storage = "local"

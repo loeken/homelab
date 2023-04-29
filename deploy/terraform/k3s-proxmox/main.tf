@@ -61,7 +61,7 @@ resource "proxmox_vm_qemu" "k3s-vm" {
       --user ${var.ssh_username} \
       --cluster \
       --k3s-version ${var.kubernetes_version} \
-      --k3s-extra-args '--disable=traefik --node-external-ip=${var.external_ip} --advertise-address=${proxmox_vm_qemu.k3s-vm.default_ipv4_address} --node-ip=${proxmox_vm_qemu.k3s-vm.default_ipv4_address}'
+      --k3s-extra-args '--disable=traefik,servicelb --node-external-ip=${var.external_ip} --advertise-address=${proxmox_vm_qemu.k3s-vm.default_ipv4_address} --node-ip=${proxmox_vm_qemu.k3s-vm.default_ipv4_address}'
     EOT
   }
 }

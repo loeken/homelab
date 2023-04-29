@@ -1,28 +1,25 @@
-{{ if .Values.nginxingress.enabled }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: nginx-ingress
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "3"
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
+    argocd.argoproj.io/sync-wave: "4"
 spec:
   project: default
   source:
-    chart: nginx-ingress
-    repoURL: https://helm.nginx.com/stable
-    targetRevision: {{ .Values.nginxingress.chartVersion }}
+    chart: nginx-ingress-controller
+    repoURL: https://charts.bitnami.com/bitnami
+    targetRevision: "9.1.5"
     helm:
       values: |
-        controller:
-          service:
-            externalTrafficPolicy: Local
-            type: LoadBalancer
-          kind: daemonset
-          publishService:
-            enabled: true
+        service:
+          externalTrafficPolicy: Local
+          type: NodePort
+          kind: DaemonSet
+          nodePorts:
+            http: 30385
+            https: 31820
   destination:
     namespace: nginx-ingress
     server: https://kubernetes.default.svc
@@ -32,4 +29,3 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-{{ end }}

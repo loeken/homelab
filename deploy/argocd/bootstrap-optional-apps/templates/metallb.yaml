@@ -7,10 +7,14 @@ spec:
   project: default
   source:
     repoURL: 'https://charts.bitnami.com/bitnami'
-    targetRevision: 4.3.0
+    targetRevision: 4.0.1
     chart: metallb
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: metallb-system
   syncPolicy:
-    automated: {}
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

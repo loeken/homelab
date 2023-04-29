@@ -52,21 +52,36 @@ resource "proxmox_vm_qemu" "k3s-vm" {
     bridge = var.bridge
     macaddr = var.macaddr
   }
+}
+resource "null_resource" "k3s-installation" {
+  # This resource will only be executed after the K3s virtual machine is up and running
+  depends_on = [proxmox_vm_qemu.k3s-vm]
+
   provisioner "local-exec" {
     working_dir = "${path.module}/${var.kubeconfig_location}"
     command = <<EOT
-      k3sup install \
-      --ip ${proxmox_vm_qemu.k3s-vm.default_ipv4_address} \
-      --ssh-key ${var.ssh_private_key} \
-      --user ${var.ssh_username} \
-      --cluster \
-      --k3s-version ${var.kubernetes_version} \
-      --k3s-extra-args '--disable=traefik,servicelb --node-external-ip=${var.external_ip} --advertise-address=${proxmox_vm_qemu.k3s-vm.default_ipv4_address} --node-ip=${proxmox_vm_qemu.k3s-vm.default_ipv4_address}'
+      #!/bin/bash
+      retries=1
+      while [ $retries -ge 0 ]; do
+        k3sup install \
+        --ip ${proxmox_vm_qemu.k3s-vm.default_ipv4_address} \
+        --ssh-key ${var.ssh_private_key} \
+        --user ${var.ssh_username} \
+        --cluster \
+        --k3s-version ${var.kubernetes_version} \
+        --k3s-extra-args '--disable=traefik,servicelb --node-external-ip=${var.external_ip} --advertise-address=${proxmox_vm_qemu.k3s-vm.default_ipv4_address} --node-ip=${proxmox_vm_qemu.k3s-vm.default_ipv4_address}' && break
+
+        retries=$((retries - 1))
+        if [ $retries -ge 0 ]; then
+          sleep 10
+        fi
+      done
     EOT
   }
 }
 
 resource "null_resource" "upload_ips" {
+  depends_on = [null_resource.k3s-installation]
   connection {
     type     = "ssh"
     host     = proxmox_vm_qemu.k3s-vm.default_ipv4_address
@@ -87,7 +102,7 @@ resource "null_resource" "upload_ips" {
 
 resource "null_resource" "nfs_server" {
   count = var.storage == "local-path" && !var.partition_external_shared_media_disk == "true" ? 1 : 0
-
+  depends_on = [null_resource.upload_ips]
   connection {
     type        = "ssh"
     host        = proxmox_vm_qemu.k3s-vm.default_ipv4_address
@@ -108,7 +123,7 @@ resource "null_resource" "nfs_server" {
 }
 resource "null_resource" "nfs_server_extradisk" {
   count = var.storage == "local-path" && var.partition_external_shared_media_disk == "true" ? 1 : 0
-
+  depends_on = [null_resource.nfs_server, null_resource.upload_ips]
   connection {
     type        = "ssh"
     host        = proxmox_vm_qemu.k3s-vm.default_ipv4_address

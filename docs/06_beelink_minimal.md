@@ -45,11 +45,11 @@ this is all turned off except whoami this helps testing ingress configurations
 				--ssh_username loeken \
 				--shared_media_disk_size 3000G \
 				--shared_media_disk_device sda \
-				--partition_external_shared_media_disk true \
+				--partition_external_shared_media_disk false \
 				--root_password topsecure \
 				--storage local-path \
 				--cloudflare_api_token REPLACE \
-				--nginx_upstream_vm true
+				--nginx_upstream_vm false
 
 ```
 

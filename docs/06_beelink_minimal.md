@@ -1,18 +1,12 @@
-# 06 - installation cloudflare tunnel
-I have a beelink sei12 with 32GB of ram, this comes with an interal ssd ( 500GB ) and ive added a 4TB 2.5" evo ssd in there. This one i ll be setting up with proxmox as it will run a few small other vms besides the kvm that runs homelab. Of that external 4TB ill use 3TB for homelab
+# 07 - minimal install
 
 ![Beelink](Excalidraw/beelink.png)
 
-since i want to partition the /dev/sda i ll ssh into the server and prepare it
-```bash
-sudo wipefs --all /dev/sda
-```
-
-now I can get ready to start the install 
+this is all turned off except whoami this helps testing ingress configurations
 
 ```bash
 ./setup install --platform proxmox \
-				--email loeken@internetz.me \
+				--email loeken@example.com \
 				--external_ip 46.142.60.140 \
 				--ingress nginx \
 				--domain loeken.xyz \
@@ -21,7 +15,7 @@ now I can get ready to start the install
 				--cert-manager true \
 				--cluster-issuer letsencrypt-staging \
 				--disksize 100GB \
-				--helo_name mail.internetz.me \
+				--helo_name mail.example.com \
 				--interface enp3s0 \
 				--kubernetes_version v1.26.4+k3s1 \
 				--macaddr 6E:1F:26:B6:DF:20 \
@@ -54,7 +48,8 @@ now I can get ready to start the install
 				--partition_external_shared_media_disk true \
 				--root_password topsecure \
 				--storage local-path \
-				--cloudflare_api_token REPLACE
+				--cloudflare_api_token REPLACE \
+				--nginx_upstream_vm true
 
 ```
 

@@ -111,3 +111,15 @@ therer are plenty of other flags, pretty much every app that can run in the clus
 ## --ingress
 this defines which ingress to use, my recommendation is to use nginx ( as we also have external-dns/cert-manager ). nginx is also required if you plan on using authelia.
 Cloudflare tunnels is a simple alternative that create a tunnel to cloudflare and route traffic through those tunnels. this avoids having to open ports locally.
+
+by default k3s ships with servicelb we're going to use that. we're also installing the nginx-ingress-controller from bitnami.
+```
+nginx-ingress    nginx-ingress-nginx-ingress-controller                   NodePort    10.43.53.149    <none>        80:30080/TCP,443:30443 TCP            120m
+```
+
+the load balancer exposes port 30080 and port 30443, you now have a few option
+- if you run this at home and have a nat you can forward your public port 80 to port 30080 on the node's ip. do the same for 443/30443.
+- if you run this on a server and want to use 80/443, use the --nginx_upstream_vm true option
+
+## --nginx_upstream_vm
+this will create another vm based on the debian 11 template, it will install nginx and configure a nginx config that sends port 80/443 to the upstream ( kubernetes node ) on port 30080/30443. That way you can use port 80/443 without having to use the HostNetwork.

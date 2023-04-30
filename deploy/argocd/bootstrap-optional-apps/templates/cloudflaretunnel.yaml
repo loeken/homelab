@@ -25,7 +25,7 @@ spec:
             {{- end }}
             {{- if .Values.whoami.ingress.cloudflaretunnel.enabled }}
             - hostname: whoami.{{ .Values.domain }}
-              servicename: http://whoami-whoami.whoami:80
+              servicename: http://whoami.whoami:80
             {{- end }}
             {{- if .Values.loki.ingress.cloudflaretunnel.enabled }}
             - hostname: grafana.{{ .Values.domain }}

@@ -342,7 +342,7 @@ func main() {
 						--ssh_password demotime \
 						--ssh_private_key ~/.ssh/id_ed25519 \
 						--ssh_public_key ~/.ssh/id_ed25519.pub \
-						--ssh_server_address 172.16.137.250 \
+						--ssh_server_address 172.16.137.36 \
 						--ssh_username loeken \
 						--shared_media_disk_size false \
 						--shared_media_disk_device false \

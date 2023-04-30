@@ -47,66 +47,66 @@ var options = []configOption{
 
 	{"upgrade", "false", "upgrade the helm charts to the last version", nil, []string{"update"}},
 
-	{"bridge", "vmbr0", "name of the bridge", nil, []string{"install"}},
-	{"cores_k3s", "10", "the amount of virtual cores to pass to the k3s vm", nil, []string{"install"}},
-	{"cluster-issuer", "staging", "when using nginx ingress, select cluster issuer ( staging / prod )", nil, []string{"install"}},
-	{"cloudflare_api_token", "false", "used for external-dns and to destroy dns records", nil, []string{"install", "destroy"}},
-	{"disksize", "100G", "disk size + metric ( example: 100G )", nil, []string{"install"}},
-	{"domain", "", "the domain you want to use", nil, []string{"install", "destroy"}},
-	{"email", "", "the email used for most configs", nil, []string{"install", "destroy"}},
-	{"external_ip", "1.2.3.4", "your external ipv4 ( curl -4 ifconfig.co )", nil, []string{"install"}},
-	{"helo_name", "mail.example.com", "when sending email this is sent to the mail server while logging on", nil, []string{"install"}},
-	{"interface", "enp3s0", "name of the primary interface", nil, []string{"install"}},
-	{"ingress", "cloudflaretunnel", "which ingress to use ( nginx/cloudflaretunnel )", []string{"nginx", "cloudflaretunnel"}, []string{"install"}},
-	{"kubernetes_version", "v1.26.4+k3s1", "kubernetes version", nil, []string{"install"}},
-	{"local_path", "", "the folder into which new_repo will be cloned into", nil, []string{"install", "github"}},
-	{"macaddr", "6E:1F:26:B6:DF:20", "mac address used for the k3s vm", nil, []string{"install"}},
-	{"memory_k3s", "28672", "amount of ram in MB to assign to the VM ", nil, []string{"install"}},
-	{"new_repo", "", "the name of your new repo", nil, []string{"install", "github", "check-dependencies", "destroy"}},
-	{"pci_passthrough", "intel", "prepare pci passthrough", []string{"null", "intel", "amd"}, []string{"install"}},
-	{"pci_device", "0000:02:00.0", "the pci address of your gpu ( lspci |grep VGA )", nil, []string{"install"}},
-	{"platform", "proxmox", "server type: proxmox, minikube, baremetal", []string{"proxmox", "minikube", "baremetal"}, []string{"install"}},
-	{"proxmox_node_name", "beelink-sei12", "the name of the proxmox node ( hostname )", nil, []string{"install"}},
-	{"proxmox_vm_name", "k3s-beelink-01", "name of the virtual machine in proxmox", nil, []string{"install"}},
-	{"root_password", "topsecure", "root password ( used for login to proxmox )", nil, []string{"install"}},
-	{"smtp_from", "smtp_sender", "the email address used by vaultwarden to send emails with defaults to using the value of smtp_sender", nil, []string{"install"}},
-	{"smtp_host", "mail.example.com", "the host of your email server", nil, []string{"install"}},
-	{"smtp_port", "587", "the port of your email server", nil, []string{"install"}},
-	{"smtp_sender", "homelab@example.com", "the email address used to send emails", nil, []string{"install"}},
-	{"smtp_username", "homelab@example.com", "the username used to login to your email", nil, []string{"install"}},
-	{"smtp_domain", "example.com", "the domain from which the email is sent from", nil, []string{"install"}},
-	{"smtp_password", "example.com", "the password for the email", nil, []string{"install"}},
-	{"ssh_password", "demotime", "ssh password", nil, []string{"install"}},
-	{"ssh_private_key", "~/.ssh/id_ed25519", "location of ssh private key, id_ed25519 when generated with gh auth login", nil, []string{"install"}},
-	{"ssh_public_key", "~/.ssh/id_ed25519.pub", "location of ssh public key, id_ed25519.pub when generated with gh auth login", nil, []string{"install"}},
-	{"ssh_server_address", "172.16.137.36", "ip address of server for ssh connection", []string{"proxmox"}, []string{"install"}},
-	{"ssh_server_gateway", "172.16.137.254", "gateway of server ( example 172.16.137.254 )", nil, []string{"install"}},
-	{"ssh_server_netmask", "24", "amount of ram in MB to assign to the VM ", nil, []string{"install"}},
-	{"ssh_username", "loeken", "ssh usernamer", nil, []string{"install"}},
-	{"storage", "local-path", "storage type ( democratic-csi, local-path)", []string{"democratic-csi", "local-path"}, []string{"install"}},
+	{"bridge", "vmbr0", "name of the bridge", nil, []string{"install", "report"}},
+	{"cores_k3s", "10", "the amount of virtual cores to pass to the k3s vm", nil, []string{"install", "report"}},
+	{"cluster-issuer", "staging", "when using nginx ingress, select cluster issuer ( staging / prod )", nil, []string{"install", "report"}},
+	{"cloudflare_api_token", "false", "used for external-dns and to destroy dns records", nil, []string{"install", "report", "destroy"}},
+	{"disksize", "100G", "disk size + metric ( example: 100G )", nil, []string{"install", "report"}},
+	{"domain", "", "the domain you want to use", nil, []string{"install", "report", "destroy"}},
+	{"email", "", "the email used for most configs", nil, []string{"install", "report", "destroy"}},
+	{"external_ip", "1.2.3.4", "your external ipv4 ( curl -4 ifconfig.co )", nil, []string{"install", "report"}},
+	{"helo_name", "mail.example.com", "when sending email this is sent to the mail server while logging on", nil, []string{"install", "report"}},
+	{"interface", "enp3s0", "name of the primary interface", nil, []string{"install", "report"}},
+	{"ingress", "cloudflaretunnel", "which ingress to use ( nginx/cloudflaretunnel )", []string{"nginx", "cloudflaretunnel"}, []string{"install", "report"}},
+	{"kubernetes_version", "v1.26.4+k3s1", "kubernetes version", nil, []string{"install", "report"}},
+	{"local_path", "", "the folder into which new_repo will be cloned into", nil, []string{"install", "report", "github"}},
+	{"macaddr", "6E:1F:26:B6:DF:20", "mac address used for the k3s vm", nil, []string{"install", "report"}},
+	{"memory_k3s", "28672", "amount of ram in MB to assign to the VM ", nil, []string{"install", "report"}},
+	{"new_repo", "", "the name of your new repo", nil, []string{"install", "report", "github", "check-dependencies", "destroy"}},
+	{"pci_passthrough", "intel", "prepare pci passthrough", []string{"null", "intel", "amd"}, []string{"install", "report"}},
+	{"pci_device", "0000:02:00.0", "the pci address of your gpu ( lspci |grep VGA )", nil, []string{"install", "report"}},
+	{"platform", "proxmox", "server type: proxmox, minikube, baremetal", []string{"proxmox", "minikube", "baremetal"}, []string{"install", "report"}},
+	{"proxmox_node_name", "beelink-sei12", "the name of the proxmox node ( hostname )", nil, []string{"install", "report"}},
+	{"proxmox_vm_name", "k3s-beelink-01", "name of the virtual machine in proxmox", nil, []string{"install", "report"}},
+	{"root_password", "topsecure", "root password ( used for login to proxmox )", nil, []string{"install", "report"}},
+	{"smtp_from", "smtp_sender", "the email address used by vaultwarden to send emails with defaults to using the value of smtp_sender", nil, []string{"install", "report"}},
+	{"smtp_host", "mail.example.com", "the host of your email server", nil, []string{"install", "report"}},
+	{"smtp_port", "587", "the port of your email server", nil, []string{"install", "report"}},
+	{"smtp_sender", "homelab@example.com", "the email address used to send emails", nil, []string{"install", "report"}},
+	{"smtp_username", "homelab@example.com", "the username used to login to your email", nil, []string{"install", "report"}},
+	{"smtp_domain", "example.com", "the domain from which the email is sent from", nil, []string{"install", "report"}},
+	{"smtp_password", "example.com", "the password for the email", nil, []string{"install", "report"}},
+	{"ssh_password", "demotime", "ssh password", nil, []string{"install", "report"}},
+	{"ssh_private_key", "~/.ssh/id_ed25519", "location of ssh private key, id_ed25519 when generated with gh auth login", nil, []string{"install", "report"}},
+	{"ssh_public_key", "~/.ssh/id_ed25519.pub", "location of ssh public key, id_ed25519.pub when generated with gh auth login", nil, []string{"install", "report"}},
+	{"ssh_server_address", "172.16.137.36", "ip address of server for ssh connection", []string{"proxmox"}, []string{"install", "report"}},
+	{"ssh_server_gateway", "172.16.137.254", "gateway of server ( example 172.16.137.254 )", nil, []string{"install", "report"}},
+	{"ssh_server_netmask", "24", "amount of ram in MB to assign to the VM ", nil, []string{"install", "report"}},
+	{"ssh_username", "loeken", "ssh usernamer", nil, []string{"install", "report"}},
+	{"storage", "local-path", "storage type ( democratic-csi, local-path)", []string{"democratic-csi", "local-path"}, []string{"install", "report"}},
 
 	// app section
-	{"authelia", "false", "enable argocd app authelia", nil, []string{"enable-argocd-app", "install"}},
-	{"cert-manager", "false", "enable argocd app cert-manager", nil, []string{"enable-argocd-app", "install"}},
-	{"externaldns", "false", "enable argocd app external-dns", nil, []string{"enable-argocd-app", "install"}},
-	{"loki", "false", "enable argocd app loki", nil, []string{"enable-argocd-app", "install"}},
-	{"ha", "false", "enable argocd app home-assistant", nil, []string{"enable-argocd-app", "install"}},
-	{"partition_external_shared_media_disk", "false", "will partition --shared-media-disk-device", nil, []string{"enable-argocd-app", "install", "destroy"}},
-	{"shared_media_disk_size", "100Gi", "define the size of the shared media disk", nil, []string{"enable-argocd-app", "install"}},
-	{"shared_media_disk_device", "sda", "give the device name of your external shared media disk", nil, []string{"enable-argocd-app", "install"}},
-	{"jellyfin", "false", "enable argocd app jellyfin", nil, []string{"enable-argocd-app", "install"}},
-	{"jellyseerr", "false", "enable argocd app jellyseerr", nil, []string{"enable-argocd-app", "install"}},
-	{"kasten-k10", "false", "enable argocd app kasten-k10", nil, []string{"enable-argocd-app", "install"}},
-	{"nextcloud", "false", "enable argocd app nextcloud", nil, []string{"enable-argocd-app", "install"}},
-	{"nzbget", "false", "enable argocd app nzbget", nil, []string{"enable-argocd-app", "install"}},
-	{"prowlarr", "false", "enable argocd app prowlarr", nil, []string{"enable-argocd-app", "install"}},
-	{"radarr", "false", "enable argocd app radarr", nil, []string{"enable-argocd-app", "install"}},
-	{"rtorrentflood", "false", "enable argocd app rtorrent-flood", nil, []string{"enable-argocd-app", "install"}},
-	{"sonarr", "false", "enable argocd app sonarr", nil, []string{"enable-argocd-app", "install"}},
-	{"vaultwarden", "false", "enable argocd app vaultwarden", nil, []string{"enable-argocd-app", "install"}},
-	{"whoami", "true", "enable argocd app whoami", nil, []string{"enable-argocd-app", "install"}},
+	{"authelia", "false", "enable argocd app authelia", nil, []string{"enable-argocd-app", "install", "report"}},
+	{"cert-manager", "false", "enable argocd app cert-manager", nil, []string{"enable-argocd-app", "install", "report"}},
+	{"externaldns", "false", "enable argocd app external-dns", nil, []string{"enable-argocd-app", "install", "report"}},
+	{"loki", "false", "enable argocd app loki", nil, []string{"enable-argocd-app", "install", "report"}},
+	{"ha", "false", "enable argocd app home-assistant", nil, []string{"enable-argocd-app", "install", "report"}},
+	{"partition_external_shared_media_disk", "false", "will partition --shared-media-disk-device", nil, []string{"enable-argocd-app", "install", "report", "destroy"}},
+	{"shared_media_disk_size", "100Gi", "define the size of the shared media disk", nil, []string{"enable-argocd-app", "install", "report"}},
+	{"shared_media_disk_device", "sda", "give the device name of your external shared media disk", nil, []string{"enable-argocd-app", "install", "report"}},
+	{"jellyfin", "false", "enable argocd app jellyfin", nil, []string{"enable-argocd-app", "install", "report"}},
+	{"jellyseerr", "false", "enable argocd app jellyseerr", nil, []string{"enable-argocd-app", "install", "report"}},
+	{"kasten-k10", "false", "enable argocd app kasten-k10", nil, []string{"enable-argocd-app", "install", "report"}},
+	{"nextcloud", "false", "enable argocd app nextcloud", nil, []string{"enable-argocd-app", "install", "report"}},
+	{"nzbget", "false", "enable argocd app nzbget", nil, []string{"enable-argocd-app", "install", "report"}},
+	{"prowlarr", "false", "enable argocd app prowlarr", nil, []string{"enable-argocd-app", "install", "report"}},
+	{"radarr", "false", "enable argocd app radarr", nil, []string{"enable-argocd-app", "install", "report"}},
+	{"rtorrentflood", "false", "enable argocd app rtorrent-flood", nil, []string{"enable-argocd-app", "install", "report"}},
+	{"sonarr", "false", "enable argocd app sonarr", nil, []string{"enable-argocd-app", "install", "report"}},
+	{"vaultwarden", "false", "enable argocd app vaultwarden", nil, []string{"enable-argocd-app", "install", "report"}},
+	{"whoami", "true", "enable argocd app whoami", nil, []string{"enable-argocd-app", "install", "report"}},
 
-	{"nginx_upstream_vm", "false", "create an extra upstream vm", nil, []string{"install"}},
+	{"nginx_upstream_vm", "false", "create an extra upstream vm", nil, []string{"install", "report"}},
 }
 
 type Command struct {
@@ -180,6 +180,33 @@ func main() {
 			} else {
 				fmt.Println("No differences found.")
 			}
+		},
+	}
+	reportCommand := &cobra.Command{
+		Use:   "report",
+		Short: "hides sensitive information from install command",
+		Run: func(cmd *cobra.Command, args []string) {
+			// List of sensitive flag names
+			sensitiveFlags := []string{"password", "cloudflare_api_token", "domain", "email", "root_password", "smtp_password", "smtp_sender", "smtp_username", "ssh_password", "helo_name"}
+
+			cmd.Flags().VisitAll(func(flag *pflag.Flag) {
+				// Check if flag name is in sensitiveFlags
+				isSensitive := false
+				for _, sensitiveFlag := range sensitiveFlags {
+					if strings.EqualFold(flag.Name, sensitiveFlag) {
+						isSensitive = true
+						break
+					}
+				}
+
+				if isSensitive {
+					// If yes, print flag name and mask the value with asterisks
+					fmt.Printf("%s: ********\n", flag.Name)
+				} else {
+					// If not, print flag name and value
+					fmt.Printf("%s: %v\n", flag.Name, viper.Get(flag.Name))
+				}
+			})
 		},
 	}
 	updateSecrets := &cobra.Command{
@@ -1185,6 +1212,7 @@ func main() {
 	rootCmd.AddCommand(githubCmd)
 	rootCmd.AddCommand(updateSecrets)
 	rootCmd.AddCommand(updateCheckCommand)
+	rootCmd.AddCommand(reportCommand)
 	//rootCmd.AddCommand(enableArgocdApp)
 	rootCmd.AddCommand(installCmd)
 	rootCmd.AddCommand(destroyCmd)
@@ -1211,6 +1239,8 @@ func main() {
 				// 	cmdToAddOptions = enableArgocdApp
 				case "destroy":
 					cmdToAddOptions = destroyCmd
+				case "report":
+					cmdToAddOptions = reportCommand
 				case "update":
 					cmdToAddOptions = updateCheckCommand
 				case "update-secret":

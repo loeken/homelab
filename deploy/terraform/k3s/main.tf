@@ -34,7 +34,7 @@ resource null_resource bootstrap-k3s {
       --ssh-key ${var.ssh_private_key} \
       --cluster \
       --k3s-version ${var.kubernetes_version} \
-      --k3s-extra-args '--disable=traefik --node-external-ip=${var.k3s_external_ip} --advertise-address=${var.ssh_server_address} --node-ip=${var.ssh_server_address}'
+      --k3s-extra-args '--disable=traefik --node-external-ip=${var.external_ip} --advertise-address=${var.ssh_server_address} --node-ip=${var.ssh_server_address}'
     EOT
   }
   depends_on = [

@@ -105,6 +105,8 @@ var options = []configOption{
 	{"sonarr", "false", "enable argocd app sonarr", nil, []string{"enable-argocd-app", "install"}},
 	{"vaultwarden", "false", "enable argocd app vaultwarden", nil, []string{"enable-argocd-app", "install"}},
 	{"whoami", "true", "enable argocd app whoami", nil, []string{"enable-argocd-app", "install"}},
+
+	{"nginx_upstream_vm", "false", "create an extra upstream vm", nil, []string{"install"}},
 }
 
 type Command struct {

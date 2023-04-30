@@ -104,3 +104,8 @@ variable "partition_external_shared_media_disk" {
   default = "false"
   description = "if we use/format the external media disk"
 }
+variable "nginx_upstream_vm" {
+  type = string
+  default = "false"
+  description = "weather or not to create a sidecar kvm for nginx to pass connections upstream"
+}

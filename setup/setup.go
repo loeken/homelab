@@ -1107,7 +1107,7 @@ func main() {
 			if installHa == "true" {
 				color.Blue("\033[1m input settings for home-assistant:\033[0m")
 				restart := 0
-				_, err := os.Stat("../deploy/mysecrets/templates/argocd-home-assistant-encrypted.yaml")
+				_, err := os.Stat("../deploy/mysecrets/templates/argocd-home-assistantso what -encrypted.yaml")
 				if err != nil {
 					if os.IsNotExist(err) {
 						// Handle file does not exist error
@@ -1362,7 +1362,7 @@ func checkRepo() {
 func checkDependencies(verbose bool, repoName string) {
 	// Define the commands to check
 	color.Blue("there is a helper script for ubuntu ./dependencies_ubuntu2204.sh to install dependencies")
-	commands := []string{"gh", "cloudflared", "git", "terraform", "kubectl", "sshpass", "kubeseal", "k3sup", "docker"}
+	commands := []string{"gh", "cloudflared", "git", "terraform", "kubectl", "sshpass", "kubeseal", "k3sup", "docker", "ssh-askpass"}
 	// Loop through the commands and check if they're available
 	for _, cmd := range commands {
 		// Check if the command is available

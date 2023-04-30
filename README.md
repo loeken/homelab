@@ -15,6 +15,7 @@ This repo contains definitions for a k3s-based kubernetes (atm-single node) clus
 ```
 git clone https://github.com/loeken/homelab
 cd homelab/setup
+./setup check-dependencies -h
 ./setup github -h
 ./setup install -h
 ```

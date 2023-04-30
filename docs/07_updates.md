@@ -15,6 +15,21 @@ git pull upstream main
 
 this will pull all updates from my repo and merge them into your repo. This is also why my repo always ships with secrets.yaml.example and values.yaml.example. The example extension is added so when you pull updates changes to the configs will not conflict with your changes.
 
+transfer chartVersion numbers from values.yaml.example to values.yaml
+```
+./setup update
+```
+this will compare all the chartVersions in values.yaml to values.yaml.example and update your values.yaml with the new version if you add --upgrade true
+
+```
+./setup update --upgrade true
+git add deploy/argocd/bootstrap-optional-apps/values.yaml
+git commit -m "updated chart versions"
+git push
+```
+
+
+
 Now that you have the changes local you now need to send them to github ( and thus to argocd )
 
 ```bash

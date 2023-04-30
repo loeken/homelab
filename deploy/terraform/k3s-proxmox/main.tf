@@ -171,11 +171,11 @@ resource "proxmox_vm_qemu" "upstream-vm" {
   sshkeys = file("${var.ssh_public_key}")
   ciuser = var.ssh_username
   qemu_os = "l26"
-  vcpus = var.cores_k3s
+  vcpus = 1
   disk {
     type    = "virtio"
     storage = "local"
-    size = "5G"
+    size = "10G"
   }
     # Second disk
   lifecycle {
@@ -193,49 +193,24 @@ resource "null_resource" "nginx_upstream_vm" {
   # This resource will only be executed after the K3s virtual machine is up and running
   depends_on = [proxmox_vm_qemu.upstream-vm]
 
-  provisioner "local-exec" {
-    working_dir = "${path.module}/${var.kubeconfig_location}"
-    command = <<EOT
-      #!/bin/bash
-      sudo apt update
-      sudo apt install nginx -t
-      echo "upstream backend {
-    server ${proxmox_vm_qemu.k3s-vm.default_ipv4_address}:30080;
-}
+  connection {
+    type        = "ssh"
+    host        = proxmox_vm_qemu.k3s-vm.default_ipv4_address
+    user        = var.ssh_username
+    private_key = file("${var.ssh_private_key}")
+  }
 
-upstream backend_ssl {
-    server ${proxmox_vm_qemu.k3s-vm.default_ipv4_address}:30443;
-}
+  provisioner "file" {
+    content     = templatefile("${path.module}/nginx_default.tpl", { k3s_vm_default_ipv4_address = proxmox_vm_qemu.k3s-vm.default_ipv4_address })
+    destination = "/tmp/nginx_default"
+  }
 
-server {
-    listen 80;
-    server_name _; # replace with your domain name
-
-    location / {
-        proxy_pass http://backend;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    }
-}
-
-server {
-    listen 443;
-    server_name _; # replace with your domain name
-
-    location / {
-        proxy_pass https://backend_ssl;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-
-        # Enable SSL passthrough
-        proxy_ssl_session_reuse off;
-        proxy_ssl_name $host;
-        proxy_ssl_server_name on;
-    }
-}" > /etc/nginx/sites-enabled/default
-      systemctl restart nginx
-    EOT
+  provisioner "remote-exec" {
+    inline = [
+      "sudo apt update",
+      "sudo apt install -y nginx",
+      "sudo mv /tmp/nginx_default /etc/nginx/sites-enabled/default",
+      "sudo systemctl restart nginx"
+    ]
   }
 }

@@ -333,8 +333,7 @@ func main() {
 	# to install onto a debian 11(vm or baremetal), using local-path storage and cloudflare tunnels for ingress, all other apps disabled except whoami.
 	
 	minimal install
-		./setup install --authelia false \
-						--domain loeken.xyz \
+		./setup install --domain loeken.xyz \
 						--email loeken@internetz.me \
 						--external_ip 94.134.58.102 \
 						--ingress cloudflaretunnel \
@@ -347,8 +346,7 @@ func main() {
 						--ssh_username loeken \
 						--shared_media_disk_size false \
 						--shared_media_disk_device false \
-						--storage local-path \
-						--whoami false
+						--storage local-path
 	`,
 		Run: func(cmd *cobra.Command, args []string) {
 			checkDependencies(false, "")

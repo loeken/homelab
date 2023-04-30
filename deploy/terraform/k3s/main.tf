@@ -24,31 +24,22 @@ resource "null_resource" "sudo_setup" {
     null_resource.copy_public_key
   ]
 }
-resource "null_resource" "bootstrap-k3s" {
-  # This resource will only be executed after the K3s virtual machine is up and running
-  depends_on = [proxmox_vm_qemu.k3s-vm]
-
+resource null_resource bootstrap-k3s {
   provisioner "local-exec" {
-    working_dir = "${path.module}/${var.kubeconfig_location}"
     command = <<EOT
-      #!/bin/bash
-      retries=1
-      while [ $retries -ge 0 ]; do
-        k3sup install \
-        --ip ${proxmox_vm_qemu.k3s-vm.default_ipv4_address} \
-        --ssh-key ${var.ssh_private_key} \
-        --user ${var.ssh_username} \
-        --cluster \
-        --k3s-version ${var.kubernetes_version} \
-        --k3s-extra-args '--disable=traefik,servicelb --node-external-ip=${var.external_ip} --advertise-address=${proxmox_vm_qemu.k3s-vm.default_ipv4_address} --node-ip=${proxmox_vm_qemu.k3s-vm.default_ipv4_address}' && break
-
-        retries=$((retries - 1))
-        if [ $retries -ge 0 ]; then
-          sleep 10
-        fi
-      done
+    cd ../../../tmp
+    k3sup install \
+      --ip ${var.ssh_server_address} \
+      --user ${var.ssh_username} \
+      --ssh-key ${var.ssh_private_key} \
+      --cluster \
+      --k3s-version ${var.kubernetes_version} \
+      --k3s-extra-args '--disable=traefik --node-external-ip=${var.k3s_external_ip} --advertise-address=${var.ssh_server_address} --node-ip=${var.ssh_server_address}'
     EOT
   }
+  depends_on = [
+    null_resource.sudo_setup
+  ]
 }
 
 resource "null_resource" "upload_ips" {

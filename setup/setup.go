@@ -1106,16 +1106,26 @@ func main() {
 			// wave 30
 			if installHa == "true" {
 				color.Blue("\033[1m input settings for home-assistant:\033[0m")
+				restart := 0
+				_, err := os.Stat("../deploy/mysecrets/templates/argocd-home-assistant-encrypted.yaml")
+				if err != nil {
+					if os.IsNotExist(err) {
+						// Handle file does not exist error
+						restart = 1
+					}
+				}
 				loadSecretFromTemplate("home-assistant", "home-assistant")
 
 				color.Blue("we ll now wait for home assistant to be up this can take a bit of time - expect errors to be displayed untill its up")
 
 				waitForPodReady("home-assistant", "statefulset.kubernetes.io/pod-name=home-assistant-0")
 				time.Sleep(5 * time.Second)
-				runCommand("../tmp", "kubectl", []string{"cp", "../deploy/helpers/ha_configuration.yml", "home-assistant/home-assistant-0:/config/configuration.yaml"})
-				runCommand("../tmp", "echo", []string{"kubectl", "cp", "../deploy/helpers/ha_configuration.yaml", "home-assistant/home-assistant-0:/config/configuration.yaml"})
-				runCommand(".", "kubectl", []string{"rollout", "restart", "statefulset", "home-assistant", "-n", "home-assistant"})
+				if restart == 1 {
+					runCommand("../tmp", "kubectl", []string{"cp", "../deploy/helpers/ha_configuration.yml", "home-assistant/home-assistant-0:/config/configuration.yaml"})
 
+					runCommand("../tmp", "echo", []string{"kubectl", "cp", "../deploy/helpers/ha_configuration.yaml", "home-assistant/home-assistant-0:/config/configuration.yaml"})
+					runCommand(".", "kubectl", []string{"rollout", "restart", "statefulset", "home-assistant", "-n", "home-assistant"})
+				}
 				if ingress == "cloudflaretunnel" {
 					runCommand("../tmp", "cloudflared", []string{"tunnel", "route", "dns", "homelab-tunnel_" + new_repo, "ha." + domain})
 				}

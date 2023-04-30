@@ -1166,7 +1166,7 @@ func main() {
 		Use:   "destroy",
 		Short: "destroy the stack ( DANGER DANGER! :) )",
 		Run: func(cmd *cobra.Command, args []string) {
-			mycmd := exec.Command("sh", "-c", "cat ../.git/config | grep url |grep -v loeken/homelab.git| cut -d' ' -f 3")
+			mycmd := exec.Command("sh", "-c", "cat ../.git/config | grep url |grep -v loeken/homelab.git| cut -d' ' -f 3|cut -d':' -f 2")
 			cloudflare_api_token := viper.GetString("cloudflare_api_token")
 			domain := viper.GetString("domain")
 			var out bytes.Buffer
@@ -1197,8 +1197,8 @@ func main() {
 			runCommand("../deploy/terraform/external-disk", "terraform", []string{"init"})
 			runCommand("../deploy/terraform/external-disk", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
 
-			runCommand("../tmp", "cloudflared", []string{"tunnel", "cleanup", "homelab-tunnel_" + parts[1]})
-			runCommand("../tmp", "cloudflared", []string{"tunnel", "delete", "homelab-tunnel_" + parts[1]})
+			runCommand("../tmp", "cloudflared", []string{"tunnel", "cleanup", "homelab-tunnel_" + new_repo})
+			runCommand("../tmp", "cloudflared", []string{"tunnel", "delete", "homelab-tunnel_" + new_repo})
 			runCommand("../tmp", "rm", []string{"-rf", "authelia_users_database.yml"})
 			runCommand("../deploy/mysecrets/templates", "find", []string{".", "-type", "f", "-delete"})
 			runCommand("../deploy/terraform", "find", []string{".", "-name", "*terraform.tfstate*", "-type", "f", "-delete"})

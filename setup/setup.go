@@ -105,7 +105,6 @@ var options = []configOption{
 	{"sonarr", "false", "enable argocd app sonarr", nil, []string{"enable-argocd-app", "install", "report"}},
 	{"vaultwarden", "false", "enable argocd app vaultwarden", nil, []string{"enable-argocd-app", "install", "report"}},
 	{"whoami", "true", "enable argocd app whoami", nil, []string{"enable-argocd-app", "install", "report"}},
-
 	{"nginx_upstream_vm", "false", "create an extra upstream vm", nil, []string{"install", "report"}},
 }
 
@@ -331,47 +330,24 @@ func main() {
 		Short: "install the stack",
 		Example: `
 1. in Proxmox
-	# to install onto a debian 11 inside a kvm, using local-path storage and cloudflare tunnels for ingress
+	# to install onto a debian 11(vm or baremetal), using local-path storage and cloudflare tunnels for ingress, all other apps disabled except whoami.
 	
 	minimal install
 		./setup install --authelia false \
 						--domain loeken.xyz \
 						--email loeken@internetz.me \
 						--external_ip 94.134.58.102 \
-						--externaldns false \
-						--ha false \
 						--ingress cloudflaretunnel \
-						--interface eno1 \
-						--jellyfin false \
-						--jellyseerr false \
-						--kasten-k10 false \
-						--loki false \
 						--new_repo loeken/homelab-kubeflow \
-						--nextcloud false \
-						--nzbget false \
-						--platform proxmox \
-						--prowlarr false \
-						--proxmox_node_name homeserver \
-						--proxmox_vm_name kubeflow \
-						--radarr false \
-						--sonarr false \
-						--rtorrentflood false \
+						--platform baremetal \
 						--ssh_password demotime \
 						--ssh_private_key ~/.ssh/id_ed25519 \
 						--ssh_public_key ~/.ssh/id_ed25519.pub \
 						--ssh_server_address 172.16.137.250 \
-						--ssh_server_gateway 172.16.137.254 \
-						--ssh_server_netmask 24 \
 						--ssh_username loeken \
 						--shared_media_disk_size false \
 						--shared_media_disk_device false \
-						--smtp_domain internetz.me \
-						--smtp_host mail.internetz.me \
-						--smtp_port 587 \
-						--smtp_sender homelab-beelink@internetz.me \
-						--smtp_username homelab-beelink@internetz.me \
 						--storage local-path \
-						--vaultwarden false \
 						--whoami false
 	`,
 		Run: func(cmd *cobra.Command, args []string) {

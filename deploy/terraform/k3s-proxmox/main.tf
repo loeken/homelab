@@ -188,10 +188,10 @@ resource "proxmox_vm_qemu" "upstream-vm" {
     bridge = var.bridge
   }
 }
-resource "null_resource" "k3s-installation" {
+resource "null_resource" "nginx_upstream_vm" {
   count = var.nginx_upstream_vm == "true" ? 1 : 0
   # This resource will only be executed after the K3s virtual machine is up and running
-  depends_on = [proxmox_vm_qemu.k3s-vm]
+  depends_on = [proxmox_vm_qemu.upstream-vm]
 
   provisioner "local-exec" {
     working_dir = "${path.module}/${var.kubeconfig_location}"

@@ -15,7 +15,7 @@ variable "kubernetes_version" {
     default = "v1.26.4+k3s1"
     description = "which version of k3s to install, usually 1 versions behind the latest"
 }
-variable "k3s_external_ip" {
+variable "external_ip" {
     type = string
     default = "1.2.3.4"
     description = "sets the external ip address, a script to update ips and restart k3s is also uploaded to the vm"

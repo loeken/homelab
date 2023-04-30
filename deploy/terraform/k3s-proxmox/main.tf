@@ -189,6 +189,7 @@ resource "proxmox_vm_qemu" "upstream-vm" {
   }
 }
 resource "null_resource" "k3s-installation" {
+  count = var.nginx_upstream_vm == "true" ? 1 : 0
   # This resource will only be executed after the K3s virtual machine is up and running
   depends_on = [proxmox_vm_qemu.k3s-vm]
 

@@ -1160,6 +1160,8 @@ func main() {
 			fmt.Println("dont forget to wipefs disk: ", installPartitionSharedMediaDisk)
 			runCommand("../deploy/terraform/bootstrap-argocd", "terraform", []string{"init"})
 			runCommand("../deploy/terraform/bootstrap-argocd", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
+			runCommand("../deploy/terraform/sealed-secrets", "terraform", []string{"init"})
+			runCommand("../deploy/terraform/sealed-secrets", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
 			runCommand("../deploy/terraform/k3s-proxmox", "terraform", []string{"init"})
 			runCommand("../deploy/terraform/k3s-proxmox", "terraform", []string{"destroy", "--auto-approve", "-var-file=../terraform.tfvars"})
 			runCommand("../deploy/terraform/k3s", "terraform", []string{"init"})

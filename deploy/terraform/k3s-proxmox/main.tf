@@ -195,7 +195,7 @@ resource "null_resource" "nginx_upstream_vm" {
 
   connection {
     type        = "ssh"
-    host        = proxmox_vm_qemu.k3s-vm.default_ipv4_address
+    host        = proxmox_vm_qemu.upstream-vm.default_ipv4_address
     user        = var.ssh_username
     private_key = file("${var.ssh_private_key}")
   }

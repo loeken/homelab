@@ -1,6 +1,5 @@
-# this file acts as a global value files to all bootstrap-core-apps
 email: youremail@example.com
-githubUser: loeken
 githubRepo: homelab-example
+githubUser: loeken
 sealedsecrets:
-  chartVersion: 2.8.2
+  chartVersion: 2.9.0

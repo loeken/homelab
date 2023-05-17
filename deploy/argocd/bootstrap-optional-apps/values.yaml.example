@@ -70,7 +70,7 @@ jellyseerr:
   linkerd: false
   useAuthelia: false
 k10:
-  chartVersion: 5.5.4
+  chartVersion: 5.5.9
   enabled: false
   storageClass: local-path
 kubeflow:

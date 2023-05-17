@@ -9,3 +9,4 @@ tmp/homelab.git/**
 tmp/id_ed25519**
 tmp/id_rsa**
 setup/.setup.yaml
+.obsidian/**

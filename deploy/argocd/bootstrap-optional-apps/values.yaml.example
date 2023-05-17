@@ -15,7 +15,7 @@ authelia:
 ceph:
   enabled: false
 certmanager:
-  chartVersion: 1.11.1
+  chartVersion: 1.11.2
   enabled: false
 cloudflaretunnel:
   enabled: true
@@ -28,7 +28,7 @@ democratic_nfs:
   enabled: false
 domain: example.com
 externaldns:
-  chartVersion: 6.18.0
+  chartVersion: 6.20.1
   enabled: false
 githubRepo: homelab-example
 githubUser: loeken
@@ -70,7 +70,7 @@ jellyseerr:
   linkerd: false
   useAuthelia: false
 k10:
-  chartVersion: 5.5.4
+  chartVersion: 5.5.9
   enabled: false
   storageClass: local-path
 kubeflow:
@@ -134,7 +134,7 @@ nfsprovisioner:
   chartVersion: 4.0.18
   ip: 172.16.137.200
 nginxingress:
-  chartVersion: 0.17.0
+  chartVersion: 0.17.1
   enabled: false
   linkerd: false
 nzbget:

@@ -15,7 +15,7 @@ authelia:
 ceph:
   enabled: false
 certmanager:
-  chartVersion: 1.12.1
+  chartVersion: 1.12.2
   enabled: false
 cloudflaretunnel:
   enabled: true

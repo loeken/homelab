@@ -134,7 +134,7 @@ nfsprovisioner:
   chartVersion: 4.0.18
   ip: 172.16.137.200
 nginxingress:
-  chartVersion: 0.17.1
+  chartVersion: 0.18.0
   enabled: false
   linkerd: false
 nzbget:

@@ -18,7 +18,7 @@ certmanager:
   chartVersion: 1.11.2
   enabled: false
 cloudflaretunnel:
-  enabled: true
+  enabled: false
 clusterIssuer: letsencrypt-staging
 democratic_iscsi:
   chartVersion: 0.13.7
@@ -131,6 +131,7 @@ nextcloud:
     username: nextcloud@example.com
   useAuthelia: false
 nfsprovisioner:
+  enabled: false
   chartVersion: 4.0.18
   ip: 172.16.137.200
 nginxingress:

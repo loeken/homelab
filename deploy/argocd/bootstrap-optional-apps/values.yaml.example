@@ -131,7 +131,7 @@ nextcloud:
     username: nextcloud@example.com
   useAuthelia: false
 nfsprovisioner:
-  enabled: false
+  enabled: true
   chartVersion: 4.0.18
   ip: 172.16.137.200
 nginxingress:

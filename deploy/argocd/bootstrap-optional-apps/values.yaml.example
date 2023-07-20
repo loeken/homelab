@@ -25,7 +25,7 @@ democratic_iscsi:
   chartVersion: 0.13.7
   enabled: false
 democratic_nfs:
-  chartVersion: 0.13.7
+  chartVersion: 0.14.0
   enabled: false
 domain: example.com
 externaldns:

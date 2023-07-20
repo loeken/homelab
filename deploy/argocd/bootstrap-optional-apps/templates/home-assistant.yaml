@@ -22,7 +22,7 @@ spec:
           config:
             enabled: true
             accessMode: ReadWriteOnce
-            storageClass: {{ .Values.storageClass }}
+            storageClass: {{ .Values.ha.storageClass }}
             size: 4Gi
             readOnly: false
         ingress:
@@ -60,7 +60,7 @@ spec:
           primary:
             persistence:
               enabled: true
-              storageClass: {{ .Values.storageClass }}
+              storageClass: {{ .Values.ha.storageClass }}
               accessModes:
                 - ReadWriteOnce
         service:

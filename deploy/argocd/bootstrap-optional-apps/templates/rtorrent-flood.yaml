@@ -33,7 +33,7 @@ spec:
             enabled: true
             accessMode: ReadWriteOnce
             size: 1Gi
-            storageClass: {{ .Values.storageClass }}
+            storageClass: {{ .Values.rtorrentflood.storageClass }}
             readOnly: false
           downloads:
             mountPath: /downloads

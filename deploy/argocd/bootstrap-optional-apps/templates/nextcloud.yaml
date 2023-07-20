@@ -55,7 +55,7 @@ spec:
           primary:
             persistence:
               enabled: true
-              storageClass: {{ .Values.storageClass }}
+              storageClass: {{ .Values.nextcloud.storageClass }}
               accessModes:
                 - ReadWriteOnce
         nextcloud:
@@ -119,7 +119,7 @@ spec:
 
         persistence:
           enabled: true
-          storageClass: {{ .Values.storageClass }}
+          storageClass: {{ .Values.nextcloud.storageClass }}
           accessMode: ReadWriteOnce
           size: 8Gi
           nextcloudData:

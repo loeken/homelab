@@ -22,7 +22,7 @@ spec:
             enabled: true
             accessMode: ReadWriteOnce
             size: 1Gi
-            storageClass: {{ .Values.storageClass }}
+            storageClass: {{ .Values.jellyseerr.storageClass }}
             readOnly: false
         ingress:
           main:

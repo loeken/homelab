@@ -33,7 +33,7 @@ spec:
           config:
             enabled: true
             accessMode: ReadWriteOnce
-            storageClass: {{ .Values.storageClass }}
+            storageClass: {{ .Values.nzbget.storageClass }}
             size: 5Gi
             readOnly: false
           media:

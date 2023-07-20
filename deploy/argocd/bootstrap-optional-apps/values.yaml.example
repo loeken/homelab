@@ -42,6 +42,7 @@ ha:
     nginx:
       enabled: false
   useAuthelia: false
+  storageClass: local-path
 jellyfin:
   cache:
     enabled: true
@@ -58,7 +59,6 @@ jellyfin:
       enabled: false
     nginx:
       enabled: false
-  linkerd: false
   useAuthelia: false
 jellyseerr:
   chartVersion: 1.5.0
@@ -68,14 +68,12 @@ jellyseerr:
       enabled: true
     nginx:
       enabled: false
-  linkerd: false
   useAuthelia: false
+  storageClass: local-path
 k10:
   chartVersion: 5.5.9
   enabled: false
   storageClass: local-path
-linkerd:
-  enabled: false
 loki:
   alertmanager:
     enabled: false
@@ -127,6 +125,7 @@ nextcloud:
     port: 587
     sender: nextcloud@example.com
     username: nextcloud@example.com
+  storageClass: local-path
   useAuthelia: false
 nfsprovisioner:
   enabled: true
@@ -135,7 +134,6 @@ nfsprovisioner:
 nginxingress:
   chartVersion: 0.17.1
   enabled: false
-  linkerd: false
 nzbget:
   chartVersion: 1.3.2
   enabled: false
@@ -144,7 +142,6 @@ nzbget:
       enabled: true
     nginx:
       enabled: false
-  linkerd: false
   size: 10Gi
   storageClass: local-path
   useAuthelia: false
@@ -156,7 +153,6 @@ prowlarr:
       enabled: true
     nginx:
       enabled: false
-  linkerd: false
   size: 1Gi
   storageClass: local-path
   useAuthelia: false
@@ -168,7 +164,6 @@ radarr:
       enabled: true
     nginx:
       enabled: false
-  linkerd: false
   size: 1Gi
   storageClass: local-path
   useAuthelia: false
@@ -182,7 +177,6 @@ rtorrentflood:
       enabled: true
     nginx:
       enabled: false
-  linkerd: false
   size: 10Gi
   storageClass: local-path
   useAuthelia: false
@@ -197,7 +191,6 @@ sonarr:
       enabled: true
     nginx:
       enabled: false
-  linkerd: false
   size: 1Gi
   storageClass: local-path
   useAuthelia: false
@@ -210,7 +203,6 @@ vaultwarden:
       enabled: true
     nginx:
       enabled: false
-  linkerd: false
   size: 10Gi
   storageClass: local-path
   useAuthelia: true
@@ -224,4 +216,3 @@ whoami:
       enabled: true
     nginx:
       enabled: false
-  linkerd: false

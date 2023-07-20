@@ -71,7 +71,7 @@ jellyseerr:
   useAuthelia: false
   storageClass: local-path
 k10:
-  chartVersion: 5.5.9
+  chartVersion: 6.0.3
   enabled: false
   storageClass: local-path
 loki:

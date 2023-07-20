@@ -16,10 +16,6 @@ spec:
     targetRevision: {{ .Values.radarr.chartVersion }}
     helm:
       values: |
-        {{- if .Values.radarr.linkerd }}
-        podAnnotations:
-          linkerd.io/inject: enabled
-        {{end}}
         persistence:
           config:
             enabled: true

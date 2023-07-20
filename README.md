@@ -44,7 +44,6 @@ a more comprehensive docs on how to install can be found [on the external docs p
 - replaces the need for a cloud
 - two factor / SSO with authelia
 - covers your media needs with jellyfin/jellyseer/prowlarr/radarr/sonarr/nzbget/rtorrent
-- support for linkerd service mesh ( already integrated with grafana/loki ) - WIP
 - documentation with obsidian ( ./docs ) or [online](https://loeken.github.io/homelab)
 
 ## installation & docs

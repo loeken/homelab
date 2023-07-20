@@ -16,10 +16,6 @@ spec:
     targetRevision: {{ .Values.jellyfin.chartVersion }}
     helm:
       values: |
-        {{- if .Values.jellyfin.linkerd }}
-        podAnnotations:
-          linkerd.io/inject: enabled
-        {{end}}
         persistence:
           config:
             mountPath: /config

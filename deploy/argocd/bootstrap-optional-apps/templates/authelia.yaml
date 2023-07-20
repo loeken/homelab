@@ -51,10 +51,10 @@ spec:
               enabled: false
           notifier:
             filesystem:
-              enabled: false
+              enabled: enabled: enabled: {{ .Values.authelia.smtp.enabled }}
               filename: /config/notification.txt
             smtp:
-              enabled: true
+              enabled: enabled: {{ .Values.authelia.smtp.enabled }}
               enabledSecret: true
               host: mail.internetz.me
               port: 587

@@ -16,10 +16,6 @@ spec:
     targetRevision: {{ .Values.jellyseerr.chartVersion }}
     helm:
       values: |
-        {{- if .Values.jellyseerr.linkerd }}
-        podAnnotations:
-          linkerd.io/inject: enabled
-        {{end}}
         persistence:
           config:
             mountPath: /app/config

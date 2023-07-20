@@ -16,10 +16,6 @@ spec:
     targetRevision: {{ .Values.sonarr.chartVersion }}
     helm:
       values: |
-        {{- if .Values.sonarr.linkerd }}
-        podAnnotations:
-          linkerd.io/inject: enabled
-        {{end}}
         persistence:
           config:
             enabled: true

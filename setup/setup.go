@@ -708,7 +708,6 @@ func main() {
 				rtorrentConfig := config["rtorrentflood"].(map[interface{}]interface{})
 				rtorrentConfig["enabled"] = true
 				rtorrentConfig["useAuthelia"] = false
-				rtorrentConfig["linkerd"] = false
 				rtorrentConfig["storageClass"] = storage
 
 				rtorrentConfig["ingress"] = make(map[interface{}]interface{})
@@ -729,7 +728,6 @@ func main() {
 				nzbgetConfig := config["nzbget"].(map[interface{}]interface{})
 				nzbgetConfig["enabled"] = true
 				nzbgetConfig["useAuthelia"] = false
-				nzbgetConfig["linkerd"] = false
 				nzbgetConfig["size"] = "10Gi"
 				nzbgetConfig["storageClass"] = storage
 				// storage section
@@ -753,7 +751,6 @@ func main() {
 				radarrConfig := config["radarr"].(map[interface{}]interface{})
 				radarrConfig["enabled"] = true
 				radarrConfig["useAuthelia"] = false
-				radarrConfig["linkerd"] = false
 				radarrConfig["size"] = "1Gi"
 				radarrConfig["storageClass"] = storage
 				// storage section
@@ -777,7 +774,6 @@ func main() {
 				sonarrConfig := config["sonarr"].(map[interface{}]interface{})
 				sonarrConfig["enabled"] = true
 				sonarrConfig["useAuthelia"] = false
-				sonarrConfig["linkerd"] = false
 				sonarrConfig["size"] = "1Gi"
 				sonarrConfig["storageClass"] = storage
 				// storage section
@@ -800,7 +796,6 @@ func main() {
 				vaultwardenConfig := config["vaultwarden"].(map[interface{}]interface{})
 				vaultwardenConfig["enabled"] = true
 				vaultwardenConfig["useAuthelia"] = false
-				vaultwardenConfig["linkerd"] = false
 				vaultwardenConfig["size"] = "1Gi"
 				vaultwardenConfig["storageClass"] = storage
 				// storage section
@@ -824,7 +819,6 @@ func main() {
 				prowlarrConfig := config["prowlarr"].(map[interface{}]interface{})
 				prowlarrConfig["enabled"] = true
 				prowlarrConfig["useAuthelia"] = false
-				prowlarrConfig["linkerd"] = false
 				prowlarrConfig["size"] = "1Gi"
 				prowlarrConfig["storageClass"] = storage
 				// storage section
@@ -848,7 +842,6 @@ func main() {
 				jellyseerrConfig := config["jellyseerr"].(map[interface{}]interface{})
 				jellyseerrConfig["enabled"] = true
 				jellyseerrConfig["useAuthelia"] = false
-				jellyseerrConfig["linkerd"] = false
 
 				jellyseerrConfig["ingress"] = make(map[interface{}]interface{})
 				jellyseerrConfig["ingress"].(map[interface{}]interface{})["cloudflaretunnel"] = make(map[interface{}]interface{})

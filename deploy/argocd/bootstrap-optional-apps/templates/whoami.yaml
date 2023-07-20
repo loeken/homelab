@@ -40,10 +40,6 @@ spec:
           - secretName: whoami-tls
             hosts:
               - whoami.{{ .Values.domain }}
-        {{- if .Values.whoami.linkerd }}
-        podAnnotations:
-          linkerd.io/inject: enabled
-        {{end}}
   destination:
     namespace: whoami
     server: https://kubernetes.default.svc

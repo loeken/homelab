@@ -16,10 +16,6 @@ spec:
     targetRevision: {{ .Values.rtorrentflood.chartVersion }}
     helm:
       values: |
-        {{- if .Values.rtorrentflood.linkerd }}
-        podAnnotations:
-          linkerd.io/inject: enabled
-        {{end}}
         service:
           bittorrent:
             enabled: true

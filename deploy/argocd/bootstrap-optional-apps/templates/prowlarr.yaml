@@ -16,10 +16,6 @@ spec:
     targetRevision: {{ .Values.prowlarr.chartVersion }}
     helm:
       values: |
-        {{- if .Values.prowlarr.linkerd }}
-        podAnnotations:
-          linkerd.io/inject: enabled
-        {{end}}
         persistence:
           config:
             mountPath: /config

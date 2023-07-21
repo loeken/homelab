@@ -14,13 +14,15 @@ spec:
     targetRevision: "9.5.1"
     helm:
       values: |
+        kind: DaemonSet
+        daemonset:
+          useHostPort: true
+          hostPorts:
+            http: 80
+            https: 443
         service:
           externalTrafficPolicy: Local
           type: NodePort
-          kind: DaemonSet
-          nodePorts:
-            http: 30080
-            https: 30443
   destination:
     namespace: nginx-ingress
     server: https://kubernetes.default.svc

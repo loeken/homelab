@@ -1,0 +1,6 @@
+apiVersion: v2
+name: shared-media
+description: A Helm chart to create a pvc for media
+type: application
+version: 0.0.1
+appVersion: "1.0"

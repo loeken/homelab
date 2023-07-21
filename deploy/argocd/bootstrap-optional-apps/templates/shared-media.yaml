@@ -1,5 +1,10 @@
 {{ if .Values.sharedmedia.enabled }}
 apiVersion: v1
+kind: Namespace
+metadata:
+  name: shared-media
+---
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: shared-media

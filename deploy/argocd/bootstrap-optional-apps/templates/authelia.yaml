@@ -54,8 +54,7 @@ spec:
               enabled: {{ .Values.authelia.smtp.enabled }}
               filename: /config/notification.txt
             smtp:
-              enabled:{{ .Values.authelia.smtp.enabled }}
-              enabledSecret: true
+              enabled: {{ .Values.authelia.smtp.enabled }}
               host: mail.internetz.me
               port: 587
               timeout: 5s

@@ -74,6 +74,8 @@ k10:
   chartVersion: 6.0.3
   enabled: false
   storageClass: local-path
+linked:
+  enabled: false
 loki:
   alertmanager:
     enabled: false

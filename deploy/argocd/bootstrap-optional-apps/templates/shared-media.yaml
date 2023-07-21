@@ -15,5 +15,5 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: {{ if .Values.sharedmedia.size }}
+      storage: {{ .Values.sharedmedia.size }}
 {{ end }}

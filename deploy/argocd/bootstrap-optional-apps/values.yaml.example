@@ -181,8 +181,9 @@ rtorrentflood:
   storageClass: local-path
   useAuthelia: false
 sharedmedia:
-  size: 1000Gi
-  storageClass: local-path
+  enabled: false
+  size: 100Gi
+  storageClass: nfs-client
 sonarr:
   chartVersion: 3.0.9
   enabled: false

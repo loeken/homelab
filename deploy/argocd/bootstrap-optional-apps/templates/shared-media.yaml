@@ -1,0 +1,14 @@
+{{ if .Values.sharedmedia.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: shared-media
+  namespace: media  # Specify the namespace "media" for the PVC
+spec:
+  storageClassName: {{ .Values.sharedmedia.storageClass }}
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ if .Values.sharedmedia.size }}
+{{ end }}

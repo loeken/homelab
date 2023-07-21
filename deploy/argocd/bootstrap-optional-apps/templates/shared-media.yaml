@@ -17,8 +17,8 @@ spec:
     helm:
       values: |
         sharedmedia:
-          storageClass:{{ .Values.sharedmedia.storageClass }}
-          size:{{ .Values.sharedmedia.size }}
+          storageClass: "{{ .Values.sharedmedia.storageClass }}"
+          size: "{{ .Values.sharedmedia.size }}""
   destination:
     namespace: media
     server: https://kubernetes.default.svc

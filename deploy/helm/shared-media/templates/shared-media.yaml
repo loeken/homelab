@@ -4,9 +4,9 @@ metadata:
   name: shared-media
   namespace: media  # Specify the namespace "media" for the PVC
 spec:
-  storageClassName: {{ .Values.sharedmedia.storageClass }}
+  storageClassName: "{{ .Values.sharedmedia.storageClass }}"
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: {{ .Values.sharedmedia.size }}
+      storage: "{{ .Values.sharedmedia.size }}"

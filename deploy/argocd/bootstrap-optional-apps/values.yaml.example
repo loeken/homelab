@@ -16,20 +16,20 @@ authelia:
     username: authelia@example.com
   storageClass: local-path
 certmanager:
-  chartVersion: 1.12.1
+  chartVersion: 1.12.2
   enabled: false
 cloudflaretunnel:
   enabled: false
 clusterIssuer: letsencrypt-staging
 democratic_iscsi:
-  chartVersion: 0.13.7
+  chartVersion: 0.14.0
   enabled: false
 democratic_nfs:
-  chartVersion: 0.13.7
+  chartVersion: 0.14.0
   enabled: false
 domain: example.com
 externaldns:
-  chartVersion: 6.20.3
+  chartVersion: 6.20.4
   enabled: false
 githubRepo: homelab-example
 githubUser: loeken
@@ -71,7 +71,7 @@ jellyseerr:
   useAuthelia: false
   storageClass: local-path
 k10:
-  chartVersion: 5.5.9
+  chartVersion: 6.0.3
   enabled: false
   storageClass: local-path
 loki:
@@ -132,7 +132,7 @@ nfsprovisioner:
   chartVersion: 4.0.18
   ip: 172.16.137.200
 nginxingress:
-  chartVersion: 0.17.1
+  chartVersion: 0.18.0
   enabled: false
 nzbget:
   chartVersion: 1.3.2
@@ -210,7 +210,7 @@ vaultwarden:
 volumesnapshots:
   enabled: true
 whoami:
-  chartVersion: 3.1.0
+  chartVersion: 4.2.0
   enabled: true
   ingress:
     cloudflaretunnel:

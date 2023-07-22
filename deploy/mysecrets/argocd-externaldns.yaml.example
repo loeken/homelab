@@ -7,3 +7,4 @@ metadata:
 type: Opaque
 stringData:
   cloudflare_api_token: "create token at https://dash.cloudflare.com/profile/api-tokens"
+  email: "yourem@il.org"

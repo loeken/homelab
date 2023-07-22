@@ -51,7 +51,7 @@ spec:
               enabled: false
           notifier:
             filesystem:
-              enabled: {{ .Values.authelia.smtp.enabled }}
+              enabled: {{ .Values.authelia.filesystem.enabled }}
               filename: /config/notification.txt
             smtp:
               enabled: {{ .Values.authelia.smtp.enabled }}

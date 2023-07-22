@@ -24,7 +24,7 @@ spec:
           mountPath: /config
           storageClass: local-path
           accessMode: ReadWriteMany
-        domain: loeken.xyz
+        domain: {{ .Values.domain }}
         pod:
           replicas: 1
           kind: StatefulSet
@@ -37,11 +37,11 @@ spec:
               enabled: false
             file:
               enabled: true
-          default_redirection_url: https://hub.loeken.xyz
+          default_redirection_url: https://hub.{{ .Values.domain }}
           session:
             redis:
               enabled: false
-            domain: loeken.xyz
+            domain: {{ .Values.domain }}
             expiration: 3600
             inactivity: 300
           storage:
@@ -55,18 +55,18 @@ spec:
               filename: /config/notification.txt
             smtp:
               enabled: {{ .Values.authelia.smtp.enabled }}
-              host: mail.internetz.me
+              host: mail.example.com
               port: 587
               timeout: 5s
-              username: homelab-beelink@internetz.me
-              sender: homelab-beelink@internetz.me
-              identifier: mail.internetz.me
+              username: homelab-beelink@example.com
+              sender: homelab-beelink@example.com
+              identifier: mail.example.com
               subject: "[Authelia] {title}"
-              startup_check_address: homelab-beelink@internetz.me
+              startup_check_address: homelab-beelink@example.com
               disable_require_tls: false
               disable_html_emails: false
               tls:
-                server_name: mail.internetz.me
+                server_name: mail.example.com
                 skip_verify: false
                 minimum_version: TLS1.2
           identity_providers:
@@ -76,11 +76,11 @@ spec:
           access_control:
             default_policy: deny
             rules:
-              - domain: "*.loeken.xyz"
+              - domain: "*.{{ .Values.domain }}"
                 policy: bypass
                 networks:
                   - 10.42.0.0/16
-              - domain: ['ha.loeken.xyz']
+              - domain: ['ha.{{ .Values.domain }}']
                 policy: bypass
                 resources:
                   - ^/api.*
@@ -91,12 +91,12 @@ spec:
                   - ^/local.*
                   - ^/hacsfiles.*
                   - ^/frontend_latest.*
-              - domain: ['sonarr.loeken.xyz', 'radarr.loeken.xyz', 'ha.loeken.xyz', 'nextcloud.loeken.xyz']
+              - domain: ['sonarr.{{ .Values.domain }}', 'radarr.{{ .Values.domain }}', 'ha.{{ .Values.domain }}', 'nextcloud.{{ .Values.domain }}']
                 policy: bypass
                 resources:
                   - ^/api.*
                   - ^/signalr.*
-              - domain: ['vaultwarden.loeken.xyz']
+              - domain: ['vaultwarden.{{ .Values.domain }}']
                 policy: bypass
                 resources:
                   - ^/api.*
@@ -107,19 +107,19 @@ spec:
                 resources:
                   - ^/api.*
                   - ^/System/Info/Public.*
-              - domain: 'rtorrent.loeken.xyz'
+              - domain: 'rtorrent.{{ .Values.domain }}'
                 policy: bypass
                 resources:
                   - ^/RPC2.*
-              - domain: ['hub.loeken.xyz', 'jellyfin.loeken.xyz', 'requests.loeken.xyz']
+              - domain: ['hub.{{ .Values.domain }}', 'jellyfin.{{ .Values.domain }}', 'requests.{{ .Values.domain }}']
                 policy: one_factor
                 subject:
                   - 'group:users'
-              - domain: ['ldap-admin.loeken.xyz', 'ha.loeken.xyz', 'prowlarr.loeken.xyz', 'sonarr.loeken.xyz', 'radarr.loeken.xyz', 'rtorrent.loeken.xyz', 'nzbget.loeken.xyz']
+              - domain: ['ldap-admin.{{ .Values.domain }}', 'ha.{{ .Values.domain }}', 'prowlarr.{{ .Values.domain }}', 'sonarr.{{ .Values.domain }}', 'radarr.{{ .Values.domain }}', 'rtorrent.{{ .Values.domain }}', 'nzbget.{{ .Values.domain }}']
                 policy: two_factor
                 subject:
                   - 'group:admins'
-              - domain: ['whoami.loeken.xyz', 'harbor.loeken.xyz', 'ltb-passwd.loeken.xyz', 'nextcloud.loeken.xyz', 'vaultwarden.loeken.xyz']
+              - domain: ['whoami.{{ .Values.domain }}', 'harbor.{{ .Values.domain }}', 'ltb-passwd.{{ .Values.domain }}', 'nextcloud.{{ .Values.domain }}', 'vaultwarden.{{ .Values.domain }}']
                 policy: two_factor
                 subject:
                   - 'group:users'
@@ -133,7 +133,7 @@ spec:
             external-dns.alpha.kubernetes.io/ttl: "120"
           enabled: false
           hosts:
-            - host: auth.loeken.xyz
+            - host: auth.{{ .Values.domain }}
               paths:
                 - path: /
                   pathType: Prefix

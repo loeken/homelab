@@ -17,7 +17,7 @@ spec:
     helm:
       values: |
         image:
-          tag: 26.0.1-fpm-alpine
+          tag: 27.0.1-fpm-alpine
         nginx:
           enabled: true
           image:

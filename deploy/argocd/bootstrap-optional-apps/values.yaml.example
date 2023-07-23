@@ -48,7 +48,7 @@ jellyfin:
     enabled: true
     size: 10Gi
     storageClass: local-path
-  chartVersion: 10.8.9
+  chartVersion: 10.8.10
   config:
     enabled: true
     size: 1Gi

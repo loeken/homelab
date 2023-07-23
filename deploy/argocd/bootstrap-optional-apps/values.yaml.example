@@ -34,7 +34,7 @@ externaldns:
 githubRepo: homelab-example
 githubUser: loeken
 ha:
-  chartVersion: 2023.5.3
+  chartVersion: 2023.7.2
   enabled: false
   ingress:
     cloudflaretunnel:

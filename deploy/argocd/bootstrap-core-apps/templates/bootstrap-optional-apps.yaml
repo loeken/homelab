@@ -12,6 +12,9 @@ spec:
   source:
     path: deploy/argocd/bootstrap-optional-apps
     repoURL: git@github.com:{{ .Values.githubUser }}/{{ .Values.githubRepo }}
+    helm:
+      valueFiles:
+      - values.yaml
   destination:
     namespace: argocd
     server: https://kubernetes.default.svc

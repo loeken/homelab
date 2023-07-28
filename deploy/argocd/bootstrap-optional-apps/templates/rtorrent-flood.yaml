@@ -36,7 +36,7 @@ spec:
             storageClass: {{ .Values.rtorrentflood.storageClass }}
             readOnly: false
           downloads:
-            mountPath: /downloads
+            mountPath: /media
             enabled: true
             type: pvc
             accessMode: ReadWriteMany

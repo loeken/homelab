@@ -62,7 +62,7 @@ spec:
               sender: {{ .Values.authelia.smtp.sender }}
               identifier: {{ .Values.authelia.smtp.host }}
               subject: "[Authelia] {title}"
-              startup_check_address: homelab-beelink@example.com
+              startup_check_address: {{ .Values.authelia.smtp.sender }}
               disable_require_tls: false
               disable_html_emails: false
               tls:

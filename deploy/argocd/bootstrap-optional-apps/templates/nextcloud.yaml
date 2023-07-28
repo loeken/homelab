@@ -118,12 +118,16 @@ spec:
             - nextcloud.{{ .Values.domain }}
 
         persistence:
+          enabled: true
+          accessMode: ReadWriteOnce
+          storageClass: "local-path"
+          size: 8Gi
           nextcloudData:
             enabled: true
             storageClass: {{ .Values.nextcloud.data.storageClass }}
             existingClaim: {{ .Values.nextcloud.data.existingClaim }}
             size: {{ .Values.nextcloud.data.size }}
-            accessMode: ReadWriteOnce
+            accessMode: ReadWriteMany
   destination:
     namespace: nextcloud
     server: https://kubernetes.default.svc

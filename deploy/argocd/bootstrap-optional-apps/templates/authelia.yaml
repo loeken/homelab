@@ -37,7 +37,7 @@ spec:
               enabled: false
             file:
               enabled: true
-          default_redirection_url: https://hub.{{ .Values.domain }}
+          default_redirection_url: https://auth.{{ .Values.domain }}
           session:
             redis:
               enabled: false

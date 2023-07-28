@@ -55,6 +55,7 @@ spec:
               filename: /config/notification.txt
             smtp:
               enabled: {{ .Values.authelia.smtp.enabled }}
+              enabledSecret: true
               host: {{ .Values.authelia.smtp.host }}
               port: {{ .Values.authelia.smtp.port }}
               timeout: 5s

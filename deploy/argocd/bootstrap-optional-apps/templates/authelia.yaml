@@ -55,18 +55,18 @@ spec:
               filename: /config/notification.txt
             smtp:
               enabled: {{ .Values.authelia.smtp.enabled }}
-              host: mail.example.com
-              port: 587
+              host: {{ .Values.authelia.smtp.host }}
+              port: {{ .Values.authelia.smtp.port }}
               timeout: 5s
-              username: homelab-beelink@example.com
-              sender: homelab-beelink@example.com
-              identifier: mail.example.com
+              username: {{ .Values.authelia.smtp.username }}
+              sender: {{ .Values.authelia.smtp.sender }}
+              identifier: {{ .Values.authelia.smtp.host }}
               subject: "[Authelia] {title}"
               startup_check_address: homelab-beelink@example.com
               disable_require_tls: false
               disable_html_emails: false
               tls:
-                server_name: mail.example.com
+                server_name: {{ .Values.authelia.smtp.host }}
                 skip_verify: false
                 minimum_version: TLS1.2
           identity_providers:

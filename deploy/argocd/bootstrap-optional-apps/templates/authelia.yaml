@@ -92,7 +92,7 @@ spec:
                   - ^/local.*
                   - ^/hacsfiles.*
                   - ^/frontend_latest.*
-              - domain: ['sonarr.{{ .Values.domain }}', 'radarr.{{ .Values.domain }}', 'ha.{{ .Values.domain }}', 'nextcloud.{{ .Values.domain }}']
+              - domain: ['sonarr.{{ .Values.domain }}', 'radarr.{{ .Values.domain }}', 'ha.{{ .Values.domain }}'']
                 policy: bypass
                 resources:
                   - ^/api.*
@@ -112,15 +112,15 @@ spec:
                 policy: bypass
                 resources:
                   - ^/RPC2.*
-              - domain: ['hub.{{ .Values.domain }}', 'jellyfin.{{ .Values.domain }}', 'requests.{{ .Values.domain }}']
+              - domain: ['jellyfin.{{ .Values.domain }}', 'requests.{{ .Values.domain }}']
                 policy: one_factor
                 subject:
                   - 'group:users'
-              - domain: ['ldap-admin.{{ .Values.domain }}', 'ha.{{ .Values.domain }}', 'prowlarr.{{ .Values.domain }}', 'sonarr.{{ .Values.domain }}', 'radarr.{{ .Values.domain }}', 'rtorrent.{{ .Values.domain }}', 'nzbget.{{ .Values.domain }}']
+              - domain: ['ha.{{ .Values.domain }}', 'prowlarr.{{ .Values.domain }}', 'sonarr.{{ .Values.domain }}', 'radarr.{{ .Values.domain }}', 'rtorrent.{{ .Values.domain }}', 'nzbget.{{ .Values.domain }}']
                 policy: two_factor
                 subject:
                   - 'group:admins'
-              - domain: ['whoami.{{ .Values.domain }}', 'harbor.{{ .Values.domain }}', 'ltb-passwd.{{ .Values.domain }}', 'nextcloud.{{ .Values.domain }}', 'vaultwarden.{{ .Values.domain }}']
+              - domain: ['whoami.{{ .Values.domain }}', 'harbor.{{ .Values.domain }}', 'ltb-passwd.{{ .Values.domain }}', 'vaultwarden.{{ .Values.domain }}']
                 policy: two_factor
                 subject:
                   - 'group:users'

@@ -34,7 +34,7 @@ externaldns:
 githubRepo: homelab-example
 githubUser: loeken
 ha:
-  chartVersion: 2023.7.3
+  chartVersion: 2023.8.1
   enabled: false
   ingress:
     cloudflaretunnel:
@@ -61,7 +61,7 @@ jellyfin:
       enabled: false
   useAuthelia: false
 jellyseerr:
-  chartVersion: 1.5.0
+  chartVersion: 1.6.0
   enabled: false
   ingress:
     cloudflaretunnel:

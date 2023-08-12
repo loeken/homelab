@@ -115,6 +115,7 @@ nextcloud:
   data:
     size: 10Gi
     storageClass: local-path
+    accessMode: ReadWriteOnce
   enabled: false
   ingress:
     cloudflaretunnel:

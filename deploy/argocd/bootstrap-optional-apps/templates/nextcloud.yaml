@@ -131,7 +131,7 @@ spec:
             storageClass: {{ .Values.nextcloud.data.storageClass }}
             existingClaim: {{ .Values.nextcloud.data.existingClaim }}
             size: {{ .Values.nextcloud.data.size }}
-            accessMode: ReadWriteMany
+            accessMode: ReadWriteOnce
   destination:
     namespace: nextcloud
     server: https://kubernetes.default.svc

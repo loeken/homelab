@@ -92,7 +92,7 @@ spec:
                   - ^/local.*
                   - ^/hacsfiles.*
                   - ^/frontend_latest.*
-              - domain: ['sonarr.{{ .Values.domain }}', 'radarr.{{ .Values.domain }}', 'ha.{{ .Values.domain }}'']
+              - domain: ['sonarr.{{ .Values.domain }}', 'radarr.{{ .Values.domain }}', 'ha.{{ .Values.domain }}']
                 policy: bypass
                 resources:
                   - ^/api.*

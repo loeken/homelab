@@ -2,18 +2,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: vaultwarden
-  namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "4"
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  - resources-finalizer.argocd.argoproj.io
+  name: vaultwarden
+  namespace: argocd
 spec:
+  destination:
+    namespace: vaultwarden
+    server: https://kubernetes.default.svc
   project: default
   source:
     chart: vaultwarden
-    repoURL: https://loeken.github.io/helm-charts
-    targetRevision: 1.28.1
     helm:
       values: |
         ingress:
@@ -74,14 +75,13 @@ spec:
         envFrom:
         - secretRef:
             name: vaultwarden
-
-  destination:
-    namespace: vaultwarden
-    server: https://kubernetes.default.svc
+    repoURL: https://loeken.github.io/helm-charts
+    targetRevision: 1.29.1
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
+    - CreateNamespace=true
+
 {{ end }}

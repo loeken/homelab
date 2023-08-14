@@ -65,6 +65,7 @@ jellyseerr:
 k10:
   enabled: false
   storageClass: local-path
+  sidecar: false
 linkerd:
   enabled: false
 loki:

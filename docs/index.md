@@ -23,8 +23,11 @@
 ### 8. Radarr
 [setup](radarr/setup.md)
 
-### 9. Jellyseerr
+### 9. Sonarr
+[setup](sonarr/setup.md)
+
+### 10. Jellyseerr
 [setup](jellyseerr/setup.md)
 
-### 10. Nextcloud
+### 11. Nextcloud
 [setup](nextcloud/setup.md)

@@ -20,7 +20,7 @@ Settings -> Download Clients
 ###### nzbget 
 - select option nzbget
 - Host: nzbget.media
-- Category: emtpy
+- Category: MOVIES
 - username ( what you configured in nzbget )
 - password ( what you configured in nzgbet )
 

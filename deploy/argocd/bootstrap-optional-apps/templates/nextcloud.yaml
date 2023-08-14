@@ -99,8 +99,10 @@ spec:
             external-dns.alpha.kubernetes.io/hostname: "nextcloud.{{ .Values.domain }}."
             external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
             external-dns.alpha.kubernetes.io/ttl: "120"
+            {{- if .Values.nextcloud.useAuthelia }}
             nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
             nginx.ingress.kubernetes.io/auth-signin: https://auth.{{ .Values.domain }}
+            {{end}}
             nginx.ingress.kubernetes.io/proxy-body-size: 4G
           enabled: {{ .Values.nextcloud.ingress.nginx.enabled }}
           hosts:
@@ -114,7 +116,6 @@ spec:
           - secretName: nextcloud-tls
             hosts:
             - nextcloud.{{ .Values.domain }}
-
         persistence:
           enabled: true
           accessMode: ReadWriteOnce

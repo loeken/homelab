@@ -2,27 +2,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: loki-stack-charts
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
   annotations:
     argocd.argoproj.io/sync-wave: "5"
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  name: loki-stack-charts
+  namespace: argocd
 spec:
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
   destination:
     namespace: loki
     server: https://kubernetes.default.svc
   project: default
   source:
     chart: loki-stack
-    repoURL: https://grafana.github.io/helm-charts
-    targetRevision: 2.9.10
     helm:
       values: |-
         loki:
@@ -262,4 +254,13 @@ spec:
 
         logstash:
           enabled: {{ .Values.loki.logstash.enabled }}
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 2.9.11
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+
 {{ end }}

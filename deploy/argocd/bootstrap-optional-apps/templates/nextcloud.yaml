@@ -15,7 +15,7 @@ spec:
     repoURL: https://nextcloud.github.io/helm/
     targetRevision: 3.5.19
     helm:
-      values: |
+      values: |-
         image:
           tag: 27.0.1-fpm-alpine
         nginx:

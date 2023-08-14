@@ -2,17 +2,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: zfs-iscsi
-  namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "3"
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  - resources-finalizer.argocd.argoproj.io
+  name: zfs-iscsi
+  namespace: argocd
 spec:
+  destination:
+    namespace: democratic-csi
+    server: https://kubernetes.default.svc
   project: default
   source:
-    repoURL: https://democratic-csi.github.io/charts/
-    targetRevision: 0.14.0
     chart: democratic-csi
     helm:
       values: |
@@ -91,13 +92,13 @@ spec:
         - name: freenas-iscsi-csi-snapclass
           annotations:
             k10.kasten.io/is-snapshot-class: true
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: democratic-csi
+    repoURL: https://democratic-csi.github.io/charts/
+    targetRevision: 0.14.1
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
+    - CreateNamespace=true
+
 {{ end }}

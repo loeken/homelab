@@ -13,7 +13,7 @@ spec:
   source:
     chart: radarr
     repoURL: https://loeken.github.io/helm-charts
-    targetRevision: {{ .Values.radarr.chartVersion }}
+    targetRevision: 4.7.5
     helm:
       values: |
         persistence:

@@ -13,7 +13,7 @@ spec:
   source:
     chart: jellyseerr
     repoURL: https://loeken.github.io/helm-charts
-    targetRevision: {{ .Values.jellyseerr.chartVersion }}
+    targetRevision: 1.6.0
     helm:
       values: |
         persistence:

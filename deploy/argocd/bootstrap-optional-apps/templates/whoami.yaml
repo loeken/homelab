@@ -13,7 +13,7 @@ spec:
   source:
     chart: whoami
     repoURL: 'https://cowboysysop.github.io/charts/'
-    targetRevision: {{ .Values.whoami.chartVersion }}
+    targetRevision: 4.2.0
     helm:
       values: |
         service:

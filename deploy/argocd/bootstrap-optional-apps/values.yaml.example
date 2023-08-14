@@ -1,5 +1,4 @@
 authelia:
-  chartVersion: 0.8.57
   enabled: false
   filesystem:
     enabled: true
@@ -16,25 +15,20 @@ authelia:
     username: authelia@example.com
   storageClass: local-path
 certmanager:
-  chartVersion: 1.12.2
   enabled: false
 cloudflaretunnel:
   enabled: false
 clusterIssuer: letsencrypt-staging
 democratic_iscsi:
-  chartVersion: 0.14.0
   enabled: false
 democratic_nfs:
-  chartVersion: 0.14.0
   enabled: false
 domain: example.com
 externaldns:
-  chartVersion: 6.20.4
   enabled: false
 githubRepo: homelab-example
 githubUser: loeken
 ha:
-  chartVersion: 2023.8.2
   enabled: false
   ingress:
     cloudflaretunnel:
@@ -48,7 +42,6 @@ jellyfin:
     enabled: true
     size: 10Gi
     storageClass: local-path
-  chartVersion: 10.8.10
   config:
     enabled: true
     size: 1Gi
@@ -61,7 +54,6 @@ jellyfin:
       enabled: false
   useAuthelia: false
 jellyseerr:
-  chartVersion: 1.6.0
   enabled: false
   ingress:
     cloudflaretunnel:
@@ -71,7 +63,6 @@ jellyseerr:
   storageClass: local-path
   useAuthelia: false
 k10:
-  chartVersion: 6.0.5
   enabled: false
   storageClass: local-path
 linkerd:
@@ -84,7 +75,6 @@ loki:
         enabled: true
     storageClass: local-path
     storageSize: 10Gi
-  chartVersion: 2.9.10
   enabled: false
   filebeat:
     enabled: false
@@ -111,7 +101,6 @@ loki:
   storageClass: local-path
   storageSize: 10Gi
 nextcloud:
-  chartVersion: 3.5.19
   data:
     accessMode: ReadWriteOnce
     size: 10Gi
@@ -131,14 +120,11 @@ nextcloud:
   storageClass: local-path
   useAuthelia: false
 nfsprovisioner:
-  chartVersion: 4.0.18
   enabled: true
   ip: 172.16.137.200
 nginxingress:
-  chartVersion: 0.18.0
   enabled: false
 nzbget:
-  chartVersion: 1.3.2
   enabled: false
   ingress:
     cloudflaretunnel:
@@ -149,7 +135,6 @@ nzbget:
   storageClass: local-path
   useAuthelia: false
 prowlarr:
-  chartVersion: 1.7.4
   enabled: false
   ingress:
     cloudflaretunnel:
@@ -160,7 +145,6 @@ prowlarr:
   storageClass: local-path
   useAuthelia: false
 radarr:
-  chartVersion: 4.7.5
   enabled: false
   ingress:
     cloudflaretunnel:
@@ -173,7 +157,6 @@ radarr:
 robusta:
   enabled: false
 rtorrentflood:
-  chartVersion: 4.7.0
   enabled: false
   ingress:
     cloudflaretunnel:
@@ -188,7 +171,6 @@ sharedmedia:
   size: 100Gi
   storageClass: nfs-client
 sonarr:
-  chartVersion: 3.0.9
   enabled: false
   ingress:
     cloudflaretunnel:
@@ -200,7 +182,6 @@ sonarr:
   useAuthelia: false
 storageClass: local-path
 vaultwarden:
-  chartVersion: 1.28.1
   enabled: false
   ingress:
     cloudflaretunnel:
@@ -213,7 +194,6 @@ vaultwarden:
 volumesnapshots:
   enabled: true
 whoami:
-  chartVersion: 4.2.0
   enabled: true
   ingress:
     cloudflaretunnel:

@@ -22,7 +22,7 @@ spec:
   source:
     chart: loki-stack
     repoURL: https://grafana.github.io/helm-charts
-    targetRevision: {{ .Values.loki.chartVersion }}
+    targetRevision: 2.9.10
     helm:
       values: |
         loki:

@@ -13,7 +13,7 @@ spec:
   source:
     chart: sonarr
     repoURL: 'https://loeken.github.io/helm-charts'
-    targetRevision: {{ .Values.sonarr.chartVersion }}
+    targetRevision: 3.0.9
     helm:
       values: |
         persistence:

@@ -13,7 +13,7 @@ spec:
   source:
     chart: nextcloud
     repoURL: https://nextcloud.github.io/helm/
-    targetRevision: {{ .Values.nextcloud.chartVersion }}
+    targetRevision: 3.5.19
     helm:
       values: |
         image:

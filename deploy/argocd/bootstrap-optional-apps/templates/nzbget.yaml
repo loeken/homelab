@@ -13,7 +13,7 @@ spec:
   source:
     chart: nzbget
     repoURL: https://loeken.github.io/helm-charts
-    targetRevision: {{ .Values.nzbget.chartVersion }}
+    targetRevision: 1.3.2
     helm:
       values: |
         env:

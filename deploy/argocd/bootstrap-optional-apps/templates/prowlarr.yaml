@@ -13,7 +13,7 @@ spec:
   source:
     chart: prowlarr
     repoURL: https://loeken.github.io/helm-charts
-    targetRevision: {{ .Values.prowlarr.chartVersion }}
+    targetRevision: 1.7.4
     helm:
       values: |
         persistence:

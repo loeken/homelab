@@ -13,7 +13,7 @@ spec:
   source:
     chart: vaultwarden
     repoURL: https://loeken.github.io/helm-charts
-    targetRevision: {{ .Values.vaultwarden.chartVersion }}
+    targetRevision: 1.28.1
     helm:
       values: |
         ingress:

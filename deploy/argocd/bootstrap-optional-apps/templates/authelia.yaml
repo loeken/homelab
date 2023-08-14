@@ -103,7 +103,7 @@ spec:
                   - ^/api.*
                   - ^/identity/connect/token.*
                   - ^/notifications/hub.*
-              - domain: 'jellyfin.'
+              - domain: 'jellyfin.{{ .Values.domain }}'
                 policy: bypass
                 resources:
                   - ^/api.*

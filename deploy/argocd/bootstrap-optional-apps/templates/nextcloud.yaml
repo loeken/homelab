@@ -76,22 +76,6 @@ spec:
               secure: ssl
               port: {{ .Values.nextcloud.smtp.port }}
               authtype: LOGIN
-          configs:
-            trusted_domains.config.php: |-
-              <?php
-              $CONFIG = [
-                'overwriteprotocol' => 'https',
-                'trusted_domains' => [
-                  0 => 'localhost',
-                  1 => 'nextcloud.kube.home',
-                  2 => 'nextcloud.{{ .Values.domain }}'
-                ]
-              ];
-            trusted_proxies.config.php: |-
-              <?php
-              $CONFIG = [
-                'trusted_proxies' => array('0.0.0.0/0')
-              ];
         ingress:
           annotations:
             kubernetes.io/ingress.class: nginx

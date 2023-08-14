@@ -88,7 +88,6 @@ spec:
             - secretName: grafana-tls
               hosts:
                 - grafana.{{ .Values.domain }}
-          {{- if .Values.linkerd.enabled }}
           datasources:
             datasources.yaml:
               apiVersion: 1
@@ -102,7 +101,6 @@ spec:
                 jsonData:
                   timeInterval: 5s
                 editable: true
-          {{- end }}
           dashboardProviders:
             dashboardproviders.yaml:
               apiVersion: 1
@@ -119,7 +117,6 @@ spec:
           dashboards:
             default:
               # all these charts are hosted at https://grafana.com/grafana/dashboards/{id}
-              {{- if .Values.linkerd.enabled }}
               top-line:
                 gnetId: 15474
                 revision: 4
@@ -192,7 +189,6 @@ spec:
                 gnetId: 15488
                 revision: 3
                 datasource: prometheus
-              {{- end }}
               prometheus-benchmark:
                 gnetId: 15490
                 revision: 2
@@ -203,8 +199,6 @@ spec:
                 revision: 3
                 datasource: Prometheus
                 name: Loki Prometheues - Stats
-           
-
         prometheus:
           server:
             # readinessProbeInitialDelay: 300
@@ -223,24 +217,6 @@ spec:
               requests:
                 cpu: 1000m
                 memory: 1Gi
-          {{ if .Values.robusta.enabled }}
-          alertmanagerFiles:
-            alertmanager.yml:
-              global: {}
-              receivers:
-                - name: robusta
-                  webhook_configs:
-                    - send_resolved: true
-                      url: http://robusta-runner.robusta.svc.cluster.local/api/alerts
-                - name: default-receiver
-              route:
-                routes:
-                  - continue: true
-                    match_re:
-                      severity: info|warn|error|critical
-                    receiver: robusta
-                    repeat_interval: 4h
-          {{ end }}
           enabled: {{ .Values.loki.prometheus.enabled }}
           configmapReload:
             prometheus:
@@ -263,21 +239,6 @@ spec:
               requests:
                 cpu: 50m
                 memory: 50Mi
-            {{ if .Values.robusta.enabled }}
-            config:
-              receivers:
-                - name: 'robusta'
-                  webhook_configs:
-                    - url: 'http://robusta-runner.robusta.svc.cluster.local/api/alerts'
-                      send_resolved: true
-              route:
-                routes:
-                - receiver: 'robusta'
-                  match_re:
-                    severity: 'info|warn|error|critical'
-                  repeat_interval: 4h
-                  continue: true
-            {{ end }}
             ingress:
               annotations:
                 cert-manager.io/cluster-issuer: "{{ .Values.clusterIssuer }}"

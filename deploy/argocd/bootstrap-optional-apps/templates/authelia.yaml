@@ -81,6 +81,8 @@ spec:
                 policy: bypass
                 networks:
                   - 10.42.0.0/16
+              - domain: 'jellyfin.{{ .Values.domain }}'
+                policy: bypass
               - domain: ['ha.{{ .Values.domain }}']
                 policy: bypass
                 resources:
@@ -103,16 +105,12 @@ spec:
                   - ^/api.*
                   - ^/identity/connect/token.*
                   - ^/notifications/hub.*
-              - domain: 'jellyfin.{{ .Values.domain }}'
-                policy: bypass
-                resources:
-                  - ^/api.*
-                  - ^/System/Info/Public.*
+
               - domain: 'rtorrent.{{ .Values.domain }}'
                 policy: bypass
                 resources:
                   - ^/RPC2.*
-              - domain: ['jellyfin.{{ .Values.domain }}', 'requests.{{ .Values.domain }}']
+              - domain: ['requests.{{ .Values.domain }}']
                 policy: one_factor
                 subject:
                   - 'group:users'

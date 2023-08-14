@@ -113,9 +113,9 @@ loki:
 nextcloud:
   chartVersion: 3.5.19
   data:
+    accessMode: ReadWriteOnce
     size: 10Gi
     storageClass: local-path
-    accessMode: ReadWriteOnce
   enabled: false
   ingress:
     cloudflaretunnel:

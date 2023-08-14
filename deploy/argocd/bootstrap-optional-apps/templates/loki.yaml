@@ -24,7 +24,7 @@ spec:
     repoURL: https://grafana.github.io/helm-charts
     targetRevision: 2.9.10
     helm:
-      values: |
+      values: |-
         loki:
           rbac:
             pspEnabled: false
@@ -34,9 +34,6 @@ spec:
             enabled: true
             storageClassName: {{ .Values.loki.storageClass }}
             size: {{ .Values.loki.storageSize }}
-          # securityContext:
-          #   runAsGroup: 10001
-          #   runAsUser: 10001
         promtail:
           enabled: {{ .Values.loki.promtail.enabled }}
         fluent-bit:
@@ -58,14 +55,11 @@ spec:
           ldap:
             enabled: false
 
-          # Use an existing secret for the admin user.
           admin:
-            ## Name of the secret. Can be templated.
             existingSecret: loki-credentials
             userKey: admin-user
             passwordKey: admin-password
-          ## grafana Authentication can be enabled with the following values on grafana.ini
-          
+
           grafana.ini:
             server:
               root_url: https://grafana.{{ .Values.domain }}
@@ -113,10 +107,8 @@ spec:
                 editable: true
                 options:
                   path: /var/lib/grafana/dashboards/default
-
           dashboards:
             default:
-              # all these charts are hosted at https://grafana.com/grafana/dashboards/{id}
               top-line:
                 gnetId: 15474
                 revision: 4
@@ -201,8 +193,6 @@ spec:
                 name: Loki Prometheues - Stats
         prometheus:
           server:
-            # readinessProbeInitialDelay: 300
-            # livenessProbeInitialDelay: 300
             persistentVolume:
               enabled: true
               accessModes:

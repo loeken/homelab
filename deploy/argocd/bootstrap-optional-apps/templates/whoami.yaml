@@ -2,18 +2,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: whoami
-  namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "3"
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  - resources-finalizer.argocd.argoproj.io
+  name: whoami
+  namespace: argocd
 spec:
+  destination:
+    namespace: whoami
+    server: https://kubernetes.default.svc
   project: default
   source:
     chart: whoami
-    repoURL: 'https://cowboysysop.github.io/charts/'
-    targetRevision: 4.2.0
     helm:
       values: |
         service:
@@ -40,13 +41,13 @@ spec:
           - secretName: whoami-tls
             hosts:
               - whoami.{{ .Values.domain }}
-  destination:
-    namespace: whoami
-    server: https://kubernetes.default.svc
+    repoURL: https://cowboysysop.github.io/charts/
+    targetRevision: 5.0.0
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
+    - CreateNamespace=true
+
 {{ end }}

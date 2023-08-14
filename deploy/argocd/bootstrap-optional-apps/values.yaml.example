@@ -34,7 +34,7 @@ externaldns:
 githubRepo: homelab-example
 githubUser: loeken
 ha:
-  chartVersion: 2023.8.1
+  chartVersion: 2023.8.2
   enabled: false
   ingress:
     cloudflaretunnel:
@@ -113,9 +113,9 @@ loki:
 nextcloud:
   chartVersion: 3.5.19
   data:
+    accessMode: ReadWriteOnce
     size: 10Gi
     storageClass: local-path
-    accessMode: ReadWriteOnce
   enabled: false
   ingress:
     cloudflaretunnel:

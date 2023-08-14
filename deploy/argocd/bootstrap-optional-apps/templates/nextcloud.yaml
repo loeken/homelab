@@ -2,18 +2,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: nextcloud
-  namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "5"
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  - resources-finalizer.argocd.argoproj.io
+  name: nextcloud
+  namespace: argocd
 spec:
+  destination:
+    namespace: nextcloud
+    server: https://kubernetes.default.svc
   project: default
   source:
     chart: nextcloud
-    repoURL: https://nextcloud.github.io/helm/
-    targetRevision: 3.5.19
     helm:
       values: |-
         image:
@@ -126,13 +127,13 @@ spec:
             storageClass: {{ .Values.nextcloud.data.storageClass }}
             size: {{ .Values.nextcloud.data.size }}
             accessMode: {{ .Values.nextcloud.data.accessMode }}
-  destination:
-    namespace: nextcloud
-    server: https://kubernetes.default.svc
+    repoURL: https://nextcloud.github.io/helm/
+    targetRevision: 3.5.22
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
+    - CreateNamespace=true
+
 {{ end }}

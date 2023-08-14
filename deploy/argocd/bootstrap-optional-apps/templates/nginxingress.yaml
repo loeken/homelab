@@ -2,16 +2,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: nginx-ingress
-  namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "3"
+  name: nginx-ingress
+  namespace: argocd
 spec:
+  destination:
+    namespace: nginx-ingress
+    server: https://kubernetes.default.svc
   project: default
   source:
     chart: nginx-ingress-controller
-    repoURL: https://charts.bitnami.com/bitnami
-    targetRevision: "9.5.1"
     helm:
       values: |
         kind: DaemonSet
@@ -23,13 +24,13 @@ spec:
         service:
           externalTrafficPolicy: Local
           type: NodePort
-  destination:
-    namespace: nginx-ingress
-    server: https://kubernetes.default.svc
+    repoURL: https://charts.bitnami.com/bitnami
+    targetRevision: 9.7.7
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
+    - CreateNamespace=true
+
 {{ end }}

@@ -2,138 +2,66 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: nextcloud
-  namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "5"
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  - resources-finalizer.argocd.argoproj.io
+  name: nextcloud
+  namespace: argocd
 spec:
-  project: default
-  source:
-    chart: nextcloud
-    repoURL: https://nextcloud.github.io/helm/
-    targetRevision: 3.5.19
-    helm:
-      values: |
-        image:
-          tag: 27.0.1-fpm-alpine
-        nginx:
-          enabled: true
-          image:
-            repository: nginx
-            tag: alpine
-            pullPolicy: IfNotPresent
-        internalDatabase:
-          enabled: false
-        externalDatabase:
-          enabled: true
-          type: "pgsql"
-          host: nextcloud-postgresql
-          port: 5432
-          user: nextcloud
-          password: null
-          existingSecret: 
-            enabled: true
-            secretName: nextcloud
-            usernameKey: postgres-username
-            passwordKey: postgres-password
-          database: nextcloud
-        postgresql:
-          enabled: true
-          global:
-            postgresql:
-              auth:
-                username: nextcloud
-                existingSecret: nextcloud
-                secretKeys:
-                  secretName: nextcloud
-                  adminPasswordKey: postgres-password
-                  userPasswordKey: postgres-password
-                  replicationPasswordKey: postgresql-replication-password
-                database: nextcloud
-          primary:
-            persistence:
-              enabled: true
-              storageClass: {{ .Values.nextcloud.storageClass }}
-              accessModes:
-                - ReadWriteOnce
-        nextcloud:
-          existingSecret:
-            enabled: true
-            secretName: nextcloud
-            usernameKey: nextcloud-username
-            passwordKey: nextcloud-password
-            smtpUsernameKey: smtp_username
-            smtpPasswordKey: smtp_password
-          host: nextcloud.{{ .Values.domain }}
-          mail:
-            enabled: true
-            fromAddress: {{ .Values.nextcloud.smtp.sender }}
-            domain: {{ .Values.nextcloud.smtp.domain }}
-            smtp:
-              host: {{ .Values.nextcloud.smtp.host }}
-              secure: ssl
-              port: {{ .Values.nextcloud.smtp.port }}
-              authtype: LOGIN
-          configs:
-            trusted_domains.config.php: |-
-              <?php
-              $CONFIG = [
-                'overwriteprotocol' => 'https',
-                'trusted_domains' => [
-                  0 => 'localhost',
-                  1 => 'nextcloud.kube.home',
-                  2 => 'nextcloud.{{ .Values.domain }}'
-                ]
-              ];
-            trusted_proxies.config.php: |-
-              <?php
-              $CONFIG = [
-                'trusted_proxies' => array('0.0.0.0/0')
-              ];
-        ingress:
-          annotations:
-            kubernetes.io/ingress.class: nginx
-            cert-manager.io/cluster-issuer: "{{ .Values.clusterIssuer }}"
-            external-dns.alpha.kubernetes.io/hostname: "nextcloud.{{ .Values.domain }}."
-            external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
-            external-dns.alpha.kubernetes.io/ttl: "120"
-            {{- if .Values.nextcloud.useAuthelia }}
-            nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
-            nginx.ingress.kubernetes.io/auth-signin: https://auth.{{ .Values.domain }}
-            {{end}}
-            nginx.ingress.kubernetes.io/proxy-body-size: 4G
-          enabled: {{ .Values.nextcloud.ingress.nginx.enabled }}
-          hosts:
-            - host: nextcloud.{{ .Values.domain }}
-              paths:
-                - path: /
-                  pathType: Prefix
-                  service:
-                    port: 8080
-          tls:
-          - secretName: nextcloud-tls
-            hosts:
-            - nextcloud.{{ .Values.domain }}
-
-        persistence:
-          enabled: true
-          accessMode: ReadWriteOnce
-          storageClass: "local-path"
-          size: 8Gi
-          nextcloudData:
-            enabled: true
-            storageClass: {{ .Values.nextcloud.data.storageClass }}
-            size: {{ .Values.nextcloud.data.size }}
-            accessMode: {{ .Values.nextcloud.data.accessMode }}
   destination:
     namespace: nextcloud
     server: https://kubernetes.default.svc
+  project: default
+  source:
+    chart: nextcloud
+    helm:
+      values: "image:\n  tag: 27.0.1-fpm-alpine\nnginx:\n  enabled: true\n  image:\n
+        \   repository: nginx\n    tag: alpine\n    pullPolicy: IfNotPresent\ninternalDatabase:\n
+        \ enabled: false\nexternalDatabase:\n  enabled: true\n  type: \"pgsql\"\n
+        \ host: nextcloud-postgresql\n  port: 5432\n  user: nextcloud\n  password:
+        null\n  existingSecret: \n    enabled: true\n    secretName: nextcloud\n    usernameKey:
+        postgres-username\n    passwordKey: postgres-password\n  database: nextcloud\npostgresql:\n
+        \ enabled: true\n  global:\n    postgresql:\n      auth:\n        username:
+        nextcloud\n        existingSecret: nextcloud\n        secretKeys:\n          secretName:
+        nextcloud\n          adminPasswordKey: postgres-password\n          userPasswordKey:
+        postgres-password\n          replicationPasswordKey: postgresql-replication-password\n
+        \       database: nextcloud\n  primary:\n    persistence:\n      enabled:
+        true\n      storageClass: {{ .Values.nextcloud.storageClass }}\n      accessModes:\n
+        \       - ReadWriteOnce\nnextcloud:\n  existingSecret:\n    enabled: true\n
+        \   secretName: nextcloud\n    usernameKey: nextcloud-username\n    passwordKey:
+        nextcloud-password\n    smtpUsernameKey: smtp_username\n    smtpPasswordKey:
+        smtp_password\n  host: nextcloud.{{ .Values.domain }}\n  mail:\n    enabled:
+        true\n    fromAddress: {{ .Values.nextcloud.smtp.sender }}\n    domain: {{
+        .Values.nextcloud.smtp.domain }}\n    smtp:\n      host: {{ .Values.nextcloud.smtp.host
+        }}\n      secure: ssl\n      port: {{ .Values.nextcloud.smtp.port }}\n      authtype:
+        LOGIN\n  configs:\n    trusted_domains.config.php: |-\n      <?php\n      $CONFIG
+        = [\n        'overwriteprotocol' => 'https',\n        'trusted_domains' =>
+        [\n          0 => 'localhost',\n          1 => 'nextcloud.kube.home',\n          2
+        => 'nextcloud.{{ .Values.domain }}'\n        ]\n      ];\n    trusted_proxies.config.php:
+        |-\n      <?php\n      $CONFIG = [\n        'trusted_proxies' => array('0.0.0.0/0')\n
+        \     ];\ningress:\n  annotations:\n    kubernetes.io/ingress.class: nginx\n
+        \   cert-manager.io/cluster-issuer: \"{{ .Values.clusterIssuer }}\"\n    external-dns.alpha.kubernetes.io/hostname:
+        \"nextcloud.{{ .Values.domain }}.\"\n    external-dns.alpha.kubernetes.io/cloudflare-proxied:
+        \"false\"\n    external-dns.alpha.kubernetes.io/ttl: \"120\"\n    {{- if .Values.nextcloud.useAuthelia
+        }}\n    nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify\n
+        \   nginx.ingress.kubernetes.io/auth-signin: https://auth.{{ .Values.domain
+        }}\n    {{end}}\n    nginx.ingress.kubernetes.io/proxy-body-size: 4G\n  enabled:
+        {{ .Values.nextcloud.ingress.nginx.enabled }}\n  hosts:\n    - host: nextcloud.{{
+        .Values.domain }}\n      paths:\n        - path: /\n          pathType: Prefix\n
+        \         service:\n            port: 8080\n  tls:\n  - secretName: nextcloud-tls\n
+        \   hosts:\n    - nextcloud.{{ .Values.domain }}\n\npersistence:\n  enabled:
+        true\n  accessMode: ReadWriteOnce\n  storageClass: \"local-path\"\n  size:
+        8Gi\n  nextcloudData:\n    enabled: true\n    storageClass: {{ .Values.nextcloud.data.storageClass
+        }}\n    size: {{ .Values.nextcloud.data.size }}\n    accessMode: {{ .Values.nextcloud.data.accessMode
+        }}\n"
+    repoURL: https://nextcloud.github.io/helm/
+    targetRevision: 3.5.22
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
+    - CreateNamespace=true
+
 {{ end }}

@@ -21,7 +21,7 @@ spec:
             storageClass: {{ .Values.k10.storageClass }}
         kanister:
           backupTimeout: 1440
-        {{-if .Values.k10.sidecar }}
+        {{- if .Values.k10.sidecar }}
         injectKanisterSidecar:
           enabled: true
         {{end}}

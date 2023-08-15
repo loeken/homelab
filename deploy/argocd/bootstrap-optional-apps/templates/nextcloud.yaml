@@ -40,10 +40,6 @@ spec:
             usernameKey: postgres-username
             passwordKey: postgres-password
           database: nextcloud
-        securityContext:
-          runAsGroup: {{ .Values.nextcloud.securityContext.runAsGroup }}
-          runAsUser: {{ .Values.nextcloud.securityContext.runAsUser }}
-          runAsNonRoot: {{ .Values.nextcloud.securityContext.runAsNonRoot }}
         postgresql:
           enabled: true
           global:

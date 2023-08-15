@@ -112,7 +112,10 @@ nextcloud:
       enabled: true
     nginx:
       enabled: false
-  securityContext: {}
+  securityContext:
+    runAsNonRoot: false
+    runAsUser: 1000
+    runAsGroup: 1000
   smtp:
     domain: example.com
     host: mail.example.com

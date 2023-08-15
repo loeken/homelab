@@ -81,7 +81,7 @@ spec:
                 policy: bypass
                 networks:
                   - 10.42.0.0/16
-              - domain: 'jellyfin.{{ .Values.domain }}'
+              - domain: ['jellyfin.{{ .Values.domain }}','nextcloud.{{ .Values.domain }}']
                 policy: bypass
               - domain: ['ha.{{ .Values.domain }}']
                 policy: bypass
@@ -105,7 +105,6 @@ spec:
                   - ^/api.*
                   - ^/identity/connect/token.*
                   - ^/notifications/hub.*
-
               - domain: 'rtorrent.{{ .Values.domain }}'
                 policy: bypass
                 resources:

@@ -112,6 +112,7 @@ nextcloud:
       enabled: true
     nginx:
       enabled: false
+  securityContext: {}
   smtp:
     domain: example.com
     host: mail.example.com

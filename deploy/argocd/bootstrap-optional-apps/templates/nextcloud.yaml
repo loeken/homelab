@@ -16,7 +16,7 @@ spec:
   source:
     chart: nextcloud
     helm:
-      values: |-
+      values: |
         image:
           tag: 27.0.1-fpm-alpine
         nginx:
@@ -40,6 +40,8 @@ spec:
             usernameKey: postgres-username
             passwordKey: postgres-password
           database: nextcloud
+
+        securityContext: {{ .Values.nextcloud.securityContext }}
         postgresql:
           enabled: true
           global:

@@ -60,6 +60,11 @@ spec:
               accessModes:
                 - ReadWriteOnce
         nextcloud:
+          securityContext:
+            runAsUser: 33
+            runAsGroup: 33
+            runAsNonRoot: true
+            readOnlyRootFilesystem: false
           existingSecret:
             enabled: true
             secretName: nextcloud

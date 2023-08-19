@@ -1,5 +1,3 @@
 email: youremail@example.com
 githubRepo: homelab-example
 githubUser: loeken
-sealedsecrets:
-  chartVersion: 2.11.0

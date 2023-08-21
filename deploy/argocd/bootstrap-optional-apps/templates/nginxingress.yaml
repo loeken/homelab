@@ -25,7 +25,7 @@ spec:
           externalTrafficPolicy: Local
           type: NodePort
     repoURL: https://charts.bitnami.com/bitnami
-    targetRevision: 9.7.8
+    targetRevision: 9.7.9
   syncPolicy:
     automated:
       prune: true

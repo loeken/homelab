@@ -12,7 +12,7 @@ spec:
   project: default
   source:
     repoURL: https://charts.kasten.io/
-    targetRevision: 6.0.6
+    targetRevision: 6.0.9
     chart: k10
     helm:
       values: |

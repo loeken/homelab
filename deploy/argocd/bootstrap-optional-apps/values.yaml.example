@@ -127,8 +127,6 @@ nextcloud:
 nfsprovisioner:
   enabled: true
   ip: 172.16.137.200
-nginxingress:
-  enabled: false
 nzbget:
   enabled: false
   ingress:

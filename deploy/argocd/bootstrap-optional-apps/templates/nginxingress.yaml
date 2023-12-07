@@ -25,11 +25,12 @@ spec:
           externalTrafficPolicy: Local
           type: NodePort
     repoURL: https://charts.bitnami.com/bitnami
-    targetRevision: 9.9.1
+    targetRevision: 9.9.4
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
     - CreateNamespace=true
+
 {{ end }}

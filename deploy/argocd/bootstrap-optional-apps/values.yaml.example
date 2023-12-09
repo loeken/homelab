@@ -139,6 +139,8 @@ nzbget:
   size: 10Gi
   storageClass: local-path
   useAuthelia: false
+oidc:
+  sharedsecret: topsecret
 prowlarr:
   enabled: false
   ingress:

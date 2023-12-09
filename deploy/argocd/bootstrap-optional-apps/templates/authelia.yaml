@@ -72,7 +72,26 @@ spec:
                 minimum_version: TLS1.2
           identity_providers:
             oidc:
-              enabled: false
+              enabled: true
+              clients:
+                - id: nextcloud-client
+                  # The client secret will also be read from an environment variable
+                  redirect_uris:
+                    - https://nextcloud.{{ .Values.domain }}/apps/oidc_login/oidc
+                  grants:
+                    - authorization_code
+                  secret: {{ .Values.oidc.sharedsecret }}
+                  scopes:
+                    - openid
+                    - profile
+                    - email
+                    - groups
+                  response_types:
+                    - code
+                  audience: []
+                  public: false
+                  authorization_policy: one_factor
+
           theme: dark
           access_control:
             default_policy: deny

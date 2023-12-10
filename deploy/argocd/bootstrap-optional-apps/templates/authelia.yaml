@@ -123,6 +123,7 @@ spec:
                 resources:
                   - ^/api.*
                   - ^/identity/connect/token.*
+                  - ^/identity/accounts/prelogin.*
                   - ^/notifications/hub.*
               - domain: 'rtorrent.{{ .Values.domain }}'
                 policy: bypass

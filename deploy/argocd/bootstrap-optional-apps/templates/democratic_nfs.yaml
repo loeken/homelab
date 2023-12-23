@@ -89,7 +89,7 @@ spec:
               cpu: 0.5
               memory: 256Mi
     repoURL: https://democratic-csi.github.io/charts/
-    targetRevision: 0.14.2
+    targetRevision: 0.14.3
   syncPolicy:
     automated:
       prune: true

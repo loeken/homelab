@@ -255,7 +255,7 @@ spec:
         logstash:
           enabled: {{ .Values.loki.logstash.enabled }}
     repoURL: https://grafana.github.io/helm-charts
-    targetRevision: 2.9.11
+    targetRevision: 2.9.12
   syncPolicy:
     automated:
       prune: true

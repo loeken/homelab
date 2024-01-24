@@ -74,6 +74,19 @@ spec:
             oidc:
               enabled: true
               clients:
+              - id: grafana
+                description: Grafana
+                secret: 'topsecret'
+                public: false
+                authorization_policy: two_factor
+                redirect_uris:
+                  - https://grafana.{{ .Values.domain }}/login/generic_oauth
+                scopes:
+                  - openid
+                  - profile
+                  - groups
+                  - email
+                userinfo_signing_algorithm: none
                 - id: nextcloud-client
                   # The client secret will also be read from an environment variable
                   redirect_uris:
@@ -90,7 +103,7 @@ spec:
                     - code
                   audience: []
                   public: false
-                  authorization_policy: one_factor
+                  authorization_policy: two_factor
 
           theme: dark
           access_control:

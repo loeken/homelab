@@ -2,18 +2,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: sonarr
-  namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "6"
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  - resources-finalizer.argocd.argoproj.io
+  name: sonarr
+  namespace: argocd
 spec:
+  destination:
+    namespace: media
+    server: https://kubernetes.default.svc
   project: default
   source:
     chart: sonarr
-    repoURL: 'https://loeken.github.io/helm-charts'
-    targetRevision: 3.0.9
     helm:
       values: |
         persistence:
@@ -57,13 +58,13 @@ spec:
           startup:
             spec:
               initialDelaySeconds: 20
-  destination:
-    namespace: media
-    server: https://kubernetes.default.svc
+    repoURL: https://loeken.github.io/helm-charts
+    targetRevision: 4.0.2
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
+    - CreateNamespace=true
+
 {{ end }}

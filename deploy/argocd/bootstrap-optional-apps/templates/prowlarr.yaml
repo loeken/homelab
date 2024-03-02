@@ -2,18 +2,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: prowlarr
-  namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "6"
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  - resources-finalizer.argocd.argoproj.io
+  name: prowlarr
+  namespace: argocd
 spec:
+  destination:
+    namespace: media
+    server: https://kubernetes.default.svc
   project: default
   source:
     chart: prowlarr
-    repoURL: https://loeken.github.io/helm-charts
-    targetRevision: 1.7.4
     helm:
       values: |
         persistence:
@@ -64,13 +65,13 @@ spec:
           #  gpu.intel.com/i915: 1
             memory: 4096Mi
             cpu: 8
-  destination:
-    namespace: media
-    server: https://kubernetes.default.svc
+    repoURL: https://loeken.github.io/helm-charts
+    targetRevision: 1.13.3
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
+    - CreateNamespace=true
+
 {{ end }}

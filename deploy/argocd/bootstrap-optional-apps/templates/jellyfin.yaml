@@ -2,18 +2,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: jellyfin
-  namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "6"
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  - resources-finalizer.argocd.argoproj.io
+  name: jellyfin
+  namespace: argocd
 spec:
+  destination:
+    namespace: media
+    server: https://kubernetes.default.svc
   project: default
   source:
     chart: jellyfin
-    repoURL: https://loeken.github.io/helm-charts
-    targetRevision: 10.8.10
     helm:
       values: |
         persistence:
@@ -74,13 +75,13 @@ spec:
           #  gpu.intel.com/i915: 1
             memory: 20480Mi
             cpu: 8
-  destination:
-    namespace: media
-    server: https://kubernetes.default.svc
+    repoURL: https://loeken.github.io/helm-charts
+    targetRevision: 10.8.13
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
+    - CreateNamespace=true
+
 {{ end }}

@@ -28,7 +28,7 @@ externaldns:
   enabled: false
 githubRepo: homelab-example
 githubUser: loeken
-ha:
+home-assistant:
   enabled: false
   ingress:
     cloudflaretunnel:

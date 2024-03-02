@@ -14,7 +14,6 @@ This repo contains definitions for a k3s-based kubernetes (atm-single node) clus
 ## install
 https://enso.internetz.me
 
-a more comprehensive docs on how to install can be found [on the external docs page](https://loeken.github.io/homelab) or [in github's markdown](https://github.com/loeken/homelab/blob/main/docs/index.md)
 
 ## features
 - made with love

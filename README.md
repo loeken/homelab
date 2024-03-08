@@ -11,15 +11,9 @@ This repo contains definitions for a k3s-based kubernetes (atm-single node) clus
 - a [github](https://github.com) account to store your configs/secrets
 - some apps require an email to send with, such as authelia and nextcloud.
 
-## impatient install
-```
-git clone https://github.com/loeken/homelab
-cd homelab/setup
-./setup check-dependencies -h
-./setup github -h
-./setup install -h
-```
-a more comprehensive docs on how to install can be found [on the external docs page](https://loeken.github.io/homelab) or [in github's markdown](https://github.com/loeken/homelab/blob/main/docs/index.md)
+## install
+https://enso.internetz.me
+
 
 ## features
 - made with love

@@ -70,7 +70,7 @@ spec:
               http:
                 port: 8123
     repoURL: https://loeken.github.io/helm-charts
-    targetRevision: 2024.2.5
+    targetRevision: 2024.3.0
   syncPolicy:
     automated:
       prune: true

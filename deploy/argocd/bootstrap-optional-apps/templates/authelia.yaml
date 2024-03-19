@@ -88,7 +88,6 @@ spec:
                   - email
                 userinfo_signing_algorithm: none
                 - id: nextcloud-client
-                  # The client secret will also be read from an environment variable
                   redirect_uris:
                     - https://nextcloud.{{ .Values.domain }}/apps/oidc_login/oidc
                   grants:
@@ -104,7 +103,6 @@ spec:
                   audience: []
                   public: false
                   authorization_policy: two_factor
-
           theme: dark
           access_control:
             default_policy: deny
@@ -154,7 +152,6 @@ spec:
                 policy: two_factor
                 subject:
                   - 'group:users'
-
         ingress:
           annotations:
             kubernetes.io/ingress.class: "nginx"

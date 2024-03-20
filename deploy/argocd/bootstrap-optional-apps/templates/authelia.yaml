@@ -120,10 +120,8 @@ spec:
                 policy: bypass
                 networks:
                   - 10.42.0.0/16
-              - domain: ['nextcloud.{{ .Values.domain }}']
+              - domain: ['nextcloud.{{ .Values.domain }}', 'jellyfin.{{ .Values.domain }}']
                 policy: bypass
-              - domain: ['jellyfin.{{ .Values.domain }}']
-                policy: one_factor
               - domain: ['ha.{{ .Values.domain }}']
                 policy: bypass
                 resources:

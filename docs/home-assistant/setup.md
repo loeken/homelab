@@ -49,7 +49,7 @@ INFO: Installation complete.
 INFO: Remember to restart Home Assistant before you configure it
 ```
 
-the head to Developer Tools -> Restart
+either restart the pod, run kill 1 in this terminal or if you can login to the ui some other way, head to Developer Tools -> Restart
 
 then over to Configuration -> Devices & Services
 

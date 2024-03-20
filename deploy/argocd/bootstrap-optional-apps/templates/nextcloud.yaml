@@ -92,7 +92,7 @@ spec:
                 'oidc_login_provider_url' => 'https://auth.{{ .Values.domain }}',
                 'oidc_login_client_id' => 'nextcloud-client',
                 'oidc_login_client_secret' => '{{ .Values.oidc.sharedsecret }}',
-                'oidc_login_auto_redirect' => false,
+                'oidc_login_auto_redirect' => true,
                 'oidc_login_end_session_redirect' => false,
                 'oidc_login_button_text' => 'Log in with Authelia',
                 'oidc_login_hide_password_form' => false,

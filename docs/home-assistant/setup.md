@@ -58,24 +58,3 @@ check all the stupid checkboxes and submit
 head over to github and enter the key home assistant showed you, assign it to a room
 
 
-while we have a shell open let's also add the redirect rules
-
-```
-cd /config
-mkdir themes
-apk add nano
-nano /config/configuration.yaml
-
-http:
-    server_host: 0.0.0.0
-    ip_ban_enabled: true
-    login_attempts_threshold: 5
-    use_x_forwarded_for: true
-    trusted_proxies:
-    # Pod CIDR
-    - 10.42.0.0/16
-    # Node CIDR
-    - 172.16.137.0/24
-```
-
-without this block you will encouter a redirect loop.

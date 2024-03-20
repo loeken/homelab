@@ -6,6 +6,24 @@ a good guide can be found (here)[https://hacs.xyz/docs/configuration/start]
 ```
 ❯ kubectl exec -it -n home-assistant home-assistant-0 ash
 kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
+/config # cat configuration.yaml 
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+# my edits:
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 10.42.0.0/16  # Adjust the IP range according to your Kubernetes cluster's IP range
+  ip_ban_enabled: false
 /config # wget -O - https://get.hacs.xyz | bash -
 Connecting to get.hacs.xyz (104.21.5.2:443)
 Connecting to raw.githubusercontent.com (185.199.110.133:443)

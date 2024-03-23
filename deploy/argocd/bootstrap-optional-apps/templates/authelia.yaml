@@ -103,7 +103,6 @@ spec:
                   audience: []
                   public: false
                   authorization_policy: two_factor
-
                 - id: jeyllyin
                   client_id: jellyfin
                   client_name: My media server
@@ -111,7 +110,7 @@ spec:
                   token_endpoint_auth_method: client_secret_post
                   authorization_policy: one_factor
                   redirect_uris:
-                    - https://jellyfin.loeken.xyz/sso/OID/redirect/authelia
+                    - https://jellyfin.{{ .Values.domain }}/sso/OID/redirect/authelia
           theme: dark
           access_control:
             default_policy: deny

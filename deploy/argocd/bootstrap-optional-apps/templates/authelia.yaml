@@ -110,6 +110,11 @@ spec:
                   authorization_policy: one_factor
                   redirect_uris:
                     - https://jellyfin.{{ .Values.domain }}/sso/OID/redirect/authelia
+                  scopes:
+                    - openid
+                    - profile
+                    - groups
+                    - email
           theme: dark
           access_control:
             default_policy: deny

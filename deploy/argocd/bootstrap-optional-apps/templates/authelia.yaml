@@ -103,10 +103,8 @@ spec:
                   audience: []
                   public: false
                   authorization_policy: two_factor
-                - id: jeyllyin
-                  name: My media server
+                - id: jellyfin
                   secret: {{ .Values.oidc.sharedsecret }}
-                  token_endpoint_auth_method: client_secret_post
                   authorization_policy: one_factor
                   redirect_uris:
                     - https://jellyfin.{{ .Values.domain }}/sso/OID/redirect/authelia

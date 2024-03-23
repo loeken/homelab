@@ -104,9 +104,8 @@ spec:
                   public: false
                   authorization_policy: two_factor
                 - id: jeyllyin
-                  client_id: jellyfin
-                  client_name: My media server
-                  client_secret: {{ .Values.oidc.sharedsecret }}
+                  name: My media server
+                  secret: {{ .Values.oidc.sharedsecret }}
                   token_endpoint_auth_method: client_secret_post
                   authorization_policy: one_factor
                   redirect_uris:

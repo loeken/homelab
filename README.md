@@ -47,6 +47,10 @@ docs are written in obsidian markdown inside the [docs](./docs) folder, an onlin
 
 you can also access it via [github](https://github.com/loeken/homelab/blob/main/docs/index.md)
 
+## auto updater
+
+https://github.com/loeken/homelab-updater
+
 # The stack from bottom to top
 These are all the apps that are part of this repo and can be installed via the ./setup util. It can either be installed in baremetal debian, in proxmox ( setup converts debian to proxmox & creates templates/kvms ). This allows intalling debian with FullDiskEncryption :luc_lock: easily with the debian installer.
 

@@ -50,7 +50,7 @@ spec:
               hosts:
               - requests.{{ .Values.domain }}
     repoURL: https://loeken.github.io/helm-charts
-    targetRevision: 1.7.0
+    targetRevision: 1.8.1
   syncPolicy:
     automated:
       prune: true

@@ -104,75 +104,75 @@ spec:
               top-line:
                 gnetId: 15474
                 revision: 4
-                datasource: prometheus
+                datasource: Prometheus
               health:
                 gnetId: 15486
                 revision: 3
-                datasource: prometheus
+                datasource: Prometheus
               kubernetes:
                 gnetId: 15479
                 revision: 2
-                datasource: prometheus
+                datasource: Prometheus
               namespace:
                 gnetId: 15478
                 revision: 3
-                datasource: prometheus
+                datasource: Prometheus
               deployment:
                 gnetId: 15475
                 revision: 6
-                datasource: prometheus
+                datasource: Prometheus
               pod:
                 gnetId: 15477
                 revision: 3
-                datasource: prometheus
+                datasource: Prometheus
               service:
                 gnetId: 15480
                 revision: 3
-                datasource: prometheus
+                datasource: Prometheus
               route:
                 gnetId: 15481
                 revision: 3
-                datasource: prometheus
+                datasource: Prometheus
               authority:
                 gnetId: 15482
                 revision: 3
-                datasource: prometheus
+                datasource: Prometheus
               cronjob:
                 gnetId: 15483
                 revision: 3
-                datasource: prometheus
+                datasource: Prometheus
               job:
                 gnetId: 15487
                 revision: 3
-                datasource: prometheus
+                datasource: Prometheus
               daemonset:
                 gnetId: 15484
                 revision: 3
-                datasource: prometheus
+                datasource: Prometheus
               replicaset:
                 gnetId: 15491
                 revision: 3
-                datasource: prometheus
+                datasource: Prometheus
               statefulset:
                 gnetId: 15493
                 revision: 3
-                datasource: prometheus
+                datasource: Prometheus
               replicationcontroller:
                 gnetId: 15492
                 revision: 4
-                datasource: prometheus
+                datasource: Prometheus
               prometheus:
                 gnetId: 15489
                 revision: 2
-                datasource: prometheus
+                datasource: Prometheus
               prometheus-benchmark:
                 gnetId: 15490
                 revision: 2
-                datasource: prometheus
+                datasource: Prometheus
               multicluster:
                 gnetId: 15488
                 revision: 3
-                datasource: prometheus
+                datasource: Prometheus
               prometheus-benchmark:
                 gnetId: 15490
                 revision: 2

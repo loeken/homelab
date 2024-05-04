@@ -104,7 +104,7 @@ spec:
                   public: false
                   authorization_policy: two_factor
                 - id: jellyfin
-                  secret: "{{ .Values.oidc.sharedsecret }}"
+                  secret: "{{ .Values.jellyfin.oidc.sharedsecret }}"
                   authorization_policy: one_factor
                   redirect_uris:
                     - https://jellyfin.{{ .Values.domain }}/sso/OID/redirect/authelia

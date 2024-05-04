@@ -10,3 +10,4 @@ stringData:
   SESSION_ENCRYPTION_KEY: "generate|64"
   SMTP_PASSWORD: "smtp-password used by authelia when sending emails"
   JWT_TOKEN: "generate|32"
+  OIDC_PRIVATE_KEY: topsecret

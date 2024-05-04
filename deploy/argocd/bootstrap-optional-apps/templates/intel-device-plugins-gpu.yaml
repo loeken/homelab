@@ -25,3 +25,9 @@ spec:
       selfHeal: true
     syncOptions:
     - CreateNamespace=true
+  ignoreDifferences:
+    - group: deviceplugin.intel.com
+      kind: GpuDevicePlugin
+      name: gpudeviceplugin-sample
+      jsonPointers:
+      - /spec/resourceManager

@@ -16,6 +16,9 @@ spec:
     chart: intel-device-plugins-gpu
     repoURL: https://intel.github.io/helm-charts/
     targetRevision: 0.29.0
+    helm:
+      values: |
+        resourceManager: false
   syncPolicy:
     automated:
       prune: true

@@ -30,6 +30,7 @@ githubRepo: homelab-example
 githubUser: loeken
 heimdall:
   enabled: true
+  useAuthelia: false
   ingress:
     cloudflaretunnel:
       enabled: false

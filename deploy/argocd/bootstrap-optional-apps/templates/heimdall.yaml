@@ -45,6 +45,13 @@ spec:
             enabled: true
             storageClass: "{{ .Values.storageClassFast }}"
             readOnly: false
+        resources:
+          limits:
+            cpu: 500m
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
   destination:
     namespace: heimdall
     server: https://kubernetes.default.svc

@@ -20,8 +20,6 @@ spec:
         global:
           persistence:
             storageClass: {{ .Values.k10.storageClass }}
-        injectKanisterSidecar:
-          enabled: true
         kanister:
           backupTimeout: 1440
         {{- if .Values.k10.sidecar }}

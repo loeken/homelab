@@ -155,7 +155,7 @@ spec:
                 policy: bypass
                 resources:
                   - ^/RPC2.*
-              - domain: ['requests.{{ .Values.domain }}']
+              - domain: ['requests.{{ .Values.domain }}', 'hub.{{ .Values.domain }}']
                 policy: one_factor
                 subject:
                   - 'group:users'

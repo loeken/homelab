@@ -28,6 +28,13 @@ externaldns:
   enabled: false
 githubRepo: homelab-example
 githubUser: loeken
+heimdall:
+  enabled: true
+  ingress:
+    cloudflaretunnel:
+      enabled: false
+    nginx:
+      enabled: false
 homeassistant:
   enabled: false
   ingress:

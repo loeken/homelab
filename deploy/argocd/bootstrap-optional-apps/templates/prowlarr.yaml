@@ -58,17 +58,11 @@ spec:
               - prowlarr.{{ .Values.domain }}
         resources:
           requests:
-          #   # Hardware acceleration using an Intel iGPU w/ QuickSync and
-          #   # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
-          #  gpu.intel.com/i915: 1
             cpu: 200m
             memory: 256Mi
           limits:
-          #   # Hardware acceleration using an Intel iGPU w/ QuickSync and
-          #   # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
-          #  gpu.intel.com/i915: 1
-            memory: 4096Mi
-            cpu: 8
+            memory: 1024Mi
+            cpu: 1
     repoURL: https://loeken.github.io/helm-charts
     targetRevision: 1.16.2
   syncPolicy:

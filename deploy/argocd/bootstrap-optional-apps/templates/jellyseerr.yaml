@@ -49,6 +49,13 @@ spec:
             - secretName: jellyseerrserver-tls
               hosts:
               - requests.{{ .Values.domain }}
+        resources:
+          requests:
+            cpu: 500m
+            memory: 512Mi
+          limits:
+            cpu: 1
+            memory: 1024Mi
     repoURL: https://loeken.github.io/helm-charts
     targetRevision: 1.8.1
   syncPolicy:

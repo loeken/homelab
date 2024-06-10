@@ -27,7 +27,7 @@ spec:
           enabled: true
         {{end}}
     repoURL: https://charts.kasten.io/
-    targetRevision: 6.5.14
+    targetRevision: 7.0.0
   syncPolicy:
     automated:
       prune: true

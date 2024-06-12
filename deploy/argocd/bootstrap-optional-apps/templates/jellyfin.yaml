@@ -72,7 +72,7 @@ spec:
           #   # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
             gpu.intel.com/i915: 1
     repoURL: https://loeken.github.io/helm-charts
-    targetRevision: 10.9.2
+    targetRevision: 10.9.6
   syncPolicy:
     automated:
       prune: true

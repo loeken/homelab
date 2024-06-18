@@ -25,7 +25,7 @@ spec:
           domainFilters:
             - {{ .Values.domain }}
     repoURL: https://charts.bitnami.com/bitnami
-    targetRevision: 7.5.5
+    targetRevision: 7.5.6
   syncPolicy:
     automated:
       prune: true

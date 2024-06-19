@@ -2,18 +2,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: rtorrent-flood
-  namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "6"
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  - resources-finalizer.argocd.argoproj.io
+  name: rtorrent-flood
+  namespace: argocd
 spec:
+  destination:
+    namespace: media
+    server: https://kubernetes.default.svc
   project: default
   source:
     chart: rtorrent-flood
-    repoURL: 'https://loeken.github.io/helm-charts'
-    targetRevision: 4.7.0
     helm:
       values: |
         service:
@@ -119,13 +120,13 @@ spec:
           print = (cat, Logging to , (cfg.logfile))
           log.open_file = log, (cfg.logfile)
           log.add_output = info, log
-  destination:
-    namespace: media
-    server: https://kubernetes.default.svc
+    repoURL: https://loeken.github.io/helm-charts
+    targetRevision: 4.7.0
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
+    - CreateNamespace=true
+
 {{ end }}

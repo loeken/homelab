@@ -121,7 +121,7 @@ spec:
           log.open_file = log, (cfg.logfile)
           log.add_output = info, log
     repoURL: https://loeken.github.io/helm-charts
-    targetRevision: 4.7.0
+    targetRevision: 4.8.2
   syncPolicy:
     automated:
       prune: true

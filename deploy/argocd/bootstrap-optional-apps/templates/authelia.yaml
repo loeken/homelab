@@ -5,7 +5,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "4"
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  - resources-finalizer.argocd.argoproj.io
   name: authelia
   namespace: argocd
 spec:
@@ -186,11 +186,12 @@ spec:
             enabled: true
             secret: auth-tls
     repoURL: https://charts.authelia.com
-    targetRevision: 0.8.58
+    targetRevision: 0.9.0
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
+    - CreateNamespace=true
+
 {{ end }}

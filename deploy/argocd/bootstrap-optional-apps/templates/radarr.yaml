@@ -2,18 +2,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: radarr
-  namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "6"
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  - resources-finalizer.argocd.argoproj.io
+  name: radarr
+  namespace: argocd
 spec:
+  destination:
+    namespace: media
+    server: https://kubernetes.default.svc
   project: default
   source:
     chart: radarr
-    repoURL: https://loeken.github.io/helm-charts
-    targetRevision: 4.7.5
     helm:
       values: |
         persistence:
@@ -58,13 +59,13 @@ spec:
           startup:
             spec:
               initialDelaySeconds: 20
-  destination:
-    namespace: media
-    server: https://kubernetes.default.svc
+    repoURL: https://loeken.github.io/helm-charts
+    targetRevision: 5.15.1
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
+    - CreateNamespace=true
+
 {{ end }}

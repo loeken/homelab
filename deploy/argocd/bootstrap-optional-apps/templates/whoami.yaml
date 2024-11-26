@@ -42,7 +42,7 @@ spec:
             hosts:
               - whoami.{{ .Values.domain }}
     repoURL: https://cowboysysop.github.io/charts/
-    targetRevision: 5.1.1
+    targetRevision: 5.2.0
   syncPolicy:
     automated:
       prune: true

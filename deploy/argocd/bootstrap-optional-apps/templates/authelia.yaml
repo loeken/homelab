@@ -186,7 +186,7 @@ spec:
             enabled: true
             secret: auth-tls
     repoURL: https://charts.authelia.com
-    targetRevision: 0.9.9
+    targetRevision: 0.9.13
   syncPolicy:
     automated:
       prune: true

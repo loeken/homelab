@@ -25,6 +25,10 @@ spec:
         {{- if .Values.k10.sidecar }}
         injectKanisterSidecar:
           enabled: true
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 2000
         {{end}}
     repoURL: https://charts.kasten.io/
     targetRevision: 7.0.14

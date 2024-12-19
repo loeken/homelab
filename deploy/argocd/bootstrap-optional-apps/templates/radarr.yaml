@@ -60,7 +60,7 @@ spec:
             spec:
               initialDelaySeconds: 20
     repoURL: https://loeken.github.io/helm-charts
-    targetRevision: 5.15.1
+    targetRevision: 5.16.3
   syncPolicy:
     automated:
       prune: true

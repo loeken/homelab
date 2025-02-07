@@ -64,7 +64,7 @@ spec:
             memory: 1024Mi
             cpu: 1
     repoURL: https://loeken.github.io/helm-charts
-    targetRevision: 1.29.2
+    targetRevision: 1.30.2
   syncPolicy:
     automated:
       prune: true

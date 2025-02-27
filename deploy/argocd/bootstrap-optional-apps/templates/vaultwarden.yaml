@@ -18,24 +18,24 @@ spec:
     helm:
       values: |
         controllers:
-        main:
-          enabled: true
-          type: deployment
-          containers:
-            main:
-              image:
-                # -- image repository
-                repository: loeken/vaultwarden
-                # -- image tag
-                # @default -- chart.appVersion
-                tag: "1.33.2-alpine"
-                # -- image pull policy
-                pullPolicy: Always
-              # -- environment variables.
-              # @default -- See below
-              env:
-                # -- Set the container timezone
-                TZ: UTC
+          main:
+            enabled: true
+            type: deployment
+            containers:
+              main:
+                image:
+                  # -- image repository
+                  repository: loeken/vaultwarden
+                  # -- image tag
+                  # @default -- chart.appVersion
+                  tag: "1.33.2-alpine"
+                  # -- image pull policy
+                  pullPolicy: Always
+                # -- environment variables.
+                # @default -- See below
+                env:
+                  # -- Set the container timezone
+                  TZ: UTC
         service:
           main:
             controller: main

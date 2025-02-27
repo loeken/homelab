@@ -55,7 +55,14 @@ spec:
             size: 1Gi
             storageClass: {{ .Values.sinusbot.storageClass }}
             readOnly: false
-
+        service:
+          main:
+            controller: main
+            ports:
+              http:
+                port: 8087
+                name: main
+                identifier: main
         ingress:
           main:
             enabled: {{ .Values.sinusbot.ingress.nginx.enabled }}

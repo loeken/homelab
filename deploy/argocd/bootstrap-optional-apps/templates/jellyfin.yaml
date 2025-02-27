@@ -24,15 +24,18 @@ spec:
             containers:
               main:
                 image:
-                  repository: jellyfin/jellyfin
+                  repository: loeken/jellyfin
                   tag: "10.10.6"
                   pullPolicy: Always
                 resources:
                   limits:
+                    cpu: "1"
+                    memory: 512Mi
                     gpu.intel.com/i915: 1
                   requests:
+                    cpu: "0.5"
+                    memory: 256Mi
                     gpu.intel.com/i915: 1
-        
         persistence:
           config:
             enabled: {{ .Values.jellyfin.config.enabled }}
@@ -82,15 +85,6 @@ spec:
               hosts:
               - jellyfin.{{ .Values.domain }}
 
-        resources:
-          requests:
-          #   # Hardware acceleration using an Intel iGPU w/ QuickSync and
-          #   # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
-            gpu.intel.com/i915: 1
-          limits:
-          #   # Hardware acceleration using an Intel iGPU w/ QuickSync and
-          #   # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
-            gpu.intel.com/i915: 1
     repoURL: https://loeken.github.io/helm-charts
     targetRevision: 10.10.6
   syncPolicy:

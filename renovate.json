@@ -14,7 +14,7 @@
     "enabled": true,
     "fileMatch": [
       "deploy/argocd/bootstrap-core-apps/templates//.*\\.ya?ml$",
-      "deploy/argocd/bootstrap-optional-apps/templates//.*\\.ya?ml$",
+      "deploy/argocd/bootstrap-optional-apps/templates//.*\\.ya?ml$"
     ]
   }
 }

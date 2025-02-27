@@ -36,6 +36,19 @@ spec:
               env:
                 # -- Set the container timezone
                 TZ: UTC
+        service:
+          main:
+            controller: main
+            ports:
+              http:
+                port: 80
+                name: main
+                identifier: main
+              websocket:
+                enabled: true
+                port: 3012
+                name: main
+                identifier: main
         ingress:
           main:
             annotations:

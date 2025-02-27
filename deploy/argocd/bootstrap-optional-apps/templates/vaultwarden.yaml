@@ -17,6 +17,25 @@ spec:
     chart: vaultwarden
     helm:
       values: |
+        controllers:
+        main:
+          enabled: true
+          type: deployment
+          containers:
+            main:
+              image:
+                # -- image repository
+                repository: loeken/vaultwarden
+                # -- image tag
+                # @default -- chart.appVersion
+                tag: "1.33.2-alpine"
+                # -- image pull policy
+                pullPolicy: Always
+              # -- environment variables.
+              # @default -- See below
+              env:
+                # -- Set the container timezone
+                TZ: UTC
         ingress:
           main:
             annotations:
@@ -37,14 +56,20 @@ spec:
                     pathType: Prefix
                     service:
                       port: 80
+                      name: main
+                      identifier: main
                   - path: /notifications/hub/negotiate
                     pathType: Prefix
                     service:
                       port: 80
+                      name: main
+                      identifier: main
                   - path: /notifications/hub
                     pathType: Prefix
                     service:
                       port: 3012
+                      name: main
+                      identifier: main
             tls:
             - secretName: vaultwarden-tls
               hosts:

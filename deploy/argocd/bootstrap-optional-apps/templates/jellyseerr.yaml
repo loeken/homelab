@@ -17,23 +17,32 @@ spec:
     chart: jellyseerr
     helm:
       values: |
-        controllers:
-          main:
-            type: statefulset
-            enabled: true
-            containers:
-              main:
-                image:
-                  repository: loeken/jellyseerr
-                  tag: "10.10.6"
-                  pullPolicy: Always
-                resources:
-                  limits:
-                    cpu: "1"
-                    memory: 512Mi
-                  requests:
-                    cpu: "0.5"
-                    memory: 256Mi
+      controllers:
+        main:
+          enabled: true
+          type: deployment
+          containers:
+            main:
+              image:
+                # -- image repository
+                repository: loeken/jellyfin
+                # -- image tag
+                # @default -- chart.appVersion
+                tag: "10.10.5"
+                # -- image pull policy
+                pullPolicy: Always
+              # -- environment variables.
+              # @default -- See below
+              env:
+                # -- Set the container timezone
+                TZ: UTC
+              resources:
+                limits:
+                  cpu: "1"
+                  memory: 512Mi
+                requests:
+                  cpu: "0.5"
+                  memory: 256Mi
         persistence:
           config:
             mountPath: /app/config

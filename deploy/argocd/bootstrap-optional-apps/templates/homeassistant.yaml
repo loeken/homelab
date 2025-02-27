@@ -69,6 +69,14 @@ spec:
             ports:
               http:
                 port: 8123
+        resources:
+          limits:
+            cpu: "1"
+            memory: 512Mi
+          requests:
+            cpu: "0.5"
+            memory: 256Mi
+
     repoURL: https://loeken.github.io/helm-charts
     targetRevision: 2025.2.5
   syncPolicy:

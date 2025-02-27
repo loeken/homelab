@@ -1,0 +1,17 @@
+services:
+  homelab:
+    container_name: homelab
+    build:
+      context: .
+      dockerfile: ./deploy/docker/Dockerfile.dev
+    restart: on-failure
+    networks:
+      - homelab-network
+    volumes:
+      - ${HOME}/.config/gh:/home/vscode/.config/gh
+      - ${HOME}/.ssh:/home/vscode/.ssh
+      - ${HOME}/.zhistory:/home/vscode/.zhistory
+# Networks to be created to facilitate communication between containers
+networks:
+  homelab-network:
+    driver: bridge

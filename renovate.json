@@ -1,3 +1,20 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json"
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "prConcurrentLimit": 0,
+  "branchConcurrentLimit": 0,
+  "prHourlyLimit": 0,
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true
+    }
+  ],
+  "pinDigests": true,
+  "argocd": {
+    "enabled": true,
+    "fileMatch": [
+      "deploy/argocd/bootstrap-core-apps/templates//.*\\.ya?ml$",
+      "deploy/argocd/bootstrap-optional-apps/templates//.*\\.ya?ml$",
+    ]
+  }
 }

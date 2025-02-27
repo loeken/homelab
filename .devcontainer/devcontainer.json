@@ -1,7 +1,14 @@
 {
-    "name": "My Dev Container",
-    "build": {
-        "dockerfile": "Dockerfile",
-        "context": ".."
+    "name": "homelab",
+    "dockerComposeFile": "../docker-compose.yml",
+    "service": "homelab",
+    "workspaceFolder": "/app",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "oderwat.indent-rainbow",
+                "ms-azuretools.vscode-docker"
+            ]
+        }
     }
 }

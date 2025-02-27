@@ -1,0 +1,23 @@
+# Use Debian-based Node image
+FROM node:latest
+
+# Set working directory
+WORKDIR /app
+
+# Install necessary dependencies
+RUN apt update && apt install -y curl sudo
+
+# Install Helm
+RUN curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+# Install Renovate globally
+RUN npm install -g renovate
+
+# Verify installations
+RUN renovate --version && helm version
+
+# Copy application files
+COPY . .
+
+# Keep container running
+CMD ["tail", "-f", "/dev/null"]

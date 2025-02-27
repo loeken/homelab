@@ -79,6 +79,7 @@ spec:
             enabled: true
             readOnly: false
             storageClass: {{ .Values.vaultwarden.storageClass }}
+            accessMode: ReadWriteOnce
         postgresql:
           enabled: true
           global:

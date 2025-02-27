@@ -17,10 +17,26 @@ spec:
     chart: jellyfin
     helm:
       values: |
+        controllers:
+          main:
+            type: statefulset
+            enabled: true
+            containers:
+              main:
+                image:
+                  repository: jellyfin/jellyfin
+                  tag: "10.10.6"
+                  pullPolicy: Always
+                resources:
+                  limits:
+                    gpu.intel.com/i915: 1
+                  requests:
+                    gpu.intel.com/i915: 1
+        
         persistence:
           config:
-            mountPath: /config
             enabled: {{ .Values.jellyfin.config.enabled }}
+            mountPath: /config
             accessMode: ReadWriteOnce
             size: {{ .Values.jellyfin.config.size }}
             storageClass: {{ .Values.jellyfin.config.storageClass }}
@@ -37,9 +53,10 @@ spec:
             size: {{ .Values.sharedmedia.size }}
             storageClass: {{ .Values.sharedmedia.storageClass }}
             existingClaim: shared-media
-
+        
         ingress:
           main:
+            enabled: {{ .Values.jellyfin.ingress.nginx.enabled }}
             annotations:
               kubernetes.io/ingress.class: "nginx"
               cert-manager.io/cluster-issuer: "{{ .Values.clusterIssuer }}"
@@ -50,18 +67,21 @@ spec:
               nginx.ingress.kubernetes.io/auth-url: "http://authelia.authelia.svc.cluster.local/api/verify"
               nginx.ingress.kubernetes.io/auth-signin: "https://auth.{{ .Values.domain }}"
               {{end}}
-            enabled: {{ .Values.jellyfin.ingress.nginx.enabled }}
+            className: "nginx"
             hosts:
               - host: jellyfin.{{ .Values.domain }}
                 paths:
                   - path: /
                     pathType: Prefix
                     service:
+                      name: main
+                      identifier: main
                       port: 8096
             tls:
             - secretName: jellyfinserver-tls
               hosts:
               - jellyfin.{{ .Values.domain }}
+
         resources:
           requests:
           #   # Hardware acceleration using an Intel iGPU w/ QuickSync and
@@ -79,5 +99,4 @@ spec:
       selfHeal: true
     syncOptions:
     - CreateNamespace=true
-
 {{ end }}

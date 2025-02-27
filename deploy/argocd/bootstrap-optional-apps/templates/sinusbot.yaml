@@ -1,0 +1,94 @@
+{{ if .Values.sinusbot.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "6"
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  name: sinusbot
+  namespace: argocd
+spec:
+  destination:
+    namespace: media
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    chart: sinusbot
+    helm:
+      values: |
+        controllers:
+          main:
+            enabled: true
+            type: deployment
+            containers:
+              main:
+                image:
+                  # -- image repository
+                  repository: sinusbot/docker
+                  # -- image tag
+                  # @default -- chart.appVersion
+                  tag: "1.0.0-beta.14-dc94a7c"
+                  # -- image pull policy
+                  pullPolicy: Always
+                # -- environment variables.
+                # @default -- See below
+                env:
+                  # -- Set the container timezone
+                  TZ: UTC
+                  # -- Specify the user ID the application will run as
+                  UID: "1001"
+                  # -- Specify the group ID the application will run as
+                  GID: "1001"
+                resources:
+                  limits:
+                    cpu: "1"
+                    memory: 512Mi
+                  requests:
+                    cpu: "0.5"
+                    memory: 256Mi
+        persistence:
+          config:
+            mountPath: /app/config
+            enabled: true
+            accessMode: ReadWriteOnce
+            size: 1Gi
+            storageClass: {{ .Values.sinusbot.storageClass }}
+            readOnly: false
+
+        ingress:
+          main:
+            enabled: {{ .Values.sinusbot.ingress.nginx.enabled }}
+            annotations:
+              kubernetes.io/ingress.class: "nginx"
+              cert-manager.io/cluster-issuer: "{{ .Values.clusterIssuer }}"
+              external-dns.alpha.kubernetes.io/hostname: "sinusbot.{{ .Values.domain }}."
+              external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+              external-dns.alpha.kubernetes.io/ttl: "120"
+              {{- if .Values.sinusbot.useAuthelia }}
+              nginx.ingress.kubernetes.io/auth-url: "http://authelia.authelia.svc.cluster.local/api/verify"
+              nginx.ingress.kubernetes.io/auth-signin: "https://auth.{{ .Values.domain }}"
+              {{end}}
+            hosts:
+              - host: sinusbot.{{ .Values.domain }}
+                paths:
+                  - path: /
+                    pathType: Prefix
+                    service:
+                      port: 5055
+                      name: main
+                      identifier: main
+            tls:
+            - secretName: sinusbotserver-tls
+              hosts:
+              - sinusbot.{{ .Values.domain }}
+    repoURL: https://loeken.github.io/helm-charts
+    targetRevision: 2.3.0
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+
+{{ end }}

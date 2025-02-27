@@ -187,6 +187,15 @@ sharedmedia:
   enabled: false
   size: 100Gi
   storageClass: nfs-client
+sinusbot:
+  enabled: false
+  ingress:
+    cloudflaretunnel:
+      enabled: true
+    nginx:
+      enabled: false
+  storageClass: local-path
+  useAuthelia: false
 sonarr:
   enabled: false
   ingress:

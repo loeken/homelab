@@ -79,7 +79,7 @@ spec:
                   - path: /
                     pathType: Prefix
                     service:
-                      port: 5055
+                      port: 3001
                       name: main
                       identifier: main
             tls:

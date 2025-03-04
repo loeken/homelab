@@ -80,8 +80,8 @@ spec:
                     pathType: Prefix
                     service:
                       port: 3001
-                      name: main
-                      identifier: main
+                      name: uptime-kuma
+                      identifier: uptime-kuma
             tls:
             - secretName: uptime-kumaserver-tls
               hosts:

@@ -52,6 +52,8 @@ spec:
                     pathType: Prefix
                     service:
                       port: 9696
+                      name: main
+                      identifier: main
             tls:
             - secretName: prowlarrserver-tls
               hosts:

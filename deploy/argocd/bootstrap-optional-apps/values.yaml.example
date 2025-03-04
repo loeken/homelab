@@ -207,6 +207,15 @@ sonarr:
   storageClass: local-path
   useAuthelia: false
 storageClass: local-path
+uptimekuma:
+  enabled: true
+  ingress:
+    cloudflaretunnel:
+      enabled: true
+    nginx:
+      enabled: false
+  storageClass: local-path
+  useAuthelia: false
 vaultwarden:
   enabled: false
   ingress:

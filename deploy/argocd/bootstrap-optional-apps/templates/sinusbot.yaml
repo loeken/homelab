@@ -48,13 +48,14 @@ spec:
                     cpu: "0.5"
                     memory: 256Mi
         persistence:
-          config:
-            mountPath: /app/config
-            enabled: true
-            accessMode: ReadWriteOnce
-            size: 1Gi
-            storageClass: {{ .Values.sinusbot.storageClass }}
-            readOnly: false
+          sinusbot:
+            enabled: false
+            subPath:
+              - mountPath: /opt/sinusbot/data
+                path: data
+              - mountPath: /opt/sinusbot/scripts
+                path: scripts
+
         service:
           main:
             controller: main

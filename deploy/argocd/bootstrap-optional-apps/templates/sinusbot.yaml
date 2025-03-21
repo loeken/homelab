@@ -84,8 +84,8 @@ spec:
                     pathType: Prefix
                     service:
                       port: 5055
-                      name: main
-                      identifier: main
+                      name: sinusbot
+                      identifier: sinusbot
             tls:
             - secretName: sinusbotserver-tls
               hosts:

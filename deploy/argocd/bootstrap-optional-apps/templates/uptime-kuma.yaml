@@ -52,10 +52,11 @@ spec:
             size: 1Gi
             storageClass: {{ .Values.uptime-kuma.storageClass }}
             readOnly: false
-        extraVolumeMounts:
-          - name: data
-            mountPath: /app/data
-            readOnly: false
+            advancedMounts:
+              main:
+                main:
+                  - path: /app/data
+                    readOnly: false
         service:
           main:
             controller: main

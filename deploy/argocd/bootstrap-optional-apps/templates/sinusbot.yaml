@@ -50,6 +50,8 @@ spec:
         persistence:
           sinusbot:
             enabled: true
+            accessMode: ReadWriteOnce
+            size: 1Gi
             subPath:
               - mountPath: /opt/sinusbot/data
                 path: data

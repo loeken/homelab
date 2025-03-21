@@ -65,8 +65,8 @@ spec:
                   - path: /
                     pathType: Prefix
                     service:
-                      name: main
-                      identifier: main
+                      name: home-assistant
+                      identifier: home-assistant
                       port: 8123
             tls:
               - secretName: ha-tls

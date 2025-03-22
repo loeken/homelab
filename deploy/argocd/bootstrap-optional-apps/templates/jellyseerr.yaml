@@ -72,8 +72,8 @@ spec:
                     pathType: Prefix
                     service:
                       port: 5055
-                      name: main
-                      identifier: main
+                      name: jellyseerr
+                      identifier: jellyseerr
             tls:
             - secretName: jellyseerrserver-tls
               hosts:
